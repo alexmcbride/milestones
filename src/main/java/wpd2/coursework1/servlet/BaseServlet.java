@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
 
@@ -30,6 +31,18 @@ public class BaseServlet extends HttpServlet {
         if (seconds > 0) {
             response.setHeader("Pragma", "Public");
             response.setHeader("Cache-Control", "public, no-transform, max-age=" + seconds);
+        }
+    }
+
+    protected void view(HttpServletResponse response, String template, Object object) {
+        MustacheRenderer renderer = new MustacheRenderer();
+        String output = renderer.render(template, object);
+
+        try {
+            PrintWriter writer = response.getWriter();
+            writer.write(output);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
