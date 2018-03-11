@@ -34,15 +34,8 @@ public class BaseServlet extends HttpServlet {
         }
     }
 
-    protected void view(HttpServletResponse response, String template, Object object) {
-        MustacheRenderer renderer = new MustacheRenderer();
-        String output = renderer.render(template, object);
-
-        try {
-            PrintWriter writer = response.getWriter();
-            writer.write(output);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    protected void view(HttpServletResponse response, String template, Object object) throws IOException {
+        VelocityRenderer renderer = new VelocityRenderer();
+        renderer.render(response, template, object);
     }
 }

@@ -1,6 +1,9 @@
 
 package wpd2.coursework1;
 
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -16,6 +19,11 @@ public class Runner {
     private static final int PORT = 9000;
 
     private void start() throws Exception {
+        // Init velocity templates
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        Velocity.init();
+
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);

@@ -1,7 +1,6 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Project;
-import wpd2.coursework1.viewmodel.ProjectListViewModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +9,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProjectListServlet extends BaseServlet {
-    private static final String TEMPLATE_FILE = "project_list.mustache";
+    private static final String TEMPLATE_FILE = "project_list.vm";
 
+    // Helper for storing projects in session.
     private List<Project> loadProjects(HttpServletRequest request) {
         HttpSession session = request.getSession();
         List<Project> projects = (List<Project>)session.getAttribute("projects");
@@ -25,6 +25,7 @@ public class ProjectListServlet extends BaseServlet {
         return projects;
     }
 
+    // Helper for adding projects to session.
     private void addProject(HttpServletRequest request, Project project) {
         List<Project> projects = loadProjects(request);
         projects.add(project);
@@ -32,12 +33,12 @@ public class ProjectListServlet extends BaseServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get list from session
         List<Project> projects = loadProjects(request);
 
         // Render the view.
-        view(response, TEMPLATE_FILE, new ProjectListViewModel(projects));
+        view(response, TEMPLATE_FILE, projects);
     }
 
     @Override
