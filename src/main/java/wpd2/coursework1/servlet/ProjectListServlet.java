@@ -13,6 +13,7 @@ public class ProjectListServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "project_list.vm";
 
     // Helper for storing projects in session.
+    @SuppressWarnings("unchecked")
     private List<Project> loadProjects(HttpServletRequest request) {
         HttpSession session = request.getSession();
         List<Project> projects = (List<Project>)session.getAttribute("projects");
