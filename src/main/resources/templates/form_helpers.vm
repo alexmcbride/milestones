@@ -1,0 +1,19 @@
+
+#macro(validation_error $model $attribute)
+    #if ($model.hasValidationError($attribute))
+    <span class="help-block">$model.getValidationError($attribute)</span>
+    #end
+#end
+
+#macro(form_text_input $model $attribute)
+    #set($error="")
+    #if ($model.hasValidationError($attribute))
+        #set($error=" has-error")
+    #end
+
+    <div class="form-group$error">
+        <label for="name" style="text-transform: capitalize">$attribute</label>
+        <input type="text" name="name" class="form-control">
+        #validation_error($model, $attribute)
+    </div>
+#end

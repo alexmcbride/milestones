@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Projects</h1>
+    ## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
 
-#parse("templates/validation_error.vm")
+    <div class="container">
+    <h1><a href="/projects" style="color: #000;">Projects</a></h1>
 
-<form method="post">
-    <div>
-        <label>
-            Name<br>
-            <input type="text" name="name">
+    <hr>
 
-            #validation_error($model.project, "name")
-        </label>
+    ## Output create project form.
+    <form method="post">
+        ## Use a form helper to output a text input.
+        #form_text_input($model.project, "name")
+
+        <div>
+            <input type="submit" value="Add Project" class="btn btn-default">
+        </div>
+    </form>
+
+    <hr>
+
+    <h2>Projects</h2>
+
+    <ul>
+        ## Output list of projects
+        #foreach($project in $model.projects)
+            <li>$project.name</li>
+        #end
+    </ul>
     </div>
-
-    <div>
-        <input type="submit" value="Add">
-    </div>
-</form>
-
-<hr>
-
-<ul>
-    #foreach($project in $model.projects)
-        <li>$project.name</li>
-    #end
-</ul>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="lib/js/bootstrap.min.js"></script>
 </body>
 </html>

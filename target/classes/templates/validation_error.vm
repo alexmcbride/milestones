@@ -1,6 +1,0 @@
-
-#macro(validation_error $model $attribute)
-    #if ($model.hasValidationError($attribute))
-    <span class="error" style="color: red">$model.getValidationError($attribute)</span>
-    #end
-#end
