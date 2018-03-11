@@ -3,7 +3,7 @@ package wpd2.coursework1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project {
+public class Project extends BaseModel {
     private int id;
     private String name;
 
@@ -32,5 +32,12 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    protected void validate() {
+        if (name == null || name.trim().length() == 0) {
+            addValidationError("name", "Name is a required field");
+        }
     }
 }

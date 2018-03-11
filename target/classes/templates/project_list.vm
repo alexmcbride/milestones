@@ -7,11 +7,15 @@
 <body>
 <h1>Projects</h1>
 
+#parse("templates/validation_error.vm")
+
 <form method="post">
     <div>
         <label>
             Name<br>
             <input type="text" name="name">
+
+            #validation_error($model.project, "name")
         </label>
     </div>
 
@@ -23,7 +27,7 @@
 <hr>
 
 <ul>
-    #foreach($project in $model)
+    #foreach($project in $model.projects)
         <li>$project.name</li>
     #end
 </ul>

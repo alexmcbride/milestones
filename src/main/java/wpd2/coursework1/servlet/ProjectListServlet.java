@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.viewmodel.ProjectListViewModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,7 @@ public class ProjectListServlet extends BaseServlet {
         return projects;
     }
 
-    // Helper for adding projects to session.
+    // Helper for adding project to session.
     private void addProject(HttpServletRequest request, Project project) {
         List<Project> projects = loadProjects(request);
         projects.add(project);
@@ -34,11 +35,11 @@ public class ProjectListServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Get list from session
+        // Get list of projects.
         List<Project> projects = loadProjects(request);
 
         // Render the view.
-        view(response, TEMPLATE_FILE, projects);
+        view(response, TEMPLATE_FILE, new ProjectListViewModel(new Project(), projects));
     }
 
     @Override
@@ -47,10 +48,17 @@ public class ProjectListServlet extends BaseServlet {
         Project project = new Project();
         project.setName(request.getParameter("name"));
 
-        // Add to list in session.
-        addProject(request, project);
+        if (project.isValid()) {
+            // Add to list in session.
+            addProject(request, project);
 
-        // Always redirect after post.
-        response.sendRedirect("/projects");
+            // Always redirect after post.
+            response.sendRedirect("/projects");
+        }
+        else {
+            // Render the view to display errors.
+            List<Project> projects = loadProjects(request);
+            view(response, TEMPLATE_FILE, new ProjectListViewModel(project, projects));
+        }
     }
 }

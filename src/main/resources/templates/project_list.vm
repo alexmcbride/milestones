@@ -7,11 +7,18 @@
 <body>
 <h1>Projects</h1>
 
+## Include file that contains out validation macro.
+#parse("templates/validation_error.vm")
+
+## Output create project form.
 <form method="post">
     <div>
         <label>
             Name<br>
             <input type="text" name="name">
+
+            ## Use our macro to display a validation error for this attribute
+            #validation_error($model.project, "name")
         </label>
     </div>
 
@@ -23,7 +30,8 @@
 <hr>
 
 <ul>
-    #foreach($project in $model)
+    ## Output list of projects
+    #foreach($project in $model.projects)
         <li>$project.name</li>
     #end
 </ul>
