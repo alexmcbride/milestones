@@ -28,10 +28,10 @@
 
     <h2>Projects</h2>
 
-    <ul>
+    <ul class="list-group">
         ## Output list of projects
         #foreach($project in $model.projects)
-            <li>$project.name</li>
+            <li class="list-group-item">$project.name</li>
         #end
     </ul>
     </div>

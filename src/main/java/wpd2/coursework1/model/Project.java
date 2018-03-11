@@ -9,10 +9,10 @@ public class Project extends BaseModel {
 
     public static List<Project> loadAll() {
         List<Project> projects = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             Project project = new Project();
             project.setId(i);
-            project.setName("Title " + i);
+            project.setName("Name " + i);
             projects.add(project);
         }
         return projects;
