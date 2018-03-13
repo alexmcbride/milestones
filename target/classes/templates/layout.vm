@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects - $title</title>
-    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/lib/js/bootstrap.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 #end

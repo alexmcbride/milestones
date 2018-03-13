@@ -6,7 +6,6 @@
     ## Include file that contains our form helpers.
     #parse("templates/form_helpers.vm")
 
-    ## Output create project form.
     <form method="post">
         <h2>Create Project</h2>
 

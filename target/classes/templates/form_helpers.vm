@@ -1,3 +1,4 @@
+## File that contains helpers for forms.
 
 #macro(validation_error $model $attribute)
     #if ($model.hasValidationError($attribute))
