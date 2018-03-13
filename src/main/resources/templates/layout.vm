@@ -1,0 +1,25 @@
+#macro(mainLayout $title)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Projects - $title</title>
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1><a href="/projects" style="color: #000;">Projects</a></h1>
+
+    <hr>
+
+    $!bodyContent
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/lib/js/bootstrap.min.js"></script>
+</body>
+</html>
+#end

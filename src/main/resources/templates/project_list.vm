@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Projects</title>
-    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    ## Include file that contains our form helpers.
-    #parse("templates/form_helpers.vm")
+#parse('templates/layout.vm')
 
-    <div class="container">
-    <h1><a href="/projects" style="color: #000;">Projects</a></h1>
+## Set the title of the page.
+#set($title = 'Home')
 
-    <hr>
-
+## Include your layout inside of the mainLayout macro.
+#@mainLayout('Home')
     <p><a href="/projects/create">New Project</a></p>
 
     <ul class="list-group">
@@ -22,10 +13,4 @@
             <a class="list-group-item" href="/projects/details?id=$project.id">$project.name</a>
         #end
     </ul>
-    </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/lib/js/bootstrap.min.js"></script>
-</body>
-</html>
+#end

@@ -26,6 +26,8 @@ public class Runner {
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();
 
+
+
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
