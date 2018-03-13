@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.servlet.CreateProjectServlet;
+import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
 
 public class Runner {
@@ -33,6 +34,7 @@ public class Runner {
 
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
         handler.addServlet(new ServletHolder(new CreateProjectServlet()), "/projects/create");
+        handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
 
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");

@@ -5,6 +5,7 @@ import wpd2.coursework1.model.Project;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 public class CreateProjectServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "create_project.vm";
@@ -19,6 +20,7 @@ public class CreateProjectServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Project project = new Project();
         project.setName(request.getParameter("name"));
+        project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {
@@ -26,7 +28,7 @@ public class CreateProjectServlet extends BaseServlet {
             project.save(request.getSession());
 
             // Always redirect after post.
-            response.sendRedirect("/projects");
+            response.sendRedirect("/projects/details?id=" + project.getId());
 
             return;
         }

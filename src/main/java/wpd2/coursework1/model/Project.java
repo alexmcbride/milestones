@@ -2,11 +2,13 @@ package wpd2.coursework1.model;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Project extends BaseModel {
     private int id;
     private String name;
+    private Date created;
 
     public int getId() {
         return id;
@@ -22,6 +24,14 @@ public class Project extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     @Override
@@ -43,6 +53,7 @@ public class Project extends BaseModel {
                 Project project = new Project();
                 project.setId(i);
                 project.setName("Name " + i);
+                project.setCreated(new Date());
                 projects.add(project);
             }
             session.setAttribute("projects", projects);
@@ -53,7 +64,18 @@ public class Project extends BaseModel {
 
     public void save(HttpSession session) {
         List<Project> projects = loadAll(session);
+        this.setId(projects.size() + 1);
         projects.add(this);
         saveAll(session, projects);
+    }
+
+    public static Project find(HttpSession session, int id) {
+        List<Project> projects = loadAll(session);
+        for (Project project : projects) {
+            if (project.getId() == id) {
+                return project;
+            }
+        }
+        return null;
     }
 }

@@ -39,4 +39,8 @@ public class BaseServlet extends HttpServlet {
     protected void notFound(HttpServletResponse response) throws IOException {
         issue(PLAIN_TEXT_UTF_8, 404, response);
     }
+
+    protected void badRequest(HttpServletResponse response) throws IOException {
+        issue(PLAIN_TEXT_UTF_8, 400, response);
+    }
 }
