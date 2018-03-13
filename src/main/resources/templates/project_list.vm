@@ -19,7 +19,7 @@
     <ul class="list-group">
         ## Output list of projects
         #foreach($project in $model)
-            <li class="list-group-item"><a href="/projects/details?id=$project.id">$project.name</a></li>
+            <a class="list-group-item" href="/projects/details?id=$project.id">$project.name</a>
         #end
     </ul>
     </div>
