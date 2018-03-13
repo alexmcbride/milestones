@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    ## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
+
+<div class="container">
+    <h1><a href="/projects" style="color: #000;">Projects</a></h1>
+
+    <hr>
+
+    ## Output create project form.
+    <form method="post">
+        <h2>Create Project</h2>
+
+        ## Use a form helper to output a text input.
+        #form_text_input($model, "name")
+
+        <div>
+            <input type="submit" value="Add Project" class="btn btn-default">
+            |
+            <a href="/projects">Go back</a>
+        </div>
+    </form>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/lib/js/bootstrap.min.js"></script>
+</body>
+</html>

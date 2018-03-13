@@ -10,6 +10,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.coursework1.servlet.CreateProjectServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
 
 public class Runner {
@@ -31,6 +32,7 @@ public class Runner {
         handler.setInitParameter("org.eclipse.jetty.servlet.Default." + "resourceBase", "src/main/resources/webapp");
 
         handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
+        handler.addServlet(new ServletHolder(new CreateProjectServlet()), "/projects/create");
 
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
-    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     ## Include file that contains our form helpers.
@@ -14,19 +14,7 @@
 
     <hr>
 
-    ## Output create project form.
-    <form method="post">
-        ## Use a form helper to output a text input.
-        #form_text_input($model.project, "name")
-
-        <div>
-            <input type="submit" value="Add Project" class="btn btn-default">
-        </div>
-    </form>
-
-    <hr>
-
-    <h2>Projects</h2>
+    <p><a href="/projects/create">New Project</a></p>
 
     <ul class="list-group">
         ## Output list of projects
@@ -38,6 +26,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="/lib/js/bootstrap.min.js"></script>
 </body>
 </html>

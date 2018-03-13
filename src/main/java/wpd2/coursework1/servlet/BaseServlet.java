@@ -15,16 +15,13 @@ public class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
+    public static final  String PLAIN_TEXT_UTF_8 = "text/html; charset=UTF-8";
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
-    protected BaseServlet() {
-    }
-
-    protected void issue(String mimeType, int returnCode, byte[] output, HttpServletResponse response) throws IOException {
+    protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
         response.setContentType(mimeType);
         response.setStatus(returnCode);
-        response.getOutputStream().write(output);
+
     }
 
     protected void cache(HttpServletResponse response, int seconds) {
@@ -37,5 +34,10 @@ public class BaseServlet extends HttpServlet {
     protected void view(HttpServletResponse response, String template, Object object) throws IOException {
         VelocityRenderer renderer = new VelocityRenderer();
         renderer.render(response, template, object);
+        issue(PLAIN_TEXT_UTF_8, 200, response);
+    }
+
+    protected void notFound(HttpServletResponse response) throws IOException {
+        issue(PLAIN_TEXT_UTF_8, 404, response);
     }
 }
