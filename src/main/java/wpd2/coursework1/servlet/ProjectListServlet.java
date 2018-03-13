@@ -1,7 +1,6 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Project;
-import wpd2.coursework1.viewmodel.ProjectListViewModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +16,6 @@ public class ProjectListServlet extends BaseServlet {
         List<Project> projects = Project.loadAll(request.getSession());
 
         // Render the view.
-        view(response, TEMPLATE_FILE, new ProjectListViewModel(new Project(), projects));
+        view(response, TEMPLATE_FILE, projects);
     }
 }

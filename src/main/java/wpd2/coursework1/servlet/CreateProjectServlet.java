@@ -20,6 +20,7 @@ public class CreateProjectServlet extends BaseServlet {
         Project project = new Project();
         project.setName(request.getParameter("name"));
 
+        // Check if project is valid.
         if (project.isValid()) {
             // Save project to session.
             project.save(request.getSession());
@@ -30,7 +31,7 @@ public class CreateProjectServlet extends BaseServlet {
             return;
         }
 
-        // Display view with validation errors.
+        // Display the form with validation errors.
         view(response, TEMPLATE_FILE, project);
     }
 }

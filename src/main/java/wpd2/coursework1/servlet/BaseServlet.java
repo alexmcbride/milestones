@@ -21,7 +21,6 @@ public class BaseServlet extends HttpServlet {
     protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
         response.setContentType(mimeType);
         response.setStatus(returnCode);
-
     }
 
     protected void cache(HttpServletResponse response, int seconds) {
