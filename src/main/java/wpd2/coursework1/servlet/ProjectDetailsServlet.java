@@ -19,7 +19,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
             // Check for 404 error.
             if (project == null) {
-                notFound(response);
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
 
@@ -28,7 +28,7 @@ public class ProjectDetailsServlet extends BaseServlet {
         }
         catch (NumberFormatException e) {
             // Crappy request
-            badRequest(response);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

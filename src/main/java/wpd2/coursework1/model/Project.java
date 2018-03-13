@@ -36,6 +36,9 @@ public class Project extends BaseModel {
 
     @Override
     protected void validate() {
+        // This is called by isValid() in the parent class to check if the model is valid.
+        // If there are any validation errors after this method has been run the model will
+        // be considered to be invalid.
         if (name == null || name.trim().length() == 0) {
             addValidationError("name", "Name is a required field");
         }
