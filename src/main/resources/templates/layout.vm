@@ -1,4 +1,4 @@
-#macro(mainLayout $title)
+#macro(mainLayout)
 <!DOCTYPE html>
 <html>
 <head>

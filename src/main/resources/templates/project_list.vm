@@ -4,7 +4,7 @@
 #set($title = 'Home')
 
 ## Include your layout inside of the mainLayout macro.
-#@mainLayout('Home')
+#@mainLayout()
     <p><a href="/projects/create">New Project</a></p>
 
     <ul class="list-group">
