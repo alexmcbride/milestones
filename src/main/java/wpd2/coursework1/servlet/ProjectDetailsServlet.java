@@ -15,7 +15,7 @@ public class ProjectDetailsServlet extends BaseServlet {
             int id = Integer.valueOf(request.getParameter("id"));
 
             // Get get project
-            Project project = Project.find(request.getSession(), id);
+            Project project = Project.find(id);
 
             // Check for 404 error.
             if (project == null) {

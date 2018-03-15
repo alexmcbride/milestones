@@ -25,7 +25,7 @@ public class CreateProjectServlet extends BaseServlet {
         // Check if project is valid.
         if (project.isValid()) {
             // Save project to session.
-            project.save(request.getSession());
+            project.create();
 
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());

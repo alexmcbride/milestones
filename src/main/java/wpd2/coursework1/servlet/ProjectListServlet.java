@@ -5,6 +5,7 @@ import wpd2.coursework1.model.Project;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProjectListServlet extends BaseServlet {
@@ -13,7 +14,7 @@ public class ProjectListServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get list of projects.
-        List<Project> projects = Project.loadAll(request.getSession());
+        List<Project> projects = Project.loadAll();
 
         // Render the view.
         view(response, TEMPLATE_FILE, projects);
