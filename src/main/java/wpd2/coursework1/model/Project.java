@@ -42,11 +42,15 @@ public class Project extends BaseModel {
         if (name == null || name.trim().length() == 0) {
             addValidationError("name", "Name is a required field");
         }
+
+        if (created == null || created.getTime() == 0) {
+            addValidationError("created", "Created is a required field");
+        }
     }
 
     private static Connection getConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        return DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        ConnectionFactory factory = new ConnectionFactory();
+        return factory.build();
     }
 
     private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {

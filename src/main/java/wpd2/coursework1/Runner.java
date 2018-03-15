@@ -10,6 +10,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.coursework1.model.ConnectionFactory;
+import wpd2.coursework1.model.ConnectionMode;
 import wpd2.coursework1.servlet.CreateProjectServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
@@ -26,8 +28,7 @@ public class Runner {
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();
 
-
-
+        // Init server
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
