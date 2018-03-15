@@ -1,6 +1,5 @@
 package wpd2.coursework1.model;
 
-import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,10 +34,6 @@ public class Project extends BaseModel {
         this.created = created;
     }
 
-    private java.sql.Date getCreatedSqlDate() {
-        return new java.sql.Date(getCreated().getTime());
-    }
-
     @Override
     protected void validate() {
         // This is called by isValid() in the parent class to check if the model is valid.
@@ -50,34 +45,16 @@ public class Project extends BaseModel {
     }
 
     private static Connection getConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/milestones?user=root&password=admin");
+        Class.forName("org.h2.Driver");
+        return DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
     }
 
     private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
         Project project = new Project();
         project.setId(resultSet.getInt(1));
         project.setName(resultSet.getString(2));
-        project.setCreated(resultSet.getDate(3));
+        project.setCreated(resultSet.getTimestamp(3));
         return project;
-    }
-
-    public static List<Project> loadAll() {
-        try (Connection conn = getConnection()) {
-            // Query for projects.
-            Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM projects");
-
-            // Create project list.
-            List<Project> projects = new ArrayList<>();
-            while (result.next()) {
-                projects.add(getProjectFromResult(result));
-            }
-            return projects;
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void create() {
@@ -85,7 +62,7 @@ public class Project extends BaseModel {
             String sql = "INSERT INTO projects (name, created) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, getName());
-            statement.setDate(2, getCreatedSqlDate());
+            statement.setTimestamp(2, new Timestamp(getCreated().getTime()));
             statement.executeUpdate();
 
             // Get ID
@@ -94,6 +71,24 @@ public class Project extends BaseModel {
                 int id = result.getInt(1);
                 setId(id); // Set for model.
             }
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Project> loadAll() {
+        try (Connection conn = getConnection()) {
+            // Query for projects.
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM projects ORDER BY created DESC");
+
+            // Create project list.
+            List<Project> projects = new ArrayList<>();
+            while (result.next()) {
+                projects.add(getProjectFromResult(result));
+            }
+            return projects;
         }
         catch (Exception e) {
             throw new RuntimeException(e);
