@@ -7,10 +7,10 @@
 #@mainLayout()
     <p><a href="/projects/create">New Project</a></p>
 
-    <ul class="list-group">
+    <div class="list-group">
         ## Output list of projects
         #foreach($project in $model)
             <a class="list-group-item" href="/projects/details?id=$project.id">$project.name</a>
         #end
-    </ul>
+    </div>
 #end

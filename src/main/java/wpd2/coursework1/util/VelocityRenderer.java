@@ -13,6 +13,10 @@ public class VelocityRenderer {
     public void render(HttpServletResponse response, String templateName, Object object) throws IOException {
         VelocityContext context = new VelocityContext();
         context.put("model", object);
+        render(response, templateName, context);
+    }
+
+    public void render(HttpServletResponse response, String templateName, VelocityContext context) throws IOException {
         Template template = Velocity.getTemplate(TEMPLATE_DIR + templateName);
         template.merge(context, response.getWriter());
     }

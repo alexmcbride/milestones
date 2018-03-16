@@ -34,6 +34,10 @@ public class Project extends BaseModel {
         this.created = created;
     }
 
+    private Project() {
+        // Private
+    }
+
     @Override
     protected void validate() {
         // This is called by isValid() in the parent class to check if the model is valid.
@@ -87,6 +91,17 @@ public class Project extends BaseModel {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Project create(String name) {
+        Project project = empty();
+        project.setName(name);
+        project.setCreated(new Date());
+        return project;
+    }
+
+    public static Project empty() {
+        return new Project();
     }
 
     public static List<Project> loadAll() {

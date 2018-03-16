@@ -26,10 +26,12 @@ public class Runner {
     private static final int PORT = 9001;
 
     private void start() throws Exception {
-        registerServices();
+        initializeServices();
         initializeTemplateEngine();
+        initializeApp();
+    }
 
-        // Init server
+    private void initializeApp() throws Exception {
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
@@ -47,7 +49,7 @@ public class Runner {
         server.join();
     }
 
-    private void registerServices() throws SQLException, ClassNotFoundException {
+    private void initializeServices() throws SQLException, ClassNotFoundException {
         // Init factory.
         DatabaseService databaseService = new H2DatabaseService();
         databaseService.initialize();

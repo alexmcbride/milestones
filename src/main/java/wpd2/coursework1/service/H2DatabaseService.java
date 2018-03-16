@@ -56,6 +56,9 @@ public class H2DatabaseService implements DatabaseService {
         statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
     }
 
+    /*
+     * Destroy the database and drop all its tables.
+     */
     @Override
     public void destroy() {
         try {
