@@ -1,9 +1,6 @@
 package wpd2.coursework1.service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /*
  * Factory class for creating H2 database connections.
@@ -54,6 +51,11 @@ public class H2ConnectionService implements ConnectionService {
         }
     }
 
+    private void createProjectsTable(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
+    }
+
     @Override
     public void destroy() {
         try {
@@ -64,11 +66,6 @@ public class H2ConnectionService implements ConnectionService {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void createProjectsTable(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
     }
 
     /*
@@ -85,9 +82,10 @@ public class H2ConnectionService implements ConnectionService {
     }
 
     private void seedProjectsTable(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO projects (name, created) VALUES (?, NOW());");
         for (int i = 0; i < 10; i++) {
-            statement.execute("INSERT INTO projects (name, created) VALUES ('Project Name', NOW());");
+            statement.setString(1, "Project Name " + (i+1));
+            statement.executeUpdate();
         }
     }
 }

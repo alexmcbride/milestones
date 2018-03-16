@@ -46,7 +46,7 @@ public class ProjectTests {
         Project project = Project.find(1);
 
         assertNotNull(project);
-        assertEquals("Project Name", project.getName());
+        assertEquals("Project Name 1", project.getName());
         assertEquals(project.getId(), 1);
         assertNotNull(project.getCreated());
     }
