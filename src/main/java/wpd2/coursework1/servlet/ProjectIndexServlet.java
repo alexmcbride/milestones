@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ProjectListServlet extends BaseServlet {
+public class ProjectIndexServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "project_list.vm";
 
     @Override

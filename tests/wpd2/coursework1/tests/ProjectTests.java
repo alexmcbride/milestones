@@ -1,8 +1,8 @@
 package wpd2.coursework1.tests;
 
 import wpd2.coursework1.IoC;
-import wpd2.coursework1.model.ConnectionFactory;
-import wpd2.coursework1.model.H2ConnectionFactory;
+import wpd2.coursework1.model.ConnectionService;
+import wpd2.coursework1.model.H2ConnectionService;
 import wpd2.coursework1.model.Project;
 
 import java.util.List;
@@ -16,13 +16,13 @@ public class ProjectTests {
     @org.junit.Before
     public void setup() {
         // Init test database
-        ConnectionFactory factory = new H2ConnectionFactory(ConnectionFactory.Mode.TEST);
-        factory.initialize();
-        factory.seed();
+        ConnectionService connectionService = new H2ConnectionService(ConnectionService.Mode.TEST);
+        connectionService.initialize();
+        connectionService.seed();
 
         // Register service for use in tests.
         IoC container = IoC.get();
-        container.registerInstance(ConnectionFactory.class, factory);
+        container.registerInstance(ConnectionService.class, connectionService);
     }
 
     @org.junit.Test

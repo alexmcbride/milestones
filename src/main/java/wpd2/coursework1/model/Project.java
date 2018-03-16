@@ -1,7 +1,5 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.IoC;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;

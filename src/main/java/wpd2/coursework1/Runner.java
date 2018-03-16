@@ -10,11 +10,11 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.model.ConnectionFactory;
-import wpd2.coursework1.model.H2ConnectionFactory;
-import wpd2.coursework1.servlet.CreateProjectServlet;
+import wpd2.coursework1.model.ConnectionService;
+import wpd2.coursework1.model.H2ConnectionService;
+import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
-import wpd2.coursework1.servlet.ProjectListServlet;
+import wpd2.coursework1.servlet.ProjectIndexServlet;
 
 import java.sql.SQLException;
 
@@ -22,7 +22,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9000;
+    private static final int PORT = 9001;
 
     private void start() throws Exception {
         initializeTemplateEngine();
@@ -35,8 +35,8 @@ public class Runner {
         handler.setContextPath("/");
         handler.setInitParameter("org.eclipse.jetty.servlet.Default." + "resourceBase", "src/main/resources/webapp");
 
-        handler.addServlet(new ServletHolder(new ProjectListServlet()), "/projects");
-        handler.addServlet(new ServletHolder(new CreateProjectServlet()), "/projects/create");
+        handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
+        handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
 
         DefaultServlet ds = new DefaultServlet();
@@ -44,6 +44,7 @@ public class Runner {
 
         server.start();
         LOG.info("Server started, will run until terminated");
+        LOG.info("Browser: http://localhost:" + PORT + "/projects");
         server.join();
     }
 
@@ -55,12 +56,12 @@ public class Runner {
 
     private void registerServices() throws SQLException, ClassNotFoundException {
         // Init factory.
-        ConnectionFactory factory = new H2ConnectionFactory();
-        factory.initialize();
+        ConnectionService connectionService = new H2ConnectionService();
+        connectionService.initialize();
 
         // Init IoC stuff
         IoC container = IoC.get();
-        container.registerInstance(ConnectionFactory.class, factory);
+        container.registerInstance(ConnectionService.class, connectionService);
     }
 
     public static void main(String[] args) {

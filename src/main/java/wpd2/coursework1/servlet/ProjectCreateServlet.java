@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-public class CreateProjectServlet extends BaseServlet {
+public class ProjectCreateServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "create_project.vm";
 
     @Override

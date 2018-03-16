@@ -8,14 +8,14 @@ import java.sql.Statement;
 /*
  * Factory class for creating H2 database connections.
  */
-public class H2ConnectionFactory implements ConnectionFactory {
+public class H2ConnectionService implements ConnectionService {
     private final Mode mode;
 
-    public H2ConnectionFactory() {
+    public H2ConnectionService() {
         this(Mode.DEVELOPMENT);
     }
 
-    public H2ConnectionFactory(Mode mode) {
+    public H2ConnectionService(Mode mode) {
         this.mode = mode;
     }
 
@@ -23,7 +23,7 @@ public class H2ConnectionFactory implements ConnectionFactory {
      * Create new connection for required mode.
      */
     @Override
-    public Connection build(){
+    public Connection connect(){
         try {
             Class.forName("org.h2.Driver");
             switch (mode) {
@@ -43,7 +43,7 @@ public class H2ConnectionFactory implements ConnectionFactory {
 
     @Override
     public void initialize() {
-        Connection connection = build();
+        Connection connection = connect();
         try {
             createProjectsTable(connection);
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class H2ConnectionFactory implements ConnectionFactory {
 
     @Override
     public void seed() {
-        Connection connection = build();
+        Connection connection = connect();
         try {
             seedProjectsTable(connection);
         } catch (SQLException e) {
