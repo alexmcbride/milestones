@@ -1,9 +1,6 @@
-package wpd2.coursework1.tests;
+package wpd2.coursework1.model;
 
 import wpd2.coursework1.IoC;
-import wpd2.coursework1.model.ConnectionService;
-import wpd2.coursework1.model.H2ConnectionService;
-import wpd2.coursework1.model.Project;
 
 import java.util.List;
 
