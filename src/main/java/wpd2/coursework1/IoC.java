@@ -7,13 +7,13 @@ import java.util.Map;
  * Inversion of Control container singleton.
  */
 public class IoC {
-    private static IoC current;
+    private static IoC singleInstance;
 
-    public static IoC get() {
-        if (current == null) {
-            current = new IoC();
+    public static synchronized IoC get() {
+        if (singleInstance == null) {
+            singleInstance = new IoC();
         }
-        return current;
+        return singleInstance;
     }
 
     // Use concurrent hash map to make this thread-safe.
