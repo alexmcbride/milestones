@@ -25,8 +25,8 @@ public class Runner {
     private static final int PORT = 9001;
 
     private void start() throws Exception {
-        initializeTemplateEngine();
         registerServices();
+        initializeTemplateEngine();
 
         // Init server
         Server server = new Server(PORT);
@@ -35,23 +35,15 @@ public class Runner {
         handler.setContextPath("/");
         handler.setInitParameter("org.eclipse.jetty.servlet.Default." + "resourceBase", "src/main/resources/webapp");
 
-        handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
-        handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
-        handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
+        mapServletsToRoutes(handler);
 
         DefaultServlet ds = new DefaultServlet();
         handler.addServlet(new ServletHolder(ds), "/");
 
         server.start();
         LOG.info("Server started, will run until terminated");
-        LOG.info("Browser: http://localhost:" + PORT + "/projects");
+        LOG.info("Running: http://localhost:" + PORT + "/projects");
         server.join();
-    }
-
-    private void initializeTemplateEngine() {
-        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        Velocity.init();
     }
 
     private void registerServices() throws SQLException, ClassNotFoundException {
@@ -62,6 +54,18 @@ public class Runner {
         // Init IoC stuff
         IoC container = IoC.get();
         container.registerInstance(ConnectionService.class, connectionService);
+    }
+
+    private void initializeTemplateEngine() {
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        Velocity.init();
+    }
+
+    private void mapServletsToRoutes(ServletContextHandler handler) {
+        handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
+        handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
+        handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
     }
 
     public static void main(String[] args) {
