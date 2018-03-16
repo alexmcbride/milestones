@@ -1,6 +1,7 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.IoC;
+import wpd2.coursework1.util.IoC;
+import wpd2.coursework1.service.ConnectionService;
 
 import java.sql.Connection;
 import java.util.HashMap;

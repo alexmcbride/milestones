@@ -1,4 +1,4 @@
-package wpd2.coursework1.model;
+package wpd2.coursework1.service;
 
 import java.sql.Connection;
 

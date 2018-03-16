@@ -1,4 +1,4 @@
-package wpd2.coursework1.model;
+package wpd2.coursework1.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,6 +41,9 @@ public class H2ConnectionService implements ConnectionService {
         }
     }
 
+    /*
+     * Creates the database tables.
+     */
     @Override
     public void initialize() {
         Connection connection = connect();
@@ -56,6 +59,9 @@ public class H2ConnectionService implements ConnectionService {
         statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
     }
 
+    /*
+     * Seeds the database with test data.
+     */
     @Override
     public void seed() {
         Connection connection = connect();
@@ -69,7 +75,7 @@ public class H2ConnectionService implements ConnectionService {
     private void seedProjectsTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         for (int i = 0; i < 10; i++) {
-            statement.execute("INSERT INTO projects (name, created) VALUES ('Test Project', NOW());");
+            statement.execute("INSERT INTO projects (name, created) VALUES ('Project Name', NOW());");
         }
     }
 }

@@ -3,6 +3,7 @@ package wpd2.coursework1.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;

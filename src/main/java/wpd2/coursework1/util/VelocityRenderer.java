@@ -1,4 +1,4 @@
-package wpd2.coursework1.servlet;
+package wpd2.coursework1.util;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

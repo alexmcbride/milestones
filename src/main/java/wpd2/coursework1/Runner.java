@@ -10,11 +10,12 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.model.ConnectionService;
-import wpd2.coursework1.model.H2ConnectionService;
+import wpd2.coursework1.service.ConnectionService;
+import wpd2.coursework1.service.H2ConnectionService;
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
+import wpd2.coursework1.util.IoC;
 
 import java.sql.SQLException;
 
