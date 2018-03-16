@@ -11,7 +11,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.model.ConnectionFactory;
-import wpd2.coursework1.model.IoC;
 import wpd2.coursework1.servlet.CreateProjectServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
@@ -52,7 +51,8 @@ public class Runner {
     }
 
     private void registerServices() {
-        IoC.get().registerInstance(ConnectionFactory.class, new ConnectionFactory());
+        IoC container = IoC.get();
+        container.registerInstance(ConnectionFactory.class, new ConnectionFactory());
     }
 
     public static void main(String[] args) {

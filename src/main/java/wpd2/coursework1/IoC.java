@@ -1,4 +1,4 @@
-package wpd2.coursework1.model;
+package wpd2.coursework1;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;

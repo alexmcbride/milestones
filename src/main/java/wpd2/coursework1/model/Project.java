@@ -1,5 +1,7 @@
 package wpd2.coursework1.model;
 
+import wpd2.coursework1.IoC;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +51,7 @@ public class Project extends BaseModel {
     }
 
     private static Connection getConnection() throws SQLException, ClassNotFoundException {
-        ConnectionFactory factory = (ConnectionFactory)IoC.get().getInstance(ConnectionFactory.class);
+        ConnectionFactory factory = (ConnectionFactory) IoC.get().getInstance(ConnectionFactory.class);
         return factory.build();
     }
 
