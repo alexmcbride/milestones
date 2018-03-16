@@ -14,7 +14,7 @@ public class ProjectDetailsServlet extends BaseServlet {
         try {
             int id = Integer.valueOf(request.getParameter("id"));
 
-            // Get get project
+            // Get getInstance project
             Project project = Project.find(id);
 
             // Check for 404 error.

@@ -11,7 +11,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.model.ConnectionFactory;
-import wpd2.coursework1.model.ConnectionMode;
+import wpd2.coursework1.model.IoC;
 import wpd2.coursework1.servlet.CreateProjectServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
@@ -20,13 +20,11 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9000;
+    private static final int PORT = 9001;
 
     private void start() throws Exception {
-        // Init velocity templates
-        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        Velocity.init();
+        initializeTemplateEngine();
+        registerServices();
 
         // Init server
         Server server = new Server(PORT);
@@ -45,6 +43,16 @@ public class Runner {
         server.start();
         LOG.info("Server started, will run until terminated");
         server.join();
+    }
+
+    private void initializeTemplateEngine() {
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        Velocity.init();
+    }
+
+    private void registerServices() {
+        IoC.get().registerInstance(ConnectionFactory.class, new ConnectionFactory());
     }
 
     public static void main(String[] args) {

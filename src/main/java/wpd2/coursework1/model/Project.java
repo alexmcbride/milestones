@@ -49,7 +49,7 @@ public class Project extends BaseModel {
     }
 
     private static Connection getConnection() throws SQLException, ClassNotFoundException {
-        ConnectionFactory factory = new ConnectionFactory();
+        ConnectionFactory factory = (ConnectionFactory)IoC.get().getInstance(ConnectionFactory.class);
         return factory.build();
     }
 
