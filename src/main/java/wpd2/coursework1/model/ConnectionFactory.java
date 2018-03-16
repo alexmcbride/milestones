@@ -8,6 +8,7 @@ import java.sql.Connection;
 public interface ConnectionFactory {
     Connection build() ;
     void initialize();
+    void seed();
 
     enum Mode {
         DEVELOPMENT,
