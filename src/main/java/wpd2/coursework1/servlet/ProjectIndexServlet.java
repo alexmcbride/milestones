@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProjectIndexServlet extends BaseServlet {
-    private static final String TEMPLATE_FILE = "project_list.vm";
+    private static final String TEMPLATE_FILE = "project_index.vm";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

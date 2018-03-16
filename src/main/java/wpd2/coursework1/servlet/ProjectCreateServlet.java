@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class ProjectCreateServlet extends BaseServlet {
-    private static final String TEMPLATE_FILE = "create_project.vm";
+    private static final String TEMPLATE_FILE = "project_create.vm";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

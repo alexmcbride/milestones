@@ -76,6 +76,19 @@ public class Project extends BaseModel {
         }
     }
 
+    public void update() {
+        try (Connection conn = getConnection()) {
+            String sql = "UPDATE projects SET name=? WHERE id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, getName());
+            statement.setInt(2, getId());
+            statement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static List<Project> loadAll() {
         try (Connection conn = getConnection()) {
             // Query for projects.
