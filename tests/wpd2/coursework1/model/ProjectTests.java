@@ -23,7 +23,7 @@ public class ProjectTests {
     }
 
     @org.junit.Test
-    public void testProjectList() {
+    public void testLoadAll() {
         List<Project> projects = Project.loadAll();
 
         assertEquals(projects.size(), 10);
