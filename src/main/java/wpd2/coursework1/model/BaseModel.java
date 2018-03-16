@@ -1,5 +1,9 @@
 package wpd2.coursework1.model;
 
+import wpd2.coursework1.IoC;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,4 +40,9 @@ public abstract class BaseModel {
 
     // Child classes implement this method to handle their own validation rules.
     protected abstract void validate();
+
+    protected static Connection getConnection() throws SQLException, ClassNotFoundException {
+        ConnectionFactory factory = (ConnectionFactory) IoC.get().getInstance(ConnectionFactory.class);
+        return factory.build();
+    }
 }

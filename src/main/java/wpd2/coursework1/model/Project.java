@@ -50,11 +50,6 @@ public class Project extends BaseModel {
         }
     }
 
-    private static Connection getConnection() throws SQLException, ClassNotFoundException {
-        ConnectionFactory factory = (ConnectionFactory) IoC.get().getInstance(ConnectionFactory.class);
-        return factory.build();
-    }
-
     private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
         Project project = new Project();
         project.setId(resultSet.getInt(1));
