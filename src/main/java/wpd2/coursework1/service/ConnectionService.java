@@ -14,6 +14,7 @@ public interface ConnectionService {
     Connection connect() ;
     void initialize();
     void seed();
+    void uninitialize();
 }
 
 

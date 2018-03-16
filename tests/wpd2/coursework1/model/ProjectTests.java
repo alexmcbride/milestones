@@ -11,13 +11,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ProjectTests {
+    private H2ConnectionService connectionService;
+
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
      */
     @org.junit.Before
     public void setup() {
         // Init test database
-        ConnectionService connectionService = new H2ConnectionService(ConnectionService.Mode.TEST);
+        connectionService = new H2ConnectionService(ConnectionService.Mode.TEST);
         connectionService.initialize();
         connectionService.seed();
 
@@ -26,7 +28,10 @@ public class ProjectTests {
         container.registerInstance(ConnectionService.class, connectionService);
     }
 
-
+    @org.junit.After
+    public void teardown() {
+        connectionService.uninitialize();
+    }
 
     @org.junit.Test
     public void testLoadAll() {
