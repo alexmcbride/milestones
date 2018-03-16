@@ -1,6 +1,5 @@
 package wpd2.coursework1.service;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -55,6 +54,18 @@ public class H2ConnectionService implements ConnectionService {
         }
     }
 
+    @Override
+    public void destroy() {
+        try {
+            Connection conn = connect();
+            Statement statement = conn.createStatement();
+            statement.execute("DROP TABLE projects;");
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void createProjectsTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
@@ -77,18 +88,6 @@ public class H2ConnectionService implements ConnectionService {
         Statement statement = connection.createStatement();
         for (int i = 0; i < 10; i++) {
             statement.execute("INSERT INTO projects (name, created) VALUES ('Project Name', NOW());");
-        }
-    }
-
-    @Override
-    public void uninitialize() {
-        try {
-            Connection conn = connect();
-            Statement statement = conn.createStatement();
-            statement.execute("DROP TABLE projects;");
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }

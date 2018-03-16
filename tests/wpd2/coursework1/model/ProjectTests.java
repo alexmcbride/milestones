@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ProjectTests {
-    private H2ConnectionService connectionService;
+    private ConnectionService connectionService;
 
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
@@ -23,14 +23,15 @@ public class ProjectTests {
         connectionService.initialize();
         connectionService.seed();
 
-        // Register service for use in tests.
+        // Register service for use in test.
         IoC container = IoC.get();
         container.registerInstance(ConnectionService.class, connectionService);
     }
 
     @org.junit.After
     public void teardown() {
-        connectionService.uninitialize();
+        // After each test destroy the database
+        connectionService.destroy();
     }
 
     @org.junit.Test
