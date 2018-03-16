@@ -10,8 +10,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.service.ConnectionService;
-import wpd2.coursework1.service.H2ConnectionService;
+import wpd2.coursework1.service.DatabaseService;
+import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
@@ -49,12 +49,12 @@ public class Runner {
 
     private void registerServices() throws SQLException, ClassNotFoundException {
         // Init factory.
-        ConnectionService connectionService = new H2ConnectionService();
-        connectionService.initialize();
+        DatabaseService databaseService = new H2DatabaseService();
+        databaseService.initialize();
 
         // Init IoC stuff
         IoC container = IoC.get();
-        container.registerInstance(ConnectionService.class, connectionService);
+        container.registerInstance(DatabaseService.class, databaseService);
     }
 
     private void initializeTemplateEngine() {

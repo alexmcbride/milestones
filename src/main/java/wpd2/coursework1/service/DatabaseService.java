@@ -5,7 +5,7 @@ import java.sql.Connection;
 /*
  * Interface for database connection service, which creates the connection, initializes the database, and seeds data.
  */
-public interface ConnectionService {
+public interface DatabaseService {
     enum Mode {
         DEVELOPMENT,
         TEST

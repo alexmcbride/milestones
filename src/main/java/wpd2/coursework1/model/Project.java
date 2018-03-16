@@ -92,8 +92,9 @@ public class Project extends BaseModel {
     public static List<Project> loadAll() {
         try (Connection conn = getConnection()) {
             // Query for projects.
+            String sql = "SELECT * FROM projects ORDER BY created DESC";
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM projects ORDER BY created DESC");
+            ResultSet result = statement.executeQuery(sql);
 
             // Create project list.
             List<Project> projects = new ArrayList<>();

@@ -1,8 +1,8 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.service.ConnectionService;
-import wpd2.coursework1.service.H2ConnectionService;
+import wpd2.coursework1.service.DatabaseService;
+import wpd2.coursework1.service.H2DatabaseService;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ProjectTests {
-    private ConnectionService connectionService;
+    private DatabaseService databaseService;
 
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
@@ -19,19 +19,19 @@ public class ProjectTests {
     @org.junit.Before
     public void setup() {
         // Init test database
-        connectionService = new H2ConnectionService(ConnectionService.Mode.TEST);
-        connectionService.initialize();
-        connectionService.seed();
+        databaseService = new H2DatabaseService(DatabaseService.Mode.TEST);
+        databaseService.initialize();
+        databaseService.seed();
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(ConnectionService.class, connectionService);
+        container.registerInstance(DatabaseService.class, databaseService);
     }
 
     @org.junit.After
     public void teardown() {
         // After each test destroy the database
-        connectionService.destroy();
+        databaseService.destroy();
     }
 
     @org.junit.Test

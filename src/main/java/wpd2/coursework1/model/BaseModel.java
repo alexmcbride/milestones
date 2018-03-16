@@ -1,7 +1,7 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.service.ConnectionService;
+import wpd2.coursework1.service.DatabaseService;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public abstract class BaseModel {
     protected abstract void validate();
 
     protected static Connection getConnection() {
-        ConnectionService connectionService = (ConnectionService) IoC.get().getInstance(ConnectionService.class);
-        return connectionService.connect();
+        DatabaseService databaseService = (DatabaseService) IoC.get().getInstance(DatabaseService.class);
+        return databaseService.connect();
     }
 }

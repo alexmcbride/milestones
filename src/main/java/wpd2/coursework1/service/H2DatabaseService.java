@@ -5,14 +5,14 @@ import java.sql.*;
 /*
  * Factory class for creating H2 database connections.
  */
-public class H2ConnectionService implements ConnectionService {
+public class H2DatabaseService implements DatabaseService {
     private final Mode mode;
 
-    public H2ConnectionService() {
+    public H2DatabaseService() {
         this(Mode.DEVELOPMENT);
     }
 
-    public H2ConnectionService(Mode mode) {
+    public H2DatabaseService(Mode mode) {
         this.mode = mode;
     }
 
