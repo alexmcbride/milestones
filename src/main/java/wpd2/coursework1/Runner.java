@@ -11,15 +11,18 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.model.ConnectionFactory;
+import wpd2.coursework1.model.H2ConnectionFactory;
 import wpd2.coursework1.servlet.CreateProjectServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectListServlet;
+
+import java.sql.SQLException;
 
 public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9001;
+    private static final int PORT = 9000;
 
     private void start() throws Exception {
         initializeTemplateEngine();
@@ -50,9 +53,14 @@ public class Runner {
         Velocity.init();
     }
 
-    private void registerServices() {
+    private void registerServices() throws SQLException, ClassNotFoundException {
+        // Init factory.
+        ConnectionFactory factory = new H2ConnectionFactory();
+        factory.initialize();
+
+        // Init IoC stuff
         IoC container = IoC.get();
-        container.registerInstance(ConnectionFactory.class, new ConnectionFactory());
+        container.registerInstance(ConnectionFactory.class, factory);
     }
 
     public static void main(String[] args) {

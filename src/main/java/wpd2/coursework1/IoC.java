@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 /*
- * Inversion of Control container singleton.
+ * Inversion of Control container singleton: https://martinfowler.com/articles/injection.html
  */
 public class IoC {
     private static IoC singleInstance;
@@ -16,7 +16,7 @@ public class IoC {
         return singleInstance;
     }
 
-    // Use concurrent hash map to make this thread-safe.
+    // Use concurrent hash map to improve thread-safety.
     private final Map<Class, Object> instances = new ConcurrentHashMap<>();
 
     private IoC() {

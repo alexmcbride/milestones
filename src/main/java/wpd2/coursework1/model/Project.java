@@ -105,7 +105,7 @@ public class Project extends BaseModel {
         try (Connection conn = getConnection()) {
             // Query for specific project.
             String sql = "SELECT * FROM projects WHERE id=?";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
