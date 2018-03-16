@@ -34,5 +34,7 @@ public class BaseServlet extends HttpServlet {
     protected void view(HttpServletResponse response, String template, Object object) throws IOException {
         VelocityRenderer renderer = new VelocityRenderer();
         renderer.render(response, template, object);
+        response.setContentType(HTML_TEXT_UTF_8);
+        response.setStatus(200);
     }
 }
