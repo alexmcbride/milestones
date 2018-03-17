@@ -5,7 +5,7 @@
 
 ## Include your layout inside of the mainLayout macro.
 #@mainLayout()
-    <p><a href="/projects/create">New Project</a></p>
+    <p><a href="/projects/create">Create New Project</a></p>
 
     <div class="list-group">
         ## Output list of projects
