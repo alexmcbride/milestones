@@ -43,8 +43,7 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void initialize() {
-        Connection connection = connect();
-        try {
+        try (Connection connection = connect()) {
             createProjectsTable(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -52,8 +51,15 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private void createProjectsTable(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS projects (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL , created TIMESTAMP NOT NULL);");
+        String sql = "CREATE TABLE IF NOT EXISTS projects (" +
+                "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                "name VARCHAR(100) NOT NULL , " +
+                "created TIMESTAMP NOT NULL" +
+                ")";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
     }
 
     /*
@@ -61,9 +67,7 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void destroy() {
-        try {
-            Connection conn = connect();
-            Statement statement = conn.createStatement();
+        try (Connection conn = connect(); Statement statement = conn.createStatement()) {
             statement.execute("DROP TABLE projects;");
         }
         catch (SQLException e) {
@@ -76,8 +80,7 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void seed() {
-        Connection connection = connect();
-        try {
+        try (Connection connection = connect()) {
             seedProjectsTable(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,10 +88,12 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private void seedProjectsTable(Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO projects (name, created) VALUES (?, NOW());");
-        for (int i = 0; i < 10; i++) {
-            statement.setString(1, "Project Name " + (i+1));
-            statement.executeUpdate();
+        String sql = "INSERT INTO projects (name, created) VALUES (?, NOW())";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < 10; i++) {
+                statement.setString(1, "Project Name " + (i + 1));
+                statement.executeUpdate();
+            }
         }
     }
 }

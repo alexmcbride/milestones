@@ -61,18 +61,19 @@ public class Project extends BaseModel {
     }
 
     public void create() {
+        String sql = "INSERT INTO projects (name, created) VALUES (?, ?)";
         try (Connection conn = getConnection()) {
-            String sql = "INSERT INTO projects (name, created) VALUES (?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, getName());
-            statement.setTimestamp(2, new Timestamp(getCreated().getTime()));
-            statement.executeUpdate();
+            try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                statement.setString(1, getName());
+                statement.setTimestamp(2, new Timestamp(getCreated().getTime()));
+                statement.executeUpdate();
 
-            // Get ID
-            ResultSet result = statement.getGeneratedKeys();
-            if (result.next()) {
-                int id = result.getInt(1);
-                setId(id); // Set for model.
+                // Get ID
+                ResultSet result = statement.getGeneratedKeys();
+                if (result.next()) {
+                    int id = result.getInt(1);
+                    setId(id); // Set for model.
+                }
             }
         }
         catch (Exception e) {
@@ -81,9 +82,8 @@ public class Project extends BaseModel {
     }
 
     public void update() {
-        try (Connection conn = getConnection()) {
-            String sql = "UPDATE projects SET name=? WHERE id=?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+        String sql = "UPDATE projects SET name=? WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, getName());
             statement.setInt(2, getId());
             statement.executeUpdate();
@@ -105,10 +105,9 @@ public class Project extends BaseModel {
     }
 
     public static List<Project> loadAll() {
-        try (Connection conn = getConnection()) {
+        String sql = "SELECT * FROM projects ORDER BY created DESC";
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             // Query for projects.
-            String sql = "SELECT * FROM projects ORDER BY created DESC";
-            Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             // Create project list.
@@ -124,10 +123,9 @@ public class Project extends BaseModel {
     }
 
     public static Project find(int id) {
-        try (Connection conn = getConnection()) {
+        String sql = "SELECT * FROM projects WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             // Query for specific project.
-            String sql = "SELECT * FROM projects WHERE id=?";
-            PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
