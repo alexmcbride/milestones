@@ -6,6 +6,11 @@ import java.sql.*;
  * Factory class for creating H2 database connections.
  */
 public class H2DatabaseService implements DatabaseService {
+    private static final String DB_DATABASE_CONN = "jdbc:h2:~/test";
+    private static final String DB_MEMORY_CONN = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
+    private static final String DB_USER = "sa";
+    private static final String DB_PASSWORD = "";
+
     private final Mode mode;
 
     public H2DatabaseService() {
@@ -25,10 +30,10 @@ public class H2DatabaseService implements DatabaseService {
             Class.forName("org.h2.Driver");
             switch (mode) {
                 case DEVELOPMENT:
-                    return DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+                    return DriverManager.getConnection(DB_DATABASE_CONN, DB_USER, DB_PASSWORD);
                 case TEST:
                     // Use in-memory DB for testing.
-                    return DriverManager.getConnection("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+                    return DriverManager.getConnection(DB_MEMORY_CONN);
                 default:
                     throw new RuntimeException("Unknown DB connection mode");
             }

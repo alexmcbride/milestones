@@ -1,5 +1,7 @@
 package wpd2.coursework1.model;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,11 +46,11 @@ public class Project extends BaseModel {
         // If there are any validation errors after this method has been run the model will
         // be considered to be invalid.
         if (name == null || name.trim().length() == 0) {
-            addValidationError("name", "Name is a required field");
+            addValidationError("name", "Name is required");
         }
 
         if (created == null || created.getTime() == 0) {
-            addValidationError("created", "Created is a required field");
+            addValidationError("created", "Created is required");
         }
     }
 
