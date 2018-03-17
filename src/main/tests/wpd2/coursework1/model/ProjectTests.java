@@ -1,5 +1,8 @@
 package wpd2.coursework1.model;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
@@ -7,8 +10,7 @@ import wpd2.coursework1.service.H2DatabaseService;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class ProjectTests {
     private DatabaseService databaseService;
@@ -16,7 +18,7 @@ public class ProjectTests {
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
      */
-    @org.junit.Before
+    @Before
     public void setup() {
         // Init test database
         databaseService = new H2DatabaseService(DatabaseService.Mode.TEST);
@@ -28,20 +30,33 @@ public class ProjectTests {
         container.registerInstance(DatabaseService.class, databaseService);
     }
 
-    @org.junit.After
+    @After
     public void teardown() {
         // After each test destroy the database
         databaseService.destroy();
     }
 
-    @org.junit.Test
+    @Test
+    public void testValidate() {
+        Project project = Project.empty();
+        project.setName("Test Title");
+        assertTrue(project.isValid());
+    }
+
+    @Test
+    public void testInvalidate() {
+        Project project = Project.empty();
+        assertFalse(project.isValid());
+        assertEquals("Name is required", project.getValidationError("name"));
+    }
+
+    @Test
     public void testLoadAll() {
         List<Project> projects = Project.loadAll();
-
         assertEquals(projects.size(), 10);
     }
 
-    @org.junit.Test
+    @Test
     public void testFind() {
         Project project = Project.find(1);
 
@@ -51,7 +66,7 @@ public class ProjectTests {
         assertNotNull(project.getCreated());
     }
 
-    @org.junit.Test
+    @Test
     public void testCreate() {
         Date created = new Date();
         Project project = Project.empty();
@@ -66,6 +81,4 @@ public class ProjectTests {
         assertEquals(created, result.getCreated());
         assertEquals(id, result.getId());
     }
-
-
 }

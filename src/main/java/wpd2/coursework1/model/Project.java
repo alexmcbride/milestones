@@ -48,10 +48,6 @@ public class Project extends BaseModel {
         if (name == null || name.trim().length() == 0) {
             addValidationError("name", "Name is required");
         }
-
-        if (created == null || created.getTime() == 0) {
-            addValidationError("created", "Created is required");
-        }
     }
 
     private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
