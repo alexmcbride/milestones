@@ -36,10 +36,6 @@ public class Project extends BaseModel {
         this.created = created;
     }
 
-    private Project() {
-        // Private
-    }
-
     @Override
     protected void validate() {
         // This is called by isValid() in the parent class to check if the model is valid.
@@ -91,15 +87,15 @@ public class Project extends BaseModel {
         }
     }
 
-    public static Project create(String name) {
-        Project project = empty();
-        project.setName(name);
-        project.setCreated(new Date());
-        return project;
-    }
-
-    public static Project empty() {
-        return new Project();
+    public void delete() {
+        String sql = "DELETE FROM projects WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, getId());
+            statement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static List<Project> loadAll() {

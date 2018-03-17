@@ -13,12 +13,14 @@ public class ProjectCreateServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Display the form.
-        view(response, TEMPLATE_FILE, Project.empty());
+        view(response, TEMPLATE_FILE, new Project());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Project project = Project.create(request.getParameter("name"));
+        Project project = new Project();
+        project.setName(request.getParameter("name"));
+        project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {

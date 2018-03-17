@@ -38,14 +38,14 @@ public class ProjectTests {
 
     @Test
     public void testValidate() {
-        Project project = Project.empty();
+        Project project = new Project();
         project.setName("Test Title");
         assertTrue(project.isValid());
     }
 
     @Test
     public void testInvalidate() {
-        Project project = Project.empty();
+        Project project = new Project();
         assertFalse(project.isValid());
         assertEquals("Name is required", project.getValidationError("name"));
     }
@@ -69,7 +69,7 @@ public class ProjectTests {
     @Test
     public void testCreate() {
         Date created = new Date();
-        Project project = Project.empty();
+        Project project = new Project();
         project.setName("Test");
         project.setCreated(created);
 
@@ -80,5 +80,32 @@ public class ProjectTests {
         assertEquals("Test", result.getName());
         assertEquals(created, result.getCreated());
         assertEquals(id, result.getId());
+    }
+
+    @Test
+    public void testUpdate() {
+        Project project = new Project();
+        project.setName("Test");
+        project.setCreated(new Date());
+        project.create();
+
+        project.setName("Test 2");
+        project.update();
+
+        Project result = Project.find(project.getId());
+        assertEquals("Test 2", result.getName());
+    }
+
+    @Test
+    public void testDelete() {
+        Project project = new Project();
+        project.setName("Test");
+        project.setCreated(new Date());
+        project.create();
+
+        project.delete();
+
+        Project result = Project.find(project.getId());
+        assertNull(result);
     }
 }
