@@ -3,6 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
@@ -27,6 +28,7 @@ public class ProjectTests {
         // Register service for use in test.
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(PasswordService.class, new PasswordService(1));
 
         db.initialize();
         db.seed();

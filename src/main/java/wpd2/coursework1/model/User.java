@@ -1,21 +1,24 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.PasswordAuth;
+import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.ValidationError;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 public class User extends BaseModel {
+    private final PasswordService passwordService;
     private int id;
     private String username;
     private String email;
     private char[] password;
     private String passwordHash;
+
+    public User() {
+        passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
+    }
 
     public int getId() {
         return id;
@@ -91,8 +94,7 @@ public class User extends BaseModel {
     }
 
     public void create() {
-        PasswordAuth auth = new PasswordAuth();
-        passwordHash = auth.hash(password);
+        passwordHash = passwordService.hash(this.password);
         try (Connection conn = getConnection()) {
             new UserRepository(conn).insert(this);
         }
@@ -102,6 +104,11 @@ public class User extends BaseModel {
     }
 
     public void update() {
+        // Has password changed?
+        if (password != null && password.length > 0) {
+            passwordHash = passwordService.hash(this.password);
+        }
+
         try (Connection conn = getConnection()) {
             new UserRepository(conn).update(this);
         }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
@@ -50,13 +51,14 @@ public class Runner {
     }
 
     private void initializeServices() throws SQLException, ClassNotFoundException {
-        // Init factory.
+        // Init database.
         DatabaseService databaseService = new H2DatabaseService();
         databaseService.initialize();
 
         // Init IoC stuff
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, databaseService);
+        container.registerInstance(PasswordService.class, new PasswordService());
     }
 
     private void initializeTemplateEngine() {

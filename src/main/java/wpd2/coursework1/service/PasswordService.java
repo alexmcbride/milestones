@@ -1,4 +1,4 @@
-package wpd2.coursework1.util;
+package wpd2.coursework1.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -20,7 +20,7 @@ import javax.crypto.spec.PBEKeySpec;
  * @author erickson
  * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
  */
-public final class PasswordAuth
+public final class PasswordService
 {
 
     /**
@@ -43,7 +43,7 @@ public final class PasswordAuth
 
     private final int cost;
 
-    public PasswordAuth()
+    public PasswordService()
     {
         this(DEFAULT_COST);
     }
@@ -53,7 +53,7 @@ public final class PasswordAuth
      *
      * @param cost the exponential computational cost of hashing a password, 0 to 30
      */
-    public PasswordAuth(int cost)
+    public PasswordService(int cost)
     {
         iterations(cost); /* Validate cost */
         this.cost = cost;
