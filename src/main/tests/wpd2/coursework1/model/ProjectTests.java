@@ -28,7 +28,7 @@ public class ProjectTests {
         // Register service for use in test.
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
-        container.registerInstance(PasswordService.class, new PasswordService(1));
+        container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
 
         db.initialize();
         db.seed();

@@ -32,6 +32,8 @@ public final class PasswordService
      * The minimum recommended cost, used by default
      */
     public static final int DEFAULT_COST = 16;
+    public static final int MIN_COST = 1;
+    public static final int MAX_COST = 30;
 
     private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
 
