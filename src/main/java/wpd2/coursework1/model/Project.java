@@ -54,10 +54,17 @@ public class Project extends BaseModel {
     }
 
     public void create(User user) {
-        setUserId(user.getId());
-        try (Connection conn = getConnection()) {
-            ProjectRepository repo = new ProjectRepository(conn);
-            repo.insert(this);
+        String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, getUserId());
+            statement.setString(2, getName());
+            statement.setTimestamp(3, new Timestamp(getCreated().getTime()));
+            statement.executeUpdate();
+
+            ResultSet result = statement.getGeneratedKeys();
+            if (result.next()) {
+                setId(result.getInt(1));
+            }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -65,9 +72,11 @@ public class Project extends BaseModel {
     }
 
     public void update() {
-        try (Connection conn = getConnection()) {
-            ProjectRepository repo = new ProjectRepository(conn);
-            repo.update(this);
+        String sql = "UPDATE projects SET name=? WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, getName());
+            statement.setInt(2, getId());
+            statement.executeUpdate();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -75,32 +84,79 @@ public class Project extends BaseModel {
     }
 
     public void delete() {
-        try (Connection conn = getConnection()) {
-            ProjectRepository repo = new ProjectRepository(conn);
-            repo.delete(this);
+        String sql = "DELETE FROM projects WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, getId());
+            statement.executeUpdate();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public static void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS projects (" +
+                "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
+                "userId INTEGER NOT NULL ," +
+                "name NVARCHAR(32) NOT NULL , " +
+                "created TIMESTAMP NOT NULL" +
+                ")";
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            statement.execute(sql);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void destroyTable() {
+        String sql = "DROP TABLE projects;";
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            statement.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
     public static List<Project> loadAll() {
-        try (Connection conn = getConnection()) {
-            ProjectRepository repo = new ProjectRepository(conn);
-            return repo.selectAll();
+        String sql = "SELECT id, userId, name, created FROM projects";
+        List<Project> users = new ArrayList<>();
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                users.add(getUserFromResult(result));
+            }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return users;
     }
 
+    @SuppressWarnings("Duplicates")
     public static Project find(int id) {
-        try (Connection conn = getConnection()) {
-            ProjectRepository repo = new ProjectRepository(conn);
-            return repo.select(id);
+        String sql = "SELECT id, userId, name, created FROM projects WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return getUserFromResult(result);
+            }
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
+    }
+
+    private static Project getUserFromResult(ResultSet resultSet) throws SQLException {
+        Project project = new Project();
+        project.setId(resultSet.getInt(1));
+        project.setUserId(resultSet.getInt(2));
+        project.setName(resultSet.getString(3));
+        project.setCreated(resultSet.getTimestamp(4));
+        return project;
     }
 }

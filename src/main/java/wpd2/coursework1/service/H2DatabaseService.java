@@ -1,14 +1,10 @@
 package wpd2.coursework1.service;
 
 import wpd2.coursework1.model.Project;
-import wpd2.coursework1.model.ProjectRepository;
 import wpd2.coursework1.model.User;
-import wpd2.coursework1.model.UserRepository;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /*
  * Factory class for creating H2 database connections.
@@ -57,8 +53,8 @@ public class H2DatabaseService implements DatabaseService {
     @Override
     public void initialize() throws SQLException {
         try (Connection conn = connect()) {
-            new UserRepository(conn).createTable();
-            new ProjectRepository(conn).createTable();
+            User.createTable();
+            Project.createTable();
         }
     }
 
@@ -68,8 +64,8 @@ public class H2DatabaseService implements DatabaseService {
     @Override
     public void destroy() throws SQLException {
         try (Connection conn = connect()) {
-            new UserRepository(conn).destroyTable();
-            new ProjectRepository(conn).destroyTable();
+            User.destroyTable();
+            Project.destroyTable();
         }
     }
 
@@ -99,10 +95,5 @@ public class H2DatabaseService implements DatabaseService {
             project.setName("Project Name " + (i + 1));
             project.create(firstUser);
         }
-
-//        try (Connection connection = connect()) {
-////            new UserRepository(connection).seedTable(users);
-////            new ProjectRepository(connection).seedTable(projects);
-//        }
     }
 }
