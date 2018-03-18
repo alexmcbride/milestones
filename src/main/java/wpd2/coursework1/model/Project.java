@@ -54,6 +54,7 @@ public class Project extends BaseModel {
     }
 
     public void create(User user) {
+        setUserId(user.getId());
         String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, getUserId());

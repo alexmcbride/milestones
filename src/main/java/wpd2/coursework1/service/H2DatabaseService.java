@@ -52,10 +52,8 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void initialize() throws SQLException {
-        try (Connection conn = connect()) {
-            User.createTable();
-            Project.createTable();
-        }
+        User.createTable();
+        Project.createTable();
     }
 
     /*
@@ -63,17 +61,15 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void destroy() throws SQLException {
-        try (Connection conn = connect()) {
-            User.destroyTable();
-            Project.destroyTable();
-        }
+        User.destroyTable();
+        Project.destroyTable();
     }
 
     /*
      * Seeds the database with test data.
      */
     @Override
-    public void seed() throws SQLException {
+    public void seed() {
         User firstUser = null;
 
         for (int i = 0; i < 10; i++) {

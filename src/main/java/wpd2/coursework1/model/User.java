@@ -6,6 +6,7 @@ import wpd2.coursework1.util.ValidationError;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class User extends BaseModel {
@@ -13,8 +14,14 @@ public class User extends BaseModel {
     private int id;
     private String username;
     private String email;
-    private char[] password;
     private String passwordHash;
+    private Date joined;
+
+    /*
+     * Password should be an array to stop attack by dumping all strings.
+     * https://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords
+     */
+    private char[] password;
 
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
@@ -52,12 +59,20 @@ public class User extends BaseModel {
         this.password = password;
     }
 
-    public String getPasswordHash() {
+    private String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
+    private void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public Date getJoined() {
+        return joined;
+    }
+
+    private void setJoined(Date joined) {
+        this.joined = joined;
     }
 
     @Override
@@ -76,12 +91,14 @@ public class User extends BaseModel {
     }
 
     public void create() {
-        passwordHash = passwordService.hash(this.password);
-        String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        setPasswordHash(passwordService.hash(this.password));
+        setJoined(new Date());
+        String sql = "INSERT INTO users (username, email, password, joined) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, getUsername());
             statement.setString(2, getEmail());
             statement.setString(3, getPasswordHash());
+            statement.setTimestamp(4, new Timestamp(getJoined().getTime()));
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -96,7 +113,7 @@ public class User extends BaseModel {
 
     public void update() {
         if (passwordChanged()) {
-            passwordHash = passwordService.hash(this.password);
+            setPasswordHash(passwordService.hash(this.password));
         }
 
         String sql = "UPDATE users SET username=?, email=?, password=? WHERE id=?";
@@ -152,7 +169,8 @@ public class User extends BaseModel {
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "username NVARCHAR(32) NOT NULL , " +
                 "email NVARCHAR(1024) NOT NULL, " +
-                "password NVARCHAR(128) NOT NULL" +
+                "password NVARCHAR(128) NOT NULL," +
+                "joined TIMESTAMP NOT NULL" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -174,7 +192,7 @@ public class User extends BaseModel {
 
     @SuppressWarnings("Duplicates")
     public static User find(int id) {
-        String sql = "SELECT id, username, email, password FROM users WHERE id=?";
+        String sql = "SELECT id, username, email, password, joined FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -189,7 +207,7 @@ public class User extends BaseModel {
     }
 
     public static User find(String email) {
-        String sql = "SELECT id, username, email, password FROM users WHERE email=?";
+        String sql = "SELECT id, username, email, password, joined FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, email);
             ResultSet result = statement.executeQuery();
@@ -205,7 +223,7 @@ public class User extends BaseModel {
 
     @SuppressWarnings("Duplicates")
     public static List<User> findAll() {
-        String sql = "SELECT id, username, email, password FROM users";
+        String sql = "SELECT id, username, email, password, joined FROM users";
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             ResultSet result = statement.executeQuery(sql);
@@ -225,6 +243,7 @@ public class User extends BaseModel {
         user.setUsername(result.getString(2));
         user.setEmail(result.getString(3));
         user.setPasswordHash(result.getString(4));
+        user.setJoined(result.getTimestamp(5));
         return user;
     }
 }
