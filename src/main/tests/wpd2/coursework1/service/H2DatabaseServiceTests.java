@@ -1,6 +1,7 @@
 package wpd2.coursework1.service;
 
 import org.junit.Test;
+import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -45,6 +46,7 @@ public class H2DatabaseServiceTests {
     @Test
     public void testSeed() throws SQLException {
         DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        IoC.get().registerInstance(DatabaseService.class, db);
         db.initialize();
         db.seed();
 

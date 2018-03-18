@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,12 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = new User();
+        user.setEmail("user@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setUsername("user");
+        user.create();
+
         Project project = new Project();
         project.setName(request.getParameter("name"));
         project.setCreated(new Date());
@@ -25,7 +32,7 @@ public class ProjectCreateServlet extends BaseServlet {
         // Check if project is valid.
         if (project.isValid()) {
             // Save project to database.
-            project.create();
+            project.create(user);
 
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());
