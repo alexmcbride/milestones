@@ -77,10 +77,10 @@ public class User extends BaseModel {
 
     @Override
     public void validate() {
-        ValidationHelper helper = new ValidationHelper(this);
-        helper.required("username", getUsername());
-        helper.email("email", getEmail());
-        helper.password("password", getPassword());
+        ValidationHelper validation = new ValidationHelper(this);
+        validation.required("username", getUsername());
+        validation.email("email", getEmail());
+        validation.password("password", getPassword());
 
         if (usernameExists(getUsername())) {
             addValidationError("username", "already exists");

@@ -51,8 +51,8 @@ public class Project extends BaseModel {
 
     @Override
     public void validate() {
-        ValidationHelper helper = new ValidationHelper(this);
-        helper.required("name", getName());
+        ValidationHelper validation = new ValidationHelper(this);
+        validation.required("name", getName());
     }
 
     public void create(User user) {
