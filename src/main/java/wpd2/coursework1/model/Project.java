@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.ValidationError;
+import wpd2.coursework1.util.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +12,10 @@ public class Project extends BaseModel {
     private int userId;
     private String name;
     private Date created;
+
+    public Project() {
+
+    }
 
     public int getId() {
         return id;
@@ -46,11 +50,8 @@ public class Project extends BaseModel {
     }
 
     @Override
-    protected void validate() {
-        // This is called by isValid() in the parent class to check if the model is valid.
-        // If there are any validation errors after this method has been run the model will
-        // be considered to be invalid.
-        addValidationError("name", ValidationError.required(getName()));
+    public void validate() {
+        ValidationHelper.required(this, "name", getName());
     }
 
     public void create(User user) {

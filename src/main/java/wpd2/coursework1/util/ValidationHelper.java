@@ -1,29 +1,28 @@
 package wpd2.coursework1.util;
 
-public class ValidationError {
-    public static String required(String value) {
+import wpd2.coursework1.model.BaseModel;
+
+public class ValidationHelper {
+    public static void required(BaseModel model, String attribute, String value) {
         if (value == null || value.trim().length() == 0) {
-            return "is required";
+            model.addValidationError(attribute, "is required");
         }
-        return null;
     }
 
-    public static String length(String value, int min, int max) {
+    public static void length(BaseModel model, String attribute, String value, int min, int max) {
         if (value == null) {
-            return String.format("must be between %d and %d characters.", min, max);
+            model.addValidationError(attribute, String.format("must be between %d and %d characters.", min, max));
         }
         value = value.trim();
         if (value.length() < min || value.length() > max) {
-            return String.format("must be between %d and %d characters.", min, max);
+            model.addValidationError(attribute, String.format("must be between %d and %d characters.", min, max));
         }
-        return null;
     }
 
-    public static String email(String value) {
+    public static void email(BaseModel model, String attribute, String value) {
         if (value == null || !isValidEmailAddress(value)) {
-            return "is not a valid email";
+            model.addValidationError(attribute, "is not a valid email");
         }
-        return null;
     }
 
     private static boolean isValidEmailAddress(String email) {
@@ -33,13 +32,15 @@ public class ValidationError {
         return m.matches();
     }
 
-    public static String password(char[] value) {
+    public static void password(BaseModel model, String attribute, char[] value) {
         if (value == null) {
-            return "not a valid password";
+            model.addValidationError(attribute, "not a valid password");
+            return;
         }
 
         if (value.length < 6) {
-            return "too short";
+            model.addValidationError(attribute, "too short");
+            return;
         }
 
         boolean hasAlphabetic = false;
@@ -55,13 +56,12 @@ public class ValidationError {
         }
 
         if (!hasAlphabetic) {
-            return "must have at least one alphabetical character";
+            model.addValidationError(attribute, "must have at least one alphabetical character");
+            return;
         }
 
         if (!hasNumeric) {
-            return "must have at least one numeric character";
+            model.addValidationError(attribute, "must have at least one numeric character");
         }
-
-        return null;
     }
 }

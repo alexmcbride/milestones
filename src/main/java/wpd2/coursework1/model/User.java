@@ -2,7 +2,7 @@ package wpd2.coursework1.model;
 
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.ValidationError;
+import wpd2.coursework1.util.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -76,17 +76,17 @@ public class User extends BaseModel {
     }
 
     @Override
-    protected void validate() {
-        addValidationError("username", ValidationError.required(username));
-        addValidationError("email", ValidationError.email(email));
-        addValidationError("password", ValidationError.password(password));
+    public void validate() {
+        ValidationHelper.required(this, "username", getUsername());
+        ValidationHelper.email(this, "email", getEmail());
+        ValidationHelper.password(this, "password", getPassword());
 
-        if (usernameExists(username)) {
+        if (usernameExists(getUsername())) {
             addValidationError("username", "already exists");
         }
 
-        if (emailExists(email)) {
-            addValidationError("email", "address already exists");
+        if (emailExists(getUsername())) {
+            addValidationError("email", "already exists");
         }
     }
 
@@ -144,12 +144,12 @@ public class User extends BaseModel {
         }
     }
 
-    private boolean emailExists(String email) {
+    public boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email=?";
         return valueExists(email, sql);
     }
 
-    private boolean usernameExists(String username) {
+    public boolean usernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM users WHERE username=?";
         return valueExists(username, sql);
     }

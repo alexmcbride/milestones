@@ -51,7 +51,7 @@ public class ProjectTests {
     public void testInvalidate() {
         Project project = new Project();
         assertFalse(project.isValid());
-        assertEquals("Name is required", project.getValidationError("name"));
+        assertEquals("is required", project.getValidationError("name"));
     }
 
     @Test
