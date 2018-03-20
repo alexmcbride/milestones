@@ -9,16 +9,16 @@ import java.io.IOException;
 
 public class VelocityRenderer {
     private static final String TEMPLATE_DIR = "/templates/";
-    private final AntiForgery antiForgery;
+    private final AntiForgeryHelper antiForgeryHelper;
 
-    public VelocityRenderer(AntiForgery antiForgery) {
-        this.antiForgery = antiForgery;
+    public VelocityRenderer(AntiForgeryHelper antiForgeryHelper) {
+        this.antiForgeryHelper = antiForgeryHelper;
     }
 
     public void render(HttpServletResponse response, String templateName, Object object) throws IOException {
         VelocityContext context = new VelocityContext();
         context.put("model", object);
-        context.put("csrf", antiForgery);
+        context.put("antiForgeryHelper", antiForgeryHelper);
         render(response, templateName, context);
     }
 

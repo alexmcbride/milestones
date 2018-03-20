@@ -19,6 +19,6 @@
     </div>
 #end
 
-#macro(antiForgery)
-    <input type="hidden" name="antiForgeryToken" value="$csrf.generateForgeryToken()">
+#macro(antiForgeryToken)
+    <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
 #end

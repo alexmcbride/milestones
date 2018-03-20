@@ -3,7 +3,7 @@ package wpd2.coursework1.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.util.AntiForgery;
+import wpd2.coursework1.util.AntiForgeryHelper;
 import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
@@ -21,14 +21,6 @@ public class BaseServlet extends HttpServlet {
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private AntiForgery antiForgery;
-
-    protected AntiForgery getAntiForgery() {
-        if (antiForgery == null) {
-            antiForgery = new AntiForgery(request.getSession());
-        }
-        return antiForgery;
-    }
 
     public HttpServletRequest getRequest() {
         return request;
@@ -40,7 +32,8 @@ public class BaseServlet extends HttpServlet {
 
     protected void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
-        getAntiForgery().checkForgeryToken(token);
+        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
+        antiForgeryHelper.checkToken(token);
     }
 
     protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
@@ -79,7 +72,8 @@ public class BaseServlet extends HttpServlet {
     }
 
     protected void view(String template, Object object) throws IOException {
-        VelocityRenderer renderer = new VelocityRenderer(getAntiForgery());
+        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
+        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
         renderer.render(response, template, object);
         response.setContentType(HTML_TEXT_UTF_8);
         response.setStatus(200);
