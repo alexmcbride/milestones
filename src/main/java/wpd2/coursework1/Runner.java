@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
-import wpd2.coursework1.servlet.ProjectCreateServlet;
-import wpd2.coursework1.servlet.ProjectDetailsServlet;
-import wpd2.coursework1.servlet.ProjectIndexServlet;
+import wpd2.coursework1.servlet.*;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.SQLException;
@@ -23,7 +21,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9000;
+    private static final int PORT = 9001;
 
     private void start() throws Exception {
         initializeServices();
@@ -69,6 +67,8 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
+        handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
+        handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
     }
 
     public static void main(String[] args) {

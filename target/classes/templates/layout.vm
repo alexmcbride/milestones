@@ -19,8 +19,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
                 <a class="navbar-brand" href="/projects">Projects</a>
-            </div>
+                <a class="mt-navbar-right" href="/users/register">Register</a>
+                <a class="mt-navbar-right" href="/users/login">Login</a>
+
+
         </div>
     </nav>
 

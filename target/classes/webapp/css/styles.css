@@ -2,3 +2,17 @@
     border-top: 1px solid #e7e7e7;
     padding-top: 20px;
 }
+.mt-navbar-right {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 15px;
+    line-height: 15px;
+}
+.mt-navbar-right:hover,
+.mt-navbar-right:focus {
+    text-decoration: none;
+}
+.mt-navbar-right > items {
+    display: inline-block;
+}
