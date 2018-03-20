@@ -5,6 +5,9 @@
 #@mainLayout()
     <p><a href="/projects">Go back</a></p>
 
+
+<p><a href="/milestone">Milestoners</a></p>
+
     <p>ID: $model.id</p>
     <p>Name: $model.name</p>
     <p>Created: $model.created</p>
