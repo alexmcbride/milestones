@@ -5,7 +5,7 @@ This is the repository for Team A's Milestones Project.
 ## Team
 * Alex McBride
 * William Thomson
-* Jakoob Hayat
+* Yakoob Hayat
 * Mie Tanaka
 ## Development
 We are developing the site using the following technologies.
