@@ -14,14 +14,9 @@ public class User extends BaseModel {
     private int id;
     private String username;
     private String email;
+    private char[] password;
     private String passwordHash;
     private Date joined;
-
-    /*
-     * Password should be an array to stop attack by dumping all strings.
-     * https://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords
-     */
-    private char[] password;
 
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
@@ -71,7 +66,7 @@ public class User extends BaseModel {
         return joined;
     }
 
-    private void setJoined(Date joined) {
+    public void setJoined(Date joined) {
         this.joined = joined;
     }
 
@@ -83,10 +78,10 @@ public class User extends BaseModel {
         validation.password("password", getPassword());
 
         if (usernameExists(getUsername())) {
-            addValidationError("username", "already exists");
+            addValidationError("username", "Username already exists");
         }
 
-        if (emailExists(getUsername())) {
+        if (emailExists(getEmail())) {
             addValidationError("email", "already exists");
         }
     }
@@ -159,8 +154,12 @@ public class User extends BaseModel {
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, value);
             ResultSet result = statement.executeQuery();
-            return result.getInt(1) > 0;
-        } catch (SQLException e) {
+            if (result.next()) {
+                return result.getInt(1) > 0;
+            }
+            return false;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
