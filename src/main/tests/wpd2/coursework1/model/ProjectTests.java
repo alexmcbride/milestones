@@ -48,10 +48,10 @@ public class ProjectTests {
     }
 
     @Test
-    public void testInvalidate() {
+    public void testInvalid() {
         Project project = new Project();
         assertFalse(project.isValid());
-        assertEquals("is required", project.getValidationError("name"));
+        assertEquals("Name is required", project.getValidationError("name"));
     }
 
     @Test

@@ -24,7 +24,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9001;
+    private static final int PORT = 9000;
 
     private void start() throws Exception {
         initializeServices();
@@ -77,7 +77,7 @@ public class Runner {
 //            LOG.info("starting");
             new Runner().start();
 //        } catch (Exception e) {
-//            LOG.error("Unexpected error running web: " + e.getMessage());
+//            LOG.error("Unexpected error running shop: " + e.getMessage());
 //        }
     }
 }

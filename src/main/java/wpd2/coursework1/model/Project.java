@@ -55,6 +55,14 @@ public class Project extends BaseModel {
         validation.required("name", getName());
     }
 
+    private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
+        Project project = new Project();
+        project.setId(resultSet.getInt(1));
+        project.setName(resultSet.getString(3));
+        project.setCreated(resultSet.getTimestamp(4));
+        return project;
+    }
+
     public void create(User user) {
         setUserId(user.getId());
         String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
