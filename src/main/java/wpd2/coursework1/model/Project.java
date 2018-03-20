@@ -57,17 +57,18 @@ public class Project extends BaseModel {
     private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
         Project project = new Project();
         project.setId(resultSet.getInt(1));
-        project.setName(resultSet.getString(2));
-        project.setCreated(resultSet.getTimestamp(3));
+        project.setName(resultSet.getString(3));
+        project.setCreated(resultSet.getTimestamp(4));
         return project;
     }
 
     public void create() {
-        String sql = "INSERT INTO projects (name, created) VALUES (?, ?)";
+        String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
         try (Connection conn = getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, getName());
-                statement.setTimestamp(2, new Timestamp(getCreated().getTime()));
+                statement.setInt(1, 1);
+                statement.setString(2, getName());
+                statement.setTimestamp(3, new Timestamp(getCreated().getTime()));
                 statement.executeUpdate();
 
                 // Get ID

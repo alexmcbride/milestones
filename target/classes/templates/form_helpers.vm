@@ -6,7 +6,7 @@
     #end
 #end
 
-#macro(form_text_input $model $attribute)
+#macro(form_text_input $attribute)
     #set($error="")
     #if ($model.hasValidationError($attribute))
         #set($error=" has-error")
@@ -17,4 +17,8 @@
         <input type="text" name="name" class="form-control">
         #validation_error($model, $attribute)
     </div>
+#end
+
+#macro(antiForgery)
+    <input type="hidden" name="antiForgeryToken" value="$csrf.generateForgeryToken()">
 #end

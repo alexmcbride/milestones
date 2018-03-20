@@ -71,12 +71,12 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
     }
 
-    public static void main(String[] args) {
-        try {
-            LOG.info("starting");
+    public static void main(String[] args) throws Exception {
+//        try {
+//            LOG.info("starting");
             new Runner().start();
-        } catch (Exception e) {
-            LOG.error("Unexpected error running shop: " + e.getMessage());
-        }
+//        } catch (Exception e) {
+//            LOG.error("Unexpected error running shop: " + e.getMessage());
+//        }
     }
 }
