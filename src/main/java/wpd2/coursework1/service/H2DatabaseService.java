@@ -58,6 +58,7 @@ public class H2DatabaseService implements DatabaseService {
     private void createProjectsTable(Connection connection) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                "userId INT NOT NULL , " +
                 "name VARCHAR(100) NOT NULL , " +
                 "created TIMESTAMP NOT NULL" +
                 ")";
@@ -93,7 +94,7 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private void seedProjectsTable(Connection connection) throws SQLException {
-        String sql = "INSERT INTO projects (name, created) VALUES (?, NOW())";
+        String sql = "INSERT INTO projects (userId, name, created) VALUES (1, ?, NOW())";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (int i = 0; i < 10; i++) {
                 statement.setString(1, "Project Name " + (i + 1));
