@@ -1,0 +1,12 @@
+#parse('templates/layout.vm')
+
+#set($title = $model.name)
+
+#@mainLayout()
+<p><a href="/projects">Go back</a></p>
+
+<p>ID: $model.userid</p>
+<p>Name: $model.email</p>
+<p>Name: $model.password</p>
+<p>Created: $model.joined</p>
+#end

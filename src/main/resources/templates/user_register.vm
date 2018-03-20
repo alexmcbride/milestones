@@ -1,0 +1,23 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Register User')
+
+#@mainLayout()
+## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
+
+<form method="post">
+    <h2>Register</h2>
+
+## Use a form helper to output a text input.
+    #form_text_input($model, "email")
+    #form_text_input($model, "password")
+
+
+    <div>
+        <input type="submit" value="register" class="btn btn-default">
+        |
+        <a href="/login">Go back</a>
+    </div>
+</form>
+#end
