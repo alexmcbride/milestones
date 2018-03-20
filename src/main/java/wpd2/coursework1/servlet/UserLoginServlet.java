@@ -19,41 +19,39 @@ public class UserLoginServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = User.create(request.getParameter("email"), request.getParameter("password"));
-
-        // Check if user is valid.
-        if (user.isValid()) {
-
-
-/*            // gensalt's log_rounds parameter determines the complexity
-            // the work factor is 2**log_rounds, and the default is 10
-            String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));*/
-
-
-
+        User user = new User();
+        user.setEmail(request.getParameter("email"));
+        user.setUsername(request.getParameter("username"));
+        user.setPassword((request.getParameter("password")).toCharArray());
+        user.validate();
+        //check if username or email already exist first
+        if(user.usernameExists(request.getParameter("username"))){
 
             // find user with the same email.
-            if (user.findUserByEmail(request.getParameter("email")).isValid()) {
-                //check if the password matches
-                String inputPassword = request.getParameter("password");
-                String userPassword = user.getPassword();
-// Check that an unencrypted password matches one that has
-                // previously been hashed
-                /*if (BCrypt.checkpw(inputPassword, userPassword)) {
-                    System.out.println("It matches");
-                    // Always redirect to project.
-                    response.sendRedirect("/projects");
-                }else{
-                    // Display the empty form.
-                    view(response, TEMPLATE_FILE, User.empty());
-                }*/
-            }
-            else{
-                // Display the empty form.
-                view(response, TEMPLATE_FILE, User.empty());
-            }
-        }
+            if (user.emailExists(request.getParameter("email"))) {
 
+                        //get the password of the matched email
+                        char[] retrivedUserPassword =(user.find(request.getParameter("email")).getPassword());
+                        //decrypt the passward and check if it match
+
+                        //check if password matches
+                        char[] inputPassword = request.getParameter("password").toCharArray();
+
+                        // Check that an unencrypted password matches one that has
+                        // previously been hashed
+                    /*   // gensalt's log_rounds parameter determines the complexity
+                        // the work factor is 2**log_rounds, and the default is 10
+                        String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));*/
+                        /*if (BCrypt.checkpw(inputPassword, userPassword)) {
+                        System.out.println("It matches");*/
+                        if(retrivedUserPassword == inputPassword){
+                        // Always redirect to project.
+                        user.create();
+                        response.sendRedirect("/projects");
+                        }
+            }
+
+        }
         // Display the form with validation errors.
         view(response, TEMPLATE_FILE, user);
     }

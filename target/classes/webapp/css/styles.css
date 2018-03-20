@@ -2,8 +2,12 @@
     border-top: 1px solid #e7e7e7;
     padding-top: 20px;
 }
+.navbar-header{
+    float:none;
+}
+
 .mt-navbar-right {
-    float: left;
+    float: right;
     height: 50px;
     padding: 15px 15px;
     font-size: 15px;

@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
+import wpd2.coursework1.util.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,8 +9,13 @@ import java.util.List;
 
 public class Project extends BaseModel {
     private int id;
+    private int userId;
     private String name;
     private Date created;
+
+    public Project() {
+
+    }
 
     public int getId() {
         return id;
@@ -18,6 +23,14 @@ public class Project extends BaseModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -36,49 +49,27 @@ public class Project extends BaseModel {
         this.created = created;
     }
 
-    private Project() {
-        // Private
-    }
-
     @Override
-    protected void validate() {
-        // This is called by isValid() in the parent class to check if the model is valid.
-        // If there are any validation errors after this method has been run the model will
-        // be considered to be invalid.
-        if (name == null || name.trim().length() == 0) {
-            addValidationError("name", "Name is required");
-        }
-
-        if (created == null || created.getTime() == 0) {
-            addValidationError("created", "Created is required");
-        }
+    public void validate() {
+        ValidationHelper helper = new ValidationHelper(this);
+        helper.required("name", getName());
     }
 
-    private static Project getProjectFromResult(ResultSet resultSet) throws SQLException {
-        Project project = new Project();
-        project.setId(resultSet.getInt(1));
-        project.setName(resultSet.getString(2));
-        project.setCreated(resultSet.getTimestamp(3));
-        return project;
-    }
+    public void create(User user) {
+        setUserId(user.getId());
+        String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, getUserId());
+            statement.setString(2, getName());
+            statement.setTimestamp(3, new Timestamp(getCreated().getTime()));
+            statement.executeUpdate();
 
-    public void create() {
-        String sql = "INSERT INTO projects (name, created) VALUES (?, ?)";
-        try (Connection conn = getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, getName());
-                statement.setTimestamp(2, new Timestamp(getCreated().getTime()));
-                statement.executeUpdate();
-
-                // Get ID
-                ResultSet result = statement.getGeneratedKeys();
-                if (result.next()) {
-                    int id = result.getInt(1);
-                    setId(id); // Set for model.
-                }
+            ResultSet result = statement.getGeneratedKeys();
+            if (result.next()) {
+                setId(result.getInt(1));
             }
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -90,53 +81,85 @@ public class Project extends BaseModel {
             statement.setInt(2, getId());
             statement.executeUpdate();
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static Project create(String name) {
-        Project project = empty();
-        project.setName(name);
-        project.setCreated(new Date());
-        return project;
-    }
-
-    public static Project empty() {
-        return new Project();
-    }
-
-    public static List<Project> loadAll() {
-        String sql = "SELECT * FROM projects ORDER BY created DESC";
-        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
-            // Query for projects.
-            ResultSet result = statement.executeQuery(sql);
-
-            // Create project list.
-            List<Project> projects = new ArrayList<>();
-            while (result.next()) {
-                projects.add(getProjectFromResult(result));
-            }
-            return projects;
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Project find(int id) {
-        String sql = "SELECT * FROM projects WHERE id=?";
+    public void delete() {
+        String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            // Query for specific project.
+            statement.setInt(1, getId());
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS projects (" +
+                "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
+                "userId INTEGER NOT NULL ," +
+                "name NVARCHAR(32) NOT NULL , " +
+                "created TIMESTAMP NOT NULL" +
+                ")";
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            statement.execute(sql);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void destroyTable() {
+        String sql = "DROP TABLE projects;";
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            statement.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static List<Project> loadAll() {
+        String sql = "SELECT id, userId, name, created FROM projects";
+        List<Project> users = new ArrayList<>();
+        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                users.add(getUserFromResult(result));
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static Project find(int id) {
+        String sql = "SELECT id, userId, name, created FROM projects WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                return getProjectFromResult(result);
+                return getUserFromResult(result);
             }
-            return null;
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
+    }
+
+    private static Project getUserFromResult(ResultSet resultSet) throws SQLException {
+        Project project = new Project();
+        project.setId(resultSet.getInt(1));
+        project.setUserId(resultSet.getInt(2));
+        project.setName(resultSet.getString(3));
+        project.setCreated(resultSet.getTimestamp(4));
+        return project;
     }
 }

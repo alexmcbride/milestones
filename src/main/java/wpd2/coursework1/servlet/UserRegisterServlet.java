@@ -5,6 +5,7 @@ import wpd2.coursework1.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 public class UserRegisterServlet extends BaseServlet {
 
@@ -18,23 +19,24 @@ public class UserRegisterServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = User.create(request.getParameter("email"), request.getParameter("password"));
+        User user = new User();
+        user.setUsername(request.getParameter("username"));
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("password").toCharArray());
+        user.validate();
 
-        // Check if user is valid.
-        if (user.isValid()) {
-/*            // Hash a password for the first time
-            String hashed = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
+            //check if username or email already exist first
+            if(!user.usernameExists(request.getParameter("username"))){
 
-            user.setPassword(hashed);*/
+                // find user with the same email.
+                if (!user.emailExists(request.getParameter("email"))) {
 
-            // Save user to database.
-            user.create();
+                    // Save user to database.
+                    user.create();
+                    response.sendRedirect("/users/login");
 
-            // Always redirect after post.
-            response.sendRedirect("/users/login");
-
-            return;
-        }
+                }
+            }
 
         // Display the form with validation errors.
         view(response, TEMPLATE_FILE, user);

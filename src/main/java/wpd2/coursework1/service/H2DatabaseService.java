@@ -1,6 +1,10 @@
 package wpd2.coursework1.service;
 
+import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.User;
+
 import java.sql.*;
+import java.util.Date;
 
 /*
  * Factory class for creating H2 database connections.
@@ -47,37 +51,18 @@ public class H2DatabaseService implements DatabaseService {
      * Creates the database tables.
      */
     @Override
-    public void initialize() {
-        try (Connection connection = connect()) {
-            createProjectsTable(connection);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void createProjectsTable(Connection connection) throws SQLException {
-        String sql = "CREATE TABLE IF NOT EXISTS projects (" +
-                "id INT PRIMARY KEY AUTO_INCREMENT, " +
-                "name VARCHAR(100) NOT NULL , " +
-                "created TIMESTAMP NOT NULL" +
-                ")";
-
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(sql);
-        }
+    public void initialize() throws SQLException {
+        User.createTable();
+        Project.createTable();
     }
 
     /*
      * Destroy the database and drop all its tables.
      */
     @Override
-    public void destroy() {
-        try (Connection conn = connect(); Statement statement = conn.createStatement()) {
-            statement.execute("DROP TABLE projects;");
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void destroy() throws SQLException {
+        User.destroyTable();
+        Project.destroyTable();
     }
 
     /*
@@ -85,20 +70,26 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void seed() {
-        try (Connection connection = connect()) {
-            seedProjectsTable(connection);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        User firstUser = null;
 
-    private void seedProjectsTable(Connection connection) throws SQLException {
-        String sql = "INSERT INTO projects (name, created) VALUES (?, NOW())";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < 10; i++) {
-                statement.setString(1, "Project Name " + (i + 1));
-                statement.executeUpdate();
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setUsername("Username" + i);
+            user.setEmail("user" + i + "@email.com");
+            user.setPassword("password1".toCharArray());
+            user.create();
+
+            if (firstUser == null) {
+                firstUser = user;
             }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Project project = new Project();
+            project.setUserId(1);
+            project.setCreated(new Date());
+            project.setName("Project Name " + (i + 1));
+            project.create(firstUser);
         }
     }
 

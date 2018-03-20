@@ -1,6 +1,4 @@
-
 package wpd2.coursework1;
-
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
@@ -12,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.servlet.*;
+
 import wpd2.coursework1.util.IoC;
 
 import java.sql.SQLException;
@@ -48,13 +48,13 @@ public class Runner {
     }
 
     private void initializeServices() throws SQLException, ClassNotFoundException {
-        // Init factory.
-        DatabaseService databaseService = new H2DatabaseService();
-        databaseService.initialize();
-
         // Init IoC stuff
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, databaseService);
+        container.registerInstance(DatabaseService.class, new H2DatabaseService());
+        container.registerInstance(PasswordService.class, new PasswordService());
+
+        DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+        databaseService.initialize();
     }
 
     private void initializeTemplateEngine() {
@@ -71,12 +71,12 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
     }
 
-    public static void main(String[] args) {
-        try {
-            LOG.info("starting");
+    public static void main(String[] args) throws Exception {
+//        try {
+//            LOG.info("starting");
             new Runner().start();
-        } catch (Exception e) {
-            LOG.error("Unexpected error running shop: " + e.getMessage());
-        }
+//        } catch (Exception e) {
+//            LOG.error("Unexpected error running web: " + e.getMessage());
+//        }
     }
 }

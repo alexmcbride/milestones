@@ -26,6 +26,10 @@ public abstract class BaseModel {
         return validationErrors.get(attribute);
     }
 
+    public Map<String, String> getValidationErrors() {
+        return validationErrors;
+    }
+
     // Checks if the child class is valid and returns the result.
     public boolean isValid() {
         validationErrors.clear();
