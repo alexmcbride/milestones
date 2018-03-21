@@ -13,8 +13,11 @@ public class User extends ValidatableModel {
     private final PasswordService passwordService;
     private int id;
     private String username;
+    private boolean usernameChanged;
     private String email;
+    private boolean emailChanged;
     private char[] password;
+    private boolean passwordChanged;
     private String passwordHash;
     private Date joined;
 
@@ -36,6 +39,7 @@ public class User extends ValidatableModel {
 
     public void setUsername(String username) {
         this.username = username;
+        usernameChanged = true;
     }
 
     public String getEmail() {
@@ -44,6 +48,7 @@ public class User extends ValidatableModel {
 
     public void setEmail(String email) {
         this.email = email;
+        emailChanged = true;
     }
 
     public char[] getPassword() {
@@ -52,6 +57,7 @@ public class User extends ValidatableModel {
 
     public void setPassword(char[] password) {
         this.password = password;
+        passwordChanged = true;
     }
 
     private String getPasswordHash() {
@@ -75,13 +81,16 @@ public class User extends ValidatableModel {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("username", getUsername());
         validation.email("email", getEmail());
-        validation.password("password", getPassword());
 
-        if (usernameExists(getUsername())) {
+        if (passwordChanged) {
+            validation.password("password", getPassword());
+        }
+
+        if (usernameChanged && usernameExists(getUsername())) {
             addValidationError("username", "Username already exists");
         }
 
-        if (emailExists(getEmail())) {
+        if (emailChanged && emailExists(getEmail())) {
             addValidationError("email", "already exists");
         }
     }
