@@ -87,7 +87,7 @@ public class User extends ValidatableModel {
     }
 
     public void create() {
-        setPasswordHash(passwordService.hash(this.password));
+        setPasswordHash(passwordService.hash(getPassword()));
         setJoined(new Date());
         String sql = "INSERT INTO users (username, email, password, joined) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -245,5 +245,9 @@ public class User extends ValidatableModel {
         user.setPasswordHash(result.getString(4));
         user.setJoined(result.getTimestamp(5));
         return user;
+    }
+
+    public boolean authorize(char[] password) {
+        return passwordService.authenticate(password, getPasswordHash());
     }
 }

@@ -16,4 +16,4 @@ We are developing the site using the following technologies.
 ### Backend:
 * Java
 * H2 Database
-* Velocity Template Engines
+* Velocity Template Engine

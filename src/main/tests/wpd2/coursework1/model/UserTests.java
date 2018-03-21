@@ -159,4 +159,18 @@ public class UserTests {
         assertEquals("user1", result.get(0).getUsername());
         assertEquals("user2", result.get(1).getUsername());
     }
+
+    @Test
+    public void testAuthorize() {
+        char[] password = "password1".toCharArray();
+
+        User user = new User();
+        user.setUsername("user1");
+        user.setEmail("valid@email.com");
+        user.setPassword(password);
+        user.create();
+
+        assertTrue(user.authorize(password));
+        assertFalse(user.authorize("invalidpassword".toCharArray()));
+    }
 }
