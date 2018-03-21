@@ -54,6 +54,19 @@ public class UserTests {
     }
 
     @Test
+    public void testValidateUpdateWithNoPassword() {
+        User user = new User();
+        user.setUsername("user1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.create();
+
+        user = User.find(user.getId());
+        boolean result = user.isValid();
+        assertTrue(result);
+    }
+
+    @Test
     public void testCreate() {
         User user = new User();
         user.setUsername("user1");
