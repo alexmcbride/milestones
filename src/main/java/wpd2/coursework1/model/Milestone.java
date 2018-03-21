@@ -57,25 +57,26 @@ public class Milestone extends ValidatableModel {
     @Override
     protected void validate() {
         ValidationHelper helper = new ValidationHelper(this);
-        helper.required("name", getName());
-        helper.required("due", getDue());
+        helper.required("name", name);
+        helper.required("due", due);
     }
 
     public void create(Project project) {
-        setProjectId(project.getId());
+        projectId = project.getId();
+
         String sql = "INSERT INTO milestones (projectId, name, due, actual) VALUES (?, ?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            sta.setInt(1, getProjectId());
-            sta.setString(2, getName());
-            sta.setTimestamp(3, new Timestamp(getDue().getTime()));
-            if (getActual() != null) {
-                sta.setTimestamp(4, new Timestamp(getActual().getTime()));
+            sta.setInt(1, projectId);
+            sta.setString(2, name);
+            sta.setTimestamp(3, new Timestamp(due.getTime()));
+            if (actual != null) {
+                sta.setTimestamp(4, new Timestamp(actual.getTime()));
             }
             sta.executeUpdate();
 
             ResultSet result = sta.getGeneratedKeys();
             if (result.next()) {
-                setId(result.getInt(1));
+                id = result.getInt(1);
             }
         }
         catch (SQLException e) {
@@ -86,12 +87,12 @@ public class Milestone extends ValidatableModel {
     public void update() {
         String sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
-            sta.setString(1, getName());
-            sta.setTimestamp(2, new Timestamp(getDue().getTime()));
+            sta.setString(1, name);
+            sta.setTimestamp(2, new Timestamp(due.getTime()));
             if (getActual() != null) {
-                sta.setTimestamp(3, new Timestamp(getActual().getTime()));
+                sta.setTimestamp(3, new Timestamp(actual.getTime()));
             }
-            sta.setInt(4, getId());
+            sta.setInt(4, id);
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -102,7 +103,7 @@ public class Milestone extends ValidatableModel {
     public void delete() {
         String sql = "DELETE FROM milestones WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
-            sta.setInt(1, getId());
+            sta.setInt(1, id);
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -142,11 +143,11 @@ public class Milestone extends ValidatableModel {
 
     private static Milestone getMilestoneFromResult(ResultSet result) throws SQLException {
         Milestone milestone = new Milestone();
-        milestone.setId(result.getInt(1));
-        milestone.setProjectId(result.getInt(2));
-        milestone.setName(result.getString(3));
-        milestone.setDue(result.getTimestamp(4));
-        milestone.setActual(result.getTimestamp(5));
+        milestone.id = result.getInt(1);
+        milestone.projectId = result.getInt(2);
+        milestone.name = result.getString(3);
+        milestone.due = result.getTimestamp(4);
+        milestone.actual = result.getTimestamp(5);
         return milestone;
     }
 

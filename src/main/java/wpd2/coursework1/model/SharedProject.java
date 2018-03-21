@@ -35,15 +35,15 @@ public class SharedProject extends BaseModel {
     }
 
     public void create(Project project, User user) {
-        setShared(new Date());
-        setProjectId(project.getId());
-        setUserId(user.getId());
+        shared = new Date();
+        projectId = project.getId();
+        userId = user.getId();
 
         String sql = "INSERT INTO sharedProjects (projectId, userId, shared) VALUES (?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            sta.setInt(1, getProjectId());
-            sta.setInt(2, getUserId());
-            sta.setTimestamp(3, new Timestamp(getShared().getTime()));
+            sta.setInt(1, projectId);
+            sta.setInt(2, userId);
+            sta.setTimestamp(3, new Timestamp(shared.getTime()));
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -54,8 +54,8 @@ public class SharedProject extends BaseModel {
     public void delete() {
         String sql = "DELETE FROM sharedProjects WHERE projectId=? AND userId=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
-            sta.setInt(1, getProjectId());
-            sta.setInt(2, getUserId());
+            sta.setInt(1, projectId);
+            sta.setInt(2, userId);
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -65,9 +65,9 @@ public class SharedProject extends BaseModel {
 
     private static SharedProject getSharedProjectFromResult(ResultSet result) throws SQLException {
         SharedProject sharedProject = new SharedProject();
-        sharedProject.setProjectId(result.getInt(1));
-        sharedProject.setUserId(result.getInt(2));
-        sharedProject.setShared(result.getTimestamp(3));
+        sharedProject.projectId = result.getInt(1);
+        sharedProject.userId = result.getInt(2);
+        sharedProject.shared = result.getTimestamp(3);
         return sharedProject;
     }
 

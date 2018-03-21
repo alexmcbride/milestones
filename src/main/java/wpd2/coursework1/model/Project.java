@@ -52,21 +52,21 @@ public class Project extends ValidatableModel {
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
-        validation.required("name", getName());
+        validation.required("name", name);
     }
 
     public void create(User user) {
-        setUserId(user.getId());
+        userId = user.getId();
         String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, getUserId());
-            statement.setString(2, getName());
-            statement.setTimestamp(3, new Timestamp(getCreated().getTime()));
+            statement.setInt(1, userId);
+            statement.setString(2, name);
+            statement.setTimestamp(3, new Timestamp(created.getTime()));
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                setId(result.getInt(1));
+                id = result.getInt(1);
             }
         }
         catch (SQLException e) {
@@ -77,8 +77,8 @@ public class Project extends ValidatableModel {
     public void update() {
         String sql = "UPDATE projects SET name=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, getName());
-            statement.setInt(2, getId());
+            statement.setString(1, name);
+            statement.setInt(2, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -89,7 +89,7 @@ public class Project extends ValidatableModel {
     public void delete() {
         String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, getId());
+            statement.setInt(1, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -156,10 +156,10 @@ public class Project extends ValidatableModel {
 
     private static Project getUserFromResult(ResultSet resultSet) throws SQLException {
         Project project = new Project();
-        project.setId(resultSet.getInt(1));
-        project.setUserId(resultSet.getInt(2));
-        project.setName(resultSet.getString(3));
-        project.setCreated(resultSet.getTimestamp(4));
+        project.id = resultSet.getInt(1);
+        project.userId = resultSet.getInt(2);
+        project.name = resultSet.getString(3);
+        project.created = resultSet.getTimestamp(4);
         return project;
     }
 }
