@@ -1,7 +1,7 @@
 package wpd2.coursework1.model;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.*;
 
 public class UserTests {
     private DatabaseService db;
