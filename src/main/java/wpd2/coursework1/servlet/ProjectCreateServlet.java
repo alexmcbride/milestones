@@ -17,11 +17,7 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        User user = new User();
-        user.setEmail("user@email.com");
-        user.setPassword("password1".toCharArray());
-        user.setUsername("user");
-        user.create();
+        User user = User.find(1);
 
         Project project = new Project();
         project.setName(getRequest().getParameter("name"));

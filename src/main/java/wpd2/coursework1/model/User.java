@@ -173,8 +173,8 @@ public class User extends ValidatableModel {
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "username NVARCHAR(32) NOT NULL , " +
-                "email NVARCHAR(1024) NOT NULL, " +
+                "username NVARCHAR(32) NOT NULL UNIQUE, " +
+                "email NVARCHAR(1024) NOT NULL UNIQUE, " +
                 "password NVARCHAR(128) NOT NULL," +
                 "joined TIMESTAMP NOT NULL" +
                 ")";

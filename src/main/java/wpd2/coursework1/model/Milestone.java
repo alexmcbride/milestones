@@ -61,17 +61,15 @@ public class Milestone extends ValidatableModel {
         helper.required("due", due);
     }
 
+    @SuppressWarnings("Duplicates")
     public void create(Project project) {
         projectId = project.getId();
 
-        String sql = "INSERT INTO milestones (projectId, name, due, actual) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO milestones (projectId, name, due) VALUES (?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             sta.setInt(1, projectId);
             sta.setString(2, name);
             sta.setTimestamp(3, new Timestamp(due.getTime()));
-            if (actual != null) {
-                sta.setTimestamp(4, new Timestamp(actual.getTime()));
-            }
             sta.executeUpdate();
 
             ResultSet result = sta.getGeneratedKeys();
@@ -84,15 +82,30 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    private boolean hasActual() {
+        return getActual() != null;
+    }
+
     public void update() {
-        String sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
+        String sql;
+        if (hasActual()) {
+            sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
+        }
+        else {
+            sql = "UPDATE milestones SET name=?, due=? WHERE id=?";
+        }
+
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
-            if (getActual() != null) {
+            if (hasActual()) {
                 sta.setTimestamp(3, new Timestamp(actual.getTime()));
+                sta.setInt(4, id);
             }
-            sta.setInt(4, id);
+            else {
+                sta.setInt(3, id);
+            }
+
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -111,10 +124,9 @@ public class Milestone extends ValidatableModel {
         }
     }
 
-    public static Milestone find(int id) {
-        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
+    private static Milestone getMilestone(int projectId, String sql) {
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
-            sta.setInt(1, id);
+            sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();
             if (result.next()) {
                 return getMilestoneFromResult(result);
@@ -126,11 +138,21 @@ public class Milestone extends ValidatableModel {
         }
     }
 
-    public static List<Milestone> findAll() {
-        String sql = "SELECT id, projectId, name, due, actual FROM milestones";
-        try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
+    public static Milestone find(int id) {
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
+        return getMilestone(id, sql);
+    }
+
+    public static List<Milestone> findAll(Project project) {
+        return findAll(project.getId());
+    }
+
+    public static List<Milestone> findAll(int projectId) {
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE projectId=?";
+        try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
+            sta.setInt(1, projectId);
+            ResultSet result = sta.executeQuery();
             List<Milestone> milestones = new ArrayList<>();
-            ResultSet result = sta.executeQuery(sql);
             while (result.next()) {
                 milestones.add(getMilestoneFromResult(result));
             }
@@ -149,6 +171,32 @@ public class Milestone extends ValidatableModel {
         milestone.due = result.getTimestamp(4);
         milestone.actual = result.getTimestamp(5);
         return milestone;
+    }
+
+    public static int count(Project project) {
+        return count(project.getId());
+    }
+
+    public static int count(int projectId) {
+        String sql = "SELECT COUNT(*) FROM milestones WHERE projectId=?";
+        try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
+            sta.setInt(1, projectId);
+            ResultSet result = sta.executeQuery();
+            result.next();
+            return result.getInt(1);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Milestone findNext(Project project) {
+        return findNext(project.getId());
+    }
+
+    public static Milestone findNext(int projectId) {
+        String sql = "SELECT * FROM milestones WHERE due > NOW() AND projectId=? ORDER BY due LIMIT 1";
+        return getMilestone(projectId, sql);
     }
 
     public static void createTable() {

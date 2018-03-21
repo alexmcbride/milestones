@@ -56,7 +56,8 @@ public class ProjectTests {
 
     @Test
     public void testLoadAll() {
-        List<Project> projects = Project.loadAll();
+        User user = User.find(1);
+        List<Project> projects = Project.findAll(user);
         assertEquals(projects.size(), 10);
     }
 

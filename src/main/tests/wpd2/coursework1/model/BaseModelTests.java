@@ -23,7 +23,7 @@ public class BaseModelTests {
 
     @Before
     public void setup() {
-        db = new H2DatabaseService();
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
         db.initialize();

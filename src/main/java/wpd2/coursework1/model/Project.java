@@ -1,8 +1,11 @@
 package wpd2.coursework1.model;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import wpd2.coursework1.util.ValidationHelper;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -122,12 +125,17 @@ public class Project extends ValidatableModel {
         }
     }
 
+    public static List<Project> findAll(User user) {
+        return findAll(user.getId());
+    }
+
     @SuppressWarnings("Duplicates")
-    public static List<Project> loadAll() {
-        String sql = "SELECT id, userId, name, created FROM projects";
+    public static List<Project> findAll(int userId) {
+        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=?";
         List<Project> users = new ArrayList<>();
-        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
-            ResultSet result = statement.executeQuery(sql);
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet result = statement.executeQuery();
             while (result.next()) {
                 users.add(getUserFromResult(result));
             }
