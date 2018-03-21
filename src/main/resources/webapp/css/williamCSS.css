@@ -1,4 +1,4 @@
-/* Mian Color as RGB: background-color: rgba(27,109,133, 0.6);  */
+/* Main Color as RGB: background-color: rgba(27,109,133, 0.6);  */
 
 /* Navbar Styling */
 .navbar {
@@ -29,16 +29,27 @@ a.navbar-brand {
 /* -- Scroll Header Content */
 
 .milestoneHeaderSection{
-    width: 100%;
-    padding: 10px 10%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
 }
 
-.container-50 {
-    width: 50%;
+#headerHR {
+    align-content: center;
+    width: 20%;
+
+    border-top: #1b6d85 wave thin;
+}
+
+#headerIcons {
+    width: 100%;
+}
+
+.headerIcon{
+    width: 33%;
     display: inline;
 }
-
-
 
 
 
@@ -48,7 +59,8 @@ a.navbar-brand {
     /*position: fixed;*/
     display: block;
     width: 100%;
-    border-bottom: #3c3c3c solid thin;
+    padding-top: 30px;
+
 }
 
 .header h2 {
@@ -68,7 +80,7 @@ a.navbar-brand {
 }
 
 .milestoneContent {
-    padding: 80px 0;
+    padding: 40px 0;
     margin: 0px auto 0 auto;
     width: 100%;
 }

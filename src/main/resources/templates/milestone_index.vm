@@ -41,8 +41,13 @@
 <div class="header">
 
     <div class="milestoneHeaderSection">
-        <div class="container-50"><strong>WPD Project CW1</strong></div>
-        <div class="container-50">Shared with Friends ::</div>
+        <div class=""><h2><strong>WPD Project CW1</strong></h2></div>
+        <hr id="headerHR" />
+        <div id="headerIcons">
+            <div class="headerIcon"><i class="fas fa-share-alt-square fa-2x"></i></div>
+            <div class="headerIcon"><i class="far fa-trash-alt fa-2x"></i></div>
+            <div class="headerIcon"><i class="fas fa-share-alt-square fa-2x"></i></div>
+        </div>
     </div>
 <!--
     <div class="progress-container">
