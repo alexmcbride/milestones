@@ -32,62 +32,79 @@
 </div>
 
 
+
+
+
+
+
+
 <div class="header">
 
     <div class="milestoneHeaderSection">
         <div class="container-50"><strong>WPD Project CW1</strong></div>
         <div class="container-50">Shared with Friends ::</div>
     </div>
-
+<!--
     <div class="progress-container">
         <div class="progress-bar" id="myBar"></div>
-    </div>
+    </div>-->
 </div>
 
 <div class="milestoneContent">
 
 
+
+
+
     <div class="timeline">
-        <div class="timelineIndicatorContainer" id="followMeBars">
+
+        <div class="timelineIndicatorContainer">
             <p><strong><i>Done</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
 
 
 
-        <div class="timelineContainer left">
-            <div class="timelineContent done">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
+
+
+        <div class="timelineContent future">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
                 <p>Actual: 12/12/208</p>
                 <p>Edit</p>
                 <p>Delete</p>
             </div>
         </div>
+        <br/>
+
+
+
+
+        <!-- Late Milestones -->
+
 
         <div class="timelineIndicatorContainer followMeBar">
             <p><strong><i>Late</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
 
-        <div class="timelineContainer right">
-            <div class="timelineContent late">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <div class="timelineContent late">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
-        <div class="timelineContainer left">
-            <div class="timelineContent late">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <br/>
+
+        <div class="timelineContent late">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
+        <br/><br/><br/>
 
 
 
@@ -96,65 +113,88 @@
             <p><strong><i>Due Today</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
-        <div class="timelineContainer">
-            <div class="timelineContent dueToday">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <div class="timelineContent dueToday">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
+        <br/><br/><br/>
 
-        <div class="timelineContainer right">
-            <div class="timelineContent dueToday">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <div class="timelineContent dueToday">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
-        <div class="timelineContainer">
-            <div class="timelineContent dueToday">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <br/><br/><br/>
+
+        <div class="timelineContent dueToday">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
+        <br/><br/><br/>
 
 
+
+
+        <!-- Upcoming Milestones -->
 
         <div class="timelineIndicatorContainer followMeBar">
             <p><strong><i>Upcoming</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
 
-        <div class="timelineContainer">
-            <div class="timelineContent upcoming">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <div class="timelineContent upcoming">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
-        <div class="timelineContainer right">
-            <div class="timelineContent upcoming">
-                <h4>Complete Project Plan</h4>
-                <p>Due: 12/12/208</p>
-                <p>Actual: 12/12/208</p>
-                <p>Edit</p>
-                <p>Delete</p>
+        <br/><br/><br/>
+
+        <div class="timelineContent upcoming">
+            <button class="wAccordion"><strong>Complete Project Plan: 12/04/2018</strong></button>
+            <div class="wPanel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 	laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
             </div>
         </div>
+        <br/><br/><br/>
+
+
+
 
     </div>
 
 
 </div>
+
+
+
+
+<script>
+    var acc = document.getElementsByClassName("wAccordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("wActive");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
 
 
 
@@ -176,10 +216,14 @@
 
 
 
-
-
 <script>
-    // When the user scrolls the page, execute myFunction
+
+
+
+/*
+<script>
+    /* When the user scrolls the page, execute myFunction*
+
     window.onscroll = function() {scrollFunction()};
 
     function scrollFunction() {
@@ -188,11 +232,11 @@
         var scrolled = (winScroll / height) * 100;
         document.getElementById("myBar").style.width = scrolled + "%";
     }
-</script>
+</scrip=t >
+*/
 
 
-
-<!-- Modal Box Magic -->
+<!-- Modal Box Magic - will display modal box -->
 <script>
     // Get the modal
     var modal = document.getElementById('myModal');
