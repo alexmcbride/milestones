@@ -79,18 +79,18 @@ public class User extends ValidatableModel {
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
-        validation.required("username", getUsername());
-        validation.email("email", getEmail());
+        validation.required("username", username);
+        validation.email("email", email);
 
         if (passwordChanged) {
-            validation.password("password", getPassword());
+            validation.password("password", password);
         }
 
-        if (usernameChanged && usernameExists(getUsername())) {
+        if (usernameChanged && usernameExists(username)) {
             addValidationError("username", "Username already exists");
         }
 
-        if (emailChanged && emailExists(getEmail())) {
+        if (emailChanged && emailExists(email)) {
             addValidationError("email", "already exists");
         }
     }
@@ -100,15 +100,15 @@ public class User extends ValidatableModel {
         setJoined(new Date());
         String sql = "INSERT INTO users (username, email, password, joined) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, getUsername());
-            statement.setString(2, getEmail());
-            statement.setString(3, getPasswordHash());
-            statement.setTimestamp(4, new Timestamp(getJoined().getTime()));
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, passwordHash);
+            statement.setTimestamp(4, new Timestamp(joined.getTime()));
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                setId(result.getInt(1));
+                id = result.getInt(1);
             }
         }
         catch (SQLException e) {
@@ -123,10 +123,10 @@ public class User extends ValidatableModel {
 
         String sql = "UPDATE users SET username=?, email=?, password=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, getUsername());
-            statement.setString(2, getEmail());
-            statement.setString(3, getPasswordHash());
-            statement.setInt(4, getId());
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, passwordHash);
+            statement.setInt(4, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -141,7 +141,7 @@ public class User extends ValidatableModel {
     public void delete() {
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, getId());
+            statement.setInt(1, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -248,11 +248,11 @@ public class User extends ValidatableModel {
 
     private static User getUserFromResult(ResultSet result) throws SQLException {
         User user = new User();
-        user.setId(result.getInt(1));
-        user.setUsername(result.getString(2));
-        user.setEmail(result.getString(3));
-        user.setPasswordHash(result.getString(4));
-        user.setJoined(result.getTimestamp(5));
+        user.id = result.getInt(1);
+        user.username = result.getString(2);
+        user.email = result.getString(3);
+        user.passwordHash = result.getString(4);
+        user.joined = result.getTimestamp(5);
         return user;
     }
 
