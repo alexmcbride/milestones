@@ -140,17 +140,17 @@ public class User extends BaseModel {
         }
     }
 
-    public boolean emailExists(String email) {
+    public static boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email=?";
         return valueExists(email, sql);
     }
 
-    public boolean usernameExists(String username) {
+    public static boolean usernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM users WHERE username=?";
         return valueExists(username, sql);
     }
 
-    private boolean valueExists(String value, String sql) {
+    private static boolean valueExists(String value, String sql) {
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, value);
             ResultSet result = statement.executeQuery();
