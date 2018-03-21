@@ -26,15 +26,18 @@
                     <td>$project.created</td>
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>
+                    <td>X</td>
                 </tr>
             #end
         </tbody>
     </table>
 
     <script>
-        $('.clickable-row').click(function(event) {
-            var projectId = $(this).attr('data-id');
-            location.href = '/projects/details?id=' + projectId;
+        $(function() {
+            $('.clickable-row').click(function () {
+                var projectId = $(this).attr('data-id');
+                location.href = '/projects/details?id=' + projectId;
+            });
         });
     </script>
 #end

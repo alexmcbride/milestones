@@ -87,6 +87,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public void update() {
+        // Depends if we are updating actual or not.
         String sql;
         if (hasActual()) {
             sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
