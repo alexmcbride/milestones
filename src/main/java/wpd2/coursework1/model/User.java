@@ -75,14 +75,20 @@ public class User extends ValidatableModel {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("username", getUsername());
         validation.email("email", getEmail());
-        validation.password("password", getPassword());
 
-        if (usernameExists(getUsername())) {
-            addValidationError("username", "Username already exists");
+        if (passwordChanged()) {
+            validation.password("password", getPassword());
         }
 
-        if (emailExists(getEmail())) {
-            addValidationError("email", "already exists");
+        // If passwordHash is null then user is being created.
+        if (passwordHash == null) {
+            if (usernameExists(getUsername())) {
+                addValidationError("username", "Username already exists");
+            }
+
+            if (emailExists(getEmail())) {
+                addValidationError("email", "already exists");
+            }
         }
     }
 
