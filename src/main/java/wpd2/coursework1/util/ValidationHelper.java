@@ -1,11 +1,13 @@
 package wpd2.coursework1.util;
 
-import wpd2.coursework1.model.BaseModel;
+import wpd2.coursework1.model.ValidatableModel;
+
+import java.util.Date;
 
 public class ValidationHelper {
-    private final BaseModel model;
+    private final ValidatableModel model;
 
-    public ValidationHelper(BaseModel model) {
+    public ValidationHelper(ValidatableModel model) {
         this.model = model;
     }
 
@@ -18,6 +20,12 @@ public class ValidationHelper {
 
     public void required(String attribute, String value) {
         if (value == null || value.trim().length() == 0) {
+            model.addValidationError(attribute, capitalize(attribute) + " is required");
+        }
+    }
+
+    public void required(String attribute, Date value) {
+        if (value == null || value.getTime() == 0) {
             model.addValidationError(attribute, capitalize(attribute) + " is required");
         }
     }

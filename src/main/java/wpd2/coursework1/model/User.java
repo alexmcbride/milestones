@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class User extends BaseModel {
+public class User extends ValidatableModel {
     private final PasswordService passwordService;
     private int id;
     private String username;

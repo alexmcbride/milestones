@@ -1,9 +1,13 @@
 package wpd2.coursework1.model;
 
-import java.sql.*;
-import java.util.Date;
+import wpd2.coursework1.util.ValidationHelper;
 
-public class Milestone extends BaseModel {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Milestone extends ValidatableModel {
     private int id;
     private int projectId;
     private String name;
@@ -14,7 +18,7 @@ public class Milestone extends BaseModel {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -22,7 +26,7 @@ public class Milestone extends BaseModel {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    private void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
@@ -52,7 +56,9 @@ public class Milestone extends BaseModel {
 
     @Override
     protected void validate() {
-
+        ValidationHelper helper = new ValidationHelper(this);
+        helper.required("name", getName());
+        helper.required("due", getDue());
     }
 
     public void create(Project project) {
@@ -77,6 +83,33 @@ public class Milestone extends BaseModel {
         }
     }
 
+    public void update() {
+        String sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
+            sta.setString(1, getName());
+            sta.setTimestamp(2, new Timestamp(getDue().getTime()));
+            if (getActual() != null) {
+                sta.setTimestamp(3, new Timestamp(getActual().getTime()));
+            }
+            sta.setInt(4, getId());
+            sta.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete() {
+        String sql = "DELETE FROM milestones WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
+            sta.setInt(1, getId());
+            sta.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static Milestone find(int id) {
         String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -86,6 +119,21 @@ public class Milestone extends BaseModel {
                 return getMilestoneFromResult(result);
             }
             return null;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Milestone> findAll() {
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones";
+        try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
+            List<Milestone> milestones = new ArrayList<>();
+            ResultSet result = sta.executeQuery(sql);
+            while (result.next()) {
+                milestones.add(getMilestoneFromResult(result));
+            }
+            return milestones;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

@@ -9,10 +9,9 @@ import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 
 import java.util.Date;
+import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class MilestoneTests {
 
@@ -39,6 +38,23 @@ public class MilestoneTests {
     }
 
     @Test
+    public void testValidate() {
+        Milestone milestone = new Milestone();
+        milestone.setName("Test name");
+        milestone.setDue(new Date());
+        assertTrue(milestone.isValid());
+    }
+
+    @Test
+    public void testInvalid() {
+        Milestone milestone = new Milestone();
+        assertFalse(milestone.isValid());
+
+        assertEquals("Name is required", milestone.getValidationError("name"));
+        assertEquals("Due is required", milestone.getValidationError("due"));
+    }
+
+    @Test
     public void testCreate() {
         Project project = Project.find(1);
         Date date = new Date();
@@ -59,8 +75,38 @@ public class MilestoneTests {
     }
 
     @Test
+    public void testUpdate() {
+        Milestone milestone = Milestone.find(1);
+        Date date = new Date();
+
+        milestone.setName("Edited name");
+        milestone.setDue(date);
+        milestone.setActual(date);
+        milestone.update();
+
+        milestone = Milestone.find(milestone.getId());
+        assertEquals("Edited name", milestone.getName());
+        assertEquals(date, milestone.getDue());
+        assertEquals(date, milestone.getActual());
+    }
+
+    @Test
+    public void testDelete() {
+        Milestone milestone = Milestone.find(1);
+        milestone.delete();
+        assertNull(Milestone.find(1));
+    }
+
+    @Test
     public void testFind() {
         Milestone milestone = Milestone.find(1);
         assertNotNull(milestone);
+    }
+
+    @Test
+    public void testFindAll() {
+        List<Milestone> milestones = Milestone.findAll();
+
+        assertEquals(10, milestones.size());
     }
 }

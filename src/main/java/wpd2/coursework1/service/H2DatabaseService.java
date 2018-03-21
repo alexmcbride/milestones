@@ -2,6 +2,7 @@ package wpd2.coursework1.service;
 
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
 import java.sql.*;
@@ -56,6 +57,7 @@ public class H2DatabaseService implements DatabaseService {
         User.createTable();
         Project.createTable();
         Milestone.createTable();
+        SharedProject.createTable();
     }
 
     /*
@@ -66,6 +68,7 @@ public class H2DatabaseService implements DatabaseService {
         User.destroyTable();
         Project.destroyTable();
         Milestone.destroyTable();
+        SharedProject.destroyTable();
     }
 
     public boolean tableExists(String tableName) {
@@ -85,6 +88,7 @@ public class H2DatabaseService implements DatabaseService {
     public void seed() {
         User firstUser = null;
         Project firstProject = null;
+        Milestone firstMilestone = null;
 
         for (int i = 0; i < 10; i++) {
             User user = new User();
@@ -116,6 +120,15 @@ public class H2DatabaseService implements DatabaseService {
             milestone.setActual(new Date());
             milestone.setDue(new Date());
             milestone.create(firstProject);
+
+            if (firstMilestone == null) {
+                firstMilestone = milestone;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            SharedProject sharedProject = new SharedProject();
+            sharedProject.create(firstProject, firstUser);
         }
     }
 }

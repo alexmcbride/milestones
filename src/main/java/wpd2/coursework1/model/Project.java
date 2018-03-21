@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Project extends BaseModel {
+public class Project extends ValidatableModel {
     private int id;
     private int userId;
     private String name;

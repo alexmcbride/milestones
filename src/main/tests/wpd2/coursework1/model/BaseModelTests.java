@@ -1,40 +1,43 @@
 package wpd2.coursework1.model;
 
-import java.util.Map;
-
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import wpd2.coursework1.service.DatabaseService;
+import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.util.IoC;
 
-import static junit.framework.TestCase.assertEquals;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
 
 public class BaseModelTests {
-    public class TestModel extends BaseModel {
-        @Override
-        protected void validate() {
-            addValidationError("test", "test message");
-            addValidationError("test2", "test message 2");
-        }
+    private DatabaseService db;
+
+    public class TestBaseModel extends BaseModel {
+         public Connection getConnectionForTesting() {
+             return getConnection();
+         }
+    }
+
+    @Before
+    public void setup() {
+        db = new H2DatabaseService();
+        IoC container = IoC.get();
+        container.registerInstance(DatabaseService.class, db);
+        db.initialize();
+    }
+
+    @After
+    public void teardown() {
+        db.destroy();
     }
 
     @Test
-    public void hasValidationErrorTest() {
-        TestModel model = new TestModel();
-
-        assertFalse(model.isValid());
-        assertTrue(model.hasValidationError("test"));
-    }
-
-    @Test
-    public void getValidationErrorsTest() {
-        TestModel model = new TestModel();
-
-        assertFalse(model.isValid());
-        Map<String, String> result = model.getValidationErrors();
-        assertEquals(2, result.size());
-        assertEquals("test message", result.get("test"));
-        assertEquals("test message 2", result.get("test2"));
+    public void getConnectionTests() throws SQLException {
+        TestBaseModel model = new TestBaseModel();
+        Connection connection = model.getConnectionForTesting();
+        assertFalse(connection.isClosed());
     }
 }

@@ -2,7 +2,7 @@ package wpd2.coursework1.util;
 
 import org.junit.Test;
 import org.junit.Before;
-import wpd2.coursework1.model.BaseModel;
+import wpd2.coursework1.model.ValidatableModel;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ public class ValidationHelperTests {
     private ValidationHelper helper;
 
     /* Model for help with testing */
-    public class TestModel extends BaseModel {
+    public class TestModel extends ValidatableModel {
         @Override
         protected void validate() {
 
@@ -29,11 +29,17 @@ public class ValidationHelperTests {
         helper.required("test", "Valid email");
         assertNull(model.getValidationError("test"));
 
-        helper.required("test", null);
+        helper.required("test", (String)null);
         assertEquals("Test is required", model.getValidationError("test"));
 
         helper.required("test", "");
         assertEquals("Test is required", model.getValidationError("test"));
+
+//        helper.required("test", new Date());
+//        assertNull(model.getValidationError("test"));
+//
+//        helper.required("test", new Date(0));
+//        assertEquals("Test is required", model.getValidationError("test"));
     }
 
     @Test
