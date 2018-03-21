@@ -1,6 +1,8 @@
 package wpd2.coursework1.service;
 
+import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
 import java.sql.*;
@@ -51,18 +53,32 @@ public class H2DatabaseService implements DatabaseService {
      * Creates the database tables.
      */
     @Override
-    public void initialize() throws SQLException {
+    public void initialize() {
         User.createTable();
         Project.createTable();
+        Milestone.createTable();
+        SharedProject.createTable();
     }
 
     /*
      * Destroy the database and drop all its tables.
      */
     @Override
-    public void destroy() throws SQLException {
+    public void destroy() {
         User.destroyTable();
         Project.destroyTable();
+        Milestone.destroyTable();
+        SharedProject.destroyTable();
+    }
+
+    public boolean tableExists(String tableName) {
+        try (Connection conn = connect()) {
+            ResultSet result = conn.getMetaData().getTables(null, null, tableName.toUpperCase(), null);
+            return result.next();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /*
@@ -71,6 +87,8 @@ public class H2DatabaseService implements DatabaseService {
     @Override
     public void seed() {
         User firstUser = null;
+        Project firstProject = null;
+        Milestone firstMilestone = null;
 
         for (int i = 0; i < 10; i++) {
             User user = new User();
@@ -90,6 +108,27 @@ public class H2DatabaseService implements DatabaseService {
             project.setCreated(new Date());
             project.setName("Project Name " + (i + 1));
             project.create(firstUser);
+
+            if (firstProject == null) {
+                firstProject = project;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Milestone milestone = new Milestone();
+            milestone.setName("Milestone Name " + (i + 1));
+            milestone.setActual(new Date());
+            milestone.setDue(new Date());
+            milestone.create(firstProject);
+
+            if (firstMilestone == null) {
+                firstMilestone = milestone;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            SharedProject sharedProject = new SharedProject();
+            sharedProject.create(firstProject, firstUser);
         }
     }
 

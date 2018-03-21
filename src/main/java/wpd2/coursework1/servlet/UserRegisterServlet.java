@@ -13,8 +13,9 @@ public class UserRegisterServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = new User();
         // Display the form.
-        view(response, TEMPLATE_FILE, User.empty());
+        view(TEMPLATE_FILE, user);
     }
 
     @Override
@@ -39,6 +40,6 @@ public class UserRegisterServlet extends BaseServlet {
             }
 
         // Display the form with validation errors.
-        view(response, TEMPLATE_FILE, user);
+        view(TEMPLATE_FILE, user);
     }
 }

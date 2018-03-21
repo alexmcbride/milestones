@@ -2,6 +2,8 @@
     border-top: 1px solid #e7e7e7;
     padding-top: 20px;
 }
+/*<<<<<<< HEAD
+
 .navbar-header{
     float:none;
 }
@@ -19,4 +21,10 @@
 }
 .mt-navbar-right > items {
     display: inline-block;
+=======
+    margin-top: 20px;
+}*/
+
+.clickable-row {
+    cursor: pointer;
 }

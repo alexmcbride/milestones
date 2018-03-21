@@ -1,4 +1,5 @@
 package wpd2.coursework1.model;
+
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.ValidationHelper;
@@ -7,21 +8,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.List;
 
-public class User extends BaseModel {
+public class User extends ValidatableModel {
     private final PasswordService passwordService;
     private int id;
     private String username;
+    private boolean usernameChanged;
     private String email;
+    private boolean emailChanged;
+    private char[] password;
+    private boolean passwordChanged;
     private String passwordHash;
     private Date joined;
-
-    /*
-     * Password should be an array to stop attack by dumping all strings.
-     * https://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords
-     */
-    private char[] password;
 
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
@@ -41,6 +39,7 @@ public class User extends BaseModel {
 
     public void setUsername(String username) {
         this.username = username;
+        usernameChanged = true;
     }
 
     public String getEmail() {
@@ -49,6 +48,7 @@ public class User extends BaseModel {
 
     public void setEmail(String email) {
         this.email = email;
+        emailChanged = true;
     }
 
     public char[] getPassword() {
@@ -57,6 +57,7 @@ public class User extends BaseModel {
 
     public void setPassword(char[] password) {
         this.password = password;
+        passwordChanged = true;
     }
 
     private String getPasswordHash() {
@@ -71,44 +72,44 @@ public class User extends BaseModel {
         return joined;
     }
 
-    private void setJoined(Date joined) {
+    public void setJoined(Date joined) {
         this.joined = joined;
     }
 
     @Override
     public void validate() {
-        ValidationHelper helper = new ValidationHelper(this);
-        helper.required("username", getUsername());
-        helper.email("email", getEmail());
-        helper.password("password", getPassword());
+        ValidationHelper validation = new ValidationHelper(this);
+        validation.required("username", username);
+        validation.email("email", email);
 
-        if (usernameExists(getUsername())) {
-            addValidationError("username", "already exists");
+        if (passwordChanged) {
+            validation.password("password", password);
         }
 
-        if (emailExists(getUsername())) {
+        if (usernameChanged && usernameExists(username)) {
+            addValidationError("username", "Username already exists");
+        }
+
+        if (emailChanged && emailExists(email)) {
             addValidationError("email", "already exists");
         }
     }
 
-    public static User empty() {
-        return new User();
-    }
-
     public void create() {
-        setPasswordHash(passwordService.hash(this.password));
-        setJoined(new Date());
+        passwordHash = passwordService.hash(password);
+        joined = new Date();
+
         String sql = "INSERT INTO users (username, email, password, joined) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, getUsername());
-            statement.setString(2, getEmail());
-            statement.setString(3, getPasswordHash());
-            statement.setTimestamp(4, new Timestamp(getJoined().getTime()));
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, passwordHash);
+            statement.setTimestamp(4, new Timestamp(joined.getTime()));
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                setId(result.getInt(1));
+                id = result.getInt(1);
             }
         }
         catch (SQLException e) {
@@ -117,31 +118,27 @@ public class User extends BaseModel {
     }
 
     public void update() {
-        if (passwordChanged()) {
-            setPasswordHash(passwordService.hash(this.password));
+        if (passwordChanged) {
+            passwordHash = passwordService.hash(password);
         }
 
         String sql = "UPDATE users SET username=?, email=?, password=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, getUsername());
-            statement.setString(2, getEmail());
-            statement.setString(3, getPasswordHash());
-            statement.setInt(4, getId());
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, passwordHash);
+            statement.setInt(4, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private boolean passwordChanged() {
-        return password != null && password.length > 0;
     }
 
     public void delete() {
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, getId());
+            statement.setInt(1, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -149,22 +146,26 @@ public class User extends BaseModel {
         }
     }
 
-    public boolean emailExists(String email) {
+    public static boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email=?";
         return valueExists(email, sql);
     }
 
-    public boolean usernameExists(String username) {
+    public static boolean usernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM users WHERE username=?";
         return valueExists(username, sql);
     }
 
-    private boolean valueExists(String value, String sql) {
+    private static boolean valueExists(String value, String sql) {
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, value);
             ResultSet result = statement.executeQuery();
-            return result.getInt(1) > 0;
-        } catch (SQLException e) {
+            if (result.next()) {
+                return result.getInt(1) > 0;
+            }
+            return false;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -172,8 +173,8 @@ public class User extends BaseModel {
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "username NVARCHAR(32) NOT NULL , " +
-                "email NVARCHAR(1024) NOT NULL, " +
+                "username NVARCHAR(32) NOT NULL UNIQUE, " +
+                "email NVARCHAR(1024) NOT NULL UNIQUE, " +
                 "password NVARCHAR(128) NOT NULL," +
                 "joined TIMESTAMP NOT NULL" +
                 ")";
@@ -244,11 +245,18 @@ public class User extends BaseModel {
 
     private static User getUserFromResult(ResultSet result) throws SQLException {
         User user = new User();
-        user.setId(result.getInt(1));
-        user.setUsername(result.getString(2));
-        user.setEmail(result.getString(3));
-        user.setPasswordHash(result.getString(4));
-        user.setJoined(result.getTimestamp(5));
+        user.id = result.getInt(1);
+        user.username = result.getString(2);
+        user.email = result.getString(3);
+        user.passwordHash = result.getString(4);
+        user.joined = result.getTimestamp(5);
         return user;
     }
+
+    public boolean authorize(char[] password) {
+        return passwordService.authenticate(password, getPasswordHash());
+    }
+
+
 }
+

@@ -76,7 +76,7 @@ public class Runner {
 //            LOG.info("starting");
             new Runner().start();
 //        } catch (Exception e) {
-//            LOG.error("Unexpected error running web: " + e.getMessage());
+//            LOG.error("Unexpected error running shop: " + e.getMessage());
 //        }
     }
 }

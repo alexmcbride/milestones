@@ -60,3 +60,4 @@ public class H2DatabaseServiceTests {
         assertEquals(count, 10);
     }
 }
+

@@ -2,7 +2,7 @@ package wpd2.coursework1.util;
 
 import org.junit.Test;
 import org.junit.Before;
-import wpd2.coursework1.model.BaseModel;
+import wpd2.coursework1.model.ValidatableModel;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ public class ValidationHelperTests {
     private ValidationHelper helper;
 
     /* Model for help with testing */
-    public class TestModel extends BaseModel {
+    public class TestModel extends ValidatableModel {
         @Override
         protected void validate() {
 
@@ -29,11 +29,17 @@ public class ValidationHelperTests {
         helper.required("test", "Valid email");
         assertNull(model.getValidationError("test"));
 
-        helper.required("test", null);
-        assertEquals("is required", model.getValidationError("test"));
+        helper.required("test", (String)null);
+        assertEquals("Test is required", model.getValidationError("test"));
 
         helper.required("test", "");
-        assertEquals("is required", model.getValidationError("test"));
+        assertEquals("Test is required", model.getValidationError("test"));
+
+//        helper.required("test", new Date());
+//        assertNull(model.getValidationError("test"));
+//
+//        helper.required("test", new Date(0));
+//        assertEquals("Test is required", model.getValidationError("test"));
     }
 
     @Test
@@ -42,13 +48,13 @@ public class ValidationHelperTests {
         assertNull(model.getValidationError("test"));
 
         helper.length("test", "", 1, 5);
-        assertEquals("must be between 1 and 5 characters.", model.getValidationError("test"));
+        assertEquals("Test must be between 1 and 5 characters.", model.getValidationError("test"));
 
-        helper.length(null, "", 1, 5);
-        assertEquals("must be between 1 and 5 characters.", model.getValidationError("test"));
+        helper.length("test", null, 1, 5);
+        assertEquals("Test must be between 1 and 5 characters.", model.getValidationError("test"));
 
         helper.length("test", "Invalid text", 1, 5);
-        assertEquals("must be between 1 and 5 characters.", model.getValidationError("test"));
+        assertEquals("Test must be between 1 and 5 characters.", model.getValidationError("test"));
     }
 
     @Test
@@ -57,16 +63,16 @@ public class ValidationHelperTests {
         assertNull(model.getValidationError("test"));
 
         helper.email("test", null);
-        assertEquals("is not a valid email", model.getValidationError("test"));
+        assertEquals("Test is not a valid email", model.getValidationError("test"));
 
         helper.email("test", "");
-        assertEquals("is not a valid email", model.getValidationError("test"));
+        assertEquals("Test is not a valid email", model.getValidationError("test"));
 
         helper.email("test", "invalidemail.com");
-        assertEquals("is not a valid email", model.getValidationError("test"));
+        assertEquals("Test is not a valid email", model.getValidationError("test"));
 
         helper.email("test", "invalid@emailcom");
-        assertEquals("is not a valid email", model.getValidationError("test"));
+        assertEquals("Test is not a valid email", model.getValidationError("test"));
     }
 
     @Test
@@ -75,15 +81,15 @@ public class ValidationHelperTests {
         assertNull(model.getValidationError("test"));
 
         helper.password("test", null);
-        assertEquals("not a valid password", model.getValidationError("test"));
+        assertEquals("Test not a valid password", model.getValidationError("test"));
 
         helper.password("test", "".toCharArray());
-        assertEquals("too short", model.getValidationError("test"));
+        assertEquals("Test too short", model.getValidationError("test"));
 
         helper.password("test", "1234567".toCharArray());
-        assertEquals("must have at least one alphabetical character", model.getValidationError("test"));
+        assertEquals("Test must have at least one alphabetical character", model.getValidationError("test"));
 
         helper.password("test", "password".toCharArray());
-        assertEquals("must have at least one numeric character", model.getValidationError("test"));
+        assertEquals("Test must have at least one numeric character", model.getValidationError("test"));
     }
 }

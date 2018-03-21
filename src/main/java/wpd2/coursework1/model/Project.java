@@ -1,13 +1,18 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.*;
+import org.ocpsoft.prettytime.PrettyTime;
+import wpd2.coursework1.util.ValidationHelper;
+
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Project extends BaseModel {
+public class Project extends ValidatableModel {
     private int id;
     private int userId;
     private String name;
@@ -51,22 +56,22 @@ public class Project extends BaseModel {
 
     @Override
     public void validate() {
-        ValidationHelper helper = new ValidationHelper(this);
-        helper.required("name", getName());
+        ValidationHelper validation = new ValidationHelper(this);
+        validation.required("name", name);
     }
 
     public void create(User user) {
-        setUserId(user.getId());
+        userId = user.getId();
         String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, getUserId());
-            statement.setString(2, getName());
-            statement.setTimestamp(3, new Timestamp(getCreated().getTime()));
+            statement.setInt(1, userId);
+            statement.setString(2, name);
+            statement.setTimestamp(3, new Timestamp(created.getTime()));
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                setId(result.getInt(1));
+                id = result.getInt(1);
             }
         }
         catch (SQLException e) {
@@ -77,8 +82,8 @@ public class Project extends BaseModel {
     public void update() {
         String sql = "UPDATE projects SET name=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, getName());
-            statement.setInt(2, getId());
+            statement.setString(1, name);
+            statement.setInt(2, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -89,7 +94,7 @@ public class Project extends BaseModel {
     public void delete() {
         String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, getId());
+            statement.setInt(1, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -122,12 +127,17 @@ public class Project extends BaseModel {
         }
     }
 
+    public static List<Project> findAll(User user) {
+        return findAll(user.getId());
+    }
+
     @SuppressWarnings("Duplicates")
-    public static List<Project> loadAll() {
-        String sql = "SELECT id, userId, name, created FROM projects";
+    public static List<Project> findAll(int userId) {
+        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=?";
         List<Project> users = new ArrayList<>();
-        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
-            ResultSet result = statement.executeQuery(sql);
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet result = statement.executeQuery();
             while (result.next()) {
                 users.add(getUserFromResult(result));
             }
@@ -156,10 +166,10 @@ public class Project extends BaseModel {
 
     private static Project getUserFromResult(ResultSet resultSet) throws SQLException {
         Project project = new Project();
-        project.setId(resultSet.getInt(1));
-        project.setUserId(resultSet.getInt(2));
-        project.setName(resultSet.getString(3));
-        project.setCreated(resultSet.getTimestamp(4));
+        project.id = resultSet.getInt(1);
+        project.userId = resultSet.getInt(2);
+        project.name = resultSet.getString(3);
+        project.created = resultSet.getTimestamp(4);
         return project;
     }
 }

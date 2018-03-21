@@ -13,9 +13,10 @@ public interface DatabaseService {
     }
 
     Connection connect() ;
-    void initialize() throws SQLException;
-    void seed() throws SQLException;
-    void destroy() throws SQLException;
+    void initialize();
+    void seed();
+    void destroy();
+    boolean tableExists(String tableName);
 }
 
 
