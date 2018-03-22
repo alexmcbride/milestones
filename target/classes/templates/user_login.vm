@@ -11,8 +11,13 @@
 
 ## Use a form helper to output a text input.
     #form_text_input($model, "email")
-    #form_text_input($model, "password")
+    <div class="form-group$error">
+        <label for="password" style="text-transform: capitalize">Password</label>
+        <input type="password" id="password" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        #validation_error($model, $attribute)
+    </div>
 
+    <input type="checkbox" onclick="showPasswords()">Show confirm-password
 
     <div>
         <input type="submit" value="register" class="btn btn-default">
@@ -21,3 +26,5 @@
     </div>
 </form>
 #end
+
+<Script src="/js/login_register.js"></Script>

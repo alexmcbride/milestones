@@ -11,6 +11,8 @@
     <h2>Register</h2>
 
 ## Use a form helper to output a text input.
+    #form_text_input($model, "username")
+
     <div class="form-group$error">
         <label for="email" style="text-transform: capitalize">Email</label>
         <input type="email" id="email" name="email" class="form-control">
@@ -28,8 +30,6 @@
     </div>
 
     <input type="checkbox" onclick="showPasswords()">Show confirm-password
-
-    <!-- An element to toggle between password visibility -->
 
     <div>
         <input type="submit" value="register" class="btn btn-default">

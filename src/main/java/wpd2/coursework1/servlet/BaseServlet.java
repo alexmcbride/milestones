@@ -1,4 +1,3 @@
-
 package wpd2.coursework1.servlet;
 
 import org.slf4j.Logger;
@@ -52,8 +51,11 @@ public abstract class BaseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.request = request;
         this.response = response;
+/*        String userId = request.getSession().getAttribute("loggedInId").toString();
+        Authenticate(request, response, userId);*/
         doGet();
     }
+
 
     protected void doGet() throws IOException {
 
@@ -78,4 +80,14 @@ public abstract class BaseServlet extends HttpServlet {
         response.setContentType(HTML_TEXT_UTF_8);
         response.setStatus(200);
     }
+
+/*    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
+       //if user id is not stored in the session
+        String userId = request.getSession().getAttribute("loggedInId").toString();
+        if(userId == null || userId.isEmpty()){
+            //redirect to the user to log in
+            response.sendRedirect("/users/login");
+        }
+
+    }*/
 }

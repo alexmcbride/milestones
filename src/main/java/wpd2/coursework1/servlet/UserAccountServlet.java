@@ -4,16 +4,17 @@ import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
 
-public class UserRegisterServlet extends BaseServlet {
-
-    private static final String TEMPLATE_FILE = "user_register.vm";
+public class UserAccountServlet extends BaseServlet {
+    private static final String TEMPLATE_FILE = "user_account.vm";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = new User();
+        int userId = Integer.valueOf(request.getSession().getAttribute("loggedInId").toString());
+        user.find(userId);
         // Display the form.
         view(TEMPLATE_FILE, user);
     }
@@ -25,18 +26,8 @@ public class UserRegisterServlet extends BaseServlet {
         user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password").toCharArray());
 
-        if(user.isValid())
-            //check if username or email already exist first
-            if(!user.usernameExists(request.getParameter("username"))){
-
-                // find user with the same email.
-                if (!user.emailExists(request.getParameter("email"))) {
-
-                    // Save user to database.
-                    user.create();
-                    response.sendRedirect("/users/login");
-
-                }
+        if(user.isValid()){
+           user.update();
             }
 
         // Display the form with validation errors.

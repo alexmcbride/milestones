@@ -69,6 +69,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
+        handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
     }
 
     public static void main(String[] args) throws Exception {

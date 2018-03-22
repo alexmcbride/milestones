@@ -1,7 +1,4 @@
 package wpd2.coursework1.model;
-
-import wpd2.coursework1.util.*;
-import org.ocpsoft.prettytime.PrettyTime;
 import wpd2.coursework1.util.ValidationHelper;
 
 

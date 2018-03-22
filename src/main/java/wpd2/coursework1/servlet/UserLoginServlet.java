@@ -1,9 +1,11 @@
 package wpd2.coursework1.servlet;
 
+import com.sun.deploy.net.HttpRequest;
 import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,30 +26,21 @@ public class UserLoginServlet extends BaseServlet {
         user.setEmail(request.getParameter("email"));
         user.setUsername(request.getParameter("username"));
         user.setPassword((request.getParameter("password")).toCharArray());
-        user.validate();
-        //check if username or email already exist first
-        if(user.usernameExists(request.getParameter("username"))){
 
-            // find user with the same email.
-            if (user.emailExists(request.getParameter("email"))) {
+        if(user.isValid())
+            //check if username or email already exist first
+            if(user.usernameExists(request.getParameter("username"))){
 
-                        //get the password of the matched email
-                        char[] retrivedUserPassword =(user.find(request.getParameter("email")).getPassword());
-                        //decrypt the passward and check if it match
-
-                        //check if password matches
-                        char[] inputPassword = request.getParameter("password").toCharArray();
+                // find user with the same email.
+                if (user.emailExists(request.getParameter("email"))) {
 
                         // Check that an unencrypted password matches one that has
-                        // previously been hashed
-                    /*   // gensalt's log_rounds parameter determines the complexity
-                        // the work factor is 2**log_rounds, and the default is 10
-                        String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));*/
-                        /*if (BCrypt.checkpw(inputPassword, userPassword)) {
-                        System.out.println("It matches");*/
-                        if(retrivedUserPassword == inputPassword){
+
+                        if(user.authorize((request.getParameter("password")).toCharArray())){
                         // Always redirect to project.
                         user.create();
+                            HttpSession session = request.getSession();
+                            session.setAttribute("LoggedInId",user.getId());
                         response.sendRedirect("/projects");
                         }
             }
