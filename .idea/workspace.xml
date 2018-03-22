@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef4cf165-e56e-4f61-bb24-226c001feddd" name="Default" comment="Merge branch 'alex' of https://bitbucket.org/wpd2gcu/milestones into mie2&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/wpd2/coursework1/Runner.java&#10;#&#9;src/main/java/wpd2/coursework1/model/User.java&#10;#&#9;target/classes/wpd2/coursework1/Runner.class&#10;#&#9;target/classes/wpd2/coursework1/model/Project.class&#10;#&#9;target/classes/wpd2/coursework1/model/User.class&#10;#&#9;target/classes/wpd2/coursework1/service/H2DatabaseService$1.class&#10;#&#9;target/classes/wpd2/coursework1/service/H2DatabaseService.class&#10;#&#9;target/classes/wpd2/coursework1/servlet/ProjectCreateServlet.class&#10;#&#9;target/classes/wpd2/coursework1/servlet/ProjectDetailsServlet.class&#10;#&#9;target/test-classes/wpd2/coursework1/model/ProjectTests.class">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/milestone_index.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/webapp/css/williamCSS.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/classes/templates/milestone_index.vm" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/classes/webapp/css/williamCSS.css" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/milestones.iml" afterPath="$PROJECT_DIR$/milestones.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/project_details.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/project_details.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webapp/css/styles.css" afterPath="$PROJECT_DIR$/src/main/resources/webapp/css/styles.css" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/layout.vm" afterPath="$PROJECT_DIR$/target/classes/templates/layout.vm" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/project_details.vm" afterPath="$PROJECT_DIR$/target/classes/templates/project_details.vm" />
       <change beforePath="$PROJECT_DIR$/target/classes/webapp/css/styles.css" afterPath="$PROJECT_DIR$/target/classes/webapp/css/styles.css" />
       <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/Runner.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/Runner.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneIndexServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneIndexServlet.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -509,7 +497,7 @@
       <workItem from="1521671532386" duration="5727000" />
       <workItem from="1521702163767" duration="3907000" />
       <workItem from="1521742721417" duration="470000" />
-      <workItem from="1521743305413" duration="7700000" />
+      <workItem from="1521743305413" duration="7953000" />
     </task>
     <task id="LOCAL-00001" summary="comit bcrypt in maven">
       <created>1521562131204</created>
@@ -522,7 +510,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60918000" />
+    <option name="totallyTimeSpent" value="61171000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
@@ -1022,18 +1010,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webapp/css/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webapp/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
           <folding />
         </state>
       </provider>
