@@ -8,7 +8,7 @@
 
 <form method="post">
     <h2>login</h2>
-
+    #antiForgeryToken()
 ## Use a form helper to output a text input.
     #form_text_input($model, "email")
     <div class="form-group$error">

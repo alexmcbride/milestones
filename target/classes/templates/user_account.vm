@@ -9,6 +9,7 @@
 
     <form method="post">
 
+        #antiForgeryToken()
     #form_text_input($model, "username")
 
     #form_text_input($model, "email")

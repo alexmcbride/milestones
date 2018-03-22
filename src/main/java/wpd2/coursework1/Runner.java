@@ -1,4 +1,5 @@
 package wpd2.coursework1;
+
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
@@ -10,9 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
-import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.servlet.*;
-
+import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9001;
+    private static final int PORT = 9000;
 
     private void start() throws Exception {
         initializeServices();
@@ -70,14 +70,18 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
         handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
-    }
+
+    // Milestone Handler
+        handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
+}
 
     public static void main(String[] args) throws Exception {
 //        try {
 //            LOG.info("starting");
-            new Runner().start();
+        new Runner().start();
 //        } catch (Exception e) {
 //            LOG.error("Unexpected error running shop: " + e.getMessage());
 //        }
     }
 }
+

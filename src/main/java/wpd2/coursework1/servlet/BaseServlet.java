@@ -52,8 +52,10 @@ public abstract class BaseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.request = request;
         this.response = response;
-/*        String userId = request.getSession().getAttribute("loggedInId").toString();
-        Authenticate(request, response, userId);*/
+
+        String userId = request.getSession().getAttribute("loggedInId").toString();
+        Authenticate(request, response, userId);
+
         doGet();
     }
 
@@ -82,7 +84,8 @@ public abstract class BaseServlet extends HttpServlet {
         response.setStatus(200);
     }
 
-/*    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
+
+    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
        //if user id is not stored in the session
         String userId = request.getSession().getAttribute("loggedInId").toString();
         if(userId == null || userId.isEmpty()){
@@ -90,5 +93,6 @@ public abstract class BaseServlet extends HttpServlet {
             response.sendRedirect("/users/login");
         }
 
-    }*/
+    }
+
 }
