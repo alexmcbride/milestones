@@ -12,11 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
-<<<<<<< HEAD
 import wpd2.coursework1.servlet.MilestoneIndexServlet;
-=======
 import wpd2.coursework1.service.PasswordService;
->>>>>>> 3f2d0f42ff7216783904a388cbb1257cf20d03c3
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;

@@ -1,13 +1,9 @@
 .footer {
     border-top: 1px solid #e7e7e7;
-<<<<<<< HEAD
     padding: 20px 0;
-=======
-    padding-top: 20px;
     margin-top: 20px;
 }
 
 .clickable-row {
     cursor: pointer;
->>>>>>> 3f2d0f42ff7216783904a388cbb1257cf20d03c3
 }
