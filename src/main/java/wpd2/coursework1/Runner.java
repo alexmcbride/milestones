@@ -12,7 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
+<<<<<<< HEAD
 import wpd2.coursework1.servlet.MilestoneIndexServlet;
+=======
+import wpd2.coursework1.service.PasswordService;
+>>>>>>> 3f2d0f42ff7216783904a388cbb1257cf20d03c3
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
@@ -51,13 +55,13 @@ public class Runner {
     }
 
     private void initializeServices() throws SQLException, ClassNotFoundException {
-        // Init factory.
-        DatabaseService databaseService = new H2DatabaseService();
-        databaseService.initialize();
-
         // Init IoC stuff
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, databaseService);
+        container.registerInstance(DatabaseService.class, new H2DatabaseService());
+        container.registerInstance(PasswordService.class, new PasswordService());
+
+        DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+        databaseService.initialize();
     }
 
     private void initializeTemplateEngine() {
@@ -76,12 +80,12 @@ public class Runner {
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
     }
 
-    public static void main(String[] args) {
-        try {
-            LOG.info("starting");
+    public static void main(String[] args) throws Exception {
+//        try {
+//            LOG.info("starting");
             new Runner().start();
-        } catch (Exception e) {
-            LOG.error("Unexpected error running shop: " + e.getMessage());
-        }
+//        } catch (Exception e) {
+//            LOG.error("Unexpected error running shop: " + e.getMessage());
+//        }
     }
 }

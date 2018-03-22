@@ -5,12 +5,39 @@
 
 ## Include your layout inside of the mainLayout macro.
 #@mainLayout()
+    <h2>Projects</h2>
+
     <p><a href="/projects/create">Create New Project</a></p>
 
-    <div class="list-group">
-        ## Output list of projects
-        #foreach($project in $model)
-            <a class="list-group-item" href="/projects/details?id=$project.id">$project.name</a>
-        #end
-    </div>
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Milestones</th>
+                <th>Next Milestone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            #foreach($project in $model)
+                <tr class="clickable-row" data-id="$project.id">
+                    <td>$project.name</td>
+                    <td>$project.created</td>
+                    <td>$project.milestones</td>
+                    <td>$project.nextMilestone</td>
+                    <td>X</td>
+                </tr>
+            #end
+        </tbody>
+    </table>
+
+    <script>
+        $(function() {
+            $('.clickable-row').click(function () {
+                var projectId = $(this).attr('data-id');
+                location.href = '/projects/details?id=' + projectId;
+            });
+        });
+    </script>
 #end

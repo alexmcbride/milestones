@@ -1,47 +1,67 @@
 package wpd2.coursework1.model;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class ProjectTests {
-    private DatabaseService databaseService;
+    private DatabaseService db;
 
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
      */
-    @org.junit.Before
-    public void setup() {
+    @Before
+    public void setup() throws SQLException {
         // Init test database
-        databaseService = new H2DatabaseService(DatabaseService.Mode.TEST);
-        databaseService.initialize();
-        databaseService.seed();
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, databaseService);
+        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
+
+        db.initialize();
+        db.seed();
     }
 
-    @org.junit.After
-    public void teardown() {
+    @After
+    public void teardown() throws SQLException {
         // After each test destroy the database
-        databaseService.destroy();
+        db.destroy();
     }
 
-    @org.junit.Test
-    public void testLoadAll() {
-        List<Project> projects = Project.loadAll();
+    @Test
+    public void testValidate() {
+        Project project = new Project();
+        project.setName("Test Title");
+        assertTrue(project.isValid());
+    }
 
+    @Test
+    public void testInvalid() {
+        Project project = new Project();
+        assertFalse(project.isValid());
+        assertEquals("Name is required", project.getValidationError("name"));
+    }
+
+    @Test
+    public void testLoadAll() {
+        User user = User.find(1);
+        List<Project> projects = Project.findAll(user);
         assertEquals(projects.size(), 10);
     }
 
-    @org.junit.Test
+    @Test
     public void testFind() {
         Project project = Project.find(1);
 
@@ -51,14 +71,16 @@ public class ProjectTests {
         assertNotNull(project.getCreated());
     }
 
-    @org.junit.Test
+    @Test
     public void testCreate() {
+        User user = User.find(1);
+
         Date created = new Date();
-        Project project = Project.empty();
+        Project project = new Project();
         project.setName("Test");
         project.setCreated(created);
 
-        project.create();
+        project.create(user);
         int id = project.getId();
 
         Project result = Project.find(id);
@@ -67,5 +89,34 @@ public class ProjectTests {
         assertEquals(id, result.getId());
     }
 
+    @Test
+    public void testUpdate() {
+        User user = User.find(1);
 
+        Project project = new Project();
+        project.setName("Test");
+        project.setCreated(new Date());
+        project.create(user);
+
+        project.setName("Test 2");
+        project.update();
+
+        Project result = Project.find(project.getId());
+        assertEquals("Test 2", result.getName());
+    }
+
+    @Test
+    public void testDelete() {
+        User user = User.find(1);
+
+        Project project = new Project();
+        project.setName("Test");
+        project.setCreated(new Date());
+        project.create(user);
+
+        project.delete();
+
+        Project result = Project.find(project.getId());
+        assertNull(result);
+    }
 }

@@ -3,6 +3,8 @@
 #set($title = $model.name)
 
 #@mainLayout()
+    <h2>View Project</h2>
+
     <p><a href="/projects">Go back</a></p>
 
 
@@ -11,4 +13,7 @@
     <p>ID: $model.id</p>
     <p>Name: $model.name</p>
     <p>Created: $model.created</p>
+
+    <h3>Milestones</h3>
+    <p><em>List of milestones...</em></p>
 #end
