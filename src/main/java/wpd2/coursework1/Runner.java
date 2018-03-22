@@ -25,6 +25,7 @@ public class Runner {
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9000;
+    private static final boolean RESET_DATABASE = false;
 
     private void start() throws Exception {
         initializeServices();
@@ -50,13 +51,18 @@ public class Runner {
         server.join();
     }
 
-    private void initializeServices() throws SQLException, ClassNotFoundException {
+    private void initializeServices() {
         // Init IoC stuff
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
 
         DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+
+        if (RESET_DATABASE) {
+            databaseService.destroy();
+        }
+
         databaseService.initialize();
     }
 
