@@ -1,4 +1,4 @@
-/* Mian Color as RGB: background-color: rgba(27,109,133, 0.6);  */
+/* Main Color as RGB: background-color: rgba(27,109,133, 0.6);  */
 
 /* Navbar Styling */
 .navbar {
@@ -30,15 +30,16 @@ a.navbar-brand {
 
 .milestoneHeaderSection{
     width: 90%;
+    margin: 0 auto;
     padding: 10px 0;
     text-align: center;
 }
 
-#headerHR {
+.headerHR {
     align-content: center;
     width: 30%;
 
-    border-top: #1b6d85 solid thin;
+    border-top: #1b6d85 wave thin;
 }
 
 #headerIcons {
@@ -46,10 +47,28 @@ a.navbar-brand {
 }
 
 .headerIcon{
-    width: 33%;
     display: inline;
+    padding: 0 10px;
 }
 
+
+
+
+
+
+.headerRelative {
+    position: relative;
+}
+
+.headerIconShare{
+    position: absolute;
+    left: 10%;
+    margin-bottom: 10px;
+}
+.headerIconDelete{
+    position: absolute;
+    right: 10%;
+}
 
 
 
@@ -58,7 +77,8 @@ a.navbar-brand {
     /*position: fixed;*/
     display: block;
     width: 100%;
-    border-bottom: #3c3c3c solid thin;
+    padding-top: 30px;
+
 }
 
 .header h2 {
@@ -78,7 +98,7 @@ a.navbar-brand {
 }
 
 .milestoneContent {
-    padding: 80px 0;
+    padding: 40px 0;
     margin: 0px auto 0 auto;
     width: 100%;
 }
@@ -141,6 +161,7 @@ a.navbar-brand {
     margin-left: -3px;
 }
 
+
 /* Container around content */
 .timelineContainer {
     padding: 10px 40px;
@@ -149,7 +170,7 @@ a.navbar-brand {
     width: 50%;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 570px) {
     .timelineContainer {
         padding: 10px 20px;
         position: relative;
@@ -157,7 +178,9 @@ a.navbar-brand {
         width: 100%;
     }
 
-
+    .timeline::after {
+        display: none;
+    }
 }
 
 
@@ -183,13 +206,6 @@ a.navbar-brand {
 
 
 /* Milestone tab functionality  */
-
-.accContainer {
-    width: 50%;
-    border: 1.5px solid #1b6d85;
-    border-left: 6px solid #1b6d85;
-}
-
 .wAccordion {
     background-color: #eee;
     color: #444;
@@ -205,7 +221,7 @@ a.navbar-brand {
 }
 
 .wActive, .wAccordion:hover {
-    background-color: #ccc;
+    background-color: #fafafa;
 }
 
 
@@ -223,7 +239,7 @@ a.navbar-brand {
 
 
 .wPanel {
-    padding: 0 18px;
+    padding: 10px 18px 14px 18px;
     display: none;
     background-color: white;
     overflow: hidden;
@@ -233,6 +249,17 @@ a.navbar-brand {
     border-right: none;
     transition: max-height 0.2s ease-out;
 
+}
+
+#iconContainer{
+
+    background-color: #fafafa;
+}
+
+.container33{
+    text-align: center;
+    width: 33%;
+    float: left;
 }
 
 
@@ -382,23 +409,19 @@ a.navbar-brand {
     margin-bottom: 0.5em;
 
 
-
+border-color: grey;
     border-style: dashed;
-    border-width: 1px;
+    border-width: .5px;
 }
 
 
 
 
-/* Chaneg color scheme depending on status on milestone state */
-.past {
-    border: 1.5px solid lightblue;
-    border-left: 6px solid lightblue;
-}
+/* Change color scheme depending on status on milestone state */
 
 .done {
-    border: 1.5px solid lightseagreen;
-    border-left: 6px solid lightseagreen;
+    border: 1.5px solid lightblue;
+    border-left: 6px solid lightblue;
 }
 
 .late {
@@ -408,15 +431,14 @@ a.navbar-brand {
 }
 
 .dueToday {
-    border: 1.5px solid forestgreen;
-    border-left: 6px solid forestgreen;
-}
-
-.future {
     border: 1.5px solid lightseagreen;
     border-left: 6px solid lightseagreen;
 }
 
+.upcoming {
+    border: 1.5px solid forestgreen;
+    border-left: 6px solid forestgreen;
+}
 
 
 
