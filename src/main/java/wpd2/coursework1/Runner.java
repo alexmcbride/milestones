@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.servlet.*;
+import wpd2.coursework1.servlet.MilestoneIndexServlet;
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 
@@ -67,6 +68,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
+
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
         handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
@@ -76,12 +78,12 @@ public class Runner {
 }
 
     public static void main(String[] args) throws Exception {
-//        try {
-//            LOG.info("starting");
+        try {
+            LOG.info("starting");
         new Runner().start();
-//        } catch (Exception e) {
-//            LOG.error("Unexpected error running shop: " + e.getMessage());
-//        }
+        } catch (Exception e) {
+            LOG.error("Unexpected error: " + e.getMessage());
+        }
     }
 }
 
