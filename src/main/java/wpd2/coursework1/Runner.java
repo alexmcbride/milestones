@@ -1,4 +1,3 @@
-
 package wpd2.coursework1;
 
 import org.apache.velocity.app.Velocity;
@@ -12,11 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
-<<<<<<< HEAD
 import wpd2.coursework1.servlet.MilestoneIndexServlet;
-=======
 import wpd2.coursework1.service.PasswordService;
->>>>>>> 3f2d0f42ff7216783904a388cbb1257cf20d03c3
 import wpd2.coursework1.servlet.ProjectCreateServlet;
 import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
@@ -29,6 +25,7 @@ public class Runner {
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9000;
+    private static final boolean RESET_DATABASE = false;
 
     private void start() throws Exception {
         initializeServices();
@@ -54,13 +51,18 @@ public class Runner {
         server.join();
     }
 
-    private void initializeServices() throws SQLException, ClassNotFoundException {
+    private void initializeServices() {
         // Init IoC stuff
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
 
         DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+
+        if (RESET_DATABASE) {
+            databaseService.destroy();
+        }
+
         databaseService.initialize();
     }
 
@@ -83,7 +85,7 @@ public class Runner {
     public static void main(String[] args) throws Exception {
 //        try {
 //            LOG.info("starting");
-            new Runner().start();
+        new Runner().start();
 //        } catch (Exception e) {
 //            LOG.error("Unexpected error running shop: " + e.getMessage());
 //        }
