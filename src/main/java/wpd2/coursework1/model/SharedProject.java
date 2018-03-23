@@ -139,7 +139,7 @@ public class SharedProject extends BaseModel {
 
     public static void destroyTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
-            sta.execute("DROP TABLE sharedProjects");
+            sta.execute("DROP TABLE IF EXISTS sharedProjects");
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

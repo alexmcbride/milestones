@@ -187,7 +187,7 @@ public class User extends ValidatableModel {
     }
 
     public static void destroyTable() {
-        String sql = "DROP TABLE users;";
+        String sql = "DROP TABLE IF EXISTS users;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.executeUpdate(sql);
         }
