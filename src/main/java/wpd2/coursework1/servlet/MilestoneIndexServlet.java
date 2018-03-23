@@ -12,7 +12,7 @@ public class MilestoneIndexServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_index.vm";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         // In finished code this will come from login.
         User user = User.find(1);
         if (user == null) {
