@@ -1,4 +1,5 @@
 #macro(mainLayout)
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
 
-    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 
-
     <link href="/css/styles.css" rel="stylesheet">
-    <link href="/css/williamCSS.css" rel="stylesheet">
+ #*   <link href="/css/williamCSS.css" rel="stylesheet">*#
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+    <Script src="/lib/bootstrap/js/bootstrap.min.js"></Script>
+    <Script src="/lib/bootstrap/js/jquery-3.3.1.min.js"></Script>
 </head>
 <body>
 
@@ -39,10 +40,13 @@
                 <a class="navbar-brand" href="/projects">Milestones</a>
             </div>
 
-            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+            <div class="navbar collapse navbar-collapse navbar-right" id="#*bs-example-navbar-collapse-1*#">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Login <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><p id="welcome_email" style=""></p></li>
+                    <li><a id="login" href="/users/login" style="">Login <span class="sr-only">(current)</span></a></li>
+                    <li><a id="register" href="/users/register" style="">Register</a></li>
+                    <li><a id="account" href="/users/account">MyAccount</a></li>
+                    <li><a  href="" id="logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -57,6 +61,46 @@
         Copyright &copy; Milestones 2018
     </footer>
 
+    <script>
+        $( document ).ready(function() {
+            var email = 'mietesthardedcodedemail'
+                if(email) {
+                    $('#welcome_email').hide();
+                    $('#login').show();
+                    $('#register').show();
+                    $('#account').hide();
+                    $('#logout').hide();
+                }else{
+                    $('#welcome_email').show();
+                    $('#welcom_email').val(email)
+                    $('#login').hide();
+                    $('#register').hide();
+                    $('#account').show();
+                    $('#logout').show();
+                }
+
+        });
+    /*    document.addEventListener('DOMContentLoaded',
+        function (){
+            if(true) {
+                document.getElementById('welcome_email').style.display = 'none';
+                document.getElementById('login').style.display = 'block';
+                document.getElementById('register').style.display = 'block';
+                document.getElementById('account').style.display = 'none';
+                document.getElementById('logout').style.display = 'none';
+            }else{
+                document.getElementById('welcome_email').style.display = 'block';
+                document.getElementById('welcome_email').innerHTML="<%= Session["loggedInId"]%>"
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('register').style.display = 'none';
+                document.getElementById('account').style.display = 'block';
+                document.getElementById('logout').style.display = 'block';
+            }
+        };
+
+        }, false);*/
+
+</script>
 </body>
 </html>
 #end

@@ -100,7 +100,7 @@ public class Project extends ValidatableModel {
     }
 
     public static void createTable() {
-        String sql = "DROP TABLE IF EXISTS projects;CREATE TABLE IF NOT EXISTS projects (" +
+        String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "userId INTEGER NOT NULL ," +
                 "name NVARCHAR(32) NOT NULL , " +

@@ -13,40 +13,51 @@ public class UserLoginServlet extends BaseServlet {
 
     private static final String TEMPLATE_FILE = "user_login.vm";
 
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         // Display the form.
         User user = new User();
         view(TEMPLATE_FILE, user);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = new User();
-        user.setEmail(request.getParameter("email"));
-        user.setUsername(request.getParameter("username"));
-        user.setPassword((request.getParameter("password")).toCharArray());
+    protected void doPost() throws IOException {
 
-        if(user.isValid())
-            //check if username or email already exist first
-            if(user.usernameExists(request.getParameter("username"))){
+        User user = new User();
+        user.setEmail(getRequest().getParameter("email"));
+        user.setPassword((getRequest().getParameter("password")).toCharArray());
+        loginCount = loginCount+1;
+
+
+/*            //check if username or email already exist first
+            if(user.usernameExists(getRequest().getParameter("username"))){*/
 
                 // find user with the same email.
-                if (user.emailExists(request.getParameter("email"))) {
+                if (user.emailExists(getRequest().getParameter("email"))) {
 
-                        // Check that an unencrypted password matches one that has
+                    // Check that an unencrypted password matches one that has
 
-                        if(user.authorize((request.getParameter("password")).toCharArray())){
+                    if (user.authorize((getRequest().getParameter("password")).toCharArray())) {
                         // Always redirect to project.
-                        user.create();
-                            HttpSession session = request.getSession();
-                            session.setAttribute("LoggedInId",user.getId());
-                        response.sendRedirect("/projects");
-                        }
-            }
+                        user.find(getRequest().getParameter("email"));
+                        getRequest().getSession().setAttribute("LoggedInEmail", user.getId());
 
-        }
+                        loginCount =0;
+                        getResponse().sendRedirect("/projects");
+
+                    }
+                }
+
+            if(loginCount==3){
+                loginCount=0;
+                getResponse().sendRedirect("/users/register");
+                return;
+                }
+
         // Display the form with validation errors.
+        user.isValid();
         view(TEMPLATE_FILE, user);
+   // }
     }
 }

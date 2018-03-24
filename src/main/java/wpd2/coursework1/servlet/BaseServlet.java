@@ -9,6 +9,7 @@ import wpd2.coursework1.util.VelocityRenderer;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -53,16 +54,13 @@ public abstract class BaseServlet extends HttpServlet {
         this.request = request;
         this.response = response;
 
-        String userId = request.getSession().getAttribute("loggedInId").toString();
-        Authenticate(request, response, userId);
-
         doGet();
     }
 
 
     protected void doGet() throws IOException {
 
-    }
+  }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -85,14 +83,17 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
 
-    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
-       //if user id is not stored in the session
-        String userId = request.getSession().getAttribute("loggedInId").toString();
-        if(userId == null || userId.isEmpty()){
-            //redirect to the user to log in
-            response.sendRedirect("/users/login");
-        }
+     /*Redirect to log in page when not logged in*/
+    protected void Authenticate() throws IOException{
+       //if user id is not stored in the sessions
+        if(getRequest().getSession().getAttribute("loggedInId") == null) {
+/*            if (getResponse() !=null) {
+                System.err.println("###has response");*/
+                getResponse().sendRedirect("/users/login");
+                return;
 
+           // }
+        }
     }
 
 }

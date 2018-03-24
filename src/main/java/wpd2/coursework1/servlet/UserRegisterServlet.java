@@ -12,29 +12,30 @@ public class UserRegisterServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_register.vm";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         User user = new User();
-        // Display the form.
+        // Display the empty form.
         view(TEMPLATE_FILE, user);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost() throws IOException {
         User user = new User();
-        user.setUsername(request.getParameter("username"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password").toCharArray());
+        user.setUsername(getRequest().getParameter("username"));
+        user.setEmail(getRequest().getParameter("email"));
+        user.setPassword(getRequest().getParameter("password").toCharArray());
 
         if(user.isValid())
             //check if username or email already exist first
-            if(!user.usernameExists(request.getParameter("username"))){
+            if(!user.usernameExists(getRequest().getParameter("username"))){
 
                 // find user with the same email.
-                if (!user.emailExists(request.getParameter("email"))) {
+                if (!user.emailExists(getRequest().getParameter("email"))) {
 
                     // Save user to database.
                     user.create();
-                    response.sendRedirect("/users/login");
+                    getResponse().sendRedirect("/users/login");
+                    return;
 
                 }
             }

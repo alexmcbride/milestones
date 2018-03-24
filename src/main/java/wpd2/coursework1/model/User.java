@@ -4,6 +4,7 @@ import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.ValidationHelper;
 
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,6 +94,9 @@ public class User extends ValidatableModel {
         if (emailChanged && emailExists(email)) {
             addValidationError("email", "already exists");
         }
+        if(!emailExists(email)||!authorize(password)){
+            addValidationError("password","email or password does not match");
+        }
     }
 
     public void create() {
@@ -171,7 +175,7 @@ public class User extends ValidatableModel {
     }
 
     public static void createTable() {
-        String sql = "DROP TABLE IF EXISTS users;CREATE TABLE IF NOT EXISTS users (" +
+        String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "username NVARCHAR(32) NOT NULL UNIQUE, " +
                 "email NVARCHAR(1024) NOT NULL UNIQUE, " +
@@ -256,6 +260,7 @@ public class User extends ValidatableModel {
     public boolean authorize(char[] password) {
         return passwordService.authenticate(password, getPasswordHash());
     }
+
 
 
 }
