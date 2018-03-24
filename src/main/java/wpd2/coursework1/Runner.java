@@ -11,11 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
-import wpd2.coursework1.servlet.MilestoneIndexServlet;
+import wpd2.coursework1.servlet.*;
 import wpd2.coursework1.service.PasswordService;
-import wpd2.coursework1.servlet.ProjectCreateServlet;
-import wpd2.coursework1.servlet.ProjectDetailsServlet;
-import wpd2.coursework1.servlet.ProjectIndexServlet;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.SQLException;
@@ -76,6 +73,8 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
+        handler.addServlet(new ServletHolder(new ProjectUpdateServlet()), "/projects/update");
+
 
 
         // Milestone Handler

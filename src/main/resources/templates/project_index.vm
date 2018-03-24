@@ -21,21 +21,29 @@
         </thead>
         <tbody>
             #foreach($project in $model)
-                <tr class="clickable-row" data-id="$project.id">
-                    <td>$project.name</td>
+                <tr >
+                    <td class="row" data-id="$project.id" style="cursor: pointer">$project.name</td>
                     <td>$project.created</td>
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>
-             @Html.ActionLink("Edit", "Update", new { id=item.Id })
-                    <td>X</td>
+
+                    <td style="cursor: pointer"><a class="edit" data-id="$project.id">edit</a></td>
                 </tr>
             #end
         </tbody>
     </table>
 
     <script>
+        $(function()
+        {
+            $('.edit').click(function()
+            {
+                var projectId=$(this).attr('data-id');
+                location.href = '/projects/update?id=' + projectId;
+            });
+        });
         $(function() {
-            $('.clickable-row').click(function () {
+            $('.row').click(function () {
                 var projectId = $(this).attr('data-id');
                 location.href = '/projects/details?id=' + projectId;
             });
