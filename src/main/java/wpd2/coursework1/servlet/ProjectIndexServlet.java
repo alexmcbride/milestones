@@ -13,6 +13,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+        Authenticate();
         // In finished code user would come from login.
         User user = User.dummyUser();
 

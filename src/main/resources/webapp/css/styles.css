@@ -23,9 +23,8 @@
 .mt-navbar-right:hover,
 .mt-navbar-right:focus {
     text-decoration: none;
-}
+}*/
 .mt-navbar-right > items {
     display: inline-block;
-=======
     margin-top: 20px;
-}*/
+}
