@@ -17,8 +17,13 @@
  #*   <link href="/css/williamCSS.css" rel="stylesheet">*#
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<<<<<<< HEAD
     <Script src="/lib/bootstrap/js/bootstrap.min.js"></Script>
     <Script src="/lib/bootstrap/js/jquery-3.3.1.min.js"></Script>
+=======
+
+    <script src="/lib/jquery-3.3.1.min.js"></script>
+>>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a
 </head>
 <body>
 
@@ -33,20 +38,21 @@
                     <span class="icon-bar"></span>
                 </button>
 
-#*                <a class="navbar-brand" href="/projects">Projects</a>
-                <a class="mt-navbar-right" href="/users/register">Register</a>
-                <a class="mt-navbar-right" href="/users/login">Login</a>*#
-
                 <a class="navbar-brand" href="/projects">Milestones</a>
             </div>
 
             <div class="navbar collapse navbar-collapse navbar-right" id="#*bs-example-navbar-collapse-1*#">
                 <ul class="nav navbar-nav">
+<<<<<<< HEAD
                     <li><p id="welcome_email" style=""></p></li>
                     <li><a id="login" href="/users/login" style="">Login <span class="sr-only">(current)</span></a></li>
                     <li><a id="register" href="/users/register" style="">Register</a></li>
                     <li><a id="account" href="/users/account">MyAccount</a></li>
                     <li><a  href="" id="logout">Logout</a></li>
+=======
+                    <li><a href="/users/login">Login <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/users/register">Register</a></li>
+>>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a
                 </ul>
             </div>
         </div>

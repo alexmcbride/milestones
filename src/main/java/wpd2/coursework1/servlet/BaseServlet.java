@@ -1,6 +1,5 @@
 package wpd2.coursework1.servlet;
 
-import com.sun.deploy.net.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.AntiForgeryHelper;
@@ -20,19 +19,21 @@ public abstract class BaseServlet extends HttpServlet {
     public static final  String HTML_TEXT_UTF_8 = "text/html; charset=UTF-8";
     public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
+
     private HttpServletRequest request;
     private HttpServletResponse response;
     public int loginCount = 0;
 
-    public HttpServletRequest getRequest() {
+
+    protected HttpServletRequest getRequest() {
         return request;
     }
 
-    public HttpServletResponse getResponse() {
+    protected HttpServletResponse getResponse() {
         return response;
     }
 
-    protected void checkAntiForgeryToken() {
+    private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         antiForgeryHelper.checkToken(token);
@@ -58,7 +59,6 @@ public abstract class BaseServlet extends HttpServlet {
         doGet();
     }
 
-
     protected void doGet() throws IOException {
 
   }
@@ -75,13 +75,26 @@ public abstract class BaseServlet extends HttpServlet {
 
     }
 
+    protected void view(HttpServletResponse response, String template, Object object) throws IOException {
+        handleView(response, template, object);
+    }
+
     protected void view(String template, Object object) throws IOException {
+        if (response == null) {
+            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+        }
+
+        handleView(response, template, object);
+    }
+
+    private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
         renderer.render(response, template, object);
         response.setContentType(HTML_TEXT_UTF_8);
         response.setStatus(200);
     }
+
 
 
      /*Redirect to log in page when not logged in*/
@@ -94,6 +107,14 @@ public abstract class BaseServlet extends HttpServlet {
                 return;
 
            // }
+/*=======
+    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
+       //if user id is not stored in the session
+        String userId = (String)request.getSession().getAttribute("loggedInId");
+        if(userId == null || userId.isEmpty()){
+            //redirect to the user to log in
+            response.sendRedirect("/users/login");
+>>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a*/
         }
     }
 

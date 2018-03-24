@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #parse('templates/layout.vm')
 
 #set($title = $model.name)
@@ -40,4 +41,33 @@
 </div>
 #end
 
+=======
+#parse('templates/layout.vm')
+
+#set($title = $model.name)
+
+#@mainLayout()
+<p><a href="/projects">Go back</a></p>
+
+    <p>Account Created: $model.joined</p>
+
+    <form method="post">
+
+    #antiForgeryToken()
+    #form_text_input("username")
+
+    #form_text_input("email")
+
+    <div class="form-group$error">
+        <label for="confirm-password" style="text-transform: capitalize">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
+        #validation_error($attribute)
+    </div>
+
+    <input type="checkbox" onclick="showPasswords()">Show confirm-password
+    </form>
+
+#end
+
+>>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a
 <Script src="/js/login_register.js"></Script>

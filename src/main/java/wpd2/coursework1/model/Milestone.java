@@ -202,7 +202,7 @@ public class Milestone extends ValidatableModel {
 
     public static void createTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
-            sta.execute("DROP TABLE IF EXISTS milestones;CREATE TABLE IF NOT EXISTS milestones ( " +
+            sta.execute("CREATE TABLE IF NOT EXISTS milestones ( " +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "projectId INTEGER NOT NULL," +
                 "name NVARCHAR(250) NOT NULL," +
@@ -217,7 +217,7 @@ public class Milestone extends ValidatableModel {
 
     public static void destroyTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
-            sta.execute("DROP TABLE milestones");
+            sta.execute("DROP TABLE IF EXISTS milestones");
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
