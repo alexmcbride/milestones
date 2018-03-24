@@ -54,9 +54,9 @@ public class Runner {
         container.registerInstance(PasswordService.class, new PasswordService());
 
         DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
-//        if (RESET_DATABASE_ON_STARTUP) {
-//            databaseService.destroy();
-//        }
+        if (RESET_DATABASE_ON_STARTUP) {
+            databaseService.destroy();
+        }
         databaseService.initialize();
     }
 
