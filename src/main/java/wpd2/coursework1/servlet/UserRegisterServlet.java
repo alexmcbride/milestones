@@ -5,21 +5,20 @@ import wpd2.coursework1.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 public class UserRegisterServlet extends BaseServlet {
 
     private static final String TEMPLATE_FILE = "user_register.vm";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         User user = new User();
         // Display the form.
         view(TEMPLATE_FILE, user);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost() throws IOException {
         User user = new User();
         user.setUsername(request.getParameter("username"));
         user.setEmail(request.getParameter("email"));

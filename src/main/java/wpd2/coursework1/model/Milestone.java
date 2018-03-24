@@ -217,7 +217,7 @@ public class Milestone extends ValidatableModel {
 
     public static void destroyTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
-            sta.execute("DROP TABLE milestones");
+            sta.execute("DROP TABLE IF EXISTS milestones");
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

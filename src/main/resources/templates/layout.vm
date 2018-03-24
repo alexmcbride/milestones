@@ -18,6 +18,7 @@
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <script src="/lib/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
@@ -32,17 +33,13 @@
                     <span class="icon-bar"></span>
                 </button>
 
-#*                <a class="navbar-brand" href="/projects">Projects</a>
-                <a class="mt-navbar-right" href="/users/register">Register</a>
-                <a class="mt-navbar-right" href="/users/login">Login</a>*#
-
                 <a class="navbar-brand" href="/projects">Milestones</a>
             </div>
 
             <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Login <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="/users/login">Login <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/users/register">Register</a></li>
                 </ul>
             </div>
         </div>

@@ -11,7 +11,7 @@ public class UserAccountServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_account.vm";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         User user = new User();
         int userId = Integer.valueOf(request.getSession().getAttribute("loggedInId").toString());
         user.find(userId);

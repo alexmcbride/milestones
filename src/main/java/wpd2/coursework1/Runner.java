@@ -16,13 +16,12 @@ import wpd2.coursework1.servlet.MilestoneIndexServlet;
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 
-import java.sql.SQLException;
-
 public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9000;
+    private static final boolean RESET_DATABASE_ON_STARTUP = false;
 
     private void start() throws Exception {
         initializeServices();
@@ -48,13 +47,18 @@ public class Runner {
         server.join();
     }
 
-    private void initializeServices() throws SQLException, ClassNotFoundException {
+    private void initializeServices() {
         // Init IoC stuff
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
 
         DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+
+        if (RESET_DATABASE_ON_STARTUP) {
+            databaseService.destroy();
+        }
+
         databaseService.initialize();
     }
 

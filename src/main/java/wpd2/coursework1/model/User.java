@@ -171,7 +171,7 @@ public class User extends ValidatableModel {
     }
 
     public static void createTable() {
-        String sql = "DROP TABLE IF EXISTS users;CREATE TABLE IF NOT EXISTS users (" +
+        String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "username NVARCHAR(32) NOT NULL UNIQUE, " +
                 "email NVARCHAR(1024) NOT NULL UNIQUE, " +
@@ -187,7 +187,7 @@ public class User extends ValidatableModel {
     }
 
     public static void destroyTable() {
-        String sql = "DROP TABLE users;";
+        String sql = "DROP TABLE IF EXISTS users;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.executeUpdate(sql);
         }
@@ -257,6 +257,15 @@ public class User extends ValidatableModel {
         return passwordService.authenticate(password, getPasswordHash());
     }
 
-
+    public static User dummyUser() {
+        User user = User.find(1);
+        if (user == null) {
+            user = new User();
+            user.setUsername("user1");
+            user.setEmail("user@email.com");
+            user.setPassword("password1".toCharArray());
+            user.create();
+        }
+        return user;
+    }
 }
-

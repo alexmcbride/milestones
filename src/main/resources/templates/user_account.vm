@@ -9,14 +9,15 @@
 
     <form method="post">
 
-        #antiForgeryToken()
-    #form_text_input($model, "username")
+    #antiForgeryToken()
+    #form_text_input("username")
 
-    #form_text_input($model, "email")
+    #form_text_input("email")
+
     <div class="form-group$error">
         <label for="confirm-password" style="text-transform: capitalize">Confirm Password</label>
         <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-        #validation_error($model, $attribute)
+        #validation_error($attribute)
     </div>
 
     <input type="checkbox" onclick="showPasswords()">Show confirm-password

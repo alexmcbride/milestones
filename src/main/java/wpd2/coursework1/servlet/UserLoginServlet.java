@@ -12,14 +12,14 @@ public class UserLoginServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_login.vm";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet() throws IOException {
         // Display the form.
         User user = new User();
         view(TEMPLATE_FILE, user);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost() throws IOException {
         User user = new User();
         user.setEmail(request.getParameter("email"));
         user.setUsername(request.getParameter("username"));

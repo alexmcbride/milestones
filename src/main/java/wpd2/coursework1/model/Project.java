@@ -1,10 +1,9 @@
 package wpd2.coursework1.model;
+
 import wpd2.coursework1.util.ValidationHelper;
 
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -115,7 +114,7 @@ public class Project extends ValidatableModel {
     }
 
     public static void destroyTable() {
-        String sql = "DROP TABLE projects;";
+        String sql = "DROP TABLE IF EXISTS projects;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.executeUpdate(sql);
         }
