@@ -23,30 +23,34 @@ public class UserLoginServlet extends BaseServlet {
     @Override
     protected void doPost() throws IOException {
 
-        User user = new User();
-        user.setEmail(getRequest().getParameter("email"));
-        user.setPassword((getRequest().getParameter("password")).toCharArray());
+        User user = User.find(getRequest().getParameter("email"));
+//        user.setEmail(getRequest().getParameter("email"));
+//        user.setPassword((getRequest().getParameter("password")).toCharArray());
         loginCount = loginCount+1;
 
+        if (user == null) {
+            // USER NOT FOUND
+            return;
+        }
 
 /*            //check if username or email already exist first
             if(user.usernameExists(getRequest().getParameter("username"))){*/
 
                 // find user with the same email.
-                if (user.emailExists(getRequest().getParameter("email"))) {
+//                if (user.emailExists(getRequest().getParameter("email"))) {
 
                     // Check that an unencrypted password matches one that has
 
                     if (user.authorize((getRequest().getParameter("password")).toCharArray())) {
                         // Always redirect to project.
-                        user.find(getRequest().getParameter("email"));
+
                         getRequest().getSession().setAttribute("LoggedInEmail", user.getId());
 
                         loginCount =0;
                         getResponse().sendRedirect("/projects");
 
                     }
-                }
+//                }
 
             if(loginCount==3){
                 loginCount=0;

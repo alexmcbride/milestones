@@ -3,12 +3,12 @@ package wpd2.coursework1.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.AntiForgeryHelper;
+import wpd2.coursework1.util.UserManager;
 import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -92,7 +92,8 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
+        UserManager userManager = new UserManager(request.getSession());
+        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager);
         renderer.render(response, template, object);
         response.setContentType(HTML_TEXT_UTF_8);
         response.setStatus(200);
