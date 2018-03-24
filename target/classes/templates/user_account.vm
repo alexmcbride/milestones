@@ -16,7 +16,7 @@
 
         <div class="form-group$error">
             <label for="username" style="text-transform: capitalize">username</label>
-            <input value="$model.username" type="username" id="username" name="username" class="form-control" required>
+            <input value="$model.username" type="text" id="username" name="username" class="form-control" required>
             #validation_error($model, $attribute)
         </div>
 

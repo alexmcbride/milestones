@@ -22,6 +22,7 @@ public abstract class BaseServlet extends HttpServlet {
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
     private HttpServletRequest request;
     private HttpServletResponse response;
+    public int loginCount = 0;
 
     public HttpServletRequest getRequest() {
         return request;
