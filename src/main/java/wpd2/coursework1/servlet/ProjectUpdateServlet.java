@@ -54,8 +54,8 @@ public class ProjectUpdateServlet extends BaseServlet{
 
 
         // Always redirect after post.
-        getResponse().sendRedirect("/projects/update?id=" + prjct.getId());
-        
+        getResponse().sendRedirect("/projects");
+
 
         view(TEMPLATE_FILE, prjct);
     }
