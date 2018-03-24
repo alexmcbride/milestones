@@ -14,7 +14,7 @@
 
     <div class="form-group$error">
         <label for="name" style="text-transform: capitalize">$attribute</label>
-        <input type="text" name="name" class="form-control">
+        <input type="text" name="name" class="form-control" autofocus="autofocus" onfocus="this.select()">
         #validation_error($model, $attribute)
     </div>
 #end
