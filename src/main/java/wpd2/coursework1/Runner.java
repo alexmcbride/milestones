@@ -19,14 +19,12 @@ import wpd2.coursework1.servlet.ProjectDetailsServlet;
 import wpd2.coursework1.servlet.ProjectIndexServlet;
 import wpd2.coursework1.util.IoC;
 
-import java.sql.SQLException;
-
 public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9000;
-    private static final boolean RESET_DATABASE = false;
+    private static final boolean RESET_DATABASE_ON_STARTUP = false;
 
     private void start() throws Exception {
         initializeServices();
@@ -60,7 +58,7 @@ public class Runner {
 
         DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
 
-        if (RESET_DATABASE) {
+        if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();
         }
 

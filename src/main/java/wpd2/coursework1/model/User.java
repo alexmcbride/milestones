@@ -256,4 +256,16 @@ public class User extends ValidatableModel {
     public boolean authorize(char[] password) {
         return passwordService.authenticate(password, getPasswordHash());
     }
+
+    public static User dummyUser() {
+        User user = User.find(1);
+        if (user == null) {
+            user = new User();
+            user.setUsername("user1");
+            user.setEmail("user@email.com");
+            user.setPassword("password1".toCharArray());
+            user.create();
+        }
+        return user;
+    }
 }

@@ -19,18 +19,18 @@ public abstract class BaseServlet extends HttpServlet {
     public static final  String HTML_TEXT_UTF_8 = "text/html; charset=UTF-8";
     public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
-    private HttpServletRequest request;
-    private HttpServletResponse response;
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
 
-    public HttpServletRequest getRequest() {
+    protected HttpServletRequest getRequest() {
         return request;
     }
 
-    public HttpServletResponse getResponse() {
+    protected HttpServletResponse getResponse() {
         return response;
     }
 
-    protected void checkAntiForgeryToken() {
+    private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         antiForgeryHelper.checkToken(token);
@@ -71,7 +71,19 @@ public abstract class BaseServlet extends HttpServlet {
 
     }
 
+    protected void view(HttpServletResponse response, String template, Object object) throws IOException {
+        handleView(response, template, object);
+    }
+
     protected void view(String template, Object object) throws IOException {
+        if (response == null) {
+            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+        }
+
+        handleView(response, template, object);
+    }
+
+    private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
         renderer.render(response, template, object);
