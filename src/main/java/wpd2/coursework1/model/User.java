@@ -282,7 +282,6 @@ public class User extends ValidatableModel {
     }
 
     public boolean authorize(char[] password) {
-
         return passwordService.authenticate(password, getPasswordHash());
     }
 

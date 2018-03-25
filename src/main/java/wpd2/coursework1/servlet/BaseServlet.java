@@ -9,7 +9,6 @@ import wpd2.coursework1.util.VelocityRenderer;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -21,8 +20,8 @@ public abstract class BaseServlet extends HttpServlet {
     public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
-    private HttpServletRequest request;
-    private HttpServletResponse response;
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
     public int loginCount = 0;
 
 
@@ -98,13 +97,13 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
      /*Redirect to log in page when not logged in*/
-    protected void Authenticate() throws IOException{
+    protected boolean Authenticate() throws IOException{
        //if user id is not stored in the sessions
-        if(getRequest().getSession().getAttribute("user") == null) {
-               // System.err.println("###has response");*/
-                getResponse().sendRedirect("/users/login");
-                return;
+        if (getRequest().getSession().getAttribute("user") == null) {
+            getResponse().sendRedirect("/users/login");
+            return false;
         }
+        return true;
     }
 
 }

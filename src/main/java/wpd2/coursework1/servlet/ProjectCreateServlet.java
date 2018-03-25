@@ -13,13 +13,15 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+        if (!Authenticate()) return;
+
         // Display the form.
         view(TEMPLATE_FILE, new Project());
     }
 
     @Override
     protected void doPost() throws IOException {
-        User user = User.dummyUser();
+        User user = (User)request.getSession().getAttribute("user");
 
         Project project = new Project();
         project.setName(getRequest().getParameter("name"));
