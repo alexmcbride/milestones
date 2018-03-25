@@ -22,7 +22,7 @@ public class ProjectCreateServlet extends BaseServlet {
         User user = User.dummyUser();
 
         Project project = new Project();
-        project.setName(request.getParameter("name"));
+        project.setName(getRequest().getParameter("name"));
         project.setCreated(new Date());
 
         // Check if project is valid.
@@ -31,7 +31,7 @@ public class ProjectCreateServlet extends BaseServlet {
             project.create(user);
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + project.getId());
+            getResponse().sendRedirect("/projects/details?id=" + project.getId());
 
             return;
         }

@@ -77,7 +77,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserPwResetEmailServlet()), "/users/pw_reset_email");
         handler.addServlet(new ServletHolder(new UserPwResetEmailSentServlet()), "/users/pw_reset_email_sent");
         handler.addServlet(new ServletHolder(new UserPwResetServlet()), "/users/pw_reset");
-
+        handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
     // Milestone Handler
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
 }

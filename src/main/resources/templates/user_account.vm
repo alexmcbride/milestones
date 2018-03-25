@@ -16,57 +16,28 @@
 
         <div class="form-group$error">
             <label for="username" style="text-transform: capitalize">username</label>
-            <input value="$model.username" type="text" id="username" name="username" class="form-control" required>
+            <input value="$!{model.username}" type="text" id="username" name="username" class="form-control" required>
             #validation_error($attribute)
         </div>
+       #* #form_text_input("username")*#
 
         <div class="form-group$error">
             <label for="email" style="text-transform: capitalize">email</label>
-            <input value="$model.email" type="email" id="email" name="email" class="form-control" required>
+            <input value="$!{model.email}" type="email" id="email" name="email" class="form-control" required>
             #validation_error($attribute)
         </div>
+       #* #form_email_input("email")*#
 
-    <div class="form-group$error">
+#*    <div class="form-group$error">
         <label for="password" style="text-transform: capitalize">Password</label>
-        <input value="$model.passowrd" type="password" id="password" name="password" class="form-control" required>
+        <input value="${model.password}" type="password" id="password" name="password" class="form-control" required>
         #validation_error($attribute)
-    </div>
+    </div>*#
 
-    <input type="checkbox" onclick="showPasswords()">Show confirm-password
+    #*<input type="checkbox" onclick="showPasswords()">Show confirm-password*#
         <div>
-            <input type="submit" value="Update" class="btn btn-default">
+            <input type="submit" value="Update" class="btn btn-default"> | <a href="/users/delete" class="btn btn-default">Delete this account</a> | <a href="/projects">back to main</a>
         </div>
     </form>
 </div>
 #end
-
-#*=======
-#parse('templates/layout.vm')
-
-#set($title = $model.name)
-
-#@mainLayout()
-<p><a href="/projects">Go back</a></p>
-
-    <p>Account Created: $model.joined</p>
-
-    <form method="post">
-
-    #antiForgeryToken()
-    #form_text_input("username")
-
-    #form_text_input("email")
-
-    <div class="form-group$error">
-        <label for="confirm-password" style="text-transform: capitalize">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-        #validation_error($attribute)
-    </div>
-
-    <input type="checkbox" onclick="showPasswords()">Show confirm-password
-    </form>
-
-#end
-
->>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a*#
-<Script src="/js/login_register.js"></Script>

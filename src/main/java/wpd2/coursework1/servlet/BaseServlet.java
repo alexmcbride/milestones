@@ -3,6 +3,7 @@ package wpd2.coursework1.servlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.AntiForgeryHelper;
+import wpd2.coursework1.util.UserManager;
 import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
@@ -89,32 +90,20 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
+        UserManager userManager = new UserManager(request.getSession());
+        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager);
         renderer.render(response, template, object);
         response.setContentType(HTML_TEXT_UTF_8);
         response.setStatus(200);
     }
 
-
-
      /*Redirect to log in page when not logged in*/
     protected void Authenticate() throws IOException{
        //if user id is not stored in the sessions
-        if(getRequest().getSession().getAttribute("loggedInId") == null) {
-/*            if (getResponse() !=null) {
-                System.err.println("###has response");*/
+        if(getRequest().getSession().getAttribute("user") == null) {
+               // System.err.println("###has response");*/
                 getResponse().sendRedirect("/users/login");
                 return;
-
-           // }
-/*=======
-    protected void Authenticate(HttpServletRequest request, HttpServletResponse response, String id) throws IOException{
-       //if user id is not stored in the session
-        String userId = (String)request.getSession().getAttribute("loggedInId");
-        if(userId == null || userId.isEmpty()){
-            //redirect to the user to log in
-            response.sendRedirect("/users/login");
->>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a*/
         }
     }
 

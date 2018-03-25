@@ -16,6 +16,7 @@
         <input type="email" id="email" name="email" class="form-control">
         #validation_error($attribute)
     </div>
+   #* #form_email_input("email")*#
 
     <div class="form-group$error">
         <label for="password" style="text-transform: capitalize">Password</label>
@@ -29,54 +30,9 @@
     <div>
         <input type="submit" value="login" class="btn btn-default">
         |<a href="/users/register">Register</a>|
-        <a href="/users/pw_reset_email">Forgot password</a>
+        <a href="/users/pw_reset_email">Reset password</a>
     </div>
 </form>
 </div>
 #end
 
-<script>
-    function showPasswords() {
-        var x = document.getElementById("password");
-        var x2 = document.getElementById("confirm-password");
-        if (x.type === "password") {
-            x.type = "text";
-            x2.type = "text";
-        } else {
-            x.type = "password";
-            x2.type = "password";
-        }
-    }
-</script>
-#*=======
-#parse('templates/layout.vm')
-
-#set($title = 'Register User')
-
-#@mainLayout()
-## Include file that contains our form helpers.
-    #parse("templates/form_helpers.vm")
-
-    <form method="post">
-        <h2>login</h2>
-        #antiForgeryToken()
-    ## Use a form helper to output a text input.
-        #form_text_input("email")
-        <div class="form-group$error">
-            <label for="password" style="text-transform: capitalize">Password</label>
-            <input type="password" id="password" name="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-            #validation_error($attribute)
-        </div>
-
-        <input type="checkbox" onclick="showPasswords()">Show confirm-password
-
-        <div>
-            <input type="submit" value="register" class="btn btn-default">
-            |
-            <a href="/login">Go back</a>
-        </div>
-    </form>
-
-    <Script src="/js/login_register.js"></Script>
-#end
->>>>>>> 642fa583b65fd829731dc4849fbb38d8140ebf3a*#

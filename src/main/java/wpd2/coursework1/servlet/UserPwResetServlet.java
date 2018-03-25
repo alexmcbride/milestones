@@ -26,20 +26,27 @@ public class UserPwResetServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
+        //if token from the link user clicked is saved in the session
         if(getRequest().getSession().getAttribute("ReturnedToken") != null){
+            //save the string to rToken session
             String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString();
+            //if rtoken successfully stored in the session
             if(getRequest().getSession().getAttribute(rToken) != null){
-                String email = getRequest().getSession().getAttribute(rToken).toString();
-
-            User user = new User();
-            if(user.find(email) != null);
-            user.setEmail(getRequest().getParameter("email"));
-
-            if(user.isValid()){
-                user.update();
-                getResponse().sendRedirect("users/login");
-                return;
-            }
+                //if the email retrieved with returned session is not null
+                if(getRequest().getSession().getAttribute(rToken) != null) {
+                    //if the user retreived using email is not null
+                    if (User.find(getRequest().getSession().getAttribute(rToken).toString()) != null) {
+                        //create user with the email
+                        User user = User.find(getRequest().getSession().getAttribute(rToken).toString());
+                        //and set the input password to it.
+                        user.setPassword(getRequest().getParameter("password").toCharArray());
+                        //if user update is successful redirect user to log in screen
+                        if (user.updatePassword()) {
+                            getResponse().sendRedirect("users/login");
+                            return;
+                        }
+                    }
+                }
         }
         String msg = "Error password did not get updated.";
         // Display the form with validation errors.

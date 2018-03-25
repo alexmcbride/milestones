@@ -11,23 +11,23 @@ public class ProjectDetailsServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         try {
-            int id = Integer.valueOf(request.getParameter("id"));
+            int id = Integer.valueOf(getRequest().getParameter("id"));
 
             // Get project
             Project project = Project.find(id);
 
-            // Check for 404 error.
+            /*// Check for 404 error.
             if (project == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                getRequest().sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
-            }
+            }*/
 
             // Render the view.
             view(TEMPLATE_FILE, project);
         }
         catch (NumberFormatException e) {
             // Crappy request
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            getResponse().sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

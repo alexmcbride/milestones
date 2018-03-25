@@ -10,15 +10,18 @@ import java.io.IOException;
 public class VelocityRenderer {
     private static final String TEMPLATE_DIR = "/templates/";
     private final AntiForgeryHelper antiForgeryHelper;
+    private final UserManager userManager;
 
-    public VelocityRenderer(AntiForgeryHelper antiForgeryHelper) {
+    public VelocityRenderer(AntiForgeryHelper antiForgeryHelper, UserManager userManager) {
         this.antiForgeryHelper = antiForgeryHelper;
+        this.userManager = userManager;
     }
 
     public void render(HttpServletResponse response, String templateName, Object object) throws IOException {
         VelocityContext context = new VelocityContext();
         context.put("model", object);
         context.put("antiForgeryHelper", antiForgeryHelper);
+        context.put("userManager", userManager);
         render(response, templateName, context);
     }
 
