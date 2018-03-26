@@ -4,6 +4,7 @@ import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.ValidationHelper;
 
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +93,10 @@ public class User extends ValidatableModel {
 
         if (emailChanged && emailExists(email)) {
             addValidationError("email", "already exists");
-        }
+        }/*else if(!emailExists(email)||!authorize(password)){
+
+            addValidationError("password","email or password does not match");
+        }*/
     }
 
     public void create() {
@@ -117,33 +121,57 @@ public class User extends ValidatableModel {
         }
     }
 
-    public void update() {
-        if (passwordChanged) {
+    public boolean update() {
+        boolean flag = false;
+/*        if (passwordChanged) {
             passwordHash = passwordService.hash(password);
-        }
+        }*/
 
-        String sql = "UPDATE users SET username=?, email=?, password=? WHERE id=?";
+        String sql = "UPDATE users SET username=?, email=? WHERE id=?"; /*password=?*/
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, email);
-            statement.setString(3, passwordHash);
-            statement.setInt(4, id);
+           /* statement.setString(3, passwordHash);*/
+            statement.setInt(3, id);
             statement.executeUpdate();
+            flag = true;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return flag;
     }
 
-    public void delete() {
+    public boolean updatePassword() {
+        boolean flag = false;
+        if (passwordChanged) {
+            passwordHash = passwordService.hash(password);
+        }
+        String sql = "UPDATE users SET password=? WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, passwordHash);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+            flag = true;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return flag;
+    }
+
+    public boolean delete() {
+        boolean flag = false;
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+            flag=true;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return flag;
     }
 
     public static boolean emailExists(String email) {
@@ -187,7 +215,7 @@ public class User extends ValidatableModel {
     }
 
     public static void destroyTable() {
-        String sql = "DROP TABLE IF EXISTS users;";
+        String sql = "DROP TABLE users;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.executeUpdate(sql);
         }
@@ -268,4 +296,5 @@ public class User extends ValidatableModel {
         }
         return user;
     }
+
 }

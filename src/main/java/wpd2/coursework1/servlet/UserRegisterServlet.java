@@ -1,11 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 public class UserRegisterServlet extends BaseServlet {
 

@@ -98,16 +98,12 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
      /*Redirect to log in page when not logged in*/
-    protected void Authenticate() throws IOException{
-       //if user id is not stored in the sessions
-        if(getRequest().getSession().getAttribute("loggedInId") == null) {
-/*            if (getResponse() !=null) {
-                System.err.println("###has response");*/
-                getResponse().sendRedirect("/users/login");
-                return;
-
-           // }
+    protected boolean Authenticate() throws IOException{
+        if (getRequest().getSession().getAttribute("user") == null) {
+            getResponse().sendRedirect("/users/login");
+            return false;
         }
+        return true;
     }
 
     protected void json(Object object) throws IOException {

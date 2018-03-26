@@ -16,10 +16,10 @@ public class UserAccountServlet extends BaseServlet {
 
         System.err.println("###before login check");
 
-        if (getRequest().getSession().getAttribute("loggedInEmail") != null) {
+        if (getRequest().getSession().getAttribute("user") != null) {
             System.err.println("###logged in");
-            int userId = Integer.valueOf(getRequest().getSession().getAttribute("loggedInId").toString());
-            user.find(userId);
+            user = (User)getRequest().getSession().getAttribute("user");
+            user = User.find(user.getEmail());
         }
         // Display the form.
         System.err.println("###after login check");
@@ -31,12 +31,19 @@ public class UserAccountServlet extends BaseServlet {
         User user = new User();
         user.setUsername(getRequest().getParameter("username"));
         user.setEmail(getRequest().getParameter("email"));
-        user.setPassword(getRequest().getParameter("password").toCharArray());
+        //get id of existing user
+        User loggedinUserData = (User)getRequest().getSession().getAttribute("user");
+        //set the id to the passed user model
+        user.setId(loggedinUserData.getId());
 
-        if(user.isValid()){
-           user.update();
-            }
+        /*user.setPassword(getRequest().getParameter("password").toCharArray());*/
 
+       if(user.update()){
+           //update session to newly updated user detail
+           getRequest().getSession().setAttribute("user", user);
+           getResponse().sendRedirect("/projects");
+           return;
+           }
         // Display the form with validation errors.
         view(TEMPLATE_FILE, user);
     }
