@@ -29,8 +29,7 @@ function showPasswords() {
     }
 }
 
-var password = document.getElementById("password")
-    , confirm_password = document.getElementById("confirm_password");
+var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
 function validatePassword(){
     if(password.value != confirm_password.value) {
@@ -39,9 +38,12 @@ function validatePassword(){
         confirm_password.setCustomValidity('');
     }
 }
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
 
+/* Checking null fixes console errors for elements not found */
+if (password != null && confirm_password != null) {
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+}
 
 /*
 document.getElementById('logout').addEventListener('click',

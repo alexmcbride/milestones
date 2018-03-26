@@ -3,8 +3,6 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
@@ -21,6 +19,8 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
+        if (!Authenticate()) return;
+
         User user = (User)request.getSession().getAttribute("user");
 
         Project project = new Project();

@@ -72,6 +72,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user = User.find(user.getId());
@@ -79,6 +81,8 @@ public class UserTests {
         assertEquals("user1", user.getUsername());
         assertEquals("valid@email.com", user.getEmail());
         assertNull(user.getPassword());
+        assertEquals("ResetToken", user.getResetToken());
+        assertEquals(3, user.getLoginCount());
         assertNotNull(user.getJoined());
     }
 
@@ -88,18 +92,41 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user.setUsername("user2");
         user.setEmail("valid2@email.com");
         user.setPassword("password2".toCharArray());
+        user.setResetToken("ResetToken2");
+        user.setLoginCount(4);
         user.update();
 
         user = User.find(user.getId());
         assertEquals("user2", user.getUsername());
         assertEquals("valid2@email.com", user.getEmail());
+        assertEquals("ResetToken2", user.getResetToken());
+        assertEquals(4, user.getLoginCount());
         assertNull(user.getPassword());
         assertNotNull(user.getJoined());
+    }
+
+    @Test
+    public void testUpdatePassword() {
+        User user = new User();
+        user.setUsername("user1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
+        user.create();
+
+        user.setPassword("password2".toCharArray());
+        user.updatePassword();
+
+        user = User.find(user.getId());
+        assertTrue(user.authorize("password2".toCharArray()));
     }
 
     @Test
@@ -108,6 +135,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user.delete();
@@ -121,6 +150,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertTrue(User.usernameExists("user1"));
@@ -133,6 +164,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertTrue(User.emailExists("valid@email.com"));
@@ -145,6 +178,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertNotNull(User.find(1));
@@ -159,12 +194,16 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user = new User();
         user.setUsername("user2");
         user.setEmail("valid2@email.com");
         user.setPassword("password2".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         List<User> result = User.findAll();
@@ -181,6 +220,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword(password);
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertTrue(user.authorize(password));

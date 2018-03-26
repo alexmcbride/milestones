@@ -83,12 +83,7 @@ public class Runner {
 }
 
     public static void main(String[] args) throws Exception {
-        try {
-            LOG.info("starting");
         new Runner().start();
-        } catch (Exception e) {
-            LOG.error("Unexpected error: " + e.getMessage());
-        }
     }
 }
 

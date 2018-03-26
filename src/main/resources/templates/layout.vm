@@ -53,7 +53,7 @@
         $!bodyContent
     </div>
 
-    <footer class="col-lg-12 footer text-muted small text-center">
+    <footer class="footer text-muted small text-center">
         Copyright &copy; Milestones 2018
     </footer>
 </body>
