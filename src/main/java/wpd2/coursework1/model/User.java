@@ -20,6 +20,8 @@ public class User extends ValidatableModel {
     private boolean passwordChanged;
     private String passwordHash;
     private Date joined;
+    private String resetToken;
+    private int loginCount;
 
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
@@ -76,6 +78,22 @@ public class User extends ValidatableModel {
         this.joined = joined;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
+
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
@@ -99,18 +117,19 @@ public class User extends ValidatableModel {
         passwordHash = passwordService.hash(password);
         joined = new Date();
 
-        String sql = "INSERT INTO users (username, email, password, joined) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, username);
             statement.setString(2, email);
             statement.setString(3, passwordHash);
             statement.setTimestamp(4, new Timestamp(joined.getTime()));
+            statement.setString(5, resetToken);
+            statement.setInt(6, loginCount);
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
-            if (result.next()) {
-                id = result.getInt(1);
-            }
+            result.next();
+            id = result.getInt(1);
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -122,12 +141,14 @@ public class User extends ValidatableModel {
             passwordHash = passwordService.hash(password);
         }
 
-        String sql = "UPDATE users SET username=?, email=?, password=? WHERE id=?";
+        String sql = "UPDATE users SET username=?, email=?, password=?, resetToken=?, loginCount=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, email);
             statement.setString(3, passwordHash);
-            statement.setInt(4, id);
+            statement.setString(4, resetToken);
+            statement.setInt(5, loginCount);
+            statement.setInt(6, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -176,7 +197,9 @@ public class User extends ValidatableModel {
                 "username NVARCHAR(32) NOT NULL UNIQUE, " +
                 "email NVARCHAR(1024) NOT NULL UNIQUE, " +
                 "password NVARCHAR(128) NOT NULL," +
-                "joined TIMESTAMP NOT NULL" +
+                "joined TIMESTAMP NOT NULL," +
+                "resetToken NVARCHAR(128) NULL," +
+                "loginCount INTEGER NULL" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -198,7 +221,7 @@ public class User extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static User find(int id) {
-        String sql = "SELECT id, username, email, password, joined FROM users WHERE id=?";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -213,7 +236,7 @@ public class User extends ValidatableModel {
     }
 
     public static User find(String email) {
-        String sql = "SELECT id, username, email, password, joined FROM users WHERE email=?";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, email);
             ResultSet result = statement.executeQuery();
@@ -229,7 +252,7 @@ public class User extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<User> findAll() {
-        String sql = "SELECT id, username, email, password, joined FROM users";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users";
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             ResultSet result = statement.executeQuery(sql);
@@ -250,6 +273,8 @@ public class User extends ValidatableModel {
         user.email = result.getString(3);
         user.passwordHash = result.getString(4);
         user.joined = result.getTimestamp(5);
+        user.resetToken = result.getString(6);
+        user.loginCount = result.getInt(7);
         return user;
     }
 
