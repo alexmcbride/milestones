@@ -55,6 +55,12 @@
     <footer class="footer text-muted small text-center">
         Copyright &copy; Milestones 2018
     </footer>
+
+        <script>
+            #if ($userManager.getLoggedIn())
+                console.log('$userManager.getUsername()');
+            #end
+        </script>
 </body>
 </html>
 #end

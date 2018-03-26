@@ -16,7 +16,12 @@ public class UserManager {
         return user;
     }
 
+    @Deprecated
     public boolean getLoggedIn() {
+        return user != null;
+    }
+
+    public boolean isLoggedIn() {
         return user != null;
     }
 
