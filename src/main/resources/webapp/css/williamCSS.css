@@ -2,19 +2,20 @@
 
 /* Navbar Styling */
 .navbar {
-    overflow: hidden;
+    /*overflow: hidden;*/
     background-color: #1b6d85;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
+    display: block;
+
+    /* position: fixed; Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page*/
     width: 100%;
     border-width: 0 0 0 0;
-
-    padding: 0 10%;
+    margin: 0;
+    padding: 0 10px;
 }/* Full width */
 
-
-a.navbar-brand {
-    color: white !important;
+.navbar ul {
+    margin-right: 0;
 }
 
 
@@ -444,6 +445,28 @@ border-color: grey;
 
 
 
+#addEventBtn {
+    display: block;
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 99;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    background-color: #0D1B2E;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+}
+
+#addEventBtn:hover {
+    background-color: #008CBA;
+    color: #0D1B2E;
+}
 
 
 

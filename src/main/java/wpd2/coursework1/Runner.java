@@ -80,7 +80,10 @@ public class Runner {
 
     // Milestone Handler
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
-}
+        handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
+        handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
+
+    }
 
     public static void main(String[] args) throws Exception {
         try {

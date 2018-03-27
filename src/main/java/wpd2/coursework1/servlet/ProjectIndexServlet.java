@@ -13,7 +13,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        Authenticate();
+        // Authenticate();
         // In finished code user would come from login.
         User user = User.dummyUser();
 
@@ -22,6 +22,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
         // Make view models.
         List<ProjectViewModel> models = new ArrayList<>();
+
         for (Project project : projects) {
             models.add(new ProjectViewModel(project));
         }

@@ -1,0 +1,23 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Create Project')
+
+#@mainLayout()
+    ## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
+
+    <form method="post">
+        <h2>Edit Milestone</h2>
+
+        #antiForgeryToken()
+
+        ## Use a form helper to output a text input.
+        #form_text_input("name")
+
+        <div>
+            <input type="submit" value="Edit Milestone" class="btn btn-default">
+            |
+            <a class="createLink" data-id="$model.id">Go back</a>
+        </div>
+    </form>
+#end

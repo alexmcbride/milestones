@@ -7,52 +7,7 @@
 #@mainLayout()
 
 <!-- This button opens the modal box -->
-<button id="addMilestoneBtn" title="Add Milestone">&#43;</button>
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h4>Modal Header</h4>
-        </div>
-        <div class="modal-body">
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-        </div>
-        <div class="modal-footer">
-            <p>Modal Footer</p>
-        </div>
-    </div>
-
-</div>
-
-<div id="editMsModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h4>Modal Header</h4>
-        </div>
-        <div class="modal-body">
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-            <p>Title: Enter Title</p>
-        </div>
-        <div class="modal-footer">
-            <p>Modal Footer</p>
-        </div>
-    </div>
-
-</div>
-
+<button title="Add Milestone" ><a href="/milestone/create">&#43;</a></button>
 
 
 

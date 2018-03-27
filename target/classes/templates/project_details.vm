@@ -1,19 +1,317 @@
 #parse('templates/layout.vm')
 
-#set($title = $model.name)
+#set($title = 'Milestones')
 
 #@mainLayout()
-    <h2>View Project</h2>
 
+
+    <br />
     <p><a href="/projects">Go back</a></p>
 
 
-<p><a href="/milestone">Milestoners</a></p>
 
-    <p>ID: $model.id</p>
-    <p>Name: $model.name</p>
-    <p>Created: $model.created</p>
+ <!--get current projects id and pass it in to servlet
 
-    <h3>Milestones</h3>
-    <p><em>List of milestones...</em></p>
+
+
+<div class="createMilestone" data-id="8">Create New Milestone</div>-->
+
+<button id="addEventBtn" class="createMilestone" data-id="8">&#43;</button>
+
+<!-- This button opens the modal box
+<button id="addMilestoneBtn" title="Add Milestone">&#43;</button>
+<p><a href="/milestone/create">Create New Milestone</a></p>
+-->
+
+
+<div class="header">
+
+
+
+
+    <div class="milestoneHeaderSection">
+
+
+        <div class=""><h3><strong>WPD Project CW1</strong></h3></div>
+        <hr class="headerHR"/>
+        <div id="headerIcons">
+            <div class="headerIcon"><a href="#"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            <div class="headerIcon"><a href="#"><i class="fas fa-trash fa-lg"></i></a></div>
+        </div>
+
+    </div>
+    <!--
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>-->
+</div>
+
+<div class="milestoneContent">
+
+
+
+
+
+    <div class="timeline">
+
+        <br />
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Complete</i></strong></p>
+            <hr  class="timelineIndicator"/>
+        </div>
+
+
+
+    #foreach($milestone in $model.getMilestones())
+
+
+        <div class="timelineContent">
+            <button class="wAccordion">
+                <strong>$milestone.name: $milestone.due</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                #if(false)
+                    <p>This milestone was completed two days early. Nice!</p>
+                    <hr />
+                #end
+
+                <div class="container33">
+                    <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="/milestone/edit?id=" + $milestone.id; id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+    #end
+
+
+
+        <!-- Late Milestones
+
+
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Late</i></strong></p>
+            <hr  class="timelineIndicator"/>
+        </div>
+
+        <div class="timelineContent late">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="timelineContent late">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+
+
+
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Due Today</i></strong></p>
+            <hr  class="timelineIndicator"/>
+        </div>
+
+
+        <div class="timelineContent dueToday">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+
+        <div class="timelineContent dueToday">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="timelineContent dueToday">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+
+
+        <!-- Upcoming Milestones -- >
+
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Upcoming</i></strong></p>
+            <hr  class="timelineIndicator"/>
+        </div>
+
+        <div class="timelineContent upcoming">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="timelineContent upcoming">
+            <button class="wAccordion">
+                <strong>Complete Project Plan: 12/04/2018</strong>
+            </button>
+            <div class="wPanel">
+                <br />
+                <p>This milestone was completed two days early. Nice!</p>
+                <hr />
+                <div class="container33">
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+-->
+
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+    $(function() {
+        $('.createMilestone').click(function () {
+            var projectId = $(this).attr('data-id');
+            location.href = '/milestone/create?id=' + projectId;
+        });
+    });
+</script>
+
+
+
+<!-- Each milestone is in a tabd/accordian section.  -->
+<script>
+    var acc = document.getElementsByClassName("wAccordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("wActive");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
 #end
