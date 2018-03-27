@@ -21,21 +21,13 @@ public class UserRegisterServlet extends BaseServlet {
         user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password").toCharArray());
 
-        if(user.isValid())
-            //check if username or email already exist first
-            if(!user.usernameExists(request.getParameter("username"))){
-
-                // find user with the same email.
-                if (!user.emailExists(request.getParameter("email"))) {
-
-                    // Save user to database.
-                    user.create();
-                    flash.message("User account registered");
-                    response.sendRedirect("/users/login");
-                    return;
-
-                }
-            }
+        if (user.isValid()) {
+            // Save user to database.
+            user.create();
+            flash.message("User account registered");
+            response.sendRedirect("/users/login");
+            return;
+        }
 
         // Display the form with validation errors.
         view(TEMPLATE_FILE, user);

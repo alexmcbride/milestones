@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 public class User extends ValidatableModel {
-    public static final String KEY_USER = "user";
     private final PasswordService passwordService;
     private int id;
     private String username;
@@ -236,8 +235,7 @@ public class User extends ValidatableModel {
         return null;
     }
 
-    @SuppressWarnings("Duplicates")
-    public static User findbyToken(String resetToken) {
+    public static User findByToken(String resetToken) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE resetToken=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, resetToken);
@@ -252,7 +250,6 @@ public class User extends ValidatableModel {
         return null;
     }
 
-    @SuppressWarnings("Duplicates")
     public static User find(String email) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {

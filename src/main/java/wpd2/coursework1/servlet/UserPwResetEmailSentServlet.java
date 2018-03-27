@@ -1,7 +1,5 @@
 package wpd2.coursework1.servlet;
 
-import wpd2.coursework1.model.Project;
-
 import java.io.IOException;
 
 public class UserPwResetEmailSentServlet extends BaseServlet {
@@ -9,8 +7,6 @@ public class UserPwResetEmailSentServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        String text = "anytext";
-        // Display the form.
-        view(TEMPLATE_FILE, text);
+        view(TEMPLATE_FILE, null);
     }
 }

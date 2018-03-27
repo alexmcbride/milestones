@@ -48,11 +48,10 @@ public class UserAccountServlet extends BaseServlet {
             if (user.update()) {
                 flash.message("Account details updated");
                 //update session to newly updated user detail
-                getRequest().getSession().setAttribute("user", user);
+                userManager.login(user);
                 getResponse().sendRedirect("/projects");
                 return;
             }
-            // Display the form with validation errors.
         }
 
         view(TEMPLATE_FILE, user);

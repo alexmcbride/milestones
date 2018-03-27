@@ -18,7 +18,7 @@ class TestableSession extends SessionWrapper {
 
     @Override
     public Object getAttribute(String s) {
-        if (s.equals(User.KEY_USER)) {
+        if (s.equals(UserManager.KEY_USER)) {
             return user;
         }
 
@@ -35,7 +35,10 @@ class TestableSession extends SessionWrapper {
 
     @Override
     public void setAttribute(String s, Object o) {
-        if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
+        if (s.equals(UserManager.KEY_USER)) {
+            user = (User)o;
+        }
+        else if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
             flashMessages = (List< FlashHelper.FlashMessage>)o;
         }
         else if (s.equals(AntiForgeryHelper.KEY_FORGERY_TOKEN)) {
@@ -45,7 +48,10 @@ class TestableSession extends SessionWrapper {
 
     @Override
     public void removeAttribute(String s) {
-        if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
+        if (s.equals(UserManager.KEY_USER)) {
+            user = null;
+        }
+        else if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
             flashMessages = null;
         }
         else if (s.equals(AntiForgeryHelper.KEY_FORGERY_TOKEN)) {

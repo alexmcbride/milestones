@@ -1,7 +1,5 @@
 package wpd2.coursework1.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.eclipse.jetty.server.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.*;
@@ -9,18 +7,14 @@ import wpd2.coursework1.util.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
     public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
-    public static final  String RESPONSE_PLAIN = "text/plain; charset=UTF-8";
-    public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
-    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8\"";
+    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
@@ -91,7 +85,11 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
         renderer.render(response, template, object);
-        response.setContentType(RESPONSE_HTML);
+        handleResponse(response, RESPONSE_HTML);
+    }
+
+    private void handleResponse(HttpServletResponse response, String responseHtml) {
+        response.setContentType(responseHtml);
         response.setStatus(200);
     }
 
@@ -112,10 +110,8 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     protected void json(HttpServletResponse response, Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(object);
-        response.getWriter().write(json);
-        response.setContentType(RESPONSE_JSON);
-        response.setStatus(200);
+        JsonRenderer renderer = new JsonRenderer();
+        renderer.render(response, object);
+        handleResponse(response, RESPONSE_JSON);
     }
 }

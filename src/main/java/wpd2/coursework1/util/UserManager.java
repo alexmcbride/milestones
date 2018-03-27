@@ -2,8 +2,10 @@ package wpd2.coursework1.util;
 
 import wpd2.coursework1.model.User;
 
+import java.util.UUID;
+
 public class UserManager {
-    public static final String USER = "user";
+    public static final String KEY_USER = "user";
     private final SessionWrapper session;
 
     public UserManager(SessionWrapper session) {
@@ -11,7 +13,7 @@ public class UserManager {
     }
 
     public User getUser() {
-        return (User)session.getAttribute(USER);
+        return (User)session.getAttribute(KEY_USER);
     }
 
     @Deprecated
@@ -37,5 +39,17 @@ public class UserManager {
             return user.getUsername();
         }
         return null;
+    }
+
+    public void login(User user) {
+        session.setAttribute(KEY_USER, user);
+    }
+
+    public void logout() {
+        session.removeAttribute(KEY_USER);
+    }
+
+    public String generateEmailToken() {
+        return UUID.randomUUID().toString();
     }
 }

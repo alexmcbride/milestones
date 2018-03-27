@@ -52,4 +52,34 @@ public class UserManagerTests {
         session.user = null;
         assertNull(userManager.getUsername());
     }
+
+    @Test
+    public void testLogin() {
+        User user = new User();
+        TestableSession session = new TestableSession();
+        UserManager userManager = new UserManager(session);
+        userManager.login(user);
+
+        assertEquals(user, session.user);
+    }
+
+    @Test
+    public void testLogout() {
+        User user = new User();
+        TestableSession session = new TestableSession();
+        UserManager userManager = new UserManager(session);
+        userManager.login(user);
+
+        userManager.logout();
+
+        assertNull(session.user);
+    }
+
+    @Test
+    public void testGenerateEmailToken() {
+        TestableSession session = new TestableSession();
+        UserManager userManager = new UserManager(session);
+
+        assertNotNull(userManager.generateEmailToken());
+    }
 }
