@@ -31,6 +31,8 @@ public class ProjectCreateServlet extends BaseServlet {
             User user = userManager.getUser();
             project.create(user);
 
+            flashHelper.message("New project created");
+
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());
 

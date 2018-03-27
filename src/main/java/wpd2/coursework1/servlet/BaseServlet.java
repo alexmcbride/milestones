@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.AntiForgeryHelper;
+import wpd2.coursework1.util.FlashHelper;
 import wpd2.coursework1.util.UserManager;
 import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -26,6 +28,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected HttpServletResponse response;
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
+    protected FlashHelper flashHelper;
     protected int loginCount = 0;
 
     private void checkAntiForgeryToken() {
@@ -35,10 +38,12 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
         this.request = request;
         this.response = response;
-        this.userManager = new UserManager(request.getSession());
-        this.antiForgeryHelper = new AntiForgeryHelper(request.getSession());
+        this.userManager = new UserManager(session);
+        this.antiForgeryHelper = new AntiForgeryHelper(session);
+        this.flashHelper = new FlashHelper(session);
     }
 
     @Override
@@ -76,7 +81,7 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager);
+        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager, flashHelper);
         renderer.render(response, template, object);
         response.setContentType(RESPONSE_HTML);
         response.setStatus(200);

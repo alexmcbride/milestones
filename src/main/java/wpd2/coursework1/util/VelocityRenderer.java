@@ -11,10 +11,12 @@ public class VelocityRenderer {
     private static final String TEMPLATE_DIR = "/templates/";
     private final AntiForgeryHelper antiForgeryHelper;
     private final UserManager userManager;
+    private final FlashHelper flashHelper;
 
-    public VelocityRenderer(AntiForgeryHelper antiForgeryHelper, UserManager userManager) {
+    public VelocityRenderer(AntiForgeryHelper antiForgeryHelper, UserManager userManager, FlashHelper flashHelper) {
         this.antiForgeryHelper = antiForgeryHelper;
         this.userManager = userManager;
+        this.flashHelper = flashHelper;
     }
 
     public void render(HttpServletResponse response, String templateName, Object object) throws IOException {
@@ -22,6 +24,7 @@ public class VelocityRenderer {
         context.put("model", object);
         context.put("antiForgeryHelper", antiForgeryHelper);
         context.put("userManager", userManager);
+        context.put("flashHelper", flashHelper);
         render(response, templateName, context);
     }
 
