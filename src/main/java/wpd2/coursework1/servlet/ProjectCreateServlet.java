@@ -14,9 +14,7 @@ public class ProjectCreateServlet extends BaseServlet {
         if (!authorize()) return;
 
         // Display the form.
-        Project project = new Project();
-        project.setName("Test");
-        view(TEMPLATE_FILE, project);
+        view(TEMPLATE_FILE, new Project());
     }
 
     @Override
