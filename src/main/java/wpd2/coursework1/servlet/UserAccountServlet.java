@@ -41,7 +41,9 @@ public class UserAccountServlet extends BaseServlet {
             // set the passed updated data
             user.setUsername(getRequest().getParameter("username"));
             user.setEmail(getRequest().getParameter("email"));
+            if(getRequest().getParameter("password") != null){
             user.setPassword(getRequest().getParameter("password").toCharArray());
+            }
 
             if (user.update()) {
                 //update session to newly updated user detail

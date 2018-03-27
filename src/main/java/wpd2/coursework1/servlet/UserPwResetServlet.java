@@ -26,31 +26,31 @@ public class UserPwResetServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        //if token from the link user clicked is saved in the session
+        //if token value from the link user clicked is saved in the session
         if(getRequest().getSession().getAttribute("ReturnedToken") != null){
-            //save the string to rToken session
-            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString();
-            //if rtoken successfully stored in the session
-            if(getRequest().getSession().getAttribute(rToken) != null){
-                //if the email retrieved with returned session is not null
-                if(getRequest().getSession().getAttribute(rToken) != null) {
+            //save the session value to rToken string
+            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString().replace("'","");
+
                     //if the user retreived using email is not null
-                    if (User.find(getRequest().getSession().getAttribute(rToken).toString()) != null) {
-                        //create user with the email
-                        User user = User.find(getRequest().getSession().getAttribute(rToken).toString());
+                    if (User.findbyToken(rToken) != null) {
+                        //create user with the token
+                        User user = User.findbyToken(rToken);
                         //and set the input password to it.
                         user.setPassword(getRequest().getParameter("password").toCharArray());
+
                         //if user update is successful redirect user to log in screen
-                        if (user.updatePassword()) {
-                            getResponse().sendRedirect("users/login");
+                        if (user.update()) {
+                            getResponse().sendRedirect("/users/login");
                             return;
                         }
+
+
                     }
-                }
+
         }
-        String msg = "Error password did not get updated.";
+        String msg2 = "Error password did not get updated.";
         // Display the form with validation errors.
-        view(TEMPLATE_FILE, msg);
+        view(TEMPLATE_FILE, msg2);
         }
-    }
+
 }
