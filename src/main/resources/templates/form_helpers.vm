@@ -6,28 +6,38 @@
     #end
 #end
 
-#macro(form_text_input $attribute)
+#macro(form_text_input $attribute, $value)
     #set($error="")
     #if ($model.hasValidationError($attribute))
         #set($error=" has-error")
     #end
 
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $value + '"')
+    #end
+
     <div class="form-group$error">
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
-        <input type="text" name="$attribute" class="form-control">
+        <input type="text" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
 #end
 
-#macro(form_email_input $attribute)
+#macro(form_email_input $attribute, $value)
     #set($error="")
     #if ($model.hasValidationError($attribute))
         #set($error=" has-error")
     #end
 
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $value + '"')
+    #end
+
     <div class="form-group$error">
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
-        <input type="email" id="$attribute" name="$attribute" class="form-control">
+        <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
 #end
