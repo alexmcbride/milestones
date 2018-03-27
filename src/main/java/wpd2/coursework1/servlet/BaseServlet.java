@@ -28,7 +28,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected HttpServletResponse response;
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
-    protected FlashHelper flashHelper;
+    protected FlashHelper flash;
     protected int loginCount = 0;
 
     private void checkAntiForgeryToken() {
@@ -43,7 +43,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.response = response;
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
-        this.flashHelper = new FlashHelper(session);
+        this.flash = new FlashHelper(session);
     }
 
     @Override
@@ -81,7 +81,10 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager, flashHelper);
+        VelocityRenderer renderer = new VelocityRenderer();
+        renderer.addContext("antiForgeryHelper", antiForgeryHelper);
+        renderer.addContext("userManager", userManager);
+        renderer.addContext("flash", flash);
         renderer.render(response, template, object);
         response.setContentType(RESPONSE_HTML);
         response.setStatus(200);

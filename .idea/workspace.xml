@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a984231d-5e61-4c48-aaf4-af81c6226ae8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/FlashHelper.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/service/PasswordService.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/service/PasswordService.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" />
@@ -13,12 +13,19 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectIndexServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectIndexServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserAccountServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserAccountServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserDeleteServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserDeleteServlet.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetEmailServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetEmailServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserRegisterServlet.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserRegisterServlet.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
       <change beforePath="$PROJECT_DIR$/src/main/tests/wpd2/coursework1/model/UserTests.java" afterPath="$PROJECT_DIR$/src/main/tests/wpd2/coursework1/model/UserTests.java" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/layout.vm" afterPath="$PROJECT_DIR$/target/classes/templates/layout.vm" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/Runner.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/Runner.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/BaseServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/BaseServlet.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectCreateServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectCreateServlet.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserLoginServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserLoginServlet.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/VelocityRenderer.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/VelocityRenderer.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,29 +56,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="BaseServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java">
+      <file leaf-file-name="Runner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="83" column="50" lean-forward="true" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
+            <state relative-caret-position="283">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.vm" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BaseServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="89" column="32" lean-forward="true" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.vm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="59" column="12" lean-forward="true" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="12" />
+            <state relative-caret-position="263">
+              <caret line="60" column="34" lean-forward="true" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
               <folding>
-                <element signature="e#2309#2316#1#HTML" expanded="true" />
+                <element signature="e#2261#2268#1#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlashHelper.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FlashHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/FlashHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
@@ -91,11 +108,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="UserLoginServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="VelocityRenderer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+            <state relative-caret-position="289">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -125,6 +152,11 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Alex McBride &lt;xandermcbride@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -141,7 +173,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_register.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/UserManager.java" />
         <option value="$PROJECT_DIR$/src/main/resources/webapp/js/login_register.js" />
-        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_delete.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" />
@@ -150,16 +181,17 @@
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserDeleteServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserAccountServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetEmailServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserRegisterServlet.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectCreateServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/FlashHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
       </list>
     </option>
   </component>
@@ -416,7 +448,7 @@
       <updated>1521919206606</updated>
       <workItem from="1521919208444" duration="2171000" />
       <workItem from="1521965394796" duration="13541000" />
-      <workItem from="1522145315813" duration="1722000" />
+      <workItem from="1522145315813" duration="2992000" />
     </task>
     <task id="LOCAL-00001" summary="Code cleanup">
       <created>1522146248246</created>
@@ -425,11 +457,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522146248246</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added flash-helper">
+      <created>1522147066470</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1522147066470</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34451000" />
+    <option name="totallyTimeSpent" value="35721000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -504,7 +543,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup" />
+    <MESSAGE value="Added flash-helper" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added flash-helper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -739,14 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="80" column="24" lean-forward="false" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/UserManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -831,14 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -887,18 +911,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/FlashHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="83" column="50" lean-forward="true" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+        <state relative-caret-position="380">
+          <caret line="43" column="51" lean-forward="false" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
           <folding />
         </state>
       </provider>
@@ -911,21 +927,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="59" column="12" lean-forward="true" selection-start-line="59" selection-start-column="12" selection-end-line="59" selection-end-column="12" />
-          <folding>
-            <element signature="e#2309#2316#1#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="283">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/FlashHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="43" column="51" lean-forward="false" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
+        <state relative-caret-position="289">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="89" column="32" lean-forward="true" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="60" column="34" lean-forward="true" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+          <folding>
+            <element signature="e#2261#2268#1#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

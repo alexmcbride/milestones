@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
+import wpd2.coursework1.util.FlashHelper;
 
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ public class UserLoginServlet extends BaseServlet {
         else {
             user = new User();
             user.setEmail(request.getParameter("email"));
-            user.addValidationError("auth", "Email or password are incorrect");
+            flash.message("Email or password are incorrect", FlashHelper.WARNING);
         }
 
         if (loginCount == 3) {
