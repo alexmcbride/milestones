@@ -46,11 +46,28 @@ public class UserTests {
     }
 
     @Test
-    public void testInvalid() {
+    public void testInvalidRequired() {
         User user = new User();
-        assertFalse(user.isValid());
 
-        // TODO: add more tests
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
+    }
+
+    @Test
+    public void testInvalidUserExists() {
+        User user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setJoined(new Date());
+        user.create();
+
+        user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
     }
 
     @Test
