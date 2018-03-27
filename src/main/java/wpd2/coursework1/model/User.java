@@ -251,6 +251,7 @@ public class User extends ValidatableModel {
         return null;
     }
 
+    @SuppressWarnings("Duplicates")
     public static User find(String email) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
