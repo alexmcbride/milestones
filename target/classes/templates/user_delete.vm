@@ -19,8 +19,6 @@
         </form>
         <br>
         <a href="/users/account">Back to my account page</a>
-        |
-        <a href="/projects">Go back to main</a>
     </div>
 </div>
 #end
