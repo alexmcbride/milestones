@@ -3,7 +3,6 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.FlashHelper;
 
-
 import java.io.IOException;
 
 public class UserLoginServlet extends BaseServlet {
@@ -23,8 +22,11 @@ public class UserLoginServlet extends BaseServlet {
         User user = User.find(request.getParameter("email"));
 
         if (user != null && user.authenticate(request.getParameter("password").toCharArray())) {
-            request.getSession().setAttribute("user", user);
+            userManager.login(user);
             loginCount = 0;
+
+            flash.message("You are logged in");
+
             // Always redirect to project.
             getResponse().sendRedirect("/projects");
 

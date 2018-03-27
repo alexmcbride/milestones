@@ -1,13 +1,12 @@
 package wpd2.coursework1.util;
 
-import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 public class AntiForgeryHelper {
-    private static final String KEY_FORGERY_TOKEN = "keyForgeryToken";
-    private final HttpSession session;
+    public static final String KEY_FORGERY_TOKEN = "anti-forgery-token";
+    private final SessionWrapper session;
 
-    public AntiForgeryHelper(HttpSession session) {
+    public AntiForgeryHelper(SessionWrapper session) {
         this.session = session;
     }
 

@@ -18,7 +18,7 @@ public class UserTests {
     private DatabaseService db;
 
     @Before
-    public void setup() throws SQLException {
+    public void setup() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordService(PasswordService.MIN_COST);
 
@@ -30,7 +30,7 @@ public class UserTests {
     }
 
     @After
-    public void teardown() throws SQLException {
+    public void teardown() {
         db.destroy();
     }
 

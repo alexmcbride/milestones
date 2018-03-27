@@ -9,35 +9,19 @@ public class UserLogoutServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        User user = new User();
-        /*      System.err.println("###before login check");*/
-        if (getRequest().getSession().getAttribute("user") != null) {
-            /*      System.err.println("###logged in");*/
-            //get user on the session
-            user = (User) getRequest().getSession().getAttribute("user");
-            //get the user from database using logged in user's email
-            user = User.find(user.getEmail());
-        }
+        if (!authorize()) return;
 
-        /*        System.err.println("###after login check");*/
+        User user = userManager.getUser();
         view(TEMPLATE_FILE, user);
     }
 
-
     @Override
     protected void doPost() throws IOException {
+        if (!authorize()) return;
 
-        //get existing user
-        User user = (User) getRequest().getSession().getAttribute("user");
-        if (user != null) {
-            getRequest().getSession().removeAttribute("user");
-            //redirect to main
-            getResponse().sendRedirect("/projects");
-            return;
-        }
-        // if fails continues to show delete user view
+        userManager.logout();
+        flash.message("You are logged out");
         getResponse().sendRedirect("/projects");
-        return;
     }
 }
 

@@ -34,7 +34,8 @@ public class UserDeleteServlet extends BaseServlet {
         //if successfully delete the user
         if (user.delete()) {
             //remove this account from session
-            request.getSession().removeAttribute("user");
+            userManager.logout();
+            flash.message("User account deleted");
             //redirect to main
             response.sendRedirect("/projects");
             return;
