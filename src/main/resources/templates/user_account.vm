@@ -19,14 +19,14 @@
             <input value="$!{model.username}" type="text" id="username" name="username" class="form-control" required>
             #validation_error($attribute)
         </div>
-       #* #form_text_input("username")*#
+
 
         <div class="form-group$error">
             <label for="email" style="text-transform: capitalize">email</label>
             <input value="$!{model.email}" type="email" id="email" name="email" class="form-control" required>
             #validation_error($attribute)
         </div>
-       #* #form_email_input("email")*#
+
 
 #*    <div class="form-group$error">
         <label for="password" style="text-transform: capitalize">Password</label>
@@ -34,7 +34,7 @@
         #validation_error($attribute)
     </div>*#
 
-    #*<input type="checkbox" onclick="showPasswords()">Show confirm-password*#
+    <input type="checkbox" onclick="showPasswords()">Show confirm-password
         <div>
             <input type="submit" value="Update" class="btn btn-default"> | <a href="/users/delete" class="btn btn-default">Delete this account</a> | <a href="/projects">back to main</a>
         </div>

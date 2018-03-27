@@ -37,6 +37,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
                     HttpSession session = getRequest().getSession();
                     session.setAttribute(token, email);
+
                     return;
                 } else {
                     view(TEMPLATE_FILE, email);

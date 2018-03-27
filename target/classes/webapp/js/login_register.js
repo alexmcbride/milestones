@@ -29,21 +29,29 @@ function showPasswords() {
     }
 }
 
-var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
 
 function validatePassword(){
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+    if (password != null || confirm_password != null) {
+
     if(password.value != confirm_password.value) {
         confirm_password.setCustomValidity("Passwords Don't Match");
     } else {
         confirm_password.setCustomValidity('');
     }
+    }
 }
+/*password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;*/
 
-/* Checking null fixes console errors for elements not found */
-if (password != null && confirm_password != null) {
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-}
+/* Checking null fixes console errors for elements not found
+if (password != null || confirm_password != null) {
+password.onchange = validatePassword();
+confirm_password.onkeyup = validatePassword();
+}*/
 
 /*
 document.getElementById('logout').addEventListener('click',

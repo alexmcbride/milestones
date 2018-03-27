@@ -10,13 +10,13 @@
 
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
-
     <link href="/css/styles.css" rel="stylesheet">
 ##    <link href="/css/williamCSS.css" rel="stylesheet">
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <Script src="/lib/bootstrap/js/jquery-3.3.1.min.js"></Script>
     <Script src="/lib/bootstrap/js/bootstrap.js"></Script>
+    <Script src="/js/login_register.js" rel="stylesheet"></Script>
 
 </head>
 <body>
@@ -41,7 +41,7 @@
                     <li><a id="login" href="/users/login">Login <span class="sr-only">(current)</span></a></li>
                     <li><a id="account" href="/users/account">#if ($userManager.getUser())$userManager.getUsername()#end</a></li>
                     <li><a id="register" href="/users/register">Register</a></li>
-                    <li><a  href="#" id="logout">Logout</a></li>
+                    <li><a id="logout" href="/users/logout">Logout</a></li>
 
                 </ul>
         </div>
@@ -55,12 +55,6 @@
     <footer class="footer text-muted small text-center">
         Copyright &copy; Milestones 2018
     </footer>
-
-        <script>
-            #if ($userManager.getLoggedIn())
-                console.log('$userManager.getUsername()');
-            #end
-        </script>
 </body>
 </html>
 #end

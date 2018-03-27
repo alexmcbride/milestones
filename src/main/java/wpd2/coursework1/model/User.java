@@ -136,6 +136,23 @@ public class User extends ValidatableModel {
         }
     }
 
+/*      public boolean update() {
+        if (passwordChanged) {
+            passwordHash = passwordService.hash(password);
+        }
+
+        String sql = "UPDATE users SET username=?, email=?, WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setInt(3, id);
+            return statement.executeUpdate() > 0;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
+
     public boolean update() {
         if (passwordChanged) {
             passwordHash = passwordService.hash(password);

@@ -31,20 +31,26 @@ public class UserAccountServlet extends BaseServlet {
         User user = new User();
         user.setUsername(getRequest().getParameter("username"));
         user.setEmail(getRequest().getParameter("email"));
-        //get id of existing user
+        //get session user
         User loggedinUserData = (User)getRequest().getSession().getAttribute("user");
-        //set the id to the passed user model
-        user.setId(loggedinUserData.getId());
+        //get id of existing user
+        if(loggedinUserData != null) {
+            //get the user with the session id
+            user = User.find(loggedinUserData.getId());
+            user.setId(loggedinUserData.getId());
+            // set the passed updated data
+            user.setUsername(getRequest().getParameter("username"));
+            user.setEmail(getRequest().getParameter("email"));
+            user.setPassword(getRequest().getParameter("password").toCharArray());
 
-        /*user.setPassword(getRequest().getParameter("password").toCharArray());*/
-
-       if(user.update()){
-           //update session to newly updated user detail
-           getRequest().getSession().setAttribute("user", user);
-           getResponse().sendRedirect("/projects");
-           return;
-           }
-        // Display the form with validation errors.
+            if (user.update()) {
+                //update session to newly updated user detail
+                getRequest().getSession().setAttribute("user", user);
+                getResponse().sendRedirect("/projects");
+                return;
+            }
+            // Display the form with validation errors.
+        }
         view(TEMPLATE_FILE, user);
     }
 }
