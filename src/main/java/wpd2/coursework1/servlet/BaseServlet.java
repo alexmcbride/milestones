@@ -3,10 +3,7 @@ package wpd2.coursework1.servlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.util.AntiForgeryHelper;
-import wpd2.coursework1.util.FlashHelper;
-import wpd2.coursework1.util.UserManager;
-import wpd2.coursework1.util.VelocityRenderer;
+import wpd2.coursework1.util.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +46,7 @@ public abstract class BaseServlet extends HttpServlet {
         HttpSession session = request.getSession();
         this.request = request;
         this.response = response;
-        this.userManager = new UserManager(session);
+        this.userManager = new UserManager(new SessionWrapper(session));
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
     }
