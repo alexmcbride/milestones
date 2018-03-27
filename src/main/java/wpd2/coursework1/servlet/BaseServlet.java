@@ -48,7 +48,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.response = response;
         this.userManager = new UserManager(new SessionWrapper(session));
         this.antiForgeryHelper = new AntiForgeryHelper(session);
-        this.flash = new FlashHelper(session);
+        this.flash = new FlashHelper(new SessionWrapper(session));
     }
 
     @Override

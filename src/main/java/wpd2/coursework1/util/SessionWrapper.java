@@ -15,4 +15,12 @@ public class SessionWrapper {
     public Object getAttribute(String s) {
         return session.getAttribute(s);
     }
+
+    public void removeAttribute(String s) {
+        session.removeAttribute(s);
+    }
+
+    public void setAttribute(String s, Object o) {
+        session.setAttribute(s, o);
+    }
 }

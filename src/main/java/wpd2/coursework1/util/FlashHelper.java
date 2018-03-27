@@ -11,9 +11,9 @@ public class FlashHelper {
     public static final String WARNING = "warning";
     private static final String KEY_FLASH_MESSAGES = "flash-messages";
 
-    private final HttpSession session;
+    private final SessionWrapper session;
 
-    public FlashHelper(HttpSession session) {
+    public FlashHelper(SessionWrapper session) {
         this.session = session;
     }
 
@@ -47,7 +47,7 @@ public class FlashHelper {
         setMessages(messages);
     }
 
-    public class FlashMessage {
+    public static class FlashMessage {
         private String content;
         private String type;
 
