@@ -123,7 +123,7 @@ public class UserTests {
         user.create();
 
         user.setPassword("password2".toCharArray());
-        user.updatePassword();
+        /*user.updatePassword();*/
 
         user = User.find(user.getId());
         assertTrue(user.authorize("password2".toCharArray()));
