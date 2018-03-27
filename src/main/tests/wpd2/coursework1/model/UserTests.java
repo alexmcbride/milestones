@@ -126,7 +126,7 @@ public class UserTests {
         user.updatePassword();
 
         user = User.find(user.getId());
-        assertTrue(user.authorize("password2".toCharArray()));
+        assertTrue(user.authenticate("password2".toCharArray()));
     }
 
     @Test
@@ -224,7 +224,7 @@ public class UserTests {
         user.setLoginCount(3);
         user.create();
 
-        assertTrue(user.authorize(password));
-        assertFalse(user.authorize("invalidpassword".toCharArray()));
+        assertTrue(user.authenticate(password));
+        assertFalse(user.authenticate("invalidpassword".toCharArray()));
     }
 }

@@ -24,15 +24,9 @@ public abstract class BaseServlet extends HttpServlet {
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
-    public int loginCount = 0;
-
-    protected HttpServletRequest getRequest() {
-        return request;
-    }
-
-    protected HttpServletResponse getResponse() {
-        return response;
-    }
+    protected UserManager userManager;
+    protected AntiForgeryHelper antiForgeryHelper;
+    protected int loginCount = 0;
 
     private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
@@ -40,34 +34,27 @@ public abstract class BaseServlet extends HttpServlet {
         antiForgeryHelper.checkToken(token);
     }
 
-    protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
-        response.setContentType(mimeType);
-        response.setStatus(returnCode);
-    }
-
-    protected void cache(HttpServletResponse response, int seconds) {
-        if (seconds > 0) {
-            response.setHeader("Pragma", "Public");
-            response.setHeader("Cache-Control", "public, no-transform, max-age=" + seconds);
-        }
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        this.request = request;
+        this.response = response;
+        this.userManager = new UserManager(request.getSession());
+        this.antiForgeryHelper = new AntiForgeryHelper(request.getSession());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
+        handleRequest(request, response);
 
         doGet();
     }
 
     protected void doGet() throws IOException {
 
-  }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
+        handleRequest(request, response);
         checkAntiForgeryToken();
         doPost();
     }
@@ -89,21 +76,18 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
-        UserManager userManager = new UserManager(request.getSession());
         VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper, userManager);
         renderer.render(response, template, object);
         response.setContentType(RESPONSE_HTML);
         response.setStatus(200);
     }
 
-     /*Redirect to log in page when not logged in*/
-    protected boolean Authenticate() throws IOException{
-        if (getRequest().getSession().getAttribute("user") == null) {
-            getResponse().sendRedirect("/users/login");
-            return false;
+    protected boolean authorize() throws IOException{
+        if (userManager.isLoggedIn()) {
+            return true;
         }
-        return true;
+        response.sendRedirect("/users/login");
+        return false;
     }
 
     protected void json(Object object) throws IOException {

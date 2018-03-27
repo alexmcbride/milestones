@@ -16,9 +16,9 @@ public class UserAccountServlet extends BaseServlet {
 
         System.err.println("###before login check");
 
-        if (getRequest().getSession().getAttribute("user") != null) {
+        if (request.getSession().getAttribute("user") != null) {
             System.err.println("###logged in");
-            user = (User)getRequest().getSession().getAttribute("user");
+            user = (User)request.getSession().getAttribute("user");
             user = User.find(user.getEmail());
         }
         // Display the form.
@@ -29,10 +29,10 @@ public class UserAccountServlet extends BaseServlet {
     @Override
     protected void doPost() throws IOException {
         User user = new User();
-        user.setUsername(getRequest().getParameter("username"));
-        user.setEmail(getRequest().getParameter("email"));
+        user.setUsername(request.getParameter("username"));
+        user.setEmail(request.getParameter("email"));
         //get id of existing user
-        User loggedinUserData = (User)getRequest().getSession().getAttribute("user");
+        User loggedinUserData = (User)request.getSession().getAttribute("user");
         //set the id to the passed user model
         user.setId(loggedinUserData.getId());
 
@@ -40,8 +40,8 @@ public class UserAccountServlet extends BaseServlet {
 
        if(user.update()){
            //update session to newly updated user detail
-           getRequest().getSession().setAttribute("user", user);
-           getResponse().sendRedirect("/projects");
+           request.getSession().setAttribute("user", user);
+           response.sendRedirect("/projects");
            return;
            }
         // Display the form with validation errors.

@@ -19,11 +19,11 @@ public class UserLoginServlet extends BaseServlet {
         loginCount++;
 
         User user = User.find(request.getParameter("email"));
-        if (user != null && user.authorize(request.getParameter("password").toCharArray())) {
+        if (user != null && user.authenticate(request.getParameter("password").toCharArray())) {
             request.getSession().setAttribute("user", user);
             loginCount = 0;
             // Always redirect to project.
-            getResponse().sendRedirect("/projects");
+            response.sendRedirect("/projects");
             return;
         }
         else {

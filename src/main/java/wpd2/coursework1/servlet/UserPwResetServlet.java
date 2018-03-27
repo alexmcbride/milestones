@@ -14,9 +14,9 @@ public class UserPwResetServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if(getRequest().getParameter("token") != null){
-            String token = getRequest().getParameter("token");
-            getRequest().getSession().setAttribute("ReturnedToken",token);
+        if(request.getParameter("token") != null){
+            String token = request.getParameter("token");
+            request.getSession().setAttribute("ReturnedToken",token);
         }
         UserPWResetEmailViewModel password = new UserPWResetEmailViewModel();
 
@@ -27,22 +27,22 @@ public class UserPwResetServlet extends BaseServlet {
     @Override
     protected void doPost() throws IOException {
         //if token from the link user clicked is saved in the session
-        if(getRequest().getSession().getAttribute("ReturnedToken") != null){
+        if(request.getSession().getAttribute("ReturnedToken") != null){
             //save the string to rToken session
-            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString();
+            String rToken = request.getSession().getAttribute("ReturnedToken").toString();
             //if rtoken successfully stored in the session
-            if(getRequest().getSession().getAttribute(rToken) != null){
+            if(request.getSession().getAttribute(rToken) != null){
                 //if the email retrieved with returned session is not null
-                if(getRequest().getSession().getAttribute(rToken) != null) {
-                    //if the user retreived using email is not null
-                    if (User.find(getRequest().getSession().getAttribute(rToken).toString()) != null) {
+                if(request.getSession().getAttribute(rToken) != null) {
+                    //if the user retrieved using email is not null
+                    if (User.find(request.getSession().getAttribute(rToken).toString()) != null) {
                         //create user with the email
-                        User user = User.find(getRequest().getSession().getAttribute(rToken).toString());
+                        User user = User.find(request.getSession().getAttribute(rToken).toString());
                         //and set the input password to it.
-                        user.setPassword(getRequest().getParameter("password").toCharArray());
+                        user.setPassword(request.getParameter("password").toCharArray());
                         //if user update is successful redirect user to log in screen
                         if (user.updatePassword()) {
-                            getResponse().sendRedirect("users/login");
+                            response.sendRedirect("users/login");
                             return;
                         }
                     }

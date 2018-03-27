@@ -21,7 +21,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        String email = getRequest().getParameter("email");
+        String email = request.getParameter("email");
 
         EmailService emailservice = new EmailService();
 
@@ -29,13 +29,13 @@ public class UserPwResetEmailServlet extends BaseServlet {
         String token = generateEmailToken();
         String msg = "Please Reset your password from here <a href='http://localhost:9000/users/pw_reset?token='"+token+">Reset My Password</a>";
         User user = new User();
-        user.setEmail(getRequest().getParameter("email"));
+        user.setEmail(request.getParameter("email"));
         if(user.find(email) != null) {
 
                 if (emailservice.SendEmailUsingGMailSMTP(email, sbj, msg)) {
-                    getResponse().sendRedirect("/users/pw_reset_email_sent");
+                    response.sendRedirect("/users/pw_reset_email_sent");
 
-                    HttpSession session = getRequest().getSession();
+                    HttpSession session = request.getSession();
                     session.setAttribute(token, email);
                     return;
                 } else {

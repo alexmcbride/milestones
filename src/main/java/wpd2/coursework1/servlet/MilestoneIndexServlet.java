@@ -11,10 +11,8 @@ public class MilestoneIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        // In finished code this will come from login.
-        User user = User.dummyUser();
-
         // Get list of projects.
+        User user = userManager.getUser();
         List<Project> projects = Project.findAll(user);
 
         // Render the view.

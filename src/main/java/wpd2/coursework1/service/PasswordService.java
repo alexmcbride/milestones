@@ -87,7 +87,7 @@ public final class PasswordService
     }
 
     /**
-     * Authenticate with a password and a stored password token.
+     * authorize with a password and a stored password token.
      *
      * @return true if the password and token match
      */
@@ -136,7 +136,7 @@ public final class PasswordService
     }
 
     /**
-     * Authenticate with a password in an immutable {@code String} and a stored
+     * authorize with a password in an immutable {@code String} and a stored
      * password token.
      *
      * @deprecated Use {@link #authenticate(char[],String)} instead.

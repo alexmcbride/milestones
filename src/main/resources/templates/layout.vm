@@ -36,12 +36,16 @@
 
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><p id="welcome_email" style=""></p></li>
+                    <li><p id="welcome_email"></p></li>
 
-                    <li><a id="login" href="/users/login">Login <span class="sr-only">(current)</span></a></li>
-                    <li><a id="account" href="/users/account">#if ($userManager.getUser())$userManager.getUsername()#end</a></li>
-                    <li><a id="register" href="/users/register">Register</a></li>
-                    <li><a  href="#" id="logout">Logout</a></li>
+                    #if ($userManager.isLoggedIn())
+                        <li><a id="account" href="/users/account">#if ($userManager.getUser())$userManager.getUsername()#end</a></li>
+                        <li><a  href="#" id="logout">Logout</a></li>
+                    #else
+                        <li><a id="login" href="/users/login">Login <span class="sr-only">(current)</span></a></li>
+                        <li><a id="register" href="/users/register">Register</a></li>
+                    #end
+
 
                 </ul>
         </div>
