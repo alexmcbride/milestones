@@ -2,6 +2,7 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
+import wpd2.coursework1.util.FlashHelper;
 import wpd2.coursework1.viewmodel.UserPWResetEmailViewModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,14 +42,15 @@ public class UserPwResetServlet extends BaseServlet {
 
                 //if user update is successful redirect user to log in screen
                 if (user.update()) {
+                    flash.message("Password reset");
                     getResponse().sendRedirect("/users/login");
                     return;
                 }
             }
         }
 
-        String msg2 = "Error password did not get updated.";
+        flash.message("Password not reset for some reason", FlashHelper.WARNING);
         // Display the form with validation errors.
-        view(TEMPLATE_FILE, msg2);
+        view(TEMPLATE_FILE, null);
     }
 }

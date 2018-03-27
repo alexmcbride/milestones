@@ -42,10 +42,11 @@ public class UserAccountServlet extends BaseServlet {
             user.setUsername(getRequest().getParameter("username"));
             user.setEmail(getRequest().getParameter("email"));
             if(getRequest().getParameter("password") != null){
-            user.setPassword(getRequest().getParameter("password").toCharArray());
+                user.setPassword(getRequest().getParameter("password").toCharArray());
             }
 
             if (user.update()) {
+                flash.message("Account details updated");
                 //update session to newly updated user detail
                 getRequest().getSession().setAttribute("user", user);
                 getResponse().sendRedirect("/projects");

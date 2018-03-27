@@ -32,6 +32,7 @@ public class UserLogoutServlet extends BaseServlet {
         if (user != null) {
             getRequest().getSession().removeAttribute("user");
             //redirect to main
+            flash.message("You are logged out");
             getResponse().sendRedirect("/projects");
             return;
         }

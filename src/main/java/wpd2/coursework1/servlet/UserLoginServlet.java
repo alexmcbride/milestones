@@ -25,6 +25,9 @@ public class UserLoginServlet extends BaseServlet {
         if (user != null && user.authenticate(request.getParameter("password").toCharArray())) {
             request.getSession().setAttribute("user", user);
             loginCount = 0;
+
+            flash.message("You are logged in");
+
             // Always redirect to project.
             getResponse().sendRedirect("/projects");
 

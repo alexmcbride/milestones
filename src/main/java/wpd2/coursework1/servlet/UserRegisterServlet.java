@@ -30,6 +30,7 @@ public class UserRegisterServlet extends BaseServlet {
 
                     // Save user to database.
                     user.create();
+                    flash.message("User account registered");
                     response.sendRedirect("/users/login");
                     return;
 

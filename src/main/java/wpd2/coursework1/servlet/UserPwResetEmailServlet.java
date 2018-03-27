@@ -32,6 +32,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
         if(User.find(getRequest().getParameter("email")) != null) {
 
                 if (emailservice.SendEmailUsingGMailSMTP(email, sbj, msg)) {
+                    flash.message("Reset password email sent");
                     getResponse().sendRedirect("/users/pw_reset_email_sent");
                     User user = User.find(email);
                     user.setResetToken(token);

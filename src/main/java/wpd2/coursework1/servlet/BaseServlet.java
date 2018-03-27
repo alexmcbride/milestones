@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.jetty.server.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.*;
@@ -42,12 +43,12 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
         this.request = request;
         this.response = response;
-        this.userManager = new UserManager(new SessionWrapper(session));
-        this.antiForgeryHelper = new AntiForgeryHelper(new SessionWrapper(session));
-        this.flash = new FlashHelper(new SessionWrapper(session));
+        SessionWrapper session = new SessionWrapper(request.getSession());
+        this.userManager = new UserManager(session);
+        this.antiForgeryHelper = new AntiForgeryHelper(session);
+        this.flash = new FlashHelper(session);
     }
 
     @Override
