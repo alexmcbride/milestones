@@ -6,7 +6,7 @@
 #parse("templates/form_helpers.vm")
 
 <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
+    <div class="col-sm-6 col-sm-offset-3">
         <form method="post">
 
             <h2>Reset Password</h2>
@@ -25,12 +25,17 @@
                 #validation_error($model, $attribute)
             </div>
 
-            <input type="checkbox" onclick="showPasswords()">Show confirm-password
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" onclick="showPasswords()">
+                    Show confirm password
+                </label>
+            </div>
 
             <div>
-                <input type="submit" id="btnSaveUser" onclick="validatePassword()" value="register" class="btn btn-default">
+                <input type="submit" id="btnSaveUser" onclick="validatePassword()" value="Register" class="btn btn-default">
                 |
-                <a href="/users/login">go to back to log in page</a>
+                <a href="/users/login">Login</a>
             </div>
         </form>
         </div>

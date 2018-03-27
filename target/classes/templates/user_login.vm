@@ -5,10 +5,10 @@
 
 #@mainLayout()
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3">
             <form method="post">
 
-                <h2>login</h2>
+                <h2>Login</h2>
 
                 #if ($model.hasValidationError("auth"))
                     <div style="color: red;">$model.getValidationError("auth")</div>
@@ -16,15 +16,22 @@
 
                 #antiForgeryToken()
 
-                #form_email_input("email")
+                #form_email_input("email", $model.email)
 
                 #form_password_input("password")
 
-                <input type="checkbox" onclick="showPasswords()">Show confirm-password
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" onclick="showPasswords()">
+                        Show confirm password
+                    </label>
+                </div>
 
                 <div>
-                    <input type="submit" value="login" class="btn btn-default" onclick="validatePassword()">
-                    |<a href="/users/register">Register</a>|
+                    <input type="submit" value="Login" class="btn btn-default" onclick="validatePassword()">
+                    |
+                    <a href="/users/register">Register</a>
+                    |
                     <a href="/users/pw_reset_email">Reset password</a>
                 </div>
             </form>

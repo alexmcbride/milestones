@@ -109,7 +109,7 @@ public class User extends ValidatableModel {
         }
 
         if (emailChanged && emailExists(email)) {
-            addValidationError("email", "already exists");
+            addValidationError("email", "Email address already exists");
         }
     }
 
