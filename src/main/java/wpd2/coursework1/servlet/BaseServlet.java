@@ -38,7 +38,6 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         antiForgeryHelper.checkToken(token);
     }
 
@@ -47,7 +46,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.request = request;
         this.response = response;
         this.userManager = new UserManager(new SessionWrapper(session));
-        this.antiForgeryHelper = new AntiForgeryHelper(session);
+        this.antiForgeryHelper = new AntiForgeryHelper(new SessionWrapper(session));
         this.flash = new FlashHelper(new SessionWrapper(session));
     }
 

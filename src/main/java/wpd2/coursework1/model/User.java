@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class User extends ValidatableModel {
+    public static final String KEY_USER = "user";
     private final PasswordService passwordService;
     private int id;
     private String username;

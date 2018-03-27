@@ -9,7 +9,7 @@ public class FlashHelper {
     public static final String DANGER = "danger";
     public static final String INFO = "info";
     public static final String WARNING = "warning";
-    private static final String KEY_FLASH_MESSAGES = "flash-messages";
+    public static final String KEY_FLASH_MESSAGES = "flash-messages";
 
     private final SessionWrapper session;
 

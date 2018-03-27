@@ -10,6 +10,7 @@ import java.util.List;
 class TestableSession extends SessionWrapper {
     public User user;
     public List<FlashHelper.FlashMessage> flashMessages;
+    public String antiForgeryToken;
 
     public TestableSession() {
         super(null);
@@ -17,12 +18,16 @@ class TestableSession extends SessionWrapper {
 
     @Override
     public Object getAttribute(String s) {
-        if (user != null) {
+        if (s.equals(User.KEY_USER)) {
             return user;
         }
 
-        if (flashMessages != null) {
+        if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
             return flashMessages;
+        }
+
+        if (s.equals(AntiForgeryHelper.KEY_FORGERY_TOKEN)) {
+            return antiForgeryToken;
         }
 
         return null;
@@ -30,15 +35,21 @@ class TestableSession extends SessionWrapper {
 
     @Override
     public void setAttribute(String s, Object o) {
-        if (s.equals("flash-messages")) {
+        if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
             flashMessages = (List< FlashHelper.FlashMessage>)o;
+        }
+        else if (s.equals(AntiForgeryHelper.KEY_FORGERY_TOKEN)) {
+            antiForgeryToken = (String)o;
         }
     }
 
     @Override
     public void removeAttribute(String s) {
-        if (s.equals("flash-messages")) {
+        if (s.equals(FlashHelper.KEY_FLASH_MESSAGES)) {
             flashMessages = null;
+        }
+        else if (s.equals(AntiForgeryHelper.KEY_FORGERY_TOKEN)) {
+            antiForgeryToken = null;
         }
     }
 }
