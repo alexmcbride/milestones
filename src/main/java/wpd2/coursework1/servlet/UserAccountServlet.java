@@ -29,22 +29,31 @@ public class UserAccountServlet extends BaseServlet {
     @Override
     protected void doPost() throws IOException {
         User user = new User();
-        user.setUsername(request.getParameter("username"));
-        user.setEmail(request.getParameter("email"));
+        user.setUsername(getRequest().getParameter("username"));
+        user.setEmail(getRequest().getParameter("email"));
+        //get session user
+        User loggedinUserData = (User)getRequest().getSession().getAttribute("user");
         //get id of existing user
-        User loggedinUserData = (User)request.getSession().getAttribute("user");
-        //set the id to the passed user model
-        user.setId(loggedinUserData.getId());
+        if(loggedinUserData != null) {
+            //get the user with the session id
+            user = User.find(loggedinUserData.getId());
+            user.setId(loggedinUserData.getId());
+            // set the passed updated data
+            user.setUsername(getRequest().getParameter("username"));
+            user.setEmail(getRequest().getParameter("email"));
+            if(getRequest().getParameter("password") != null){
+            user.setPassword(getRequest().getParameter("password").toCharArray());
+            }
 
-        /*user.setPassword(getRequest().getParameter("password").toCharArray());*/
+            if (user.update()) {
+                //update session to newly updated user detail
+                getRequest().getSession().setAttribute("user", user);
+                getResponse().sendRedirect("/projects");
+                return;
+            }
+            // Display the form with validation errors.
+        }
 
-       if(user.update()){
-           //update session to newly updated user detail
-           request.getSession().setAttribute("user", user);
-           response.sendRedirect("/projects");
-           return;
-           }
-        // Display the form with validation errors.
         view(TEMPLATE_FILE, user);
     }
 }

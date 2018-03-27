@@ -140,7 +140,7 @@ public class UserTests {
         user.create();
 
         user.setPassword("password2".toCharArray());
-        user.updatePassword();
+        user.update();
 
         user = User.find(user.getId());
         assertTrue(user.authenticate("password2".toCharArray()));

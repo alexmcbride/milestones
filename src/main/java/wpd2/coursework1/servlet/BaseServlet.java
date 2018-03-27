@@ -31,6 +31,14 @@ public abstract class BaseServlet extends HttpServlet {
     protected FlashHelper flash;
     protected int loginCount = 0;
 
+    protected HttpServletRequest getRequest() {
+        return request;
+    }
+
+    protected HttpServletResponse getResponse() {
+        return response;
+    }
+
     private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
         AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());

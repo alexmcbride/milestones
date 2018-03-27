@@ -27,21 +27,24 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
         String sbj = "Milestone Project Password Reset";
         String token = generateEmailToken();
-        String msg = "Please Reset your password from here <a href='http://localhost:9000/users/pw_reset?token='"+token+">Reset My Password</a>";
-        User user = new User();
-        user.setEmail(request.getParameter("email"));
-        if(user.find(email) != null) {
+        String msg = "Please Reset your password from here <a href='http://localhost:9000/users/pw_reset?token='"+token+"'>Reset My Password</a>";
+
+        if(User.find(getRequest().getParameter("email")) != null) {
 
                 if (emailservice.SendEmailUsingGMailSMTP(email, sbj, msg)) {
-                    response.sendRedirect("/users/pw_reset_email_sent");
+                    getResponse().sendRedirect("/users/pw_reset_email_sent");
+                    User user = User.find(email);
+                    user.setResetToken(token);
+                    user.update();
+                    /*HttpSession session = getRequest().getSession();
+                    session.setAttribute(token, email);*/
 
-                    HttpSession session = request.getSession();
-                    session.setAttribute(token, email);
                     return;
-                } else {
-                    view(TEMPLATE_FILE, email);
                 }
 
+        }else {
+            String msg1 = "Not a valid email address.";
+            view(TEMPLATE_FILE, msg1);
         }
 
     }

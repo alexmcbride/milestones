@@ -156,22 +156,6 @@ public class User extends ValidatableModel {
         }
     }
 
-    public boolean updatePassword() {
-        if (passwordChanged) {
-            passwordHash = passwordService.hash(password);
-        }
-
-        String sql = "UPDATE users SET password=? WHERE id=?";
-        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, passwordHash);
-            statement.setInt(2, id);
-            return statement.executeUpdate() > 0;
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public boolean delete() {
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -240,6 +224,22 @@ public class User extends ValidatableModel {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return getUserFromResult(result);
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static User findbyToken(String resetToken) {
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE resetToken=?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, resetToken);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 return getUserFromResult(result);

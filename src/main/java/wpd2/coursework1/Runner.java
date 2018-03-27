@@ -1,8 +1,5 @@
 package wpd2.coursework1;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -73,9 +70,10 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserPwResetEmailSentServlet()), "/users/pw_reset_email_sent");
         handler.addServlet(new ServletHolder(new UserPwResetServlet()), "/users/pw_reset");
         handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
+        handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
 
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
-}
+    }
 
     public static void main(String[] args) throws Exception {
         new Runner().start();
