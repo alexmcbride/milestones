@@ -5,17 +5,12 @@
 #@mainLayout()
 
     #parse("templates/form_helpers.vm")
-
     <form method="post">
         <h2>Update Project</h2>
-
         #antiForgeryToken()
-
-        ## Use a form helper to output a text input.
 
 
         <div>
-
             <p>$model.name</p>
             #form_text_input("name")
 

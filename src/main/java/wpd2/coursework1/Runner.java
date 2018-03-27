@@ -74,6 +74,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
         handler.addServlet(new ServletHolder(new ProjectUpdateServlet()), "/projects/update");
+        handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete");
 
 
 
