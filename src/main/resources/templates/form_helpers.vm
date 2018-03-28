@@ -14,7 +14,7 @@
 
     #set($valueattr = "")
     #if ($value)
-        #set($valueattr = ' value="' + $value + '"')
+        #set($valueattr = ' value="' + $html.encode($value) + '"')
     #end
 
     <div class="form-group$error">
@@ -32,7 +32,7 @@
 
     #set($valueattr = "")
     #if ($value)
-        #set($valueattr = ' value="' + $value + '"')
+        #set($valueattr = ' value="' + $html.encode($value) + '"')
     #end
 
     <div class="form-group$error">

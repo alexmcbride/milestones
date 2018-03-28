@@ -11,6 +11,7 @@ import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.servlet.*;
 import wpd2.coursework1.servlet.MilestoneIndexServlet;
 import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.HtmlEncoder;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.VelocityRenderer;
 

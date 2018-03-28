@@ -10,8 +10,8 @@
         <h2>Are you sure you want to delete this account?</h2>
         <br>
 
-        <h3>username: ${model.username}</h3>
-        <h3>email: ${model.email}</h3>
+        <h3>Username: $html.encode($model.username)</h3>
+        <h3>Email: $html.encode($model.email)</h3>
 
         <form method="post">
             #antiForgeryToken()

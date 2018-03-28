@@ -39,7 +39,7 @@
                     <li><p id="welcome_email"></p></li>
 
                     <li><a id="login" href="/users/login">Login <span class="sr-only">(current)</span></a></li>
-                    <li><a id="account" href="/users/account">#if ($userManager.getUser())$userManager.getUsername()#end</a></li>
+                    <li><a id="account" href="/users/account">#if ($userManager.getUser())$html.encode($userManager.getUsername())#end</a></li>
                     <li><a id="register" href="/users/register">Register</a></li>
                     <li><a id="logout" href="/users/logout">Logout</a></li>
                 </ul>
