@@ -21,7 +21,6 @@ public class User extends ValidatableModel {
     private String passwordHash;
     private Date joined;
     private String resetToken;
-    private String emailToken;
     private int loginCount;
 
     public User() {
@@ -95,14 +94,6 @@ public class User extends ValidatableModel {
         this.loginCount = loginCount;
     }
 
-    public String getEmailToken() {
-        return emailToken;
-    }
-
-    public void setEmailToken(String emailToken) {
-        this.emailToken = emailToken;
-    }
-
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
@@ -126,7 +117,7 @@ public class User extends ValidatableModel {
         passwordHash = passwordService.hash(password);
         joined = new Date();
 
-        String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount, emailToken) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, username);
             statement.setString(2, email);
@@ -134,7 +125,6 @@ public class User extends ValidatableModel {
             statement.setTimestamp(4, new Timestamp(joined.getTime()));
             statement.setString(5, resetToken);
             statement.setInt(6, loginCount);
-            statement.setString(7, emailToken);
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -151,15 +141,14 @@ public class User extends ValidatableModel {
             passwordHash = passwordService.hash(password);
         }
 
-        String sql = "UPDATE users SET username=?, email=?, password=?, resetToken=?, loginCount=?, emailToken=? WHERE id=?";
+        String sql = "UPDATE users SET username=?, email=?, password=?, resetToken=?, loginCount=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, email);
             statement.setString(3, passwordHash);
             statement.setString(4, resetToken);
             statement.setInt(5, loginCount);
-            statement.setString(6, emailToken);
-            statement.setInt(7, id);
+            statement.setInt(6, id);
             return statement.executeUpdate() > 0;
         }
         catch (SQLException e) {
@@ -210,8 +199,7 @@ public class User extends ValidatableModel {
                 "password NVARCHAR(128) NOT NULL," +
                 "joined TIMESTAMP NOT NULL," +
                 "resetToken NVARCHAR(128) NULL," +
-                "loginCount INTEGER NULL," +
-                "emailToken NVARCHAR(128) NULL" +
+                "loginCount INTEGER NULL" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -233,7 +221,7 @@ public class User extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static User find(int id) {
-        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount, emailToken FROM users WHERE id=?";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -248,7 +236,7 @@ public class User extends ValidatableModel {
     }
 
     public static User findByToken(String resetToken) {
-        String sql = "SELECT * FROM users WHERE resetToken=?";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE resetToken=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, resetToken);
             ResultSet result = statement.executeQuery();
@@ -263,7 +251,7 @@ public class User extends ValidatableModel {
     }
 
     public static User find(String email) {
-        String sql = "SELECT * FROM users WHERE email=?";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, email);
             ResultSet result = statement.executeQuery();
@@ -279,7 +267,7 @@ public class User extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<User> findAll() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users";
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             ResultSet result = statement.executeQuery(sql);
@@ -302,7 +290,6 @@ public class User extends ValidatableModel {
         user.joined = result.getTimestamp(5);
         user.resetToken = result.getString(6);
         user.loginCount = result.getInt(7);
-        user.emailToken = result.getString(8);
         return user;
     }
 
