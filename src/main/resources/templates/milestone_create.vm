@@ -13,6 +13,7 @@
 
         ## Use a form helper to output a text input.
         #form_text_input("name")
+        #form_text_input("due")
 
         <div>
             <input type="submit" value="Add Milestone" class="btn btn-default">

@@ -5,17 +5,6 @@
 #@mainLayout()
 
 
-    <br />
-    <p><a href="/projects">Go back</a></p>
-
-
-
- <!--get current projects id and pass it in to servlet
-
-
-
-<div class="createMilestone" data-id="8">Create New Milestone</div>-->
-
 <button id="addEventBtn" class="createMilestone" data-id="8">&#43;</button>
 
 <!-- This button opens the modal box
@@ -25,33 +14,18 @@
 
 
 <div class="header">
-
-
-
-
     <div class="milestoneHeaderSection">
-
-
         <div class=""><h3><strong>WPD Project CW1</strong></h3></div>
         <hr class="headerHR"/>
         <div id="headerIcons">
+            <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
             <div class="headerIcon"><a href="#"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
-            <div class="headerIcon"><a href="#"><i class="fas fa-trash fa-lg"></i></a></div>
+            <!--<div class="headerIcon"><a href="#"><i class="fas fa-trash fa-lg"></i></a></div>-->
         </div>
-
     </div>
-    <!--
-        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>-->
 </div>
 
 <div class="milestoneContent">
-
-
-
-
-
     <div class="timeline">
 
         <br />
