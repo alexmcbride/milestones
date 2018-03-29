@@ -82,6 +82,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
         handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
         handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
+        handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
 
     }
 

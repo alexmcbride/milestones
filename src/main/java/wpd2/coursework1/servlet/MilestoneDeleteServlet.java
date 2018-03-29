@@ -8,14 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-public class MilestoneEditServlet extends BaseServlet {
-    private static final String TEMPLATE_FILE = "milestone_edit.vm";
+public class MilestoneDeleteServlet extends BaseServlet {
+    private static final String TEMPLATE_FILE = "milestone_delete.vm";
 
 
 
     @Override
     protected void doGet() throws IOException {
-        // Display the form.
+        // display the form used for deleting a milestone...
+
         int id = Integer.valueOf(request.getParameter("id"));
 
         // Get milestone
@@ -34,26 +35,26 @@ public class MilestoneEditServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
+
+        // this method will run if the user has confirmed the deletion of a milestone
+
         User user = User.dummyUser();
 
-
-        // get milestone id
+        // get id of milestone
         int id = Integer.valueOf(request.getParameter("id"));
 
-        // get milestone
-        Milestone milestoneToUpdate = Milestone.find(id);
 
+        // Get milestone
+        Milestone milestone = Milestone.find(id);
 
-        milestoneToUpdate.setName(request.getParameter("name"));
-
-        // Get project
-        Project project = Project.find(milestoneToUpdate.getProjectId());
+        // get project of milestone
+        Project project = Project.find(milestone.getProjectId());
 
 
         // Check if project is valid.
-        if (milestoneToUpdate.isValid()) {
+        if (milestone.isValid()) {
             // Save project to database.
-            milestoneToUpdate.update();
+            milestone.delete();
 
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());
@@ -62,6 +63,6 @@ public class MilestoneEditServlet extends BaseServlet {
         }
 
 
-        view(TEMPLATE_FILE, milestoneToUpdate);
+        view(TEMPLATE_FILE, milestone);
     }
 }

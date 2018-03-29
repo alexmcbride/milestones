@@ -7,27 +7,23 @@
     #parse("templates/form_helpers.vm")
 
     <form method="post">
-        <h2>Edit Milestone: $model.name</h2>
+        <h2>Are you sure you wish to Delete Milestone: $model.name</h2>
 
         #antiForgeryToken()
 
-        ## Use a form helper to output a text input.
-        #form_text_input("name")
-
         <div>
+
             <!-- Go Back -->
             <a class="createLink" data-id="$model.projectId">
                 <i class="fas fa-arrow-left fa-lg"></i>
             </a>
 
-            <!-- Confirm Edit -->
-            <input type="submit" value="Edit Milestone" class="btn btn-default" data-id="$model.id">
+
+            <!-- Confirm Deletion -->
+            <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
 
         </div>
     </form>
-
-
-
 <script>
     $(function() {
         $('.createLink').click(function () {

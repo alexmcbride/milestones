@@ -7,7 +7,7 @@
     #parse("templates/form_helpers.vm")
 
     <form method="post">
-        <h2>Edit Milestone</h2>
+        <h2>Edit Milestone: $model.name</h2>
 
         #antiForgeryToken()
 
@@ -15,9 +15,25 @@
         #form_text_input("name")
 
         <div>
-            <input type="submit" value="Edit Milestone" class="btn btn-default">
-            |
-            <a class="createLink" data-id="$model.id">Go back</a>
+            <!-- Go Back -->
+            <a class="createLink" data-id="$model.projectId">
+                <i class="fas fa-arrow-left fa-lg"></i>
+            </a>
+
+            <!-- Confirm Edit -->
+            <input type="submit" value="Edit Milestone" class="btn btn-default" data-id="$model.id">
+
         </div>
     </form>
+
+
+
+<script>
+    $(function() {
+        $('.createLink').click(function () {
+            var projectId = $(this).attr('data-id');
+            location.href = '/projects/details?id=' + projectId;
+        });
+    });
+</script>
 #end
