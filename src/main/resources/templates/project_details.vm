@@ -28,15 +28,22 @@
 <div class="milestoneContent">
     <div class="timeline">
 
+
+
+
+        <!-- Display Milestones that are LATE --------------------------------------------------->
         <br />
         <div class="timelineIndicatorContainer">
-            <p><strong><i>Complete</i></strong></p>
+            <p><strong><i>Late</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
 
 
 
     #foreach($milestone in $model.getMilestones())
+
+        #if($milestone.due.before($model.getCurrentDate()))
+
 
 
         <div class="timelineContent">
@@ -62,8 +69,91 @@
             </div>
         </div>
         <br/>
+        #end
+    #end
 
-        <script>
+        <!-- Display Milestones that are UPCOMING --------------------------------------------------->
+
+        <br />
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Current Week</i></strong></p>
+            <hr  class="timelineIndicator"/>
+        </div>
+
+        #foreach($milestone in $model.getMilestones())
+            #if($milestone.due.after($model.getCurrentDate())
+                && $milestone.due.before($model.currentDatePlusSeven))
+
+
+
+                <div class="timelineContent">
+                    <button class="wAccordion">
+                        <strong>$milestone.name: $milestone.due</strong>
+                    </button>
+                    <div class="wPanel">
+                        <br />
+                        #if(false)
+                            <p>This milestone was completed two days early. Nice!</p>
+                            <hr />
+                        #end
+
+                        <div class="container33">
+                            <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                        </div>
+                        <div class="container33">
+                            <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                        </div>
+                        <div class="container33">
+                            <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            #end
+        #end
+
+
+
+        <br />
+    <div class="timelineIndicatorContainer">
+        <p><strong><i>Upcoming</i></strong></p>
+        <hr  class="timelineIndicator"/>
+    </div>
+
+
+
+    #foreach($milestone in $model.getMilestones())
+        #if($milestone.due.after($model.getCurrentDate()))
+
+
+
+            <div class="timelineContent">
+                <button class="wAccordion">
+                    <strong>$milestone.name: $milestone.due</strong>
+                </button>
+                <div class="wPanel">
+                    <br />
+                    #if(false)
+                        <p>This milestone was completed two days early. Nice!</p>
+                        <hr />
+                    #end
+
+                    <div class="container33">
+                        <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        #end
+    #end
+
+            <script>
             $(function() {
                 $('.deleteMilestoneLink').click(function () {
                     var milestoneId = $(this).attr('data-id');
@@ -77,9 +167,10 @@
                     location.href = '/milestone/edit?id=' + milestoneId;
                 });
             });
+
         </script>
 
-    #end
+
 
 
 

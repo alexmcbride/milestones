@@ -6,7 +6,10 @@ import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class MilestoneEditServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_edit.vm";
@@ -45,6 +48,16 @@ public class MilestoneEditServlet extends BaseServlet {
 
 
         milestoneToUpdate.setName(request.getParameter("name"));
+
+
+        // Overly complex approach to getting date value from form
+        String stringDueDate = String.valueOf(request.getParameter("due"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd", Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(stringDueDate, formatter);
+        Date date1 = java.sql.Date.valueOf(date);
+        milestoneToUpdate.setDue(date1);
+
+
 
         // Get project
         Project project = Project.find(milestoneToUpdate.getProjectId());

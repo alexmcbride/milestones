@@ -13,6 +13,9 @@
 
         ## Use a form helper to output a text input.
         #form_text_input("name")
+        <input type="date" name="due">
+
+
 
         <div>
             <!-- Go Back -->
