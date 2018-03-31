@@ -58,7 +58,7 @@
                 #end
 
                 <div class="container33">
-                    <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
                 </div>
                 <div class="container33">
                     <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
@@ -98,7 +98,7 @@
                         #end
 
                         <div class="container33">
-                            <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                            <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
                         </div>
                         <div class="container33">
                             <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
@@ -121,7 +121,6 @@
     </div>
 
 
-
     #foreach($milestone in $model.getMilestones())
         #if($milestone.due.after($model.getCurrentDate()))
 
@@ -133,13 +132,13 @@
                 </button>
                 <div class="wPanel">
                     <br />
-                    #if(false)
+                    #if(true)
                         <p>This milestone was completed two days early. Nice!</p>
                         <hr />
                     #end
 
                     <div class="container33">
-                        <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                        <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
                     </div>
                     <div class="container33">
                         <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
