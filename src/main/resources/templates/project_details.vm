@@ -28,9 +28,47 @@
 <div class="milestoneContent">
     <div class="timeline">
 
+    <!-- ###############################################  DONE  ################################################################ -->
+
+        #if($model.getDoneMilestones())
+            <!-- Display Milestones that are LATE --------------------------------------------------->
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Late</i></strong></p>
+                <hr  class="timelineIndicator"/>
+            </div>
+
+        #end
+
+        #foreach($milestone in $model.getDoneMilestones())
+            <div class="timelineContent done">
+                <button class="wAccordion">
+                    <strong>$milestone.name:</strong> $milestone.due
+                </button>
+                <div class="wPanel">
+                    <br />
+                        <p>This milestone was completed two days early. Nice!</p>
+                        <hr />
+
+                    <div class="container33">
+                        <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        #end
 
 
 
+        <!-- ###############################################  LATE  ################################################################ -->
+
+        #if($model.getLateMilestones())
         <!-- Display Milestones that are LATE --------------------------------------------------->
         <br />
         <div class="timelineIndicatorContainer">
@@ -38,27 +76,19 @@
             <hr  class="timelineIndicator"/>
         </div>
 
+    #end
 
-
-    #foreach($milestone in $model.getMilestones())
-
-        #if($milestone.due.before($model.getCurrentDate()))
-
-
-
-        <div class="timelineContent">
+    #foreach($milestone in $model.getLateMilestones())
+        <div class="timelineContent late">
             <button class="wAccordion">
                 <strong>$milestone.name:</strong> $milestone.due
             </button>
             <div class="wPanel">
                 <br />
-                #if(false)
-                    <p>This milestone was completed two days early. Nice!</p>
-                    <hr />
-                #end
+
 
                 <div class="container33">
-                    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                    <a class="markMilestoneAsDone" data-id="$milestone.id"><i class="far fa-check-circle fa-2x"></i></a>
                 </div>
                 <div class="container33">
                     <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
@@ -69,8 +99,15 @@
             </div>
         </div>
         <br/>
-        #end
     #end
+
+
+
+
+
+
+
+    #if($model.getCurrentMilestones())
 
         <!-- Display Milestones that are UPCOMING --------------------------------------------------->
 
@@ -79,22 +116,18 @@
             <p><strong><i>Current Week</i></strong></p>
             <hr  class="timelineIndicator"/>
         </div>
-
-        #foreach($milestone in $model.getMilestones())
-            #if($milestone.due.after($model.getCurrentDate()) && $milestone.due.before($model.currentDatePlusSeven))
-
+    #end
+        #foreach($milestone in $model.getCurrentMilestones())
 
 
-                <div class="timelineContent">
+
+                <div class="timelineContent dueToday">
                     <button class="wAccordion">
                         <strong>$milestone.name:</strong> $milestone.due
                     </button>
                     <div class="wPanel">
                         <br />
-                        #if(false)
-                            <p>This milestone was completed two days early. Nice!</p>
-                            <hr />
-                        #end
+
 
                         <div class="container33">
                             <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
@@ -108,33 +141,30 @@
                     </div>
                 </div>
                 <br/>
-            #end
+
         #end
 
 
+    #if($model.getUpcomingMilestones())
 
         <br />
     <div class="timelineIndicatorContainer">
         <p><strong><i>Upcoming</i></strong></p>
         <hr  class="timelineIndicator"/>
     </div>
+    #end
+
+    #foreach($milestone in $model.getUpcomingMilestones())
 
 
-    #foreach($milestone in $model.getMilestones())
-        #if($milestone.due.after($model.getCurrentDate()) && $milestone.due.after($model.currentDatePlusSeven))
 
-
-
-            <div class="timelineContent">
+            <div class="timelineContent upcoming">
                 <button class="wAccordion">
                     <strong>$milestone.name:</strong> $milestone.due
                 </button>
                 <div class="wPanel">
                     <br />
-                    #if(false)
-                        <p>This milestone was completed two days early. Nice!</p>
-                        <hr />
-                    #end
+
 
                     <div class="container33">
                         <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
@@ -148,10 +178,23 @@
                 </div>
             </div>
             <br/>
-        #end
+
     #end
 
+
+
+
+
+
             <script>
+
+            $(function() {
+                $('.markMilestoneAsDone').click(function () {
+                    var milestoneId = $(this).attr('data-id');
+                    location.href = '/milestone/delete?id=' + milestoneId;
+                });
+            });
+
             $(function() {
                 $('.deleteMilestoneLink').click(function () {
                     var milestoneId = $(this).attr('data-id');

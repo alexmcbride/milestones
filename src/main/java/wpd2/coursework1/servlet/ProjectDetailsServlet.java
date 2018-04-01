@@ -29,11 +29,11 @@ public class ProjectDetailsServlet extends BaseServlet {
 
         // get milestones
         List<Milestone> milestones;
-        milestones = Milestone.findAll(project);
+        milestones = Milestone.findAll(project.getId());
 
 
         Date date = new Date();
-        MilestonesViewModel model = new MilestonesViewModel(project, date);
+        MilestonesViewModel model = new MilestonesViewModel(project);
 
 
         Date datePlusSeven = DateUtils.addDays(date, 7);
@@ -42,8 +42,35 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
         for (Milestone milestone : milestones) {
-            model.addMilestone(milestone);
+            // if is complete add to complete list
+            if(milestone.isComplete()) {
+                model.addDoneMilestone(milestone);
+                continue;
+            }
+            // if is late put in late list
+            if(milestone.getDue().before(date) && (milestone.isComplete()==false))
+            {
+                model.addLateMilestone(milestone);
+                continue;
+            }
+            // if is within 7 days put in current list
+            if(milestone.getDue().before(datePlusSeven) && (milestone.getDue().after(date))
+                    && (milestone.isComplete()==false))
+            {
+                model.addCurrentMilestone(milestone);
+                continue;
+            }
+            // if is within 7 days put in upcoming list
+            if(milestone.getDue().after(datePlusSeven) && (milestone.isComplete()==false))
+            {
+                model.addUpcomingMilestone(milestone);
+                continue;
+            }
+
         }
+
+        // model.setDoneMilestones();
+
 
         // Render the view.
         view(TEMPLATE_FILE, model);
