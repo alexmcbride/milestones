@@ -19,7 +19,7 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        User user = User.dummyUser();
+        //User user = User.dummyUser();
 
         Project project = new Project();
         project.setName(request.getParameter("name"));
@@ -28,7 +28,11 @@ public class ProjectCreateServlet extends BaseServlet {
         // Check if project is valid.
         if (project.isValid()) {
             // Save project to database.
+            User user = userManager.getUser();
             project.create(user);
+
+            flash.message("New project created");
+
 
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());

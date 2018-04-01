@@ -1,8 +1,11 @@
 package wpd2.coursework1.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.AntiForgeryHelper;
+import wpd2.coursework1.util.FlashHelper;
+import wpd2.coursework1.util.UserManager;
 import wpd2.coursework1.util.VelocityRenderer;
 
 import javax.servlet.http.HttpServlet;
@@ -16,13 +19,17 @@ public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String HTML_TEXT_UTF_8 = "text/html; charset=UTF-8";
-    public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
+    public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
+    public static final  String RESPONSE_PLAIN = "text/plain; charset=UTF-8";
     public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
+    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8\"";
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
-    public int loginCount = 0;
+    protected UserManager userManager;
+    protected AntiForgeryHelper antiForgeryHelper;
+    protected FlashHelper flash;
+    protected int loginCount = 0;
 
     protected HttpServletRequest getRequest() {
         return request;
@@ -38,38 +45,29 @@ public abstract class BaseServlet extends HttpServlet {
         antiForgeryHelper.checkToken(token);
     }
 
-    protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
-        response.setContentType(mimeType);
-        response.setStatus(returnCode);
-    }
-
-    protected void cache(HttpServletResponse response, int seconds) {
-        if (seconds > 0) {
-            response.setHeader("Pragma", "Public");
-            response.setHeader("Cache-Control", "public, no-transform, max-age=" + seconds);
-        }
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        this.request = request;
+        this.response = response;
+        this.userManager = new UserManager(session);
+        this.antiForgeryHelper = new AntiForgeryHelper(session);
+        this.flash = new FlashHelper(session);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
-
-//        // TODO: This code always gets run so you get stuck in an infinite loop of redirects... - alex.
-//        String userId = (String)request.getSession().getAttribute("loggedInId");
-//        Authenticate(request, response, userId);
+        handleRequest(request, response);
 
         doGet();
     }
 
     protected void doGet() throws IOException {
 
-  }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
+        handleRequest(request, response);
         checkAntiForgeryToken();
         doPost();
     }
@@ -91,24 +89,36 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
+        VelocityRenderer renderer = new VelocityRenderer();
+        renderer.addContext("antiForgeryHelper", antiForgeryHelper);
+        renderer.addContext("userManager", userManager);
+        renderer.addContext("flash", flash);
         renderer.render(response, template, object);
-        response.setContentType(HTML_TEXT_UTF_8);
+        response.setContentType(RESPONSE_HTML);
         response.setStatus(200);
     }
 
-     /*Redirect to log in page when not logged in*/
-    protected void Authenticate() throws IOException{
-       //if user id is not stored in the sessions
-        if(getRequest().getSession().getAttribute("loggedInId") == null) {
-/*            if (getResponse() !=null) {
-                System.err.println("###has response");*/
-                getResponse().sendRedirect("/users/login");
-                return;
-
-           // }
+    protected boolean authorize() throws IOException{
+        if (userManager.isLoggedIn()) {
+            return true;
         }
+        response.sendRedirect("/users/login");
+        return false;
     }
 
+    protected void json(Object object) throws IOException {
+        if (response == null) {
+            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+        }
+
+        json(response, object);
+    }
+
+    protected void json(HttpServletResponse response, Object object) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(object);
+        response.getWriter().write(json);
+        response.setContentType(RESPONSE_JSON);
+        response.setStatus(200);
+    }
 }

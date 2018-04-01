@@ -3,22 +3,20 @@
 #set($title = 'An email has been sent')
 
 #@mainLayout()
-## Include file that contains our form helpers.
     #parse("templates/form_helpers.vm")
-<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
-    <hr/>
-    <h2>An email message has been sent to your email account</h2>
-    <br/>
-    <h3 style="font-size: 2em">
-        Please check your email inbox.
-        if you can't find our email,
-        please check junk mail inbox,
-        even then you can't find email from us,
-        there is a possiblity
-        email address we got is wrong one.
-        in that case please try again.</h3>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <hr/>
+        <h2>A message has been sent to your email account</h2>
+        <br/>
+        <h3 style="font-size: 1.4em">
+            Please check your email inbox. If you can't find the email, please check your junk mail inbox, even then
+            you can't find email from us, there is a possiblity email address we got is wrong one, in that case please
+            doublecheck and try again.</h3>
 
-    <br/>
-    <a href="/users/login">Back to log in page</a>
+        <br>
+
+        <a href="/users/login">Back to log in page</a>
+    </div>
 </div>
 #end

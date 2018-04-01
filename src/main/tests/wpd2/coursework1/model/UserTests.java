@@ -1,8 +1,9 @@
 package wpd2.coursework1.model;
 
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import wpd2.coursework1.model.User;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.service.PasswordService;
@@ -46,11 +47,28 @@ public class UserTests {
     }
 
     @Test
-    public void testInvalid() {
+    public void testInvalidRequired() {
         User user = new User();
-        assertFalse(user.isValid());
 
-        // TODO: add more tests
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
+    }
+
+    @Test
+    public void testInvalidUserExists() {
+        User user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setJoined(new Date());
+        user.create();
+
+        user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
     }
 
     @Test
@@ -72,6 +90,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user = User.find(user.getId());
@@ -79,6 +99,8 @@ public class UserTests {
         assertEquals("user1", user.getUsername());
         assertEquals("valid@email.com", user.getEmail());
         assertNull(user.getPassword());
+        assertEquals("ResetToken", user.getResetToken());
+        assertEquals(3, user.getLoginCount());
         assertNotNull(user.getJoined());
     }
 
@@ -88,18 +110,41 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user.setUsername("user2");
         user.setEmail("valid2@email.com");
         user.setPassword("password2".toCharArray());
+        user.setResetToken("ResetToken2");
+        user.setLoginCount(4);
         user.update();
 
         user = User.find(user.getId());
         assertEquals("user2", user.getUsername());
         assertEquals("valid2@email.com", user.getEmail());
+        assertEquals("ResetToken2", user.getResetToken());
+        assertEquals(4, user.getLoginCount());
         assertNull(user.getPassword());
         assertNotNull(user.getJoined());
+    }
+
+    @Test
+    public void testUpdatePassword() {
+        User user = new User();
+        user.setUsername("user1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
+        user.create();
+
+        user.setPassword("password2".toCharArray());
+        user.update();
+
+        user = User.find(user.getId());
+        assertTrue(user.authenticate("password2".toCharArray()));
     }
 
     @Test
@@ -108,6 +153,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user.delete();
@@ -121,6 +168,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertTrue(User.usernameExists("user1"));
@@ -133,6 +182,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertTrue(User.emailExists("valid@email.com"));
@@ -145,6 +196,8 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         assertNotNull(User.find(1));
@@ -159,12 +212,16 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword("password1".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         user = new User();
         user.setUsername("user2");
         user.setEmail("valid2@email.com");
         user.setPassword("password2".toCharArray());
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
         List<User> result = User.findAll();
@@ -181,9 +238,11 @@ public class UserTests {
         user.setUsername("user1");
         user.setEmail("valid@email.com");
         user.setPassword(password);
+        user.setResetToken("ResetToken");
+        user.setLoginCount(3);
         user.create();
 
-        assertTrue(user.authorize(password));
-        assertFalse(user.authorize("invalidpassword".toCharArray()));
+        assertTrue(user.authenticate(password));
+        assertFalse(user.authenticate("invalidpassword".toCharArray()));
     }
 }

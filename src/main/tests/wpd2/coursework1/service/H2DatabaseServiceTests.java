@@ -1,6 +1,8 @@
 package wpd2.coursework1.service;
 
 import org.junit.Test;
+import wpd2.coursework1.service.DatabaseService;
+import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
@@ -8,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class H2DatabaseServiceTests {
     @Test

@@ -5,7 +5,7 @@
 #@mainLayout()
 
 
-<button id="addEventBtn" class="createMilestone" data-id="8">&#43;</button>
+<button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
 
 <!-- This button opens the modal box
 <button id="addMilestoneBtn" title="Add Milestone">&#43;</button>
@@ -48,7 +48,7 @@
 
         <div class="timelineContent">
             <button class="wAccordion">
-                <strong>$milestone.name: $milestone.due</strong>
+                <strong>$milestone.name:</strong> $milestone.due
             </button>
             <div class="wPanel">
                 <br />
@@ -81,14 +81,13 @@
         </div>
 
         #foreach($milestone in $model.getMilestones())
-            #if($milestone.due.after($model.getCurrentDate())
-                && $milestone.due.before($model.currentDatePlusSeven))
+            #if($milestone.due.after($model.getCurrentDate()) && $milestone.due.before($model.currentDatePlusSeven))
 
 
 
                 <div class="timelineContent">
                     <button class="wAccordion">
-                        <strong>$milestone.name: $milestone.due</strong>
+                        <strong>$milestone.name:</strong> $milestone.due
                     </button>
                     <div class="wPanel">
                         <br />
@@ -121,19 +120,18 @@
     </div>
 
 
-
     #foreach($milestone in $model.getMilestones())
-        #if($milestone.due.after($model.getCurrentDate()))
+        #if($milestone.due.after($model.getCurrentDate()) && $milestone.due.after($model.currentDatePlusSeven))
 
 
 
             <div class="timelineContent">
                 <button class="wAccordion">
-                    <strong>$milestone.name: $milestone.due</strong>
+                    <strong>$milestone.name:</strong> $milestone.due
                 </button>
                 <div class="wPanel">
                     <br />
-                    #if(true)
+                    #if(false)
                         <p>This milestone was completed two days early. Nice!</p>
                         <hr />
                     #end

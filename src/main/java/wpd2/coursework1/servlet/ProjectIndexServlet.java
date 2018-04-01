@@ -15,7 +15,9 @@ public class ProjectIndexServlet extends BaseServlet {
     protected void doGet() throws IOException {
         // Authenticate();
         // In finished code user would come from login.
-        User user = User.dummyUser();
+        if (!authorize()) return;
+
+        User user = userManager.getUser();
 
         // Get list of projects.
         List<Project> projects = Project.findAll(user);

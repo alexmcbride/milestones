@@ -3,12 +3,13 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import wpd2.coursework1.model.Milestone;
+import wpd2.coursework1.model.Project;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -65,6 +66,7 @@ public class MilestoneTests {
         milestone.setName("Test");
         milestone.setDue(date);
         milestone.setActual(date);
+        milestone.setComplete(true);
         milestone.create(project);
 
         milestone = Milestone.find(milestone.getId());
@@ -74,6 +76,7 @@ public class MilestoneTests {
         assertEquals("Test", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
+        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -84,12 +87,14 @@ public class MilestoneTests {
         milestone.setName("Edited name");
         milestone.setDue(date);
         milestone.setActual(date);
+        milestone.setComplete(true);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertEquals(date, milestone.getActual());
+        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -100,12 +105,14 @@ public class MilestoneTests {
         milestone.setName("Edited name");
         milestone.setDue(date);
         milestone.setActual(null);
+        milestone.setComplete(true);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
+        assertTrue(milestone.isComplete());
     }
 
 

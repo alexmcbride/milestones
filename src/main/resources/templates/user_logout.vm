@@ -1,0 +1,26 @@
+#parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
+
+#set($title = $model.name)
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <hr>
+        <h2>Are you sure you want to logout?</h2>
+        <br>
+
+        <h3>username: ${model.username}</h3>
+        <h3>email: ${model.email}</h3>
+        <form method="post">
+            #antiForgeryToken()
+            <input type="submit" id="btnLogoutUser" value="Logout" class="btn btn-default">
+        </form>
+        <br>
+
+        <a href="/users/login">Back to my account page</a>
+        |
+        <a href="/projects">Go back to main</a>
+    </div>
+</div>
+#end

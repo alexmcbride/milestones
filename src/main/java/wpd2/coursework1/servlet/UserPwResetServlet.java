@@ -14,36 +14,41 @@ public class UserPwResetServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if(getRequest().getParameter("token") != null){
-            String token = getRequest().getParameter("token");
-            getRequest().getSession().setAttribute("ReturnedToken",token);
+        if(request.getParameter("token") != null){
+            String token = request.getParameter("token");
+            request.getSession().setAttribute("ReturnedToken",token);
         }
         UserPWResetEmailViewModel password = new UserPWResetEmailViewModel();
 
-                // Display the form.
+        // Display the form.
         view(TEMPLATE_FILE, password);
     }
 
     @Override
     protected void doPost() throws IOException {
+
+        //if token value from the link user clicked is saved in the session
         if(getRequest().getSession().getAttribute("ReturnedToken") != null){
-            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString();
-            if(getRequest().getSession().getAttribute(rToken) != null){
-                String email = getRequest().getSession().getAttribute(rToken).toString();
+            //save the session value to rToken string
+            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString().replace("'","");
 
-            User user = new User();
-            if(user.find(email) != null);
-            user.setEmail(getRequest().getParameter("email"));
+            //if the user retreived using email is not null
+            if (User.findbyToken(rToken) != null) {
+                //create user with the token
+                User user = User.findbyToken(rToken);
+                //and set the input password to it.
+                user.setPassword(getRequest().getParameter("password").toCharArray());
 
-            if(user.isValid()){
-                user.update();
-                getResponse().sendRedirect("users/login");
-                return;
+                //if user update is successful redirect user to log in screen
+                if (user.update()) {
+                    getResponse().sendRedirect("/users/login");
+                    return;
+                }
             }
         }
-        String msg = "Error password did not get updated.";
+
+        String msg2 = "Error password did not get updated.";
         // Display the form with validation errors.
-        view(TEMPLATE_FILE, msg);
-        }
+        view(TEMPLATE_FILE, msg2);
     }
 }
