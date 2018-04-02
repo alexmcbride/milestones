@@ -18,7 +18,7 @@ public class UserTests {
     private DatabaseService db;
 
     @Before
-    public void setup() throws SQLException {
+    public void setup() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordService(PasswordService.MIN_COST);
 
@@ -30,7 +30,7 @@ public class UserTests {
     }
 
     @After
-    public void teardown() throws SQLException {
+    public void teardown() {
         db.destroy();
     }
 
@@ -46,11 +46,28 @@ public class UserTests {
     }
 
     @Test
-    public void testInvalid() {
+    public void testInvalidRequired() {
         User user = new User();
-        assertFalse(user.isValid());
 
-        // TODO: add more tests
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
+    }
+
+    @Test
+    public void testInvalidUserExists() {
+        User user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+        user.setPassword("password1".toCharArray());
+        user.setJoined(new Date());
+        user.create();
+
+        user = new User();
+        user.setUsername("name1");
+        user.setEmail("valid@email.com");
+
+        assertFalse(user.isValid());
+        assertEquals(2, user.getValidationErrors().size());
     }
 
     @Test
@@ -123,10 +140,10 @@ public class UserTests {
         user.create();
 
         user.setPassword("password2".toCharArray());
-        /*user.updatePassword();*/
+        user.update();
 
         user = User.find(user.getId());
-        assertTrue(user.authorize("password2".toCharArray()));
+        assertTrue(user.authenticate("password2".toCharArray()));
     }
 
     @Test
@@ -224,7 +241,7 @@ public class UserTests {
         user.setLoginCount(3);
         user.create();
 
-        assertTrue(user.authorize(password));
-        assertFalse(user.authorize("invalidpassword".toCharArray()));
+        assertTrue(user.authenticate(password));
+        assertFalse(user.authenticate("invalidpassword".toCharArray()));
     }
 }

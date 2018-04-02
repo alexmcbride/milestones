@@ -17,24 +17,17 @@ public class UserRegisterServlet extends BaseServlet {
     @Override
     protected void doPost() throws IOException {
         User user = new User();
-        user.setUsername(getRequest().getParameter("username"));
-        user.setEmail(getRequest().getParameter("email"));
-        user.setPassword(getRequest().getParameter("password").toCharArray());
+        user.setUsername(request.getParameter("username"));
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("password").toCharArray());
 
-        if(user.isValid())
-            //check if username or email already exist first
-            if(!user.usernameExists(getRequest().getParameter("username"))){
-
-                // find user with the same email.
-                if (!user.emailExists(getRequest().getParameter("email"))) {
-
-                    // Save user to database.
-                    user.create();
-                    getResponse().sendRedirect("/users/login");
-                    return;
-
-                }
-            }
+        if (user.isValid()) {
+            // Save user to database.
+            user.create();
+            flash.message("User account registered");
+            response.sendRedirect("/users/login");
+            return;
+        }
 
         // Display the form with validation errors.
         view(TEMPLATE_FILE, user);

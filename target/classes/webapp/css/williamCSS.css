@@ -1,21 +1,21 @@
 /* Main Color as RGB: background-color: rgba(27,109,133, 0.6);  */
 
-/* Navbar Styling */
-.navbar {
-    overflow: hidden;
-    background-color: #1b6d85;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%;
-    border-width: 0 0 0 0;
+/*!* Navbar Styling *!*/
+/*.navbar {*/
+    /*overflow: hidden;*/
+    /*background-color: #1b6d85;*/
+    /*position: fixed; !* Set the navbar to fixed position *!*/
+    /*top: 0; !* Position the navbar at the top of the page *!*/
+    /*width: 100%;*/
+    /*border-width: 0 0 0 0;*/
 
-    padding: 0 10%;
-}/* Full width */
+    /*padding: 0 10%;*/
+/*}!* Full width *!*/
 
 
-a.navbar-brand {
-    color: white !important;
-}
+/*a.navbar-brand {*/
+    /*color: white !important;*/
+/*}*/
 
 
 .centerContent {
@@ -351,15 +351,15 @@ a.navbar-brand {
 }
 
 /* The Close Button */
-.close {
+.modal-close {
     color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.modal-close:hover,
+.modal-close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;

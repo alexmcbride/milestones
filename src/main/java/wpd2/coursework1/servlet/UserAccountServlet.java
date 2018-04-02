@@ -16,9 +16,9 @@ public class UserAccountServlet extends BaseServlet {
 
         System.err.println("###before login check");
 
-        if (getRequest().getSession().getAttribute("user") != null) {
+        if (request.getSession().getAttribute("user") != null) {
             System.err.println("###logged in");
-            user = (User)getRequest().getSession().getAttribute("user");
+            user = (User)request.getSession().getAttribute("user");
             user = User.find(user.getEmail());
         }
         // Display the form.
@@ -42,17 +42,18 @@ public class UserAccountServlet extends BaseServlet {
             user.setUsername(getRequest().getParameter("username"));
             user.setEmail(getRequest().getParameter("email"));
             if(getRequest().getParameter("password") != null){
-            user.setPassword(getRequest().getParameter("password").toCharArray());
+                user.setPassword(getRequest().getParameter("password").toCharArray());
             }
 
             if (user.update()) {
+                flash.message("Account details updated");
                 //update session to newly updated user detail
-                getRequest().getSession().setAttribute("user", user);
+                userManager.login(user);
                 getResponse().sendRedirect("/projects");
                 return;
             }
-            // Display the form with validation errors.
         }
+
         view(TEMPLATE_FILE, user);
     }
 }

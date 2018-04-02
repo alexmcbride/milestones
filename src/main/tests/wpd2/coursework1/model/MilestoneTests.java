@@ -19,6 +19,7 @@ public class MilestoneTests {
 
     private DatabaseService db;
 
+    @SuppressWarnings("Duplicates")
     @Before
     public void setUp() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);

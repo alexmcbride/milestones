@@ -2,34 +2,54 @@ package wpd2.coursework1.util;
 
 import wpd2.coursework1.model.User;
 
-import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 public class UserManager {
-    private final User user;
+    public static final String KEY_USER = "user";
+    private final SessionWrapper session;
 
-    public UserManager(HttpSession session) {
-        // Change to user attribute in session.
-        this.user = (User)session.getAttribute("user");;
+    public UserManager(SessionWrapper session) {
+        this.session = session;
     }
 
     public User getUser() {
-        return user;
+        return (User)session.getAttribute(KEY_USER);
     }
 
     @Deprecated
     public boolean getLoggedIn() {
-        return user != null;
+        return getUser() != null;
     }
 
     public boolean isLoggedIn() {
-        return user != null;
+        return getUser() != null;
     }
 
     public String getEmail() {
-        return user.getEmail();
+        User user = getUser();
+        if (user != null) {
+            return user.getEmail();
+        }
+        return null;
     }
 
     public String getUsername() {
-        return user.getUsername();
+        User user = getUser();
+        if (user != null) {
+            return user.getUsername();
+        }
+        return null;
+    }
+
+    public void login(User user) {
+        session.setAttribute(KEY_USER, user);
+    }
+
+    public void logout() {
+        session.removeAttribute(KEY_USER);
+    }
+
+    public String generateEmailToken() {
+        return UUID.randomUUID().toString();
     }
 }

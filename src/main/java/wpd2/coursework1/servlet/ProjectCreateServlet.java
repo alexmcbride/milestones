@@ -11,7 +11,7 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if (!Authenticate()) return;
+        if (!authorize()) return;
 
         // Display the form.
         view(TEMPLATE_FILE, new Project());
@@ -19,21 +19,22 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        if (!Authenticate()) return;
-
-        User user = (User)request.getSession().getAttribute("user");
+        if (!authorize()) return;
 
         Project project = new Project();
-        project.setName(getRequest().getParameter("name"));
+        project.setName(request.getParameter("name"));
         project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {
             // Save project to database.
+            User user = userManager.getUser();
             project.create(user);
 
+            flash.message("New project created");
+
             // Always redirect after post.
-            getResponse().sendRedirect("/projects/details?id=" + project.getId());
+            response.sendRedirect("/projects/details?id=" + project.getId());
 
             return;
         }

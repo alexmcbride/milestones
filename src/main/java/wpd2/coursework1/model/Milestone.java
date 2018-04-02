@@ -148,7 +148,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static List<Milestone> findAll(int projectId) {
-        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=?";
+        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=? ORDER BY due DESC";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();

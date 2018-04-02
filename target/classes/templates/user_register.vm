@@ -7,14 +7,14 @@
     #parse("templates/form_helpers.vm")
 
 <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
+    <div class="col-sm-6 col-sm-offset-3">
         <form method="post">
             <h2>Register</h2>
             #antiForgeryToken()
 
-           #form_text_input("username")
+            #form_text_input("username", $model.username)
 
-            #form_email_input("email")
+            #form_email_input("email", $model.email)
 
             #form_password_input("password")
 
@@ -24,7 +24,12 @@
                 #validation_error($attribute)
             </div>
 
-            <input type="checkbox" onclick="showPasswords()">Show confirm-password
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" onclick="showPasswords()">
+                    Show confirm password
+                </label>
+            </div>
 
             <div>
                 <input type="submit" id="btnSaveUser" onclick="validatePassword()" value="Register" class="btn btn-default">

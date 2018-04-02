@@ -109,7 +109,7 @@ public class User extends ValidatableModel {
         }
 
         if (emailChanged && emailExists(email)) {
-            addValidationError("email", "already exists");
+            addValidationError("email", "Email address already exists");
         }
     }
 
@@ -235,8 +235,7 @@ public class User extends ValidatableModel {
         return null;
     }
 
-    @SuppressWarnings("Duplicates")
-    public static User findbyToken(String resetToken) {
+    public static User findByToken(String resetToken) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE resetToken=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, resetToken);
@@ -294,7 +293,7 @@ public class User extends ValidatableModel {
         return user;
     }
 
-    public boolean authorize(char[] password) {
+    public boolean authenticate(char[] password) {
         return passwordService.authenticate(password, getPasswordHash());
     }
 

@@ -1,8 +1,5 @@
 package wpd2.coursework1;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -12,24 +9,24 @@ import org.slf4j.LoggerFactory;
 import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.servlet.*;
+
 import wpd2.coursework1.servlet.MilestoneIndexServlet;
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
+import wpd2.coursework1.util.VelocityRenderer;
 
 public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9000;
-    private static final boolean RESET_DATABASE_ON_STARTUP = false;
+    private static final boolean RESET_DATABASE_ON_STARTUP = true;
 
     private void start() throws Exception {
         initializeServices();
-        initializeTemplateEngine();
-        initializeApp();
-    }
+        initializeDatabase();
+        VelocityRenderer.initializeTemplateEngine();
 
-    private void initializeApp() throws Exception {
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
@@ -48,28 +45,27 @@ public class Runner {
     }
 
     private void initializeServices() {
-        // Init IoC stuff
+        // Services that need to be injected during unit tests.
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
+    }
 
-        DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+    private void initializeDatabase() {
+        DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(DatabaseService.class);
         if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();
         }
         databaseService.initialize();
     }
 
-    private void initializeTemplateEngine() {
-        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        Velocity.init();
-    }
-
     private void mapServletsToRoutes(ServletContextHandler handler) {
         handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
+        handler.addServlet(new ServletHolder(new ProjectUpdateServlet()), "/projects/update");
+        handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete");
+
 
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
@@ -79,12 +75,14 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserPwResetServlet()), "/users/pw_reset");
         handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
         handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
-    // Milestone Handler
+
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
-}
+    }
 
     public static void main(String[] args) throws Exception {
+
         new Runner().start();
     }
 }
+
 

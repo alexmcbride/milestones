@@ -13,9 +13,9 @@ public class ProjectIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if (!Authenticate()) return;
+        if (!authorize()) return;
 
-        User user = (User)request.getSession().getAttribute("user");
+        User user = userManager.getUser();
         List<Project> projects = Project.findAll(user);
 
         // Make view models.

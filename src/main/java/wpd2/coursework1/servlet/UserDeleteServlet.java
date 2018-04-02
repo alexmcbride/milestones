@@ -11,10 +11,10 @@ public class UserDeleteServlet extends BaseServlet {
     protected void doGet() throws IOException {
         User user = new User();
         /*      System.err.println("###before login check");*/
-        if (getRequest().getSession().getAttribute("user") != null) {
+        if (request.getSession().getAttribute("user") != null) {
             /*      System.err.println("###logged in");*/
             //get user on the session
-            user = (User) getRequest().getSession().getAttribute("user");
+            user = (User) request.getSession().getAttribute("user");
             //get the user from database using logged in user's email
             user = User.find(user.getEmail());
         }
@@ -28,15 +28,16 @@ public class UserDeleteServlet extends BaseServlet {
     protected void doPost() throws IOException {
         User user = new User();
         //get id of existing user
-        User loggedinUserData = (User) getRequest().getSession().getAttribute("user");
+        User loggedinUserData = (User) request.getSession().getAttribute("user");
         //get user from database using the user's id
         user = User.find(loggedinUserData.getId());
         //if successfully delete the user
         if (user.delete()) {
             //remove this account from session
-            getRequest().getSession().removeAttribute("user");
+            userManager.logout();
+            flash.message("User account deleted");
             //redirect to main
-            getResponse().sendRedirect("/projects");
+            response.sendRedirect("/projects");
             return;
         }
         // if fails continues to show delete user view

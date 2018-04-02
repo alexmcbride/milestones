@@ -1,21 +1,24 @@
 #parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
 
 #set($title = $model.name)
 
 #@mainLayout()
-    #parse("templates/form_helpers.vm")
-<div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
-    <hr/>
-    <h2>Are you sure you want to delete this account?</h2>
-        <br/>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <hr>
+        <h2>Are you sure you want to delete this account?</h2>
+        <br>
 
-        <h3>username: $!{model.username}</h3>
-        <h3>email: $!{model.email}</h3>
-    <form method="post">
-        #antiForgeryToken()
-        <input type="submit" id="btnDeleteUser" value="delete" class="btn btn-default">
-    </form>
-        <br/>
-        <a href="/users/login">Back to my account page</a>|    <a href="/projects">Go back to main</a>
+        <h3>Username: $html.encode($model.username)</h3>
+        <h3>Email: $html.encode($model.email)</h3>
+
+        <form method="post">
+            #antiForgeryToken()
+            <input type="submit" id="btnDeleteUser" value="Delete" class="btn btn-default">
+        </form>
+        <br>
+        <a href="/users/account">Back to my account page</a>
+    </div>
 </div>
 #end

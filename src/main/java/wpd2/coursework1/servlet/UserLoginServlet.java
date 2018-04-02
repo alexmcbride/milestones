@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
+import wpd2.coursework1.util.FlashHelper;
 
 import java.io.IOException;
 
@@ -19,17 +20,22 @@ public class UserLoginServlet extends BaseServlet {
         loginCount++;
 
         User user = User.find(request.getParameter("email"));
-        if (user != null && user.authorize(request.getParameter("password").toCharArray())) {
-            request.getSession().setAttribute("user", user);
+
+        if (user != null && user.authenticate(request.getParameter("password").toCharArray())) {
+            userManager.login(user);
             loginCount = 0;
+
+            flash.message("You are logged in");
+
             // Always redirect to project.
             getResponse().sendRedirect("/projects");
+
             return;
         }
         else {
             user = new User();
             user.setEmail(request.getParameter("email"));
-            user.addValidationError("auth", "Email or password are incorrect");
+            flash.message("Email or password are incorrect", FlashHelper.WARNING);
         }
 
         if (loginCount == 3) {
