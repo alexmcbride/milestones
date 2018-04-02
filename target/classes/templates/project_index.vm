@@ -21,13 +21,9 @@
         </thead>
         <tbody>
             #foreach($project in $model)
-<<<<<<< HEAD
-                <tr class="clickable-row" data-id="$project.id">
-                    <td>$html.encode($project.name)</td>
-=======
+
                 <tr >
                     <td class="row" data-id="$project.id" style="cursor: pointer">$project.name</td>
->>>>>>> YHayat
                     <td>$project.created</td>
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>
