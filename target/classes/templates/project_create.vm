@@ -1,9 +1,8 @@
+#parse("templates/form_helpers.vm")
+
 #set($title = 'Create Project')
 
 #@mainLayout()
-    ## Include file that contains our form helpers.
-    #parse("templates/form_helpers.vm")
-
     <form method="post">
         <h2>Create Project</h2>
 

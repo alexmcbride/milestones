@@ -12,7 +12,7 @@
             <h2>Register</h2>
             #antiForgeryToken()
 
-           #form_text_input("username", $model.username)
+            #form_text_input("username", $model.username)
 
             #form_email_input("email", $model.email)
 

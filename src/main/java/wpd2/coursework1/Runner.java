@@ -23,11 +23,9 @@ public class Runner {
 
     private void start() throws Exception {
         initializeServices();
+        initializeDatabase();
         VelocityRenderer.initializeTemplateEngine();
-        initializeApp();
-    }
 
-    private void initializeApp() throws Exception {
         Server server = new Server(PORT);
 
         ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
@@ -46,12 +44,14 @@ public class Runner {
     }
 
     private void initializeServices() {
-        // Init IoC stuff
+        // Services that need to be injected during unit tests.
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
+    }
 
-        DatabaseService databaseService = (DatabaseService)container.getInstance(DatabaseService.class);
+    private void initializeDatabase() {
+        DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(DatabaseService.class);
         if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();
         }

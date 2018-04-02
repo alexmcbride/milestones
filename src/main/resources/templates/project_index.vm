@@ -22,7 +22,7 @@
         <tbody>
             #foreach($project in $model)
                 <tr class="clickable-row" data-id="$project.id">
-                    <td>$project.name</td>
+                    <td>$html.encode($project.name)</td>
                     <td>$project.created</td>
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>

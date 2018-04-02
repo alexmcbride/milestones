@@ -11,7 +11,7 @@
 <p><a href="/milestone">Milestoners</a></p>
 
     <p>ID: $model.id</p>
-    <p>Name: $model.name</p>
+    <p>Name: $html.encode($model.name)</p>
     <p>Created: $model.created</p>
 
     <h3>Milestones</h3>
