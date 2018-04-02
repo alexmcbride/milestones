@@ -1,85 +1,266 @@
 #parse('templates/layout.vm')
 
-## Set the title of the page.
-#set($title = 'Home')
+#set($title = 'Milestones')
 
-## Include your layout inside of the mainLayout macro.
 #@mainLayout()
+    #parse("templates/form_helpers.vm")
 
-<!-- This button opens the modal box -->
-<button title="Add Milestone" ><a href="/milestone/create">&#43;</a></button>
-
-
-
-
-
-
+<a onload='location.href="#defaultLoadLocation"'></a>
+<button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
 
 <div class="header">
-
-
-
-
     <div class="milestoneHeaderSection">
-
-
-        <div class=""><h3><strong>WPD Project CW1</strong></h3></div>
+        <div class=""><h3><strong>$model.getProjectName()</strong></h3></div>
         <hr class="headerHR"/>
         <div id="headerIcons">
+            <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
             <div class="headerIcon"><a href="#"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
-            <div class="headerIcon"><a href="#"><i class="fas fa-trash fa-lg"></i></a></div>
         </div>
-
     </div>
-<!--
-    <div class="progress-container">
-        <div class="progress-bar" id="myBar"></div>
-    </div>-->
 </div>
 
 <div class="milestoneContent">
-
-
-
-
-
     <div class="timeline">
 
-        <br />
-        <div class="timelineIndicatorContainer">
-            <p><strong><i>Complete</i></strong></p>
-            <hr  class="timelineIndicator"/>
-        </div>
+
+        #if($model.getDoneMilestones())
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Done</i></strong></p>
+                <hr  class="timelineIndicator"/>
+            </div>
+
+        #end
+
+        #foreach($milestone in $model.getDoneMilestones())
+            <div class="timelineContent done">
+                <button class="wAccordion">
+                    <strong>$milestone.name:</strong> $milestone.due
+                </button>
+                <div class="wPanel">
+                    <br />
+
+                    <p>This milestone was completed two days early. Nice! Hard coded!</p>
+                    <hr />
+
+
+                    <form method="post">
+
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        <input type="hidden" value="markedUnDoneForm" name="formType">
+                    ##<div class="container33">
+                    ##    <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
+                    ##</div>
+                        <div class="container33">
+
+                            <button type="submit" class="btn btn-primary" title="Mark as Undone">
+                                <i class="far fa-check-circle fa-lg"></i>
+                            </button>
+                        </div>
+
+                    ##<div class="container33">
+                    ##    <input type="submit" value="Mark as UnDone" class="btn btn-default" id="smt">
+                    ##</div>
+                    </form>
 
 
 
-
-
-        <div class="timelineContent done">
-            <button class="wAccordion">
-                <strong>Complete Project Plan: 12/04/2018</strong>
-            </button>
-            <div class="wPanel">
-                <br />
-                <p>This milestone was completed two days early. Nice!</p>
-                <hr />
-                <div class="container33">
-                    <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
-                </div>
-                <div class="container33">
-                    <a href="#" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
-                </div>
-                <div class="container33">
-                    <a href="#"><i class="fas fa-times fa-2x"></i></a>
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-lg"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <br/>
+            <br/>
+        #end
 
 
 
 
-        <!-- Late Milestones -->
+        #if($model.getLateMilestones())
+
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Late</i></strong></p>
+                <hr  class="timelineIndicator"/>
+            </div>
+
+        #end
+
+        #foreach($milestone in $model.getLateMilestones())
+            <div class="timelineContent late">
+                <button class="wAccordion">
+                    <strong>$milestone.name:</strong> $milestone.due
+                </button>
+                <div class="wPanel">
+                    <br />
+
+
+                    <form method="post">
+                    ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                    ##antiForgeryToken()
+
+
+                    ##form_text_input("milestoneId", $milestone.id)
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        <input type="hidden" value="markedDoneForm" name="formType">
+
+                    ## Use a form helper to output a text input.
+                        <div class="container33">
+                            <button type="submit" class="btn btn-primary" title="Mark as Done">
+                                <i class="fas fa-check-circle fa-lg"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        #end
+
+
+
+
+
+
+        <a href="#" id="defaultLoadLocation"></a>
+
+
+        #if($model.getCurrentMilestones())
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Current Week</i></strong></p>
+                <hr  class="timelineIndicator"/>
+            </div>
+        #end
+        #foreach($milestone in $model.getCurrentMilestones())
+
+
+
+            <div class="timelineContent dueToday">
+                <button class="wAccordion">
+                    <strong>$milestone.name:</strong> $milestone.due
+                </button>
+                <div class="wPanel">
+                    <br />
+
+
+                    <form method="post">
+                    ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                    ##antiForgeryToken()
+
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        <input type="hidden" value="markedDoneForm" name="formType">
+
+
+                    ##form_text_input("milestoneId", $milestone.id)
+                        <div class="container33">
+                            <button type="submit" class="btn btn-primary" title="Mark as Done">
+                                <i class="fas fa-check-circle fa-lg"></i>
+                            </button>
+                        </div>
+                    </form>
+
+
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+        #end
+
+
+        #if($model.getUpcomingMilestones())
+
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Upcoming</i></strong></p>
+                <hr class="timelineIndicator"/>
+            </div>
+        #end
+
+        #foreach($milestone in $model.getUpcomingMilestones())
+
+
+
+            <div class="timelineContent upcoming">
+                <button class="wAccordion">
+                    <strong>$milestone.name:</strong> $milestone.due
+                </button>
+                <div class="wPanel">
+                    <br />
+
+                    <form method="post">
+                    ##antiForgeryToken()
+
+                    ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                    ##form_text_input("milestoneId", $milestone.id)
+                        <input type="hidden" value="markedDoneForm" name="formType">
+
+                        <div class="container33">
+                            <button type="submit" class="btn btn-primary" title="Mark as Done">
+                                <i class="fas fa-check-circle fa-lg"></i>
+                            </button>
+                        </div>
+                    </form>
+
+
+
+                    <div class="container33">
+                        <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" data-id="$milestone.id"><i class="fas fa-times fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+        #end
+
+
+
+
+
+
+        <script>
+
+
+            $(function() {
+                $('.deleteMilestoneLink').click(function () {
+                    var milestoneId = $(this).attr('data-id');
+                    location.href = '/milestone/delete?id=' + milestoneId;
+                });
+            });
+
+            $(function() {
+                $('.editMilestoneLink').click(function () {
+                    var milestoneId = $(this).attr('data-id');
+                    location.href = '/milestone/edit?id=' + milestoneId;
+                });
+            });
+
+        </script>
+
+
+
+
+
+        <!-- Late Milestones
 
 
         <div class="timelineIndicatorContainer">
@@ -202,7 +383,7 @@
 
 
 
-        <!-- Upcoming Milestones -->
+        <!-- Upcoming Milestones -- >
 
         <div class="timelineIndicatorContainer">
             <p><strong><i>Upcoming</i></strong></p>
@@ -251,7 +432,7 @@
         </div>
         <br/>
 
-
+-->
 
 
 
@@ -259,6 +440,18 @@
 
 
 </div>
+
+
+
+<script>
+    $(function() {
+        $('.createMilestone').click(function () {
+            var projectId = $(this).attr('data-id');
+            location.href = '/milestone/create?id=' + projectId;
+        });
+    });
+</script>
+
 
 
 <!-- Each milestone is in a tabd/accordian section.  -->
@@ -278,78 +471,6 @@
         });
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-<!-- Modal Box Magic - will display modal box -->
-<script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("addMilestoneBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-
-    <!-- Modal Box for Edit Milestone -->
-<script>
-    // Get the modal
-    var modal = document.getElementById('editMsModal');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("editMilestoneBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[1];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-
-
-
-
-
 #end
+
+
