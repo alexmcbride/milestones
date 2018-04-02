@@ -17,6 +17,17 @@ public class AntiForgeryHelperTests {
         assertEquals(session.antiForgeryToken, token);
     }
 
+    @Test
+    public void testGenerateTokenCalledMultipleTimes() {
+        TestableSession session = new TestableSession();
+        AntiForgeryHelper helper = new AntiForgeryHelper(session);
+
+        String token = helper.generateToken();
+        token = helper.generateToken();
+
+        assertEquals(session.antiForgeryToken, token);
+    }
+
     @Test(expected = AntiForgeryHelper.AntiForgeryException.class)
     public void testCheckTokenInvalid() {
         TestableSession session = new TestableSession();
