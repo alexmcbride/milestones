@@ -47,7 +47,7 @@ public class ProjectDetailsServlet extends BaseServlet {
         model.setUpcomingMilestones(new ArrayList<>());
 
 
-
+        model.setProject(project);
 
         for (Milestone milestone : milestones) {
             // if is complete add to complete list

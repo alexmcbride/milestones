@@ -47,6 +47,8 @@ public class MilestonesViewModel {
     public void setCurrentMilestones(List<Milestone> getLateMilestones) { this.currentMilestones = getLateMilestones; }
     public void setUpcomingMilestones(List<Milestone> getLateMilestones) { this.upcomingMilestones = getLateMilestones; }
 
+    public void setProject(Project project) { this.project = project; }
+
 
 
 //, List<Milestone> doneMilestones, List<Milestone> lateMilestones, List<Milestone> currentMilestones, List<Milestone> upcomingMilestones
