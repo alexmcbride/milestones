@@ -1,22 +1,18 @@
 #parse('templates/layout.vm')
-
+#parse("templates/form_helpers.vm")
 #set($title = 'send me password reset email')
 
 #@mainLayout()
-#parse("templates/form_helpers.vm")
+
 <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
         <form method="post">
-            <h2>Send me password reset email</h2>
+            <h2>Input email to register</h2>
 
             #antiForgeryToken()
 
             ## Use a form helper to output a text input.
-            <div class="form-group$error">
-                <label for="email" style="text-transform: capitalize">Email</label>
-                <input type="email" id="email" name="email" class="form-control">
-                #validation_error($model, $attribute)
-            </div>
+            #form_email_input("email")
 
             <div>
                 <input type="submit" value="send me password reseset email" class="btn btn-default">

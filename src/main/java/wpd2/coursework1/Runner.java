@@ -68,6 +68,7 @@ public class Runner {
 
 
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
+        handler.addServlet(new ServletHolder(new UserRegisterEmailServlet()), "/users/register_email");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
         handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
         handler.addServlet(new ServletHolder(new UserPwResetEmailServlet()), "/users/pw_reset_email");
