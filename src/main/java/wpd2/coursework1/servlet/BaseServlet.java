@@ -1,57 +1,54 @@
-
 package wpd2.coursework1.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.util.AntiForgeryHelper;
-import wpd2.coursework1.util.VelocityRenderer;
+import wpd2.coursework1.util.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String HTML_TEXT_UTF_8 = "text/html; charset=UTF-8";
-    public static final  String PLAIN_TEXT_UTF_8 = "text/plain; charset=UTF-8";
-    public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
-    private HttpServletRequest request;
-    private HttpServletResponse response;
+    public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
+    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
 
-    public HttpServletRequest getRequest() {
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
+    protected UserManager userManager;
+    protected AntiForgeryHelper antiForgeryHelper;
+    protected FlashHelper flash;
+    protected int loginCount = 0;
+
+    protected HttpServletRequest getRequest() {
         return request;
     }
 
-    public HttpServletResponse getResponse() {
+    protected HttpServletResponse getResponse() {
         return response;
     }
 
-    protected void checkAntiForgeryToken() {
+    private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         antiForgeryHelper.checkToken(token);
     }
 
-    protected void issue(String mimeType, int returnCode, HttpServletResponse response) throws IOException {
-        response.setContentType(mimeType);
-        response.setStatus(returnCode);
-    }
-
-    protected void cache(HttpServletResponse response, int seconds) {
-        if (seconds > 0) {
-            response.setHeader("Pragma", "Public");
-            response.setHeader("Cache-Control", "public, no-transform, max-age=" + seconds);
-        }
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        this.request = request;
+        this.response = response;
+        SessionWrapper session = new SessionWrapper(request.getSession());
+        this.userManager = new UserManager(session);
+        this.antiForgeryHelper = new AntiForgeryHelper(session);
+        this.flash = new FlashHelper(session);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
+        handleRequest(request, response);
+
         doGet();
     }
 
@@ -61,8 +58,7 @@ public abstract class BaseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
+        handleRequest(request, response);
         checkAntiForgeryToken();
         doPost();
     }
@@ -71,11 +67,51 @@ public abstract class BaseServlet extends HttpServlet {
 
     }
 
+    protected void view(HttpServletResponse response, String template, Object object) throws IOException {
+        handleView(response, template, object);
+    }
+
     protected void view(String template, Object object) throws IOException {
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
-        VelocityRenderer renderer = new VelocityRenderer(antiForgeryHelper);
+        if (response == null) {
+            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+        }
+
+        handleView(response, template, object);
+    }
+
+    private void handleView(HttpServletResponse response, String template, Object object) throws IOException {
+        VelocityRenderer renderer = new VelocityRenderer();
+        renderer.addContext("antiForgeryHelper", antiForgeryHelper);
+        renderer.addContext("userManager", userManager);
+        renderer.addContext("flash", flash);
         renderer.render(response, template, object);
-        response.setContentType(HTML_TEXT_UTF_8);
+        handleResponse(response, RESPONSE_HTML);
+    }
+
+    private void handleResponse(HttpServletResponse response, String responseHtml) {
+        response.setContentType(responseHtml);
         response.setStatus(200);
+    }
+
+    protected boolean authorize() throws IOException{
+        if (userManager.isLoggedIn()) {
+            return true;
+        }
+        response.sendRedirect("/users/login");
+        return false;
+    }
+
+    protected void json(Object object) throws IOException {
+        if (response == null) {
+            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+        }
+
+        json(response, object);
+    }
+
+    protected void json(HttpServletResponse response, Object object) throws IOException {
+        JsonRenderer renderer = new JsonRenderer();
+        renderer.render(response, object);
+        handleResponse(response, RESPONSE_JSON);
     }
 }

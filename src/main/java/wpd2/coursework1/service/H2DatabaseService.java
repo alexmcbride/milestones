@@ -131,4 +131,5 @@ public class H2DatabaseService implements DatabaseService {
             sharedProject.create(firstProject, firstUser);
         }
     }
+
 }

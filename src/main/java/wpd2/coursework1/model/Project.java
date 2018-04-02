@@ -2,6 +2,7 @@ package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.ValidationHelper;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -128,7 +129,7 @@ public class Project extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<Project> findAll(int userId) {
-        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=?";
+        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=? ORDER BY created DESC";
         List<Project> users = new ArrayList<>();
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, userId);

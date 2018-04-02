@@ -20,8 +20,9 @@ public class ProjectTests {
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
      */
+    @SuppressWarnings("Duplicates")
     @Before
-    public void setup() throws SQLException {
+    public void setup() {
         // Init test database
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
 
@@ -35,7 +36,7 @@ public class ProjectTests {
     }
 
     @After
-    public void teardown() throws SQLException {
+    public void teardown() {
         // After each test destroy the database
         db.destroy();
     }

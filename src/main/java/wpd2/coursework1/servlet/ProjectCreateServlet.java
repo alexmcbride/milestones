@@ -11,25 +11,30 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+        if (!authorize()) return;
+
         // Display the form.
         view(TEMPLATE_FILE, new Project());
     }
 
     @Override
     protected void doPost() throws IOException {
-        User user = User.find(1);
+        if (!authorize()) return;
 
         Project project = new Project();
-        project.setName(getRequest().getParameter("name"));
+        project.setName(request.getParameter("name"));
         project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {
             // Save project to database.
+            User user = userManager.getUser();
             project.create(user);
 
+            flash.message("New project created");
+
             // Always redirect after post.
-            getResponse().sendRedirect("/projects/details?id=" + project.getId());
+            response.sendRedirect("/projects/details?id=" + project.getId());
 
             return;
         }

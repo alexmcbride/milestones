@@ -1,0 +1,34 @@
+#parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
+
+#set($title = $model.name)
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2>My Account</h2>
+
+        <p>Account Created: $model.joined</p>
+
+        <form method="post">
+            #antiForgeryToken()
+
+            #form_text_input('username', $model.username)
+            #form_email_input('email', $model.email)
+            #form_password_input('password')
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" onclick="showPasswords()">
+                    Show confirm password
+                </label>
+            </div>
+
+            <div>
+                <input type="submit" value="Update" class="btn btn-default"> |
+                <a href="/users/delete" class="btn btn-default">Delete this account</a>
+            </div>
+        </form>
+    </div>
+</div>
+#end

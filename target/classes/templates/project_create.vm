@@ -1,5 +1,3 @@
-#parse('templates/layout.vm')
-
 #set($title = 'Create Project')
 
 #@mainLayout()
@@ -12,14 +10,12 @@
         #antiForgeryToken()
 
         ## Use a form helper to output a text input.
-        #form_text_input("name")
-
-        <div>
-            <input type="submit" value="Add Project" class="btn btn-default" >
-            |
-            <a href="/projects">Go back</a>
+        #form_text_input("name", $model.name)
 
 
-        </div>
+        <input type="submit" value="Add Project" class="btn btn-default" id="smt">
+        |
+        <a href="/projects">Go back</a>
+
     </form>
 #end

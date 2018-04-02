@@ -1,21 +1,59 @@
 ## File that contains helpers for forms.
 
-#macro(validation_error $model $attribute)
+#macro(validation_error $attribute)
     #if ($model.hasValidationError($attribute))
         <span class="help-block">$model.getValidationError($attribute)</span>
     #end
 #end
 
-#macro(form_text_input $attribute)
+#macro(form_text_input $attribute, $value)
+    #set($error="")
+    #if ($model.hasValidationError($attribute))
+        #set($error=" has-error")
+    #end
+
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $value + '"')
+    #end
+
+    <div class="form-group$error">
+        <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+        <input type="text" name="$attribute" class="form-control"$valueattr>
+        #validation_error($attribute)
+    </div>
+#end
+
+#macro(form_email_input $attribute, $value)
+    #set($error="")
+    #if ($model.hasValidationError($attribute))
+        #set($error=" has-error")
+    #end
+
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $value + '"')
+    #end
+
+    <div class="form-group$error">
+        <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+        <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
+        #validation_error($attribute)
+    </div>
+#end
+
+#macro(form_password_input $attribute)
     #set($error="")
     #if ($model.hasValidationError($attribute))
         #set($error=" has-error")
     #end
 
     <div class="form-group$error">
-        <label for="name" style="text-transform: capitalize">$attribute</label>
-        <input type="text" name="name" class="form-control" autofocus="autofocus" onfocus="this.select()">
-        #validation_error($model, $attribute)
+
+        <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+        <input type="password" id="$attribute" name="$attribute" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        #validation_error($attribute)
+
     </div>
 #end
 

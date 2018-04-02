@@ -13,6 +13,7 @@ public class Milestone extends ValidatableModel {
     private String name;
     private Date due;
     private Date actual;
+    private boolean complete;
 
     public int getId() {
         return id;
@@ -54,6 +55,14 @@ public class Milestone extends ValidatableModel {
         this.actual = actual;
     }
 
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
     @Override
     protected void validate() {
         ValidationHelper helper = new ValidationHelper(this);
@@ -65,11 +74,12 @@ public class Milestone extends ValidatableModel {
     public void create(Project project) {
         projectId = project.getId();
 
-        String sql = "INSERT INTO milestones (projectId, name, due) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO milestones (projectId, name, due, complete) VALUES (?, ?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             sta.setInt(1, projectId);
             sta.setString(2, name);
             sta.setTimestamp(3, new Timestamp(due.getTime()));
+            sta.setBoolean(4, complete);
             sta.executeUpdate();
 
             ResultSet result = sta.getGeneratedKeys();
@@ -88,25 +98,14 @@ public class Milestone extends ValidatableModel {
 
     public void update() {
         // Depends if we are updating actual or not.
-        String sql;
-        if (hasActual()) {
-            sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
-        }
-        else {
-            sql = "UPDATE milestones SET name=?, due=? WHERE id=?";
-        }
+        String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
 
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
-            if (hasActual()) {
-                sta.setTimestamp(3, new Timestamp(actual.getTime()));
-                sta.setInt(4, id);
-            }
-            else {
-                sta.setInt(3, id);
-            }
-
+            sta.setTimestamp(3, actual == null ? null : new Timestamp(actual.getTime()));
+            sta.setBoolean(4, complete);
+            sta.setInt(5, id);
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -140,7 +139,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static Milestone find(int id) {
-        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
+        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE id=?";
         return getMilestone(id, sql);
     }
 
@@ -149,7 +148,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static List<Milestone> findAll(int projectId) {
-        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE projectId=?";
+        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=? ORDER BY due DESC";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();
@@ -171,6 +170,7 @@ public class Milestone extends ValidatableModel {
         milestone.name = result.getString(3);
         milestone.due = result.getTimestamp(4);
         milestone.actual = result.getTimestamp(5);
+        milestone.complete = result.getBoolean(6);
         return milestone;
     }
 
@@ -207,7 +207,8 @@ public class Milestone extends ValidatableModel {
                 "projectId INTEGER NOT NULL," +
                 "name NVARCHAR(250) NOT NULL," +
                 "due TIMESTAMP NOT NULL," +
-                "actual TIMESTAMP" +
+                "actual TIMESTAMP NULL," +
+                "complete BOOLEAN NULL" +
                 ")");
         }
         catch (SQLException e) {
