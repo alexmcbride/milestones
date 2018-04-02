@@ -21,23 +21,58 @@
         </thead>
         <tbody>
             #foreach($project in $model)
-                <tr class="clickable-row" data-id="$project.id">
-                    <td>$html.encode($project.name)</td>
+
+                <tr >
+                    <td class="row" data-id="$project.id" style="cursor: pointer">$project.name</td>
                     <td>$project.created</td>
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>
-                    <td>X</td>
+
+                    <td style="cursor: pointer"><a class="delete" data-id="$project.id">delete</a></td>
+                    <td style="cursor: pointer"><a class="edit"   data-id="$project.id">edit<i class="glyphicon glyphicon-edit"></i></a></td>
+
+
                 </tr>
             #end
         </tbody>
     </table>
 
+
+
+
+
     <script>
+        $(function()
+        {
+            $('.edit').click(function()
+            {
+                var projectId=$(this).attr('data-id');
+                location.href = '/projects/update?id=' + projectId;
+            });
+        });
+         $(function()
+                   {
+                       $('.delete').click(function()
+                       {
+                           var projectId=$(this).attr('data-id');
+                           location.href = '/projects/delete?id=' + projectId;
+                       });
+                   });
+
+        $(function()
+                {
+                    $('.delete').click(function()
+                    {
+                        var projectId=$(this).attr('data-id');
+                        location.href = '/projects/delete?id=' + projectId;
+                    });
+                });
         $(function() {
-            $('.clickable-row').click(function () {
+            $('.row').click(function () {
                 var projectId = $(this).attr('data-id');
                 location.href = '/projects/details?id=' + projectId;
             });
         });
     </script>
+
 #end

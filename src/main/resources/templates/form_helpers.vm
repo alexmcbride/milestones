@@ -49,9 +49,11 @@
     #end
 
     <div class="form-group$error">
+
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
         <input type="password" id="$attribute" name="$attribute" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
         #validation_error($attribute)
+
     </div>
 #end
 

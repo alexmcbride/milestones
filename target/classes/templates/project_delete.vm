@@ -1,0 +1,23 @@
+#parse('templates/layout.vm')
+
+##set($title = Confirm Delete)
+
+#@mainLayout()
+    #parse("templates/form_helpers.vm")
+    <form method="post">
+    #antiForgeryToken()
+
+
+
+    <p>ID: $model.id</p>
+    <p>Name: $model.name</p>
+    <p>Created: $model.created</p>
+
+    <p><a href="/projects">Cancel</a></p>
+
+    <input type="submit" value="Delete" class="btn btn-default">
+    </form>
+
+#end
+
+

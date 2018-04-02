@@ -11,8 +11,10 @@
         ## Use a form helper to output a text input.
         #form_text_input("name", $model.name)
 
+
         <input type="submit" value="Add Project" class="btn btn-default" id="smt">
         |
         <a href="/projects">Go back</a>
+
     </form>
 #end
