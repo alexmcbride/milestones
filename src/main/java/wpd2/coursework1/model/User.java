@@ -97,8 +97,8 @@ public class User extends ValidatableModel {
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
-        validation.required("username", username);
-        validation.email("email", email);
+/*        validation.required("username", username);
+        validation.email("email", email);*/
 
         if (passwordChanged) {
             validation.password("password", password);
