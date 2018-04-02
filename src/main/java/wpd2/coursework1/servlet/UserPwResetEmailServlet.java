@@ -25,7 +25,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
         String sbj = "Milestone Project Password Reset";
         String token = userManager.generateEmailToken();
-        String msg = "Please Reset your password from here <a href='http://localhost:9000/users/pw_reset?token="+token+"'>Reset My Password</a>";
+        String msg = "Please Reset your password from here <a href='http://localhost:9002/users/pw_reset?token="+token+"'>Reset My Password</a>";
 
         User user = User.find(getRequest().getParameter("email"));
         if (user != null) {
