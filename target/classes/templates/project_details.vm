@@ -3,15 +3,10 @@
 #set($title = 'Milestones')
 
 #@mainLayout()
+    #parse("templates/form_helpers.vm")
 
 
 <button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
-
-<!-- This button opens the modal box
-<button id="addMilestoneBtn" title="Add Milestone">&#43;</button>
-<p><a href="/milestone/create">Create New Milestone</a></p>
--->
-
 
 <div class="header">
     <div class="milestoneHeaderSection">
@@ -20,7 +15,6 @@
         <div id="headerIcons">
             <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
             <div class="headerIcon"><a href="#"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
-            <!--<div class="headerIcon"><a href="#"><i class="fas fa-trash fa-lg"></i></a></div>-->
         </div>
     </div>
 </div>
@@ -28,13 +22,11 @@
 <div class="milestoneContent">
     <div class="timeline">
 
-    <!-- ###############################################  DONE  ################################################################ -->
 
         #if($model.getDoneMilestones())
-            <!-- Display Milestones that are LATE --------------------------------------------------->
             <br />
             <div class="timelineIndicatorContainer">
-                <p><strong><i>Late</i></strong></p>
+                <p><strong><i>Done</i></strong></p>
                 <hr  class="timelineIndicator"/>
             </div>
 
@@ -47,12 +39,23 @@
                 </button>
                 <div class="wPanel">
                     <br />
-                        <p>This milestone was completed two days early. Nice!</p>
-                        <hr />
 
-                    <div class="container33">
-                        <a href="#"><i class="fas fa-check-circle fa-2x"></i></a>
-                    </div>
+                    <p>This milestone was completed two days early. Nice!</p>
+                    <hr />
+
+
+                    <form method="post">
+
+                            <input type="hidden" value="$milestone.id" name="milestoneId">
+                            <input type="hidden" value="markedUnDoneForm" name="formType">
+
+                        <div class="container33">
+                            <input type="submit" value="Mark as UnDone" class="btn btn-default" id="smt">
+                        </div>
+                    </form>
+
+
+
                     <div class="container33">
                         <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                     </div>
@@ -66,17 +69,16 @@
 
 
 
-        <!-- ###############################################  LATE  ################################################################ -->
 
         #if($model.getLateMilestones())
-        <!-- Display Milestones that are LATE --------------------------------------------------->
-        <br />
-        <div class="timelineIndicatorContainer">
-            <p><strong><i>Late</i></strong></p>
-            <hr  class="timelineIndicator"/>
-        </div>
 
-    #end
+            <br />
+            <div class="timelineIndicatorContainer">
+                <p><strong><i>Late</i></strong></p>
+                <hr  class="timelineIndicator"/>
+            </div>
+
+        #end
 
     #foreach($milestone in $model.getLateMilestones())
         <div class="timelineContent late">
@@ -87,9 +89,21 @@
                 <br />
 
 
-                <div class="container33">
-                    <a class="markMilestoneAsDone" data-id="$milestone.id"><i class="far fa-check-circle fa-2x"></i></a>
-                </div>
+                <form method="post">
+                    ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                    ##antiForgeryToken()
+
+
+                    ##form_text_input("milestoneId", $milestone.id)
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        <input type="hidden" value="markedDoneForm" name="formType">
+
+                    ## Use a form helper to output a text input.
+                    <div class="container33">
+                        <input type="submit" value="Mark as Done" class="btn btn-default" id="smt">
+                    </div>
+                </form>
+
                 <div class="container33">
                     <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                 </div>
@@ -108,9 +122,6 @@
 
 
     #if($model.getCurrentMilestones())
-
-        <!-- Display Milestones that are UPCOMING --------------------------------------------------->
-
         <br />
         <div class="timelineIndicatorContainer">
             <p><strong><i>Current Week</i></strong></p>
@@ -129,9 +140,21 @@
                         <br />
 
 
-                        <div class="container33">
-                            <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
-                        </div>
+                        <form method="post">
+                            ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                            ##antiForgeryToken()
+
+                                <input type="hidden" value="$milestone.id" name="milestoneId">
+                                <input type="hidden" value="markedDoneForm" name="formType">
+
+
+                            ##form_text_input("milestoneId", $milestone.id)
+                            <div class="container33">
+                                <input type="submit" value="Mark as Done" class="btn btn-default" id="smt">
+                            </div>
+                        </form>
+
+
                         <div class="container33">
                             <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
@@ -148,10 +171,10 @@
     #if($model.getUpcomingMilestones())
 
         <br />
-    <div class="timelineIndicatorContainer">
-        <p><strong><i>Upcoming</i></strong></p>
-        <hr  class="timelineIndicator"/>
-    </div>
+        <div class="timelineIndicatorContainer">
+            <p><strong><i>Upcoming</i></strong></p>
+            <hr class="timelineIndicator"/>
+        </div>
     #end
 
     #foreach($milestone in $model.getUpcomingMilestones())
@@ -165,10 +188,21 @@
                 <div class="wPanel">
                     <br />
 
+                    <form method="post">
+                        ##antiForgeryToken()
 
-                    <div class="container33">
-                        <a href="#"><i class="far fa-check-circle fa-2x"></i></a>
-                    </div>
+                           ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        ##form_text_input("milestoneId", $milestone.id)
+                            <input type="hidden" value="markedDoneForm" name="formType">
+
+                        <div class="container33">
+                            <input type="submit" value="Mark as Done" class="btn btn-default">
+                        </div>
+                    </form>
+
+
+
                     <div class="container33">
                         <a class="editMilestoneLink" data-id="$milestone.id" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                     </div>
@@ -188,12 +222,7 @@
 
             <script>
 
-            $(function() {
-                $('.markMilestoneAsDone').click(function () {
-                    var milestoneId = $(this).attr('data-id');
-                    location.href = '/milestone/delete?id=' + milestoneId;
-                });
-            });
+
 
             $(function() {
                 $('.deleteMilestoneLink').click(function () {

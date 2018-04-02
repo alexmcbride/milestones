@@ -33,7 +33,6 @@ public class ProjectCreateServlet extends BaseServlet {
 
             flash.message("New project created");
 
-
             // Always redirect after post.
             response.sendRedirect("/projects/details?id=" + project.getId());
 

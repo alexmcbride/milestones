@@ -20,6 +20,7 @@ public class ProjectDetailsServlet extends BaseServlet {
     protected void doGet() throws IOException {
 
 
+
         User user = User.dummyUser();
         int id = Integer.valueOf(request.getParameter("id"));
 
@@ -37,32 +38,35 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
         Date datePlusSeven = DateUtils.addDays(date, 7);
-
         model.setCurrentDatePlusSeven(datePlusSeven);
+
+
+        model.setDoneMilestones(new ArrayList<>());
+        model.setLateMilestones(new ArrayList<>());
+        model.setCurrentMilestones(new ArrayList<>());
+        model.setUpcomingMilestones(new ArrayList<>());
+
+
 
 
         for (Milestone milestone : milestones) {
             // if is complete add to complete list
-            if(milestone.isComplete()) {
+            if (milestone.isComplete()) {
                 model.addDoneMilestone(milestone);
                 continue;
             }
             // if is late put in late list
-            if(milestone.getDue().before(date) && (milestone.isComplete()==false))
-            {
+            if (milestone.getDue().before(date) && (!milestone.isComplete())) {
                 model.addLateMilestone(milestone);
                 continue;
             }
             // if is within 7 days put in current list
-            if(milestone.getDue().before(datePlusSeven) && (milestone.getDue().after(date))
-                    && (milestone.isComplete()==false))
-            {
+            if (milestone.getDue().before(datePlusSeven) && (milestone.getDue().after(date)) && (!milestone.isComplete())) {
                 model.addCurrentMilestone(milestone);
                 continue;
             }
             // if is within 7 days put in upcoming list
-            if(milestone.getDue().after(datePlusSeven) && (milestone.isComplete()==false))
-            {
+            if (milestone.getDue().after(datePlusSeven) && (!milestone.isComplete())) {
                 model.addUpcomingMilestone(milestone);
                 continue;
             }
@@ -74,5 +78,59 @@ public class ProjectDetailsServlet extends BaseServlet {
 
         // Render the view.
         view(TEMPLATE_FILE, model);
+    }
+
+    protected void doPost() throws IOException {
+
+        // mark milestone as done
+        // In finished code user would come from login.
+        if (!authorize()) return;
+        int milestoneId = Integer.valueOf(request.getParameter("milestoneId"));
+        Milestone milestone = Milestone.find(milestoneId);
+        int projectId = milestone.getProjectId();
+        Project project = Project.find(projectId);
+
+
+        String formType = request.getParameter("formType");
+
+        if(formType.equals("markedDoneForm")) {
+
+
+
+            milestone.setComplete(true);
+
+
+
+
+            // Check if project is valid.
+            if (milestone.isValid()) {
+                // Save project to database.
+                milestone.update();
+            }
+
+            // Always redirect after post.
+            response.sendRedirect("/projects/details?id=" + projectId);
+
+            //view(TEMPLATE_FILE, project);
+        }
+        else
+        {
+
+            milestone.setComplete(false);
+
+
+            // Check if project is valid.
+            if (milestone.isValid()) {
+                // Save project to database.
+                milestone.update();
+            }
+
+            // Always redirect after post.
+            response.sendRedirect("/projects/details?id=" + projectId);
+
+            //view(TEMPLATE_FILE, project);
+
+        }
+
     }
 }
