@@ -97,9 +97,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public void update() {
-        // Depends if we are updating actual or not.
         String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
-
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
@@ -148,10 +146,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static List<Milestone> findAll(int projectId) {
-
-
         String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=? ORDER BY due DESC";
-
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();
@@ -206,7 +201,6 @@ public class Milestone extends ValidatableModel {
     public static void createTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS milestones ( " +
-
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
                 "projectId INTEGER NOT NULL," +
                 "name NVARCHAR(250) NOT NULL," +
