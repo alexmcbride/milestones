@@ -20,7 +20,7 @@ public class Runner {
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
     private static final int PORT = 9002;
-    private static final boolean RESET_DATABASE_ON_STARTUP = false;
+    private static final boolean RESET_DATABASE_ON_STARTUP = true;
 
     private void start() throws Exception {
         initializeServices();
