@@ -2,7 +2,7 @@
 
 #macro(validation_error $attribute)
     #if ($model.hasValidationError($attribute))
-        <span class="help-block">$model.getValidationError($attribute)</span>
+    <span class="help-block">$model.getValidationError($attribute)</span>
     #end
 #end
 
@@ -14,6 +14,7 @@
 
     #set($valueattr = "")
     #if ($value)
+
         #set($valueattr = ' value="' + $html.encode($value) + '"')
     #end
 
@@ -22,6 +23,7 @@
         <input type="text" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
+
 #end
 
 #macro(form_email_input $attribute, $value)
@@ -40,6 +42,7 @@
         <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
+
 #end
 
 #macro(form_password_input $attribute)
@@ -55,8 +58,9 @@
         #validation_error($attribute)
 
     </div>
+
 #end
 
 #macro(antiForgeryToken)
-    <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
 #end

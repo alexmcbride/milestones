@@ -129,7 +129,7 @@ public class Project extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<Project> findAll(int userId) {
-        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=? ORDER BY created DESC";
+        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=?";
         List<Project> users = new ArrayList<>();
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, userId);
@@ -143,7 +143,6 @@ public class Project extends ValidatableModel {
         }
         return users;
     }
-
     @SuppressWarnings("Duplicates")
     public static Project find(int id) {
         String sql = "SELECT id, userId, name, created FROM projects WHERE id=?";

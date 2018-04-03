@@ -13,6 +13,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+
         if (!authorize()) return;
 
         User user = userManager.getUser();
@@ -20,6 +21,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
         // Make view models.
         List<ProjectViewModel> models = new ArrayList<>();
+
         for (Project project : projects) {
             models.add(new ProjectViewModel(project));
         }

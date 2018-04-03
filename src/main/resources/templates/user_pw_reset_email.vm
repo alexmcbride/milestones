@@ -1,5 +1,4 @@
 #parse('templates/layout.vm')
-#parse("templates/form_helpers.vm")
 
 #set($title = 'send me password reset email')
 
@@ -23,4 +22,5 @@
         </form>
     </div>
 </div>
+
 #end

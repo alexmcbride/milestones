@@ -1,10 +1,12 @@
 package wpd2.coursework1.util;
 
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import wpd2.coursework1.model.ValidatableModel;
+import wpd2.coursework1.util.ValidationHelper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ValidationHelperTests {
     private TestModel model;

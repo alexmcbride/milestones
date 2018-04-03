@@ -24,8 +24,10 @@ public class Runner {
 
     private void start() throws Exception {
         initializeServices();
+
         initializeDatabase();
         VelocityRenderer.initializeTemplateEngine();
+
 
         Server server = new Server(PORT);
 
@@ -76,11 +78,15 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
         handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
 
+        // Milestone Handler
         handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
+        handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
+        handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
+        handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
+
     }
 
     public static void main(String[] args) throws Exception {
-
         new Runner().start();
     }
 }

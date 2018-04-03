@@ -4,6 +4,7 @@ import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 import org.ocpsoft.prettytime.PrettyTime;
 
+
 public class ProjectViewModel {
     private Project project;
     private PrettyTime prettyTime;

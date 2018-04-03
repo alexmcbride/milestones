@@ -6,7 +6,9 @@
     <form method="post">
         <h2>Create Project</h2>
 
+
         #antiForgeryToken()
+
 
         ## Use a form helper to output a text input.
         #form_text_input("name", $model.name)
@@ -17,4 +19,5 @@
         <a href="/projects">Go back</a>
 
     </form>
+
 #end

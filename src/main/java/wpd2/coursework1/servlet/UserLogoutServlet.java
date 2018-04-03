@@ -25,4 +25,3 @@ public class UserLogoutServlet extends BaseServlet {
     }
 }
 
-

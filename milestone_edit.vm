@@ -1,0 +1,34 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Create Milestone')
+
+#@mainLayout()
+    ## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
+
+    <form method="post">
+        <h2>Edit Milestone</h2>
+
+        #antiForgeryToken()
+
+        ## Use a form helper to output a text input.
+        #form_text_input("name")
+
+        <div>
+            <input type="submit" value="Add Milestone" class="btn btn-default">
+            |
+            <a class="createLink" data-id="$model.id">Go back</a>
+            <div data-id="$model.id"></div>
+
+        </div>
+    </form>
+
+<script>
+    $(function() {
+        $('.createLink').click(function () {
+            var projectId = $(this).attr('data-id');
+            location.href = '/projects/details?id=' + projectId;
+        });
+    });
+</script>
+#end

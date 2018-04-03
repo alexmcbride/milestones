@@ -5,9 +5,9 @@
 
 ## Include your layout inside of the mainLayout macro.
 #@mainLayout()
-    <h2>Projects</h2>
+<h2>Projects</h2>
 
-    <p><a href="/projects/create">Create New Project</a></p>
+<p><a href="/projects/create">Create New Project</a></p>
 
     <table class="table table-responsive table-hover">
         <thead>
@@ -16,6 +16,7 @@
                 <th>Created</th>
                 <th>Milestones</th>
                 <th>Next Milestone</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -28,8 +29,8 @@
                     <td>$project.milestones</td>
                     <td>$project.nextMilestone</td>
 
-                    <td style="cursor: pointer"><a class="delete" data-id="$project.id">delete</a></td>
-                    <td style="cursor: pointer"><a class="edit"   data-id="$project.id">edit<i class="glyphicon glyphicon-edit"></i></a></td>
+                    <td style="cursor: pointer"><a class="edit"   data-id="$project.id"><i class="glyphicon glyphicon-edit"></i></a></td>
+                    <td style="cursor: pointer"><a class="delete" data-id="$project.id"><i class="glyphicon glyphicon-trash"></i></a></td>
 
 
                 </tr>
@@ -74,5 +75,6 @@
             });
         });
     </script>
+
 
 #end

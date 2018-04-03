@@ -1,0 +1,35 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Create Project')
+
+#@mainLayout()
+    ## Include file that contains our form helpers.
+    #parse("templates/form_helpers.vm")
+
+    <form method="post">
+        <h2>Are you sure you wish to Delete Milestone: $model.name</h2>
+
+        #antiForgeryToken()
+
+        <div>
+
+            <!-- Go Back -->
+            <a class="createLink" data-id="$model.projectId">
+                <i class="fas fa-arrow-left fa-lg"></i>
+            </a>
+
+
+            <!-- Confirm Deletion -->
+            <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
+
+        </div>
+    </form>
+<script>
+    $(function() {
+        $('.createLink').click(function () {
+            var projectId = $(this).attr('data-id');
+            location.href = '/projects/details?id=' + projectId;
+        });
+    });
+</script>
+#end

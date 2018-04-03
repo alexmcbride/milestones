@@ -1,6 +1,7 @@
 package wpd2.coursework1.util;
 
 import org.junit.Test;
+import wpd2.coursework1.util.IoC;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
