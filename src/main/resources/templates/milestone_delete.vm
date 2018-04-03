@@ -3,33 +3,37 @@
 #set($title = 'Create Project')
 
 #@mainLayout()
-    ## Include file that contains our form helpers.
-    #parse("templates/form_helpers.vm")
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        ## Include file that contains our form helpers.
+        #parse("templates/form_helpers.vm")
 
-    <form method="post">
-        <h2>Are you sure you wish to Delete Milestone: $model.name</h2>
+        <form method="post">
+            <h2>Are you sure you wish to Delete Milestone: $model.name</h2>
 
-        #antiForgeryToken()
+            #antiForgeryToken()
 
-        <div>
+            <div>
 
-            <!-- Go Back -->
-            <a class="createLink" data-id="$model.projectId">
-                <i class="fas fa-arrow-left fa-lg"></i>
-            </a>
+                <!-- Go Back -->
+                <a class="createLink" data-id="$model.projectId">
+                    <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
 
 
-            <!-- Confirm Deletion -->
-            <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
+                <!-- Confirm Deletion -->
+                <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
 
-        </div>
-    </form>
-<script>
-    $(function() {
-        $('.createLink').click(function () {
-            var projectId = $(this).attr('data-id');
-            location.href = '/projects/details?id=' + projectId;
-        });
-    });
-</script>
+            </div>
+        </form>
+        <script>
+            $(function() {
+                $('.createLink').click(function () {
+                    var projectId = $(this).attr('data-id');
+                    location.href = '/projects/details?id=' + projectId;
+                });
+            });
+        </script>
+    </div>
+</div>
 #end

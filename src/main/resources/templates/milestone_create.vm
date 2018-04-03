@@ -3,37 +3,40 @@
 #set($title = 'Create Milestone')
 
 #@mainLayout()
-    ## Include file that contains our form helpers.
-    #parse("templates/form_helpers.vm")
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+        ## Include file that contains our form helpers.
+        #parse("templates/form_helpers.vm")
 
-    <form method="post">
-        <h2>Create Milestone</h2>
+        <form method="post">
+            <h2>Create Milestone</h2>
 
-        #antiForgeryToken()
+            #antiForgeryToken()
 
-        ## Use a form helper to output a text input.
-        #form_text_input("name")
+            ## Use a form helper to output a text input.
+            #form_text_input("name")
 
-        ## expected completion date
-        <input type="date" name="due">
+            ## expected completion date
+            <input type="date" name="due">
 
 
 
-        <div>
-            <input type="submit" value="Add Milestone" class="btn btn-default">
-            |
-            <a class="createLink" data-id="$model.id">Go back</a>
-            <div data-id="$model.id"></div>
+            <div>
+                <input type="submit" value="Add Milestone" class="btn btn-default">
+                |
+                <a class="createLink" data-id="$model.id">Go back</a>
+                <div data-id="$model.id"></div>
 
-        </div>
-    </form>
+            </div>
+        </form>
 
-<script>
-    $(function() {
-        $('.createLink').click(function () {
-            var projectId = $(this).attr('data-id');
-            location.href = '/projects/details?id=' + projectId;
-        });
-    });
-</script>
+        <script>
+            $(function() {
+                $('.createLink').click(function () {
+                    var projectId = $(this).attr('data-id');
+                    location.href = '/projects/details?id=' + projectId;
+                });
+            });
+        </script>
+    </div>
 #end

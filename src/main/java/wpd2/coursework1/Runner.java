@@ -10,7 +10,6 @@ import wpd2.coursework1.service.DatabaseService;
 import wpd2.coursework1.service.H2DatabaseService;
 import wpd2.coursework1.servlet.*;
 
-import wpd2.coursework1.servlet.MilestoneIndexServlet;
 import wpd2.coursework1.service.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.VelocityRenderer;
@@ -79,7 +78,6 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
 
         // Milestone Handler
-        handler.addServlet(new ServletHolder(new MilestoneIndexServlet()), "/milestone");
         handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
         handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
         handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");

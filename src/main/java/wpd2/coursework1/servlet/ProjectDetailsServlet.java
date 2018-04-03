@@ -20,7 +20,7 @@ public class ProjectDetailsServlet extends BaseServlet {
     protected void doGet() throws IOException {
 
         if (!authorize()) return;
-        
+
         //try {
 
 
