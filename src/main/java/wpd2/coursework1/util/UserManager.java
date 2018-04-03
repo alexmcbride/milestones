@@ -1,7 +1,11 @@
 package wpd2.coursework1.util;
 
+import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class UserManager {
@@ -51,5 +55,19 @@ public class UserManager {
 
     public String generateEmailToken() {
         return UUID.randomUUID().toString();
+    }
+
+    public List<Project> getSharedProjects() {
+        List<Project> projects = new ArrayList<>();
+        if (isLoggedIn()) {
+            User user = getUser();
+            List<SharedProject> sharedProjects = SharedProject.findAll(user);
+            for (SharedProject sharedProject : sharedProjects) {
+                Project project = Project.find(sharedProject.getProjectId());
+                projects.add(project);
+            }
+            return projects;
+        }
+        return projects;
     }
 }

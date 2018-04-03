@@ -13,7 +13,6 @@ public class ProjectIndexServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-
         if (!authorize()) return;
 
         User user = userManager.getUser();
