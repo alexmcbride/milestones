@@ -5,7 +5,7 @@ import wpd2.coursework1.model.User;
 
 import java.io.IOException;
 
-public class UnshareProjectServlet extends JsonServlet {
+public class ApiUnshareProjectServlet extends JsonServlet {
     protected void doPost() throws IOException {
         int userId = Integer.valueOf(request.getParameter("userId"));
         int projectId = Integer.valueOf(request.getParameter("projectId"));
@@ -24,7 +24,7 @@ public class UnshareProjectServlet extends JsonServlet {
     private class UnshareResponse extends JsonResponse {
         private int id;
 
-        public UnshareResponse(String message, int id) {
+        UnshareResponse(String message, int id) {
             super(true, message);
             this.id = id;
         }

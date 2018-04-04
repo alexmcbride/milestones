@@ -88,9 +88,9 @@ public class Runner {
         handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
 
         // API
-        handler.addServlet(new ServletHolder(new UsersAutocompleteServlet()), "/api/autocomplete.json");
-        handler.addServlet(new ServletHolder(new ShareProjectServlet()), "/api/share_project.json");
-        handler.addServlet(new ServletHolder(new UnshareProjectServlet()), "/api/unshare_project.json");
+        handler.addServlet(new ServletHolder(new ApiUserAutocompleteServlet()), "/api/autocomplete.json");
+        handler.addServlet(new ServletHolder(new ApiShareProjectServlet()), "/api/share_project.json");
+        handler.addServlet(new ServletHolder(new ApiUnshareProjectServlet()), "/api/unshare_project.json");
     }
 
     public static void main(String[] args) throws Exception {

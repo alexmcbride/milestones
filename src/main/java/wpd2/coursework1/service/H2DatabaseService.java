@@ -89,13 +89,15 @@ public class H2DatabaseService implements DatabaseService {
         if (mode == Mode.TEST) {
             seedTest();
         }
-        else {
-            seedProduction();
+        else if (mode == Mode.DEVELOPMENT) {
+            seedDevelopment();
         }
-
+        else {
+            throw new RuntimeException("Unknown DB connection mode");
+        }
     }
 
-    private void seedProduction() {
+    private void seedDevelopment() {
         User user = new User();
         user.setUsername("Alex");
         user.setPassword("Password1".toCharArray());
@@ -103,21 +105,21 @@ public class H2DatabaseService implements DatabaseService {
         user.create();
 
         user = new User();
-        user.setUsername("William");
+        user.setUsername("Jeff");
         user.setPassword("Password1".toCharArray());
-        user.setEmail("william@email.com");
+        user.setEmail("jeff@email.com");
         user.create();
 
         user = new User();
-        user.setUsername("Yakoob");
+        user.setUsername("Steve");
         user.setPassword("Password1".toCharArray());
-        user.setEmail("yakoob@email.com");
+        user.setEmail("steve@email.com");
         user.create();
 
         user = new User();
-        user.setUsername("Mie");
+        user.setUsername("Phil");
         user.setPassword("Password1".toCharArray());
-        user.setEmail("mie@email.com");
+        user.setEmail("phil@email.com");
         user.create();
     }
 

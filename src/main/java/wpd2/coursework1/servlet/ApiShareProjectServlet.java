@@ -7,9 +7,9 @@ import wpd2.coursework1.model.User;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ShareProjectServlet extends JsonServlet {
+public class ApiShareProjectServlet extends JsonServlet {
     protected void doPost() throws IOException {
-//        try {
+        try {
             int userId = Integer.valueOf(request.getParameter("userId"));
             int projectId = Integer.valueOf(request.getParameter("projectId"));
 
@@ -20,7 +20,6 @@ public class ShareProjectServlet extends JsonServlet {
 
             User user = User.find(userId);
             Project project = Project.find(projectId);
-
             SharedProject sharedProject = SharedProject.find(user, project);
             if (sharedProject != null) {
                 view(new JsonResponse("This project has already been shared with " + user.getUsername()));
@@ -32,17 +31,17 @@ public class ShareProjectServlet extends JsonServlet {
                         user.getId(),
                         "This project has been shared with " + user.getUsername()));
             }
-//        }
-//        catch (NumberFormatException e) {
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//        }
+        }
+        catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private class UserResponse extends JsonResponse {
         private String username;
         private int id;
 
-        public UserResponse(String username, int id, String message) {
+        UserResponse(String username, int id, String message) {
             super(true, message);
             this.username = username;
             this.id = id;

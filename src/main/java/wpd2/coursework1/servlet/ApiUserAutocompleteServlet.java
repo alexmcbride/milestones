@@ -9,7 +9,7 @@ import java.util.List;
 /*
  * Servlet for supplying autocomplete JSON.
  */
-public class UsersAutocompleteServlet extends JsonServlet {
+public class ApiUserAutocompleteServlet extends JsonServlet {
     protected void doGet() throws IOException {
         if (!authorize()) return;
 
@@ -31,7 +31,7 @@ public class UsersAutocompleteServlet extends JsonServlet {
         private int id;
         private String value;
 
-        public AutocompleteItem(int id, String value) {
+        AutocompleteItem(int id, String value) {
             this.id = id;
             this.value = value;
         }
