@@ -711,7 +711,13 @@
                         <p>Previously shared with...</p>
                         <hr>
                         <div id="sharedProjectsList">
-                            #foreach($user in $model.project.sharedUsers)
+                            #set($users = $model.project.sharedUsers)
+                            #if ($users.size() == 0)
+                                <div id="notSharedMessage">
+                                    You have not shared this project with anyone yet!
+                                </div>
+                            #end
+                            #foreach($user in $users)
                                 <div class="row" id="sharedProjectItem-$user.id">
                                     <div class="col-sm-8">$user.username</div>
                                     <div class="col-sm-4"><a href="#" onclick="unshare($user.id)">Unshare</a></div>
@@ -733,13 +739,10 @@
                                 <input type="submit" value="Share" class="btn btn-sm" disabled id="shareButton">
                             </div>
                         </form>
-
-                        <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <br>
                         <div id="shareProjectMessage"></div>
                     </div>
                 </div>
@@ -751,7 +754,7 @@
 <script>
     function message(msg, success) {
         var successClass = success ? 'success' : 'warning';
-        $('#shareProjectMessage').html('<div class="alert alert-'+successClass+'" role="alert">' +
+        $('#shareProjectMessage').html('<br><div class="alert alert-'+successClass+'" role="alert">' +
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + msg + '</div>');
     }
 
@@ -791,6 +794,7 @@
                success: function(data, status, xhr) {
                    if (data.success) {
                        $('#shareProjectSearch').val('');
+                       $('#notSharedMessage').css({display: 'none'});
                        $('#sharedProjectsList').append('<div class="row" id="sharedProjectItem-' + data.id + '">' +
                                '<div class="col-sm-8">' + data.username + '</div>' +
                                '<div class="col-sm-4"><a href="#" onclick="unshare(' + data.id + ')">Unshare</a></div>' +
