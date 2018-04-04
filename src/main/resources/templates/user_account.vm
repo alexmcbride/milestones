@@ -5,7 +5,7 @@
 
 #@mainLayout()
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-4 col-sm-offset-4">
         <h2>My Account</h2>
 
         <p>Account Created: $model.joined</p>

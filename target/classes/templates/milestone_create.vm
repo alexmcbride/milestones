@@ -20,7 +20,6 @@
             <input type="date" name="due">
 
 
-
             <div>
                 <input type="submit" value="Add Milestone" class="btn btn-default">
                 |

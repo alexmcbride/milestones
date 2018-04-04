@@ -736,7 +736,7 @@
                                 <input type="text" id="shareProjectSearch" placeholder="Name or email" style="width: 100%">
                             </div>
                             <div class="text-right">
-                                <input type="submit" value="Share" class="btn btn-sm" disabled id="shareButton">
+                                <input type="submit" value="Share" class="btn btn-sm" disabled="disabled" id="shareButton">
                             </div>
                         </form>
                     </div>
@@ -794,6 +794,7 @@
                success: function(data, status, xhr) {
                    if (data.success) {
                        $('#shareProjectSearch').val('');
+                       $('#shareButton').attr('disabled', 'disabled');
                        $('#notSharedMessage').css({display: 'none'});
                        $('#sharedProjectsList').append('<div class="row" id="sharedProjectItem-' + data.id + '">' +
                                '<div class="col-sm-8">' + data.username + '</div>' +
