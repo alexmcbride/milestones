@@ -82,6 +82,7 @@ public class Runner {
         handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
         handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
 
+        handler.addServlet(new ServletHolder(new UsersAutocompleteServlet()), "/users/autocomplete.json");
     }
 
     public static void main(String[] args) throws Exception {

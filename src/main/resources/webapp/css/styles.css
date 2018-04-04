@@ -16,3 +16,7 @@
 .shared-projects-content {
     margin: 20px;
 }
+
+.left-share-column {
+    border-right: 2px solid #8c8c8c;
+}

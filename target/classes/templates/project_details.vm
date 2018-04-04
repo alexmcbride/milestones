@@ -14,7 +14,7 @@
         <hr class="headerHR"/>
         <div id="headerIcons">
             <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
-            <div class="headerIcon"><a href="#"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
         </div>
     </div>
 </div>
@@ -697,10 +697,55 @@
     }
 </script>
 
+## Share projects modal dialog.
+<div class="modal fade ui-front" id="shareProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Shared Project</h4>
+            </div>
+            <div class="modal-body shared-projects-content">
+                <div class="row">
+                    <div class="col-sm-6 left-share-column">
+                        <p>Shared with...</p>
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>User</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                #foreach($user in $userManager.sharedUsers)
+                                    <tr>
+                                        <td>$user.username</td>
+                                        <td>Unshare</td>
+                                    </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6 right-share-column">
+                        <p>Share with user</p>
+                        <input type="text" id="shareProjectSearch" placeholder="Name or email">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
-
-
+<script>
+    $(function () {
+        $('#shareProjectSearch').autocomplete({
+            source: '/users/autocomplete.json',
+            minLength: 2,
+            select: function(evt, ui) {
+                console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+            }
+        });
+    });
+</script>
 
 #end

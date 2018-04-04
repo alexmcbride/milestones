@@ -308,4 +308,22 @@ public class User extends ValidatableModel {
         }
         return user;
     }
+
+    public static List<User> search(String query) {
+        query = "%" + query.toLowerCase() + "%"; // Add wildcards
+        String sql = "SELECT * FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ?";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, query);
+            statement.setString(2, query);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                users.add(getUserFromResult(result));
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
 }

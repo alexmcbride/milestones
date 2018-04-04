@@ -70,4 +70,14 @@ public class UserManager {
         }
         return projects;
     }
+
+    public List<User> getSharedUsers(Project project) {
+        List<User> users = new ArrayList<>();
+        List<SharedProject> sharedProjects = SharedProject.findAll(project);
+        for (SharedProject sharedProject : sharedProjects) {
+            User user = User.find(sharedProject.getUserId());
+            users.add(user);
+        }
+        return users;
+    }
 }

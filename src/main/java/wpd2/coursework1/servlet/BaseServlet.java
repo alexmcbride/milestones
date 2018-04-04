@@ -71,7 +71,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
 
-        //checkAntiForgeryToken();
+        checkAntiForgeryToken();
 
         doPost();
     }
@@ -117,6 +117,15 @@ public abstract class BaseServlet extends HttpServlet {
         return false;
     }
 
+    // For JSON we want don't want to redirect.
+    protected boolean jsonAuthorize() throws IOException{
+        if (userManager.isLoggedIn()) {
+            return true;
+        }
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return false;
+    }
+
     protected void json(Object object) throws IOException {
         if (response == null) {
             throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
@@ -126,10 +135,8 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     protected void json(HttpServletResponse response, Object object) throws IOException {
-
         JsonRenderer renderer = new JsonRenderer();
         renderer.render(response, object);
         handleResponse(response, RESPONSE_JSON);
-
     }
 }
