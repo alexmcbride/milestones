@@ -77,21 +77,26 @@
                     <h4 class="modal-title" id="myModalLabel">Shared Projects</h4>
                 </div>
                 <div class="modal-body shared-projects-content">
-                    <p>These are projects that have been shared with you!</p>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-4"><strong>Project</strong></div>
-                        <div class="col-sm-4"><strong>Shared By</strong></div>
-                        <div class="col-sm-4"><strong>When</strong></div>
-                    </div>
-                    #if ($userManager.loggedIn)
-                        #foreach ($project in $userManager.user.sharedProjects)
-                            <div class="row">
-                                <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
-                                <div class="col-sm-4">$project.username</div>
-                                <div class="col-sm-4">#pretty_time($project.created)</div>
-                            </div>
+                    #set($shared = $userManager.user.sharedProjects)
+                    #if ($shared.size() > 0)
+                        <p>These are projects that have been shared with you!</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4"><strong>Project</strong></div>
+                            <div class="col-sm-4"><strong>Shared By</strong></div>
+                            <div class="col-sm-4"><strong>When</strong></div>
+                        </div>
+                        #if ($userManager.loggedIn)
+                            #foreach ($project in $shared)
+                                <div class="row">
+                                    <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
+                                    <div class="col-sm-4">$project.username</div>
+                                    <div class="col-sm-4">#pretty_time($project.created)</div>
+                                </div>
+                            #end
                         #end
+                    #else
+                        <p>No projects have been shared with you.</p>
                     #end
                 </div>
             </div>
