@@ -16,10 +16,7 @@ public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
-
-    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
-
+    private static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
@@ -53,7 +50,6 @@ public abstract class BaseServlet extends HttpServlet {
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
         this.htmlEncoder = new HtmlEncoder();
-
     }
 
     @Override
@@ -103,9 +99,8 @@ public abstract class BaseServlet extends HttpServlet {
         handleResponse(response, RESPONSE_HTML);
     }
 
-    private void handleResponse(HttpServletResponse response, String responseHtml) {
+    protected void handleResponse(HttpServletResponse response, String responseHtml) {
         response.setContentType(responseHtml);
-
         response.setStatus(200);
     }
 
@@ -115,28 +110,5 @@ public abstract class BaseServlet extends HttpServlet {
         }
         response.sendRedirect("/users/login");
         return false;
-    }
-
-    // For JSON we want don't want to redirect.
-    protected boolean jsonAuthorize() throws IOException{
-        if (userManager.isLoggedIn()) {
-            return true;
-        }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        return false;
-    }
-
-    protected void json(Object object) throws IOException {
-        if (response == null) {
-            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
-        }
-
-        json(response, object);
-    }
-
-    protected void json(HttpServletResponse response, Object object) throws IOException {
-        JsonRenderer renderer = new JsonRenderer();
-        renderer.render(response, object);
-        handleResponse(response, RESPONSE_JSON);
     }
 }

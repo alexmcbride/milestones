@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersAutocompleteServlet extends BaseServlet {
+public class UsersAutocompleteServlet extends JsonServlet {
     protected void doGet() throws IOException {
-        if (!jsonAuthorize()) return;
+        if (!authorize()) return;
 
         List<AutocompleteItem> items = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class UsersAutocompleteServlet extends BaseServlet {
             }
         }
 
-        json(items);
+        view(items);
     }
 
     // Format used by jQuery autocomplete plugin
