@@ -326,4 +326,14 @@ public class User extends ValidatableModel {
         }
         return users;
     }
+
+    public List<Project> getSharedProjects() {
+        List<Project> projects = new ArrayList<>();
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            Project project = Project.find(sharedProject.getProjectId());
+            projects.add(project);
+        }
+        return projects;
+    }
 }

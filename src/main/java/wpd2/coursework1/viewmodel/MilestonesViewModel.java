@@ -98,5 +98,7 @@ public class MilestonesViewModel {
         upcomingMilestones.add(milestone);
     }
 
-
+    public Project getProject() {
+        return project;
+    }
 }

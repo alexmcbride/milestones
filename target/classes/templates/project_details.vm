@@ -710,17 +710,11 @@
                     <div class="col-sm-6 left-share-column">
                         <p>Shared with...</p>
                         <table class="table table-responsive">
-                            <thead>
-                            <tr>
-                                <th>User</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                #foreach($user in $userManager.sharedUsers)
-                                    <tr>
+                            <tbody id="sharedProjectsList">
+                                #foreach($user in $model.project.sharedUsers)
+                                    <tr id="sharedProjectItem-$user.id">
                                         <td>$user.username</td>
-                                        <td>Unshare</td>
+                                        <td><a href="#" onclick="unshare($user.id)">Unshare</a></td>
                                     </tr>
                                 #end
                             </tbody>
@@ -728,7 +722,19 @@
                     </div>
                     <div class="col-sm-6 right-share-column">
                         <p>Share with user</p>
-                        <input type="text" id="shareProjectSearch" placeholder="Name or email">
+                        <form id="shareProjectForm">
+                            #antiForgeryToken()
+                            <input type="hidden" name="userId" id="userId">
+                            <input type="hidden" name="projectId"  id="projectId" value="$model.projectId">
+                            <div class="form-group">
+                                <input type="text" id="shareProjectSearch" placeholder="Name or email">
+                            </div>
+                            <input type="submit" value="Share" class="btn" disabled id="shareButton">
+                        </form>
+
+                        <br>
+
+                        <p id="shareProjectMessage"></p>
                     </div>
                 </div>
             </div>
@@ -737,13 +743,52 @@
 </div>
 
 <script>
+    function unshare(id) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/api/unshare_project.json',
+            data: { userId: id, projectId: $model.project.id },
+            success: function(data, status, xhr) {
+                if (data.success) {
+                    $('#sharedProjectItem-' + data.id).remove();
+                }
+                $('#shareProjectMessage').html(data.message);
+            }
+        });
+    }
+
     $(function () {
         $('#shareProjectSearch').autocomplete({
-            source: '/users/autocomplete.json',
+            source: '/api/autocomplete.json',
             minLength: 2,
             select: function(evt, ui) {
-                console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+                $('#userId').val(ui.item.id);
+                $('#shareButton').removeAttr('disabled');
             }
+        });
+
+        $('#shareProjectForm').on('submit', function(evt) {
+            evt.preventDefault();
+
+            $.ajax({
+               type: 'POST',
+               dataType: 'json',
+               url: '/api/share_project.json',
+               data: $(this).serialize(),
+               success: function(data, status, xhr) {
+                   if (data.success) {
+                       $('#shareProjectSearch').val('');
+                       $('#sharedProjectsList').append('<tr id="sharedProjectItem-' + data.id + '">' +
+                           '<td>' + data.username + '</td>' +
+                           '<td><a href="#" onclick="unshare(' + data.id + ')">Unshare</a></td>' +
+                           '</tr>');
+                   }
+                   else {
+                       $('#shareProjectMessage').html(data.message);
+                   }
+               }
+            });
         });
     });
 </script>

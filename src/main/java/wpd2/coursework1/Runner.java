@@ -61,13 +61,14 @@ public class Runner {
     }
 
     private void mapServletsToRoutes(ServletContextHandler handler) {
+        // Projects
         handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
         handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
         handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
         handler.addServlet(new ServletHolder(new ProjectUpdateServlet()), "/projects/update");
         handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete");
 
-
+        // Users
         handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
         handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
         handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
@@ -77,12 +78,15 @@ public class Runner {
         handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
         handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
 
-        // Milestone Handler
+        // Milestones
         handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
         handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
         handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
 
-        handler.addServlet(new ServletHolder(new UsersAutocompleteServlet()), "/users/autocomplete.json");
+        // API
+        handler.addServlet(new ServletHolder(new UsersAutocompleteServlet()), "/api/autocomplete.json");
+        handler.addServlet(new ServletHolder(new ShareProjectServlet()), "/api/share_project.json");
+        handler.addServlet(new ServletHolder(new UnshareProjectServlet()), "/api/unshare_project.json");
     }
 
     public static void main(String[] args) throws Exception {

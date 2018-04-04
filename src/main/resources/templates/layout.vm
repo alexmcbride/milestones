@@ -82,10 +82,10 @@
                         <div class="col-sm-4"><strong>Shared</strong></div>
                     </div>
                     #if ($userManager.loggedIn)
-                        #foreach ($project in $userManager.sharedProjects)
+                        #foreach ($project in $userManager.user.sharedProjects)
                             <div class="row">
-                                <div class="col-sm-4">$project.name</div>
-                                <div class="col-sm-4">Notimp</div>
+                                <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
+                                <div class="col-sm-4">Hmm</div>
                                 <div class="col-sm-4">$project.created</div>
                             </div>
                         #end

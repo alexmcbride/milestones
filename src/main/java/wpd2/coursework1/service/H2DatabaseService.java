@@ -58,6 +58,30 @@ public class H2DatabaseService implements DatabaseService {
         Project.createTable();
         Milestone.createTable();
         SharedProject.createTable();
+
+//        User user = new User();
+//        user.setEmail("alex@email.com");
+//        user.setUsername("Alex");
+//        user.setPassword("Password1".toCharArray());
+//        user.create();
+//
+//        user = new User();
+//        user.setEmail("bob@email.com");
+//        user.setUsername("Bob");
+//        user.setPassword("Password1".toCharArray());
+//        user.create();
+//
+//        user = new User();
+//        user.setEmail("jeff@email.com");
+//        user.setUsername("Jeff");
+//        user.setPassword("Password1".toCharArray());
+//        user.create();
+//
+//        user = new User();
+//        user.setEmail("phil@email.com");
+//        user.setUsername("Phil");
+//        user.setPassword("Password1".toCharArray());
+//        user.create();
     }
 
     /*

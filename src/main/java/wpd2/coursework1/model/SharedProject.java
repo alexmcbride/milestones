@@ -14,24 +14,12 @@ public class SharedProject extends BaseModel {
         return projectId;
     }
 
-    private void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
-
     public int getUserId() {
         return userId;
     }
 
-    private void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public Date getShared() {
         return shared;
-    }
-
-    private void setShared(Date shared) {
-        this.shared = shared;
     }
 
     public void create(Project project, User user) {
@@ -101,7 +89,7 @@ public class SharedProject extends BaseModel {
     }
 
     public static List<SharedProject> findAll(Project project) {
-        return findForUser(project.getId());
+        return findForProject(project.getId());
     }
 
     public static List<SharedProject> findForProject(int projectId) {

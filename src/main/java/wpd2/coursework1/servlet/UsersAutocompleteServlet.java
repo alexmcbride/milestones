@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Servlet for supplying autocomplete JSON.
+ */
 public class UsersAutocompleteServlet extends JsonServlet {
     protected void doGet() throws IOException {
         if (!authorize()) return;

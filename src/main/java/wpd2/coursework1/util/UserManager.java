@@ -20,6 +20,14 @@ public class UserManager {
         return (User)session.getAttribute(KEY_USER);
     }
 
+    public int getUserId() {
+        User user = getUser();
+        if (user != null) {
+            return user.getId();
+        }
+        return 0;
+    }
+
     @Deprecated
     public boolean getLoggedIn() {
         return getUser() != null;
@@ -55,29 +63,5 @@ public class UserManager {
 
     public String generateEmailToken() {
         return UUID.randomUUID().toString();
-    }
-
-    public List<Project> getSharedProjects() {
-        List<Project> projects = new ArrayList<>();
-        if (isLoggedIn()) {
-            User user = getUser();
-            List<SharedProject> sharedProjects = SharedProject.findAll(user);
-            for (SharedProject sharedProject : sharedProjects) {
-                Project project = Project.find(sharedProject.getProjectId());
-                projects.add(project);
-            }
-            return projects;
-        }
-        return projects;
-    }
-
-    public List<User> getSharedUsers(Project project) {
-        List<User> users = new ArrayList<>();
-        List<SharedProject> sharedProjects = SharedProject.findAll(project);
-        for (SharedProject sharedProject : sharedProjects) {
-            User user = User.find(sharedProject.getUserId());
-            users.add(user);
-        }
-        return users;
     }
 }

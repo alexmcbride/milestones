@@ -167,4 +167,14 @@ public class Project extends ValidatableModel {
         project.created = resultSet.getTimestamp(4);
         return project;
     }
+
+    public List<User> getSharedUsers() {
+        List<User> users = new ArrayList<>();
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            User user = User.find(sharedProject.getUserId());
+            users.add(user);
+        }
+        return users;
+    }
 }
