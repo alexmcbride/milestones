@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class ApiShareProjectServlet extends JsonServlet {
     protected void doPost() throws IOException {
+        if (!authorize()) return;
         try {
             int userId = Integer.valueOf(request.getParameter("userId"));
             int projectId = Integer.valueOf(request.getParameter("projectId"));

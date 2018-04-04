@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class ApiUnshareProjectServlet extends JsonServlet {
     protected void doPost() throws IOException {
+        if (!authorize()) return;
+
         int userId = Integer.valueOf(request.getParameter("userId"));
         int projectId = Integer.valueOf(request.getParameter("projectId"));
 

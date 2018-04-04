@@ -76,7 +76,7 @@
     ## Shared projects modal dialog.
     #if ($userManager.loggedIn)
         <div class="modal fade" id="sharedProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content" style="width: 100%;">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -88,15 +88,15 @@
                             <p>These are projects that have been shared with you!</p>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-4"><strong>Project</strong></div>
-                                <div class="col-sm-4"><strong>Shared By</strong></div>
-                                <div class="col-sm-4"><strong>When</strong></div>
+                                <div class="col-sm-6"><strong>Project</strong></div>
+                                <div class="col-sm-3"><strong>Shared By</strong></div>
+                                <div class="col-sm-3"><strong>When</strong></div>
                             </div>
                             #foreach($project in $shared)
                                 <div class="row">
-                                    <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
-                                    <div class="col-sm-4">$project.username</div>
-                                    <div class="col-sm-4">#pretty_time($project.created)</div>
+                                    <div class="col-sm-6"><a href="/projects/details?id=$project.id">$project.name</a></div>
+                                    <div class="col-sm-3">$project.username</div>
+                                    <div class="col-sm-3">#pretty_time($project.created)</div>
                                 </div>
                             #end
                         #else
