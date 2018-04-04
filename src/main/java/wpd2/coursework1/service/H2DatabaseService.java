@@ -58,30 +58,6 @@ public class H2DatabaseService implements DatabaseService {
         Project.createTable();
         Milestone.createTable();
         SharedProject.createTable();
-
-//        User user = new User();
-//        user.setEmail("alex@email.com");
-//        user.setUsername("Alex");
-//        user.setPassword("Password1".toCharArray());
-//        user.create();
-//
-//        user = new User();
-//        user.setEmail("bob@email.com");
-//        user.setUsername("Bob");
-//        user.setPassword("Password1".toCharArray());
-//        user.create();
-//
-//        user = new User();
-//        user.setEmail("jeff@email.com");
-//        user.setUsername("Jeff");
-//        user.setPassword("Password1".toCharArray());
-//        user.create();
-//
-//        user = new User();
-//        user.setEmail("phil@email.com");
-//        user.setUsername("Phil");
-//        user.setPassword("Password1".toCharArray());
-//        user.create();
     }
 
     /*
@@ -110,6 +86,42 @@ public class H2DatabaseService implements DatabaseService {
      */
     @Override
     public void seed() {
+        if (mode == Mode.TEST) {
+            seedTest();
+        }
+        else {
+            seedProduction();
+        }
+
+    }
+
+    private void seedProduction() {
+        User user = new User();
+        user.setUsername("Alex");
+        user.setPassword("Password1".toCharArray());
+        user.setEmail("alex@email.com");
+        user.create();
+
+        user = new User();
+        user.setUsername("William");
+        user.setPassword("Password1".toCharArray());
+        user.setEmail("william@email.com");
+        user.create();
+
+        user = new User();
+        user.setUsername("Yakoob");
+        user.setPassword("Password1".toCharArray());
+        user.setEmail("yakoob@email.com");
+        user.create();
+
+        user = new User();
+        user.setUsername("Mie");
+        user.setPassword("Password1".toCharArray());
+        user.setEmail("mie@email.com");
+        user.create();
+    }
+
+    private void seedTest() {
         User firstUser = null;
         Project firstProject = null;
         Milestone firstMilestone = null;
@@ -155,5 +167,4 @@ public class H2DatabaseService implements DatabaseService {
             sharedProject.create(firstProject, firstUser);
         }
     }
-
 }

@@ -23,6 +23,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
+    protected PrettyTimeHelper prettyTimeHelper;
 
     protected HtmlEncoder htmlEncoder;
 
@@ -50,6 +51,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
         this.htmlEncoder = new HtmlEncoder();
+        this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
     @Override
@@ -93,6 +95,7 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("antiForgeryHelper", antiForgeryHelper);
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
+        renderer.addContext("prettyTimeHelper", prettyTimeHelper);
 
         renderer.addContext("html", htmlEncoder);
         renderer.render(response, template, object);

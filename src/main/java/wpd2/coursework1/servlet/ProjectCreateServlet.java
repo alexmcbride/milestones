@@ -19,9 +19,7 @@ public class ProjectCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-
         if (!authorize()) return;
-
 
         Project project = new Project();
         project.setName(request.getParameter("name"));

@@ -28,7 +28,9 @@ public class ShareProjectServlet extends JsonServlet {
             else {
                 sharedProject = new SharedProject();
                 sharedProject.create(project, user);
-                view(new UserResponse(user.getUsername(), user.getId()));
+                view(new UserResponse(user.getUsername(),
+                        user.getId(),
+                        "This project has been shared with " + user.getUsername()));
             }
 //        }
 //        catch (NumberFormatException e) {
@@ -40,8 +42,8 @@ public class ShareProjectServlet extends JsonServlet {
         private String username;
         private int id;
 
-        public UserResponse(String username, int id) {
-            super(true, null);
+        public UserResponse(String username, int id, String message) {
+            super(true, message);
             this.username = username;
             this.id = id;
         }

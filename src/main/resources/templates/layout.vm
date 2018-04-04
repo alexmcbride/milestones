@@ -1,4 +1,5 @@
 #parse('templates/flash_messages.vm')
+#parse('templates/date_helpers.vm')
 
 #macro(mainLayout)
 <!DOCTYPE html>
@@ -69,24 +70,26 @@
 
     ## Shared projects modal dialog.
     <div class="modal fade" id="sharedProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" style="width: 100%;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Shared Projects</h4>
                 </div>
                 <div class="modal-body shared-projects-content">
+                    <p>These are projects that have been shared with you!</p>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-4"><strong>Project</strong></div>
-                        <div class="col-sm-4"><strong>User</strong></div>
-                        <div class="col-sm-4"><strong>Shared</strong></div>
+                        <div class="col-sm-4"><strong>Shared By</strong></div>
+                        <div class="col-sm-4"><strong>When</strong></div>
                     </div>
                     #if ($userManager.loggedIn)
                         #foreach ($project in $userManager.user.sharedProjects)
                             <div class="row">
                                 <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
-                                <div class="col-sm-4">Hmm</div>
-                                <div class="col-sm-4">$project.created</div>
+                                <div class="col-sm-4">$project.username</div>
+                                <div class="col-sm-4">#pretty_time($project.created)</div>
                             </div>
                         #end
                     #end

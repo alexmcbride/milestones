@@ -56,8 +56,12 @@ public class Runner {
         DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(DatabaseService.class);
         if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();
+            databaseService.initialize();
+            databaseService.seed();
         }
-        databaseService.initialize();
+        else {
+            databaseService.initialize();
+        }
     }
 
     private void mapServletsToRoutes(ServletContextHandler handler) {

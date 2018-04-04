@@ -1,6 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.SharedProject;
+import wpd2.coursework1.model.User;
 
 import java.io.IOException;
 
@@ -14,8 +15,9 @@ public class UnshareProjectServlet extends JsonServlet {
             view(new JsonResponse("The shared project was not found"));
         }
         else {
+            User user = User.find(userId);
             sharedProject.delete();
-            view(new UnshareResponse("The project has been unshared", userId));
+            view(new UnshareResponse("The project has been unshared with " + user.getUsername(), userId));
         }
     }
 
