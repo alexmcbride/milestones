@@ -40,9 +40,14 @@
 
             #if ($userManager.loggedIn)
                 <ul class="nav navbar-nav navbar-left">
+                    #set($unvisited = $userManager.user.unvisited)
                     <li><a href="#" data-toggle="modal" data-target="#sharedProjectsModal">
-                        <i class="fas fa-envelope"></i>
-                        Friend's Projects
+                        #if ($unvisited > 0)
+                            <i class="fas fa-envelope-open"></i>
+                        #else
+                            <i class="fas fa-envelope"></i>
+                        #end
+                        Friend's Projects ($unvisited)
                     </a></li>
                 </ul>
             #end
@@ -69,39 +74,39 @@
     </footer>
 
     ## Shared projects modal dialog.
-    <div class="modal fade" id="sharedProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content" style="width: 100%;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Shared Projects</h4>
-                </div>
-                <div class="modal-body shared-projects-content">
-                    #set($shared = $userManager.user.sharedProjects)
-                    #if ($shared.size() > 0)
-                        <p>These are projects that have been shared with you!</p>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-4"><strong>Project</strong></div>
-                            <div class="col-sm-4"><strong>Shared By</strong></div>
-                            <div class="col-sm-4"><strong>When</strong></div>
-                        </div>
-                        #if ($userManager.loggedIn)
-                            #foreach ($project in $shared)
+    #if ($userManager.loggedIn)
+        <div class="modal fade" id="sharedProjectsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" style="width: 100%;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Shared Projects</h4>
+                    </div>
+                    <div class="modal-body shared-projects-content">
+                        #set($shared = $userManager.user.sharedProjects)
+                        #if ($shared.size() > 0)
+                            <p>These are projects that have been shared with you!</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-4"><strong>Project</strong></div>
+                                <div class="col-sm-4"><strong>Shared By</strong></div>
+                                <div class="col-sm-4"><strong>When</strong></div>
+                            </div>
+                            #foreach($project in $shared)
                                 <div class="row">
                                     <div class="col-sm-4"><a href="/projects/details?id=$project.id">$project.name</a></div>
                                     <div class="col-sm-4">$project.username</div>
                                     <div class="col-sm-4">#pretty_time($project.created)</div>
                                 </div>
                             #end
+                        #else
+                            <p>No projects have been shared with you :(</p>
                         #end
-                    #else
-                        <p>No projects have been shared with you.</p>
-                    #end
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    #end
 </body>
 </html>
 #end

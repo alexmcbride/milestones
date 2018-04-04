@@ -767,10 +767,6 @@
             success: function(data, status, xhr) {
                 if (data.success) {
                     $('#sharedProjectItem-' + data.id).remove();
-                    // if ($('#sharedProjectsList').is(':empty')) {
-                    if ($.trim($("#sharedProjectsList").html()) == '') {
-                        $('#notSharedMessage').css({display: 'block'});
-                    }
                 }
                 message(data.message, data.success);
             }

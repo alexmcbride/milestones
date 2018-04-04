@@ -336,4 +336,17 @@ public class User extends ValidatableModel {
         }
         return projects;
     }
+
+    public int getUnvisited() {
+        String sql = "SELECT COUNT(*) FROM sharedProjects WHERE userId=? AND viewed IS NULL";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, getId());
+            ResultSet result = statement.executeQuery();
+            result.next();
+            return result.getInt(1);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
