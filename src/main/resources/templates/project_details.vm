@@ -762,8 +762,8 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/api/unshare_project.json',
-            data: { userId: id, projectId: $model.project.id },
+            url: '/api/unshare-project.json',
+            data: { userId: id, projectId: $model.project.id, antiForgeryToken: '$antiForgeryHelper.token' },
             success: function(data, status, xhr) {
                 if (data.success) {
                     $('#sharedProjectItem-' + data.id).remove();
@@ -789,7 +789,7 @@
             $.ajax({
                type: 'POST',
                dataType: 'json',
-               url: '/api/share_project.json',
+               url: '/api/share-project.json',
                data: $(this).serialize(),
                success: function(data, status, xhr) {
                    if (data.success) {

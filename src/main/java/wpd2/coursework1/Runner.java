@@ -21,7 +21,7 @@ public class Runner {
     private void start() throws Exception {
         initializeServices();
         initializeDatabase();
-        VelocityRenderer.initializeTemplateEngine();
+        VelocityRenderer.initialize();
 
         Server server = new Server(PORT);
 
@@ -30,7 +30,7 @@ public class Runner {
 
         // Create web application context
         WebAppContext webapp = new WebAppContext();
-        webapp.setResourceBase("src/main/resources/webapp"); // Where out WEB-INF lives.
+        webapp.setResourceBase("src/main/resources/webapp"); // Where our WEB-INF lives.
         webapp.setContextPath("/");
         handlers.addHandler(webapp);
 
@@ -39,7 +39,7 @@ public class Runner {
 
         // Starting the Server
         server.start();
-        LOG.info("Started: http://localhost:" + PORT + "/projects");
+        LOG.info("Started: http://localhost:" + PORT);
         server.join();
     }
 

@@ -11,6 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ProjectIndexServlet</servlet-name>
+        <url-pattern>/</url-pattern>
         <url-pattern>/projects/*</url-pattern>
     </servlet-mapping>
 
@@ -167,7 +168,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiShareProjectServlet</servlet-name>
-        <url-pattern>/api/share_project.json/*</url-pattern>
+        <url-pattern>/api/share-project.json/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -176,6 +177,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>
-        <url-pattern>/api/unshare_project.json/*</url-pattern>
+        <url-pattern>/api/unshare-project.json/*</url-pattern>
     </servlet-mapping>
 </web-app>
