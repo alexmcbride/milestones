@@ -69,7 +69,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
 
-//        checkAntiForgeryToken();
+        checkAntiForgeryToken();
 
         doPost();
     }
