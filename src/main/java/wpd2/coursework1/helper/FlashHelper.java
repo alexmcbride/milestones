@@ -1,9 +1,11 @@
-package wpd2.coursework1.util;
+package wpd2.coursework1.helper;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Helper for making 'flash' drop down messages appear.
+ */
 public class FlashHelper {
     public static final String SUCCESS = "success";
     public static final String DANGER = "danger";

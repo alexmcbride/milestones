@@ -1,9 +1,12 @@
-package wpd2.coursework1.util;
+package wpd2.coursework1.helper;
 
 import wpd2.coursework1.model.ValidatableModel;
 
 import java.util.Date;
 
+/*
+ * Helper to aid with validating models.
+ */
 public class ValidationHelper {
     private final ValidatableModel model;
 

@@ -1,7 +1,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
-import wpd2.coursework1.util.FlashHelper;
+import wpd2.coursework1.helper.FlashHelper;
 
 import java.io.IOException;
 

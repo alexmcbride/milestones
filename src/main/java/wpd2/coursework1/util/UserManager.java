@@ -1,11 +1,8 @@
 package wpd2.coursework1.util;
 
-import wpd2.coursework1.model.Project;
-import wpd2.coursework1.model.SharedProject;
+import wpd2.coursework1.helper.SessionWrapper;
 import wpd2.coursework1.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class UserManager {

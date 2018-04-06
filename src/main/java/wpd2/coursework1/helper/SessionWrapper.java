@@ -1,9 +1,9 @@
-package wpd2.coursework1.util;
+package wpd2.coursework1.helper;
 
 import javax.servlet.http.HttpSession;
 
 /*
- * Wrapper to make HttpSession testable.
+ * Helper wrapper to make HttpSession class testable.
  */
 public class SessionWrapper {
     private final HttpSession session;

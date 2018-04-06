@@ -1,11 +1,11 @@
-package wpd2.coursework1.util;
+package wpd2.coursework1.helper;
 
 import java.util.UUID;
 
 /*
- * Protects against CSRF by using a synchronizer token. We generate a token and store it in
- * the user's session, unique to that session. Each time we create a form we store this token
- * in a hidden input, which we then check on submit. This prevents people spoofing the form.
+ * Protects against CSRF by using a synchronizer token. We generate a token and store it unique
+ * to that the user's session. Each time we create a form we store this token in a hidden input,
+ * which we then check on form submit. This prevents people spoofing the form.
  * https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet
  */
 public class AntiForgeryHelper {
