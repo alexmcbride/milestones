@@ -16,7 +16,7 @@
             ## Use a form helper to output a text input.
             ##form_text_input("name")
             <input type="text" name="name" value="$model.name">
-            <input type="date" name="due" id="datePicker" value="$model.due">
+            <input type="date" name="due" id="datePicker">
 
 
 
