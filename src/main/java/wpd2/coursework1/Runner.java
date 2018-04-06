@@ -1,13 +1,11 @@
 package wpd2.coursework1;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wpd2.coursework1.util.H2DatabaseService;
-import wpd2.coursework1.servlet.*;
 
 import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
@@ -22,25 +20,26 @@ public class Runner {
 
     private void start() throws Exception {
         initializeServices();
-
         initializeDatabase();
         VelocityRenderer.initializeTemplateEngine();
 
-
         Server server = new Server(PORT);
 
-        ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
-        handler.setContextPath("/");
-        handler.setInitParameter("org.eclipse.jetty.servlet.Default." + "resourceBase", "src/main/resources/webapp");
+        // Handler for web apps
+        HandlerCollection handlers = new HandlerCollection();
 
-        mapServletsToRoutes(handler);
+        // Create web application context
+        WebAppContext webapp = new WebAppContext();
+        webapp.setResourceBase("src/main/resources/webapp"); // Where out WEB-INF lives.
+        webapp.setContextPath("/");
+        handlers.addHandler(webapp);
 
-        DefaultServlet ds = new DefaultServlet();
-        handler.addServlet(new ServletHolder(ds), "/");
+        // Adding the handler to the server
+        server.setHandler(handlers);
 
+        // Starting the Server
         server.start();
-        LOG.info("Server started, will run until terminated");
-        LOG.info("Running: http://localhost:" + PORT + "/projects");
+        LOG.info("Started: http://localhost:" + PORT + "/projects");
         server.join();
     }
 
@@ -61,35 +60,6 @@ public class Runner {
         else {
             databaseService.initialize();
         }
-    }
-
-    private void mapServletsToRoutes(ServletContextHandler handler) {
-        // Projects
-        handler.addServlet(new ServletHolder(new ProjectIndexServlet()), "/projects");
-        handler.addServlet(new ServletHolder(new ProjectCreateServlet()), "/projects/create");
-        handler.addServlet(new ServletHolder(new ProjectDetailsServlet()), "/projects/details");
-        handler.addServlet(new ServletHolder(new ProjectUpdateServlet()), "/projects/update");
-        handler.addServlet(new ServletHolder(new ProjectDeleteServlet()), "/projects/delete");
-
-        // Users
-        handler.addServlet(new ServletHolder(new UserRegisterServlet()), "/users/register");
-        handler.addServlet(new ServletHolder(new UserLoginServlet()), "/users/login");
-        handler.addServlet(new ServletHolder(new UserAccountServlet()), "/users/account");
-        handler.addServlet(new ServletHolder(new UserPwResetEmailServlet()), "/users/pw_reset_email");
-        handler.addServlet(new ServletHolder(new UserPwResetEmailSentServlet()), "/users/pw_reset_email_sent");
-        handler.addServlet(new ServletHolder(new UserPwResetServlet()), "/users/pw_reset");
-        handler.addServlet(new ServletHolder(new UserDeleteServlet()), "/users/delete");
-        handler.addServlet(new ServletHolder(new UserLogoutServlet()), "/users/logout");
-
-        // Milestones
-        handler.addServlet(new ServletHolder(new MilestoneCreateServlet()), "/milestone/create");
-        handler.addServlet(new ServletHolder(new MilestoneEditServlet()), "/milestone/edit");
-        handler.addServlet(new ServletHolder(new MilestoneDeleteServlet()), "/milestone/delete");
-
-        // API
-        handler.addServlet(new ServletHolder(new ApiUserAutocompleteServlet()), "/api/autocomplete.json");
-        handler.addServlet(new ServletHolder(new ApiShareProjectServlet()), "/api/share_project.json");
-        handler.addServlet(new ServletHolder(new ApiUnshareProjectServlet()), "/api/unshare_project.json");
     }
 
     public static void main(String[] args) throws Exception {

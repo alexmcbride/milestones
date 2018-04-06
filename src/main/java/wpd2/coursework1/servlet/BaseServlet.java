@@ -22,7 +22,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
     protected PrettyTimeHelper prettyTimeHelper;
-    protected HtmlEncoder htmlEncoder;
+    protected HtmlHelper html;
 
     protected int loginCount = 0;
 
@@ -46,7 +46,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
-        this.htmlEncoder = new HtmlEncoder();
+        this.html = new HtmlHelper();
         this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
@@ -92,7 +92,7 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
         renderer.addContext("prettyTimeHelper", prettyTimeHelper);
-        renderer.addContext("html", htmlEncoder);
+        renderer.addContext("html", html);
         renderer.render(response, template, object);
         handleResponse(response, RESPONSE_HTML);
     }
