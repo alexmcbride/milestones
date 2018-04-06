@@ -23,7 +23,6 @@
         <input type="text" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
-
 #end
 
 #macro(form_email_input $attribute, $value)
