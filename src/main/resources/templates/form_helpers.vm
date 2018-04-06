@@ -62,5 +62,5 @@
 #end
 
 #macro(antiForgeryToken)
-<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()" class="antiForgeryToken">
+    <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()" class="antiForgeryToken">
 #end

@@ -119,7 +119,7 @@
 
 
                         <form method="post">
-                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()">
                         ##antiForgeryToken()
 
 
@@ -175,7 +175,7 @@
 
 
                         <form method="post">
-                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()">
                         ##antiForgeryToken()
 
                             <input type="hidden" value="$milestone.id" name="milestoneId">
@@ -235,7 +235,7 @@
                         <form method="post">
                         ##antiForgeryToken()
 
-                        ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()">
                             <input type="hidden" value="$milestone.id" name="milestoneId">
                         ##form_text_input("milestoneId", $milestone.id)
                             <input type="hidden" value="markedDoneForm" name="formType">
@@ -370,7 +370,7 @@
                         <br />
 
                         <form method="post">
-                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        ##<input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()">
                         ##antiForgeryToken()
 
                             <input type="hidden" value="$milestone.id" name="milestoneId">
@@ -416,7 +416,7 @@
                         <form method="post">
                         ##antiForgeryToken()
 
-                        ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.generateToken()">
+                        ## <input type="hidden" name="antiForgeryToken" value="$antiForgeryHelper.getToken()">
                             <input type="hidden" value="$milestone.id" name="milestoneId">
                         ##form_text_input("milestoneId", $milestone.id)
                             <input type="hidden" value="markedDoneForm" name="formType">

@@ -16,7 +16,7 @@ public class AntiForgeryHelper {
         this.session = session;
     }
 
-    public String generateToken() {
+    public String getToken() {
         String token = (String)session.getAttribute(KEY_FORGERY_TOKEN);
         if (token == null) {
             token = UUID.randomUUID().toString();

@@ -1,8 +1,7 @@
 package wpd2.coursework1.service;
 
 import org.junit.Test;
-import wpd2.coursework1.service.DatabaseService;
-import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
@@ -15,13 +14,13 @@ import static org.junit.Assert.*;
 public class H2DatabaseServiceTests {
     @Test
     public void testConnect() throws SQLException {
-        DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        H2DatabaseService db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
         try (Connection conn = db.connect()) {
             assertFalse(conn.isClosed());
         }
     }
 
-    private boolean checkTableExists(DatabaseService db, String tableName) throws SQLException {
+    private boolean checkTableExists(H2DatabaseService db, String tableName) throws SQLException {
         try (Connection conn = db.connect()) {
             ResultSet result = conn.getMetaData().getTables(null, null, tableName.toUpperCase(), null);
             return result.next();
@@ -30,14 +29,14 @@ public class H2DatabaseServiceTests {
 
     @Test
     public void testInitialize() throws SQLException {
-        DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        H2DatabaseService db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
         db.initialize();
         assertTrue(checkTableExists(db, "projects"));
     }
 
     @Test
     public void testDestroy() throws SQLException {
-        DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        H2DatabaseService db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
         db.initialize();
         db.destroy();
         assertFalse(checkTableExists(db, "projects"));
@@ -45,8 +44,8 @@ public class H2DatabaseServiceTests {
 
     @Test
     public void testSeed() throws SQLException {
-        DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
-        IoC.get().registerInstance(DatabaseService.class, db);
+        H2DatabaseService db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
+        IoC.get().registerInstance(H2DatabaseService.class, db);
         db.initialize();
         db.seed();
 

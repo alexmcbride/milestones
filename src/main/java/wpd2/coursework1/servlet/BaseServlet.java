@@ -1,11 +1,9 @@
 package wpd2.coursework1.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import wpd2.coursework1.util.*;
-
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +22,6 @@ public abstract class BaseServlet extends HttpServlet {
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
     protected PrettyTimeHelper prettyTimeHelper;
-
     protected HtmlEncoder htmlEncoder;
 
     protected int loginCount = 0;
@@ -43,7 +40,6 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-
         this.request = request;
         this.response = response;
         SessionWrapper session = new SessionWrapper(request.getSession());
@@ -96,7 +92,6 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
         renderer.addContext("prettyTimeHelper", prettyTimeHelper);
-
         renderer.addContext("html", htmlEncoder);
         renderer.render(response, template, object);
         handleResponse(response, RESPONSE_HTML);

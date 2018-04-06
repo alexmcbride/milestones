@@ -1,4 +1,4 @@
-package wpd2.coursework1.service;
+package wpd2.coursework1.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

@@ -6,11 +6,10 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.service.DatabaseService;
-import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.servlet.*;
 
-import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.VelocityRenderer;
 
@@ -48,12 +47,12 @@ public class Runner {
     private void initializeServices() {
         // Services that need to be injected during unit tests.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, new H2DatabaseService());
+        container.registerInstance(H2DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
     }
 
     private void initializeDatabase() {
-        DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(DatabaseService.class);
+        H2DatabaseService databaseService = (H2DatabaseService)IoC.get().getInstance(H2DatabaseService.class);
         if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();
             databaseService.initialize();

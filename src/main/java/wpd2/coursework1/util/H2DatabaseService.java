@@ -1,4 +1,4 @@
-package wpd2.coursework1.service;
+package wpd2.coursework1.util;
 
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
@@ -11,7 +11,12 @@ import java.util.Date;
 /*
  * Factory class for creating H2 database connections.
  */
-public class H2DatabaseService implements DatabaseService {
+public class H2DatabaseService {
+    public enum Mode {
+        DEVELOPMENT,
+        TEST
+    }
+
     private static final String DB_DATABASE_CONN = "jdbc:h2:~/test";
     private static final String DB_MEMORY_CONN = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
     private static final String DB_USER = "sa";
@@ -30,7 +35,6 @@ public class H2DatabaseService implements DatabaseService {
     /*
      * Create new connection for required mode.
      */
-    @Override
     public Connection connect(){
         try {
             Class.forName("org.h2.Driver");
@@ -52,7 +56,6 @@ public class H2DatabaseService implements DatabaseService {
     /*
      * Creates the database tables.
      */
-    @Override
     public void initialize() {
         User.createTable();
         Project.createTable();
@@ -63,7 +66,6 @@ public class H2DatabaseService implements DatabaseService {
     /*
      * Destroy the database and drop all its tables.
      */
-    @Override
     public void destroy() {
         User.destroyTable();
         Project.destroyTable();
@@ -84,7 +86,6 @@ public class H2DatabaseService implements DatabaseService {
     /*
      * Seeds the database with test data.
      */
-    @Override
     public void seed() {
         if (mode == Mode.TEST) {
             seedTest();
