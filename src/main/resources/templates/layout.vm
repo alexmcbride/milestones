@@ -85,7 +85,7 @@
                     <div class="modal-body shared-projects-content">
                         #set($shared = $userManager.user.sharedProjects)
                         #if ($shared.size() > 0)
-                            <p>These are projects that have been shared with you!</p>
+                            <p>These projects have been shared with you!</p>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6"><strong>Project</strong></div>

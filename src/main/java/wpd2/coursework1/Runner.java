@@ -2,6 +2,8 @@ package wpd2.coursework1;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ public class Runner {
         WebAppContext webapp = new WebAppContext();
         webapp.setResourceBase("src/main/resources/webapp"); // Where our WEB-INF lives.
         webapp.setContextPath("/");
+//        webapp.addServlet(new ServletHolder(new DefaultServlet()), "/");
         handlers.addHandler(webapp);
 
         // Adding the handler to the server
