@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.service.DatabaseService;
+import wpd2.coursework1.util.DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;

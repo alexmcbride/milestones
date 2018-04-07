@@ -21,12 +21,10 @@ import static java.time.format.DateTimeFormatter.*;
 public class MilestoneCreateServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_create.vm";
 
-
-
     @Override
     protected void doGet() throws IOException {
         // Display the form.
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
@@ -44,10 +42,7 @@ public class MilestoneCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        User user = User.dummyUser();
-
-
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
@@ -69,7 +64,7 @@ public class MilestoneCreateServlet extends BaseServlet {
             milestone.create(project);
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + project.getId());
+            response.sendRedirect("/projects/details/" + project.getId());
 
             return;
         }

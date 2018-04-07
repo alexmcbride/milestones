@@ -17,7 +17,7 @@ public class ProjectUpdateServlet extends BaseServlet{
 
         try
         {
-            int id = Integer.valueOf(getRequest().getParameter("id"));
+            int id = getRouteId();
 
             // Get project
             Project project = Project.find(id);
@@ -39,25 +39,22 @@ public class ProjectUpdateServlet extends BaseServlet{
     @Override
     protected void doPost() throws IOException {
 
-        //create a project object
-        Project prjct = new Project();
-        //get id from the form
-        String name = getRequest().getParameter("name");
-        //get id from form
-        int id = Integer.parseInt(getRequest().getParameter("id"));
-        prjct.setId(id);
-
+        int id = getRouteId();
+        Project project = Project.find(id);
         //set name and id
-        prjct.setName(name);
+        project.setName(getRequest().getParameter("name"));
         //update the project name
-        prjct.update();
+        if (project.isValid()) {
+            project.update();
+
+            // Always redirect after post.
+            getResponse().sendRedirect("/projects");
+
+            return;
+        }
 
 
-        // Always redirect after post.
-        getResponse().sendRedirect("/projects");
-
-
-        view(TEMPLATE_FILE, prjct);
+        view(TEMPLATE_FILE, project);
     }
 
 

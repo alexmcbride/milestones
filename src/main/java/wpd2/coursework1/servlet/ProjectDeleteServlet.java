@@ -13,7 +13,7 @@ public class ProjectDeleteServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
 
-        int id = Integer.valueOf(getRequest().getParameter("id"));
+        int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
@@ -28,19 +28,12 @@ public class ProjectDeleteServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-
-
-        int id = Integer.valueOf(getRequest().getParameter("id"));
+        int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
-        project.validate();
 
-        // Check if project is valid.
-
-
-            project.delete();
-
+        project.delete();
 
         // Always redirect after post.
         getResponse().sendRedirect("/projects");

@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.ValidationHelper;
+import wpd2.coursework1.helper.ValidationHelper;
 
 
 import java.sql.*;
@@ -13,6 +13,7 @@ public class Project extends ValidatableModel {
     private int userId;
     private String name;
     private Date created;
+    private String username;
 
     public Project() {
 
@@ -50,6 +51,14 @@ public class Project extends ValidatableModel {
         this.created = created;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
@@ -58,11 +67,13 @@ public class Project extends ValidatableModel {
 
     public void create(User user) {
         userId = user.getId();
-        String sql = "INSERT INTO projects (userId, name, created) VALUES (?, ?, ?)";
+        username = user.getUsername();
+        String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
             statement.setString(2, name);
             statement.setTimestamp(3, new Timestamp(created.getTime()));
+            statement.setString(4, user.getUsername());
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -76,10 +87,11 @@ public class Project extends ValidatableModel {
     }
 
     public void update() {
-        String sql = "UPDATE projects SET name=? WHERE id=?";
+        String sql = "UPDATE projects SET name=?, username=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, name);
-            statement.setInt(2, id);
+            statement.setString(2, username);
+            statement.setInt(3, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -103,7 +115,8 @@ public class Project extends ValidatableModel {
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "userId INTEGER NOT NULL ," +
                 "name NVARCHAR(32) NOT NULL , " +
-                "created TIMESTAMP NOT NULL" +
+                "created TIMESTAMP NOT NULL," +
+                "username NVARCHAR(32) NOT NULL" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -129,7 +142,7 @@ public class Project extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<Project> findAll(int userId) {
-        String sql = "SELECT id, userId, name, created FROM projects WHERE userId=?";
+        String sql = "SELECT id, userId, name, created, username FROM projects WHERE userId=?";
         List<Project> users = new ArrayList<>();
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, userId);
@@ -145,7 +158,7 @@ public class Project extends ValidatableModel {
     }
     @SuppressWarnings("Duplicates")
     public static Project find(int id) {
-        String sql = "SELECT id, userId, name, created FROM projects WHERE id=?";
+        String sql = "SELECT id, userId, name, created, username FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -165,6 +178,17 @@ public class Project extends ValidatableModel {
         project.userId = resultSet.getInt(2);
         project.name = resultSet.getString(3);
         project.created = resultSet.getTimestamp(4);
+        project.username = resultSet.getString(5);
         return project;
+    }
+
+    public List<User> getSharedUsers() {
+        List<User> users = new ArrayList<>();
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            User user = User.find(sharedProject.getUserId());
+            users.add(user);
+        }
+        return users;
     }
 }

@@ -27,7 +27,7 @@ public class VelocityRenderer {
         template.merge(context, response.getWriter());
     }
 
-    public static void initializeTemplateEngine() {
+    public static void initialize() {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();

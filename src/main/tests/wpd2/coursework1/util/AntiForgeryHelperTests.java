@@ -1,8 +1,7 @@
 package wpd2.coursework1.util;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
+import wpd2.coursework1.helper.AntiForgeryHelper;
 
 import static junit.framework.TestCase.*;
 
@@ -12,7 +11,7 @@ public class AntiForgeryHelperTests {
         TestableSession session = new TestableSession();
         AntiForgeryHelper helper = new AntiForgeryHelper(session);
 
-        String token = helper.generateToken();
+        String token = helper.getToken();
 
         assertEquals(session.antiForgeryToken, token);
     }
@@ -22,8 +21,8 @@ public class AntiForgeryHelperTests {
         TestableSession session = new TestableSession();
         AntiForgeryHelper helper = new AntiForgeryHelper(session);
 
-        String token = helper.generateToken();
-        token = helper.generateToken();
+        String token = helper.getToken();
+        token = helper.getToken();
 
         assertEquals(session.antiForgeryToken, token);
     }
@@ -32,7 +31,7 @@ public class AntiForgeryHelperTests {
     public void testCheckTokenInvalid() {
         TestableSession session = new TestableSession();
         AntiForgeryHelper helper = new AntiForgeryHelper(session);
-        String token = helper.generateToken();
+        String token = helper.getToken();
 
         helper.checkToken("invalidToken");
     }
@@ -41,7 +40,7 @@ public class AntiForgeryHelperTests {
     public void testCheckTokenValid() {
         TestableSession session = new TestableSession();
         AntiForgeryHelper helper = new AntiForgeryHelper(session);
-        String token = helper.generateToken();
+        String token = helper.getToken();
 
         // Not throwing exception is passing test
         helper.checkToken(token);

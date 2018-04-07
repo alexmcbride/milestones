@@ -6,7 +6,6 @@ import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 public class MilestoneDeleteServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_delete.vm";
@@ -16,8 +15,7 @@ public class MilestoneDeleteServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         // display the form used for deleting a milestone...
-
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
         // Get milestone
         Milestone milestone = Milestone.find(id);
@@ -41,7 +39,7 @@ public class MilestoneDeleteServlet extends BaseServlet {
         User user = User.dummyUser();
 
         // get id of milestone
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
 
         // Get milestone
@@ -57,7 +55,7 @@ public class MilestoneDeleteServlet extends BaseServlet {
             milestone.delete();
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + project.getId());
+            response.sendRedirect("/projects/details/" + project.getId());
 
             return;
         }

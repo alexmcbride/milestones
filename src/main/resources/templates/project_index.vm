@@ -24,7 +24,6 @@
             </thead>
             <tbody>
                 #foreach($project in $model)
-
                     <tr >
                         <td class="clickable-row" data-id="$project.id" style="cursor: pointer">$project.name</td>
                         <td>$project.created</td>
@@ -33,31 +32,26 @@
 
                         <td style="cursor: pointer"><a class="edit"   data-id="$project.id"><i class="glyphicon glyphicon-edit"></i></a></td>
                         <td style="cursor: pointer"><a class="delete" data-id="$project.id"><i class="glyphicon glyphicon-trash"></i></a></td>
-
-
                     </tr>
                 #end
             </tbody>
         </table>
 
         <script>
-            $(function()
-            {
-                $('.edit').click(function()
-                {
+            $(function() {
+                $('.edit').click(function() {
                     var projectId=$(this).attr('data-id');
-                    location.href = '/projects/update?id=' + projectId;
+                    location.href = '/projects/update/' + projectId;
                 });
 
-               $('.delete').click(function()
-               {
+                $('.delete').click(function() {
                    var projectId=$(this).attr('data-id');
-                   location.href = '/projects/delete?id=' + projectId;
-               });
+                   location.href = '/projects/delete/' + projectId;
+                });
 
                 $('.clickable-row').click(function (evt) {
                     var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details?id=' + projectId;
+                    location.href = '/projects/details/' + projectId;
                 });
             });
         </script>

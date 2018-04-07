@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.ValidationHelper;
+import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;

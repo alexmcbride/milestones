@@ -3,12 +3,10 @@ package wpd2.coursework1.model;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
-import wpd2.coursework1.service.DatabaseService;
-import wpd2.coursework1.service.H2DatabaseService;
-import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class UserTests {
 
     @Before
     public void setup() {
-        db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        db = new DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordService(PasswordService.MIN_COST);
 
         IoC container = IoC.get();
