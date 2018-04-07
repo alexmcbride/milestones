@@ -8,6 +8,9 @@ import wpd2.coursework1.servlet.BaseServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+ * Renderer for producing JSON output.
+ */
 public class JsonRenderer {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);

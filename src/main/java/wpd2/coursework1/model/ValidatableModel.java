@@ -3,6 +3,10 @@ package wpd2.coursework1.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Base class for implementing validation for a model, children override the validate() model and add validation errors
+ * to parent.
+ */
 public abstract class ValidatableModel extends BaseModel {
     private Map<String, String> validationErrors;
 

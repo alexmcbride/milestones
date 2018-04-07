@@ -2,12 +2,14 @@ package wpd2.coursework1.model;
 
 import wpd2.coursework1.helper.ValidationHelper;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Class to represent a project, a collection of milestones.
+ */
 public class Project extends ValidatableModel {
     private int id;
     private int userId;

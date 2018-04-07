@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Class to represent a project milestone.
+ */
 public class Milestone extends ValidatableModel {
     private int id;
     private int projectId;
