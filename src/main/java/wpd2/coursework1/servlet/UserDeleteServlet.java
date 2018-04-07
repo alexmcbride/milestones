@@ -9,6 +9,8 @@ public class UserDeleteServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+        if (!authorize()) return;
+
         User user = new User();
         /*      System.err.println("###before login check");*/
         if (request.getSession().getAttribute("user") != null) {

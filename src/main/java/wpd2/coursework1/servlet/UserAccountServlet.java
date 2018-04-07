@@ -2,11 +2,7 @@
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
-import wpd2.coursework1.servlet.BaseServlet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class UserAccountServlet extends BaseServlet {
@@ -14,6 +10,8 @@ public class UserAccountServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
+        if (!authorize()) return;
+
         User user = new User();
 
         System.err.println("###before login check");

@@ -1,9 +1,8 @@
 package wpd2.coursework1.servlet;
 
-import wpd2.coursework1.model.Project;
+import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.EmailService;
-import wpd2.coursework1.util.FlashHelper;
 
 import java.io.IOException;
 
