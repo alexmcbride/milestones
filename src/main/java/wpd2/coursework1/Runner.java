@@ -42,7 +42,7 @@ public class Runner {
 
         // Starting the Server
         server.start();
-        LOG.info("Started: http://localhost:" + PORT);
+        LOG.info("Started: http://localhost:" + PORT + "/projects");
         server.join();
     }
 
