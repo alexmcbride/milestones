@@ -27,20 +27,14 @@
                 </a>
 
                 <!-- Confirm Edit -->
-                <input type="submit" value="Edit Milestone" class="btn btn-default" data-id="$model.id">
-
+                <input type="submit" value="Edit Milestone" class="btn btn-default">
+                |
+                <a href="/projects/details/$model.id">Go back</a>
             </div>
         </form>
 
         <script>
             document.getElementById('datePicker').valueAsDate = $model.due;
-
-            $(function() {
-                $('.createLink').click(function () {
-                    var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details?id=' + projectId;
-                });
-            });
         </script>
     </div>
 </div>

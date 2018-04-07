@@ -19,7 +19,7 @@ public class MilestoneEditServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         // Display the form.
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
         // Get milestone
         Milestone milestone = Milestone.find(id);
@@ -37,11 +37,8 @@ public class MilestoneEditServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        User user = User.dummyUser();
-
-
         // get milestone id
-        int id = Integer.valueOf(request.getParameter("id"));
+        int id = getRouteId();
 
         // get milestone
         Milestone milestoneToUpdate = Milestone.find(id);
@@ -69,7 +66,7 @@ public class MilestoneEditServlet extends BaseServlet {
             milestoneToUpdate.update();
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + project.getId());
+            response.sendRedirect("/projects/details/" + project.getId());
 
             return;
         }

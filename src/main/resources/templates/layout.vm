@@ -97,7 +97,7 @@
                             </div>
                             #foreach($project in $shared)
                                 <div class="row">
-                                    <div class="col-sm-6"><a href="/projects/details?id=$project.id">$project.name</a></div>
+                                    <div class="col-sm-6"><a href="/projects/details/$project.id">$project.name</a></div>
                                     <div class="col-sm-3">$project.username</div>
                                     <div class="col-sm-3">#pretty_time($project.created)</div>
                                 </div>

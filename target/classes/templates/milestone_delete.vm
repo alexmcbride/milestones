@@ -23,17 +23,11 @@
 
                 <!-- Confirm Deletion -->
                 <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
+                |
+                <a class="createLink" href="/projects/details/$model.id">Go back</a>
 
             </div>
         </form>
-        <script>
-            $(function() {
-                $('.createLink').click(function () {
-                    var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details?id=' + projectId;
-                });
-            });
-        </script>
     </div>
 </div>
 #end

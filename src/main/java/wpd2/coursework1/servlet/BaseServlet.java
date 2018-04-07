@@ -110,4 +110,15 @@ public abstract class BaseServlet extends HttpServlet {
         response.sendRedirect("/users/login");
         return false;
     }
+
+    protected int getRouteId() {
+        try {
+            String pathInfo = request.getPathInfo();
+            if (pathInfo != null) {
+                return Integer.valueOf(pathInfo.substring(1));
+            }
+        }
+        catch (NumberFormatException e) { /* Ignored */ }
+        return 0;
+    }
 }

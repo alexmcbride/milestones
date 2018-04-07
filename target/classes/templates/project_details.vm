@@ -472,14 +472,14 @@
     $(function() {
         $('.deleteMilestoneLink').click(function () {
             var milestoneId = $(this).attr('data-id');
-            location.href = '/milestone/delete?id=' + milestoneId;
+            location.href = '/milestone/delete/' + milestoneId;
         });
     });
 
     $(function() {
         $('.editMilestoneLink').click(function () {
             var milestoneId = $(this).attr('data-id');
-            location.href = '/milestone/edit?id=' + milestoneId;
+            location.href = '/milestone/edit/' + milestoneId;
         });
     });
 
@@ -672,7 +672,7 @@
     $(function() {
         $('.createMilestone').click(function () {
             var projectId = $(this).attr('data-id');
-            location.href = '/milestone/create?id=' + projectId;
+            location.href = '/milestone/create/' + projectId;
         });
     });
 </script>

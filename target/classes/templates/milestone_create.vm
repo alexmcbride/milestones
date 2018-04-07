@@ -1,13 +1,11 @@
 #parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
 
 #set($title = 'Create Milestone')
 
 #@mainLayout()
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-        ## Include file that contains our form helpers.
-        #parse("templates/form_helpers.vm")
-
         <form method="post">
             <h2>Create Milestone</h2>
 
@@ -19,23 +17,11 @@
             ## expected completion date
             <input type="date" name="due">
 
-
             <div>
                 <input type="submit" value="Add Milestone" class="btn btn-default">
                 |
-                <a class="createLink" data-id="$model.id">Go back</a>
-                <div data-id="$model.id"></div>
-
+                <a class="createLink" href="/projects/details/$model.id">Go back</a>
             </div>
         </form>
-
-        <script>
-            $(function() {
-                $('.createLink').click(function () {
-                    var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details?id=' + projectId;
-                });
-            });
-        </script>
     </div>
 #end

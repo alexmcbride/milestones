@@ -41,17 +41,17 @@
             $(function() {
                 $('.edit').click(function() {
                     var projectId=$(this).attr('data-id');
-                    location.href = '/projects/update?id=' + projectId;
+                    location.href = '/projects/update/' + projectId;
                 });
 
                 $('.delete').click(function() {
                    var projectId=$(this).attr('data-id');
-                   location.href = '/projects/delete?id=' + projectId;
+                   location.href = '/projects/delete/' + projectId;
                 });
 
                 $('.clickable-row').click(function (evt) {
                     var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details?id=' + projectId;
+                    location.href = '/projects/details/' + projectId;
                 });
             });
         </script>
