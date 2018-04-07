@@ -1,6 +1,6 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.ValidationHelper;
+import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -97,9 +97,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public void update() {
-        // Depends if we are updating actual or not.
         String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
-
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
@@ -210,6 +208,7 @@ public class Milestone extends ValidatableModel {
                 "actual TIMESTAMP NULL," +
                 "complete BOOLEAN NULL" +
                 ")");
+
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

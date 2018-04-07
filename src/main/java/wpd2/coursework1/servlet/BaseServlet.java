@@ -2,6 +2,8 @@ package wpd2.coursework1.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import wpd2.coursework1.helper.*;
 import wpd2.coursework1.util.*;
 
 import javax.servlet.http.HttpServlet;
@@ -13,15 +15,16 @@ public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
-    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
+    private static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
-    protected HtmlEncoder htmlEncoder;
+    protected PrettyTimeHelper prettyTimeHelper;
+    protected HtmlHelper html;
+
     protected int loginCount = 0;
 
     protected HttpServletRequest getRequest() {
@@ -44,7 +47,8 @@ public abstract class BaseServlet extends HttpServlet {
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
-        this.htmlEncoder = new HtmlEncoder();
+        this.html = new HtmlHelper();
+        this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
     @Override
@@ -61,7 +65,9 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
+
         checkAntiForgeryToken();
+
         doPost();
     }
 
@@ -86,12 +92,13 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("antiForgeryHelper", antiForgeryHelper);
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
-        renderer.addContext("html", htmlEncoder);
+        renderer.addContext("prettyTimeHelper", prettyTimeHelper);
+        renderer.addContext("html", html);
         renderer.render(response, template, object);
         handleResponse(response, RESPONSE_HTML);
     }
 
-    private void handleResponse(HttpServletResponse response, String responseHtml) {
+    protected void handleResponse(HttpServletResponse response, String responseHtml) {
         response.setContentType(responseHtml);
         response.setStatus(200);
     }
@@ -104,17 +111,14 @@ public abstract class BaseServlet extends HttpServlet {
         return false;
     }
 
-    protected void json(Object object) throws IOException {
-        if (response == null) {
-            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+    protected int getRouteId() {
+        try {
+            String pathInfo = request.getPathInfo();
+            if (pathInfo != null) {
+                return Integer.valueOf(pathInfo.substring(1));
+            }
         }
-
-        json(response, object);
-    }
-
-    protected void json(HttpServletResponse response, Object object) throws IOException {
-        JsonRenderer renderer = new JsonRenderer();
-        renderer.render(response, object);
-        handleResponse(response, RESPONSE_JSON);
+        catch (NumberFormatException e) { /* Ignored */ }
+        return 0;
     }
 }

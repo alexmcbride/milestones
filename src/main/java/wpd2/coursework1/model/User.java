@@ -1,8 +1,8 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.ValidationHelper;
+import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -307,5 +307,46 @@ public class User extends ValidatableModel {
             user.create();
         }
         return user;
+    }
+
+    public static List<User> search(String query) {
+        query = "%" + query.toLowerCase() + "%"; // Add wildcards
+        String sql = "SELECT * FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ?";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, query);
+            statement.setString(2, query);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                users.add(getUserFromResult(result));
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
+    public List<Project> getSharedProjects() {
+        List<Project> projects = new ArrayList<>();
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            Project project = Project.find(sharedProject.getProjectId());
+            projects.add(project);
+        }
+        return projects;
+    }
+
+    public int getUnvisited() {
+        String sql = "SELECT COUNT(*) FROM sharedProjects WHERE userId=? AND viewed IS NULL";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, getId());
+            ResultSet result = statement.executeQuery();
+            result.next();
+            return result.getInt(1);
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

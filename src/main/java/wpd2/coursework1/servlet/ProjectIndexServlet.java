@@ -20,6 +20,7 @@ public class ProjectIndexServlet extends BaseServlet {
 
         // Make view models.
         List<ProjectViewModel> models = new ArrayList<>();
+
         for (Project project : projects) {
             models.add(new ProjectViewModel(project));
         }

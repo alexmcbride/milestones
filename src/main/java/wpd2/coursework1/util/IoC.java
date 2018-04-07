@@ -16,7 +16,7 @@ public class IoC {
         return singleInstance;
     }
 
-    // Use concurrent hash map to improve thread-safety.
+    // Use concurrent hash map make thread-safe.
     private final Map<Class, Object> instances = new ConcurrentHashMap<>();
 
     private IoC() {

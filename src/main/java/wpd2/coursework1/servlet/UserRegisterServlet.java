@@ -1,3 +1,4 @@
+
 package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
@@ -37,4 +38,5 @@ public class UserRegisterServlet extends BaseServlet {
         // Display the form with validation errors.
         view(TEMPLATE_FILE, user);
     }
+
 }

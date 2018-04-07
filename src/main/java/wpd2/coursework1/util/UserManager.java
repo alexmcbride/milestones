@@ -1,5 +1,6 @@
 package wpd2.coursework1.util;
 
+import wpd2.coursework1.helper.SessionWrapper;
 import wpd2.coursework1.model.User;
 
 import java.util.UUID;
@@ -14,6 +15,14 @@ public class UserManager {
 
     public User getUser() {
         return (User)session.getAttribute(KEY_USER);
+    }
+
+    public int getUserId() {
+        User user = getUser();
+        if (user != null) {
+            return user.getId();
+        }
+        return 0;
     }
 
     @Deprecated
