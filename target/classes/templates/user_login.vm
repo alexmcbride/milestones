@@ -16,7 +16,7 @@
 
                 #antiForgeryToken()
 
-                #form_email_input("email", $model.email)
+                #form_email_input("email")
 
                 #form_password_input("password")
 
@@ -30,7 +30,7 @@
                 <div>
                     <input type="submit" value="Login" class="btn btn-default" onclick="validatePassword()">
                     |
-                    <a href="/users/register">Register</a>
+                    <a href="/users/register_email">Register</a>
                     |
                     <a href="/users/pw_reset_email">Reset password</a>
                 </div>

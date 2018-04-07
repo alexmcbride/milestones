@@ -1,6 +1,6 @@
 package wpd2.coursework1.servlet;
 
-import wpd2.coursework1.model.Project;
+import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.EmailService;
 
@@ -12,7 +12,8 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        view(TEMPLATE_FILE, null);
+        User user = new User();
+        view(TEMPLATE_FILE, user);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
 
         String sbj = "Milestone Project Password Reset";
         String token = userManager.generateEmailToken();
-        String msg = "Please Reset your password from here <a href='http://localhost:9000/users/pw_reset?token="+token+"'>Reset My Password</a>";
+        String msg = "Please Reset your password from here <a href='http://localhost:9002/users/pw_reset?token="+token+"'>Reset My Password</a>";
 
         User user = User.find(getRequest().getParameter("email"));
         if (user != null) {
@@ -37,8 +38,8 @@ public class UserPwResetEmailServlet extends BaseServlet {
             }
         }
         else {
-            String msg1 = "Not a valid email address.";
-            view(TEMPLATE_FILE, msg1);
+            flash.message("Not Valid Email address", FlashHelper.WARNING);
+            view(TEMPLATE_FILE, user);
         }
     }
 }

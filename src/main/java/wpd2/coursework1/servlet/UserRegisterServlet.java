@@ -11,20 +11,25 @@ public class UserRegisterServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         User user = new User();
+        if(request.getParameter("token") != null){
+            String token = request.getParameter("token").replace("'","");
+            user = User.findByToken(token);
+        }
+        user.setUsername(null);
+
         // Display the empty form.
         view(TEMPLATE_FILE, user);
     }
 
     @Override
     protected void doPost() throws IOException {
-        User user = new User();
+        User user = User.find(request.getParameter("email"));
         user.setUsername(request.getParameter("username"));
-        user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password").toCharArray());
 
         if (user.isValid()) {
             // Save user to database.
-            user.create();
+            user.update();
             flash.message("User account registered");
             response.sendRedirect("/users/login");
             return;

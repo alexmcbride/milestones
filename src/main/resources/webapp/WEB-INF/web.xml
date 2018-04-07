@@ -129,6 +129,16 @@
         <url-pattern>/users/logout/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserRegisterEmailServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.UserRegisterEmailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegisterEmailServlet</servlet-name>
+        <url-pattern>/users/register_email/*</url-pattern>
+    </servlet-mapping>
+
+
     <!-- Milestones -->
     <servlet>
         <servlet-name>MilestoneCreateServlet</servlet-name>

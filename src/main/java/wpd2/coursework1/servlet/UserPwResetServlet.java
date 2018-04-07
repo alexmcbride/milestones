@@ -12,13 +12,13 @@ public class UserPwResetServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         if(request.getParameter("token") != null){
-            String token = request.getParameter("token");
+            String token = request.getParameter("token").replace("'","");
             request.getSession().setAttribute("ReturnedToken",token);
         }
-        UserPWResetEmailViewModel password = new UserPWResetEmailViewModel();
+        User user = new User();
 
         // Display the form.
-        view(TEMPLATE_FILE, password);
+        view(TEMPLATE_FILE, user);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class UserPwResetServlet extends BaseServlet {
         //if token value from the link user clicked is saved in the session
         if(getRequest().getSession().getAttribute("ReturnedToken") != null){
             //save the session value to rToken string
-            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString();
+            String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString().replace("'","");
 
             //if the user retreived using email is not null
             if (User.findByToken(rToken) != null) {

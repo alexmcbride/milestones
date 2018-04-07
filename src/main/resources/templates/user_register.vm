@@ -12,9 +12,13 @@
             <h2>Register</h2>
             #antiForgeryToken()
 
-            #form_text_input("username", $model.username)
+            #form_text_input("username")
 
-            #form_email_input("email", $model.email)
+            <div class="form-group$error">
+                <label for="email" style="text-transform: capitalize">Email</label>
+                <input type="email" value="$!{model.email}"  id="email" name="email" class="form-control">
+                #validation_error($model, $attribute)
+            </div>
 
             #form_password_input("password")
 
