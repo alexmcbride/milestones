@@ -3,7 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wpd2.coursework1.util.H2DatabaseService;
+import wpd2.coursework1.util.DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import static junit.framework.TestCase.assertFalse;
 
 public class BaseModelTests {
-    private H2DatabaseService db;
+    private DatabaseService db;
 
     public class TestBaseModel extends BaseModel {
          public Connection getConnectionForTesting() {
@@ -22,9 +22,9 @@ public class BaseModelTests {
 
     @Before
     public void setup() {
-        db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
+        db = new DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
+        container.registerInstance(DatabaseService.class, db);
         db.initialize();
     }
 

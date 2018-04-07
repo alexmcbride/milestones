@@ -3,7 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
-import wpd2.coursework1.util.H2DatabaseService;
+import wpd2.coursework1.util.DatabaseService;
 import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
 
@@ -13,15 +13,15 @@ import java.util.List;
 import static junit.framework.TestCase.*;
 
 public class UserTests {
-    private H2DatabaseService db;
+    private DatabaseService db;
 
     @Before
     public void setup() {
-        db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
+        db = new DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordService(PasswordService.MIN_COST);
 
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
+        container.registerInstance(DatabaseService.class, db);
         container.registerInstance(PasswordService.class, pass);
 
         db.initialize();

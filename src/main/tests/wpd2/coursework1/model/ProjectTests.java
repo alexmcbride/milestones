@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.H2DatabaseService;
+import wpd2.coursework1.util.DatabaseService;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ProjectTests {
-    private H2DatabaseService db;
+    private DatabaseService db;
 
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
@@ -22,11 +22,11 @@ public class ProjectTests {
     @Before
     public void setup() {
         // Init test database
-        db = new H2DatabaseService(H2DatabaseService.Mode.TEST);
+        db = new DatabaseService(DatabaseService.Mode.TEST);
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
+        container.registerInstance(DatabaseService.class, db);
         container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
 
         db.initialize();

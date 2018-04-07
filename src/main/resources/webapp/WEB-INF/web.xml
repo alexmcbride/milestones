@@ -4,6 +4,12 @@
          version="3.0">
     <display-name>milestones</display-name>
 
+    <listener>
+        <listener-class>
+            wpd2.coursework1.util.StartupContextListener
+        </listener-class>
+    </listener>
+
     <!-- Projects -->
     <servlet>
         <servlet-name>ProjectIndexServlet</servlet-name>

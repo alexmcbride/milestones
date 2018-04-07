@@ -15,7 +15,7 @@ public class JsonRenderer {
     public void render(HttpServletResponse response, Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(object);
-        LOG.info(json);
+        LOG.info("JSON: " + json);
         response.getWriter().write(json);
     }
 }
