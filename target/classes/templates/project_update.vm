@@ -1,0 +1,25 @@
+#parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
+
+#set($title = 'Update Project')
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form method="post">
+            <h2>Update Project</h2>
+            #antiForgeryToken()
+
+
+            <div>
+                <p>$model.name</p>
+                #form_text_input("name")
+
+                <input type="submit" value="Update" class="btn btn-default">
+                |
+                <a href="/projects">back</a>
+            </div>
+        </form>
+    </div>
+</div>
+#end

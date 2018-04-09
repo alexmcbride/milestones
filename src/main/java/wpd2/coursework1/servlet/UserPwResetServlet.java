@@ -1,13 +1,10 @@
 package wpd2.coursework1.servlet;
 
-import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
+import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.viewmodel.UserPWResetEmailViewModel;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
 
 public class UserPwResetServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_pw_reset.vm";
@@ -15,13 +12,13 @@ public class UserPwResetServlet extends BaseServlet {
     @Override
     protected void doGet() throws IOException {
         if(request.getParameter("token") != null){
-            String token = request.getParameter("token");
+            String token = request.getParameter("token").replace("'","");
             request.getSession().setAttribute("ReturnedToken",token);
         }
-        UserPWResetEmailViewModel password = new UserPWResetEmailViewModel();
+        User user = new User();
 
         // Display the form.
-        view(TEMPLATE_FILE, password);
+        view(TEMPLATE_FILE, user);
     }
 
     @Override
@@ -33,22 +30,23 @@ public class UserPwResetServlet extends BaseServlet {
             String rToken = getRequest().getSession().getAttribute("ReturnedToken").toString().replace("'","");
 
             //if the user retreived using email is not null
-            if (User.findbyToken(rToken) != null) {
+            if (User.findByToken(rToken) != null) {
                 //create user with the token
-                User user = User.findbyToken(rToken);
+                User user = User.findByToken(rToken);
                 //and set the input password to it.
                 user.setPassword(getRequest().getParameter("password").toCharArray());
 
                 //if user update is successful redirect user to log in screen
                 if (user.update()) {
+                    flash.message("Password reset");
                     getResponse().sendRedirect("/users/login");
                     return;
                 }
             }
         }
 
-        String msg2 = "Error password did not get updated.";
+        flash.message("Password not reset for some reason", FlashHelper.WARNING);
         // Display the form with validation errors.
-        view(TEMPLATE_FILE, msg2);
+        view(TEMPLATE_FILE, null);
     }
 }

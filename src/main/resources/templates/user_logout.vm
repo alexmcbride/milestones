@@ -5,13 +5,13 @@
 
 #@mainLayout()
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-4 col-sm-offset-4">
         <hr>
         <h2>Are you sure you want to logout?</h2>
         <br>
 
-        <h3>username: ${model.username}</h3>
-        <h3>email: ${model.email}</h3>
+        <p>Username: $html.encode($model.username)</p>
+        <p>Email: $html.encode($model.email)</p>
         <form method="post">
             #antiForgeryToken()
             <input type="submit" id="btnLogoutUser" value="Logout" class="btn btn-default">

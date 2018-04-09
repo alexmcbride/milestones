@@ -9,6 +9,9 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+ * Renderer for rendering Velocity templates.
+ */
 public class VelocityRenderer {
     private static final String TEMPLATE_DIR = "/templates/";
     private final VelocityContext context;
@@ -27,7 +30,7 @@ public class VelocityRenderer {
         template.merge(context, response.getWriter());
     }
 
-    public static void initializeTemplateEngine() {
+    public static void initialize() {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();

@@ -7,18 +7,22 @@
     #parse("templates/form_helpers.vm")
 
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-4 col-sm-offset-4">
         <form method="post">
             <h2>Register</h2>
             #antiForgeryToken()
 
-           #form_text_input("username", $model.username)
+            #form_text_input("username")
 
-            #form_email_input("email", $model.email)
+            <div class="form-group$error">
+                <label for="email" style="text-transform: capitalize">Email</label>
+                <input type="email" value="$!{model.email}"  id="email" name="email" class="form-control">
+                #validation_error($model, $attribute)
+            </div>
 
             #form_password_input("password")
 
-            <div class="form-group$error">
+            <div class="form-group$message">
                 <label for="confirm-password" style="text-transform: capitalize">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                 #validation_error($attribute)

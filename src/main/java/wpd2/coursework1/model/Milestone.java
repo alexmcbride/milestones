@@ -1,12 +1,15 @@
 package wpd2.coursework1.model;
 
-import wpd2.coursework1.util.ValidationHelper;
+import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Class to represent a project milestone.
+ */
 public class Milestone extends ValidatableModel {
     private int id;
     private int projectId;
@@ -97,9 +100,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public void update() {
-        // Depends if we are updating actual or not.
         String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
-
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
@@ -148,7 +149,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static List<Milestone> findAll(int projectId) {
-        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=?";
+        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=? ORDER BY due DESC";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();
@@ -210,6 +211,7 @@ public class Milestone extends ValidatableModel {
                 "actual TIMESTAMP NULL," +
                 "complete BOOLEAN NULL" +
                 ")");
+
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

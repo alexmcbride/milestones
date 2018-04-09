@@ -7,24 +7,16 @@
 .clickable-row {
     cursor: pointer;
 }
-/*
 
-.navbar-header{
-    float:none;
-}
-
-.mt-navbar-right {
-    float: right;
-    height: 50px;
-    padding: 15px 15px;
-    font-size: 15px;
-    line-height: 15px;
-}
-.mt-navbar-right:hover,
-.mt-navbar-right:focus {
-    text-decoration: none;
-}*/
 .mt-navbar-right > items {
     display: inline-block;
     margin-top: 20px;
+}
+
+.shared-projects-content {
+    margin: 20px;
+}
+
+.left-share-column {
+    border-right: 2px solid #8c8c8c;
 }

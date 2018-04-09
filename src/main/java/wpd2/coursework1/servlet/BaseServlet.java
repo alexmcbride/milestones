@@ -1,34 +1,32 @@
 package wpd2.coursework1.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wpd2.coursework1.util.AntiForgeryHelper;
-import wpd2.coursework1.util.FlashHelper;
-import wpd2.coursework1.util.UserManager;
-import wpd2.coursework1.util.VelocityRenderer;
+
+import wpd2.coursework1.helper.*;
+import wpd2.coursework1.model.Milestone;
+import wpd2.coursework1.model.Project;
+import wpd2.coursework1.util.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 public abstract class BaseServlet extends HttpServlet {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    public static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
-    public static final  String RESPONSE_PLAIN = "text/plain; charset=UTF-8";
-    public static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
-    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8\"";
+    private static final  String RESPONSE_HTML = "text/html; charset=UTF-8";
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
+    protected PrettyTimeHelper prettyTimeHelper;
+    protected HtmlHelper html;
+
     protected int loginCount = 0;
 
     protected HttpServletRequest getRequest() {
@@ -41,17 +39,18 @@ public abstract class BaseServlet extends HttpServlet {
 
     private void checkAntiForgeryToken() {
         String token = request.getParameter("antiForgeryToken");
-        AntiForgeryHelper antiForgeryHelper = new AntiForgeryHelper(request.getSession());
         antiForgeryHelper.checkToken(token);
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
         this.request = request;
         this.response = response;
+        SessionWrapper session = new SessionWrapper(request.getSession());
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
+        this.html = new HtmlHelper();
+        this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
     @Override
@@ -68,7 +67,9 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
+
         checkAntiForgeryToken();
+
         doPost();
     }
 
@@ -93,8 +94,14 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("antiForgeryHelper", antiForgeryHelper);
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
+        renderer.addContext("prettyTimeHelper", prettyTimeHelper);
+        renderer.addContext("html", html);
         renderer.render(response, template, object);
-        response.setContentType(RESPONSE_HTML);
+        handleResponse(response, RESPONSE_HTML);
+    }
+
+    protected void handleResponse(HttpServletResponse response, String responseHtml) {
+        response.setContentType(responseHtml);
         response.setStatus(200);
     }
 
@@ -106,19 +113,27 @@ public abstract class BaseServlet extends HttpServlet {
         return false;
     }
 
-    protected void json(Object object) throws IOException {
-        if (response == null) {
-            throw new MilestoneException("Make sure you call super.doGet() or super.doPost() in your overridden methods");
+    protected boolean authorize(Project project) throws IOException {
+        if (!project.IsOwnedBy(userManager.getUser())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return false;
         }
-
-        json(response, object);
+        return true;
     }
 
-    protected void json(HttpServletResponse response, Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(object);
-        response.getWriter().write(json);
-        response.setContentType(RESPONSE_JSON);
-        response.setStatus(200);
+    protected boolean authorize(Milestone milestone) throws IOException {
+        Project project = Project.find(milestone.getProjectId());
+        return authorize(project);
+    }
+
+    protected int getRouteId() {
+        try {
+            String pathInfo = request.getPathInfo();
+            if (pathInfo != null) {
+                return Integer.valueOf(pathInfo.substring(1));
+            }
+        }
+        catch (NumberFormatException e) { /* Ignored */ }
+        return 0;
     }
 }

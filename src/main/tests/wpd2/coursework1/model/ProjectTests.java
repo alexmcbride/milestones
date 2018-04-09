@@ -3,12 +3,10 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wpd2.coursework1.service.PasswordService;
+import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.service.DatabaseService;
-import wpd2.coursework1.service.H2DatabaseService;
+import wpd2.coursework1.util.DatabaseService;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +18,11 @@ public class ProjectTests {
     /*
      * Setup tests - create in-memory database for testing and seed it with some data.
      */
+    @SuppressWarnings("Duplicates")
     @Before
-    public void setup() throws SQLException {
+    public void setup() {
         // Init test database
-        db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        db = new DatabaseService(DatabaseService.Mode.TEST);
 
         // Register service for use in test.
         IoC container = IoC.get();
@@ -35,7 +34,7 @@ public class ProjectTests {
     }
 
     @After
-    public void teardown() throws SQLException {
+    public void teardown() {
         // After each test destroy the database
         db.destroy();
     }

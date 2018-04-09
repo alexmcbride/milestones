@@ -1,0 +1,27 @@
+#parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
+
+#set($title = 'Create Milestone')
+
+#@mainLayout()
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+        <form method="post">
+            <h2>Create Milestone</h2>
+
+            #antiForgeryToken()
+
+            ## Use a form helper to output a text input.
+            #form_text_input("name")
+
+            ## expected completion date
+            <input type="date" name="due">
+
+            <div>
+                <input type="submit" value="Add Milestone" class="btn btn-default">
+                |
+                <a class="createLink" href="/projects/details/$model.id">Go back</a>
+            </div>
+        </form>
+    </div>
+#end

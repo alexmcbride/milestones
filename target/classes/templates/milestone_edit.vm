@@ -1,0 +1,41 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Create Project')
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        ## Include file that contains our form helpers.
+        #parse("templates/form_helpers.vm")
+
+        <form method="post">
+            <h2>Edit Milestone: $model.name</h2>
+
+            #antiForgeryToken()
+
+            ## Use a form helper to output a text input.
+            ##form_text_input("name")
+            <input type="text" name="name" value="$model.name">
+            <input type="date" name="due" id="datePicker">
+
+
+
+            <div>
+                <!-- Go Back -->
+                <a class="createLink" data-id="$model.projectId">
+                    <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
+
+                <!-- Confirm Edit -->
+                <input type="submit" value="Edit Milestone" class="btn btn-default">
+                |
+                <a href="/projects/details/$model.id">Go back</a>
+            </div>
+        </form>
+
+        <script>
+            document.getElementById('datePicker').valueAsDate = $model.due;
+        </script>
+    </div>
+</div>
+#end

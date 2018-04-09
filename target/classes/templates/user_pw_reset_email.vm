@@ -1,12 +1,11 @@
 #parse('templates/layout.vm')
-#parse("templates/form_helpers.vm")
 
 #set($title = 'send me password reset email')
 
 #@mainLayout()
 #parse("templates/form_helpers.vm")
 <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-4 col-sm-offset-4">
         <form method="post">
             <h2>Send password reset email</h2>
 
@@ -23,4 +22,5 @@
         </form>
     </div>
 </div>
+
 #end
