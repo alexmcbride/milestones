@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Class to represent a shared project, which is a join table between User and Project.
+ */
 public class SharedProject extends BaseModel {
     private int projectId;
     private int userId;

@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import wpd2.coursework1.helper.*;
+import wpd2.coursework1.model.Milestone;
+import wpd2.coursework1.model.Project;
 import wpd2.coursework1.util.*;
 
 import javax.servlet.http.HttpServlet;
@@ -109,6 +111,19 @@ public abstract class BaseServlet extends HttpServlet {
         }
         response.sendRedirect("/users/login");
         return false;
+    }
+
+    protected boolean authorize(Project project) throws IOException {
+        if (!project.IsOwnedBy(userManager.getUser())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean authorize(Milestone milestone) throws IOException {
+        Project project = Project.find(milestone.getProjectId());
+        return authorize(project);
     }
 
     protected int getRouteId() {

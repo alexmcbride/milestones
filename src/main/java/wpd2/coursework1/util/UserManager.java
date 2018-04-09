@@ -5,6 +5,9 @@ import wpd2.coursework1.model.User;
 
 import java.util.UUID;
 
+/*
+ * Class to help manage a user, login in and out etc.
+ */
 public class UserManager {
     public static final String KEY_USER = "user";
     private final SessionWrapper session;

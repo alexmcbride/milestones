@@ -7,6 +7,9 @@ import wpd2.coursework1.servlet.BaseServlet;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/*
+ * Class to handle server startup event, init DB and register services.
+ */
 public class StartupContextListener implements ServletContextListener {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+ * Class to represent a user.
+ */
 public class User extends ValidatableModel {
     private final PasswordService passwordService;
     private int id;

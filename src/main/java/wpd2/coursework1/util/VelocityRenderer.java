@@ -9,6 +9,9 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
+ * Renderer for rendering Velocity templates.
+ */
 public class VelocityRenderer {
     private static final String TEMPLATE_DIR = "/templates/";
     private final VelocityContext context;
