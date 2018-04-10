@@ -729,9 +729,12 @@
                                 </div>
                             #end
                             #foreach($user in $users)
-                                <div class="row" id="sharedProjectItem-$user.id">
-                                    <div class="col-sm-8">$user.username</div>
-                                    <div class="col-sm-4"><a href="#" onclick="unshare($user.id, $model.project.id, '$antiForgeryHelper.token')">Unshare</a></div>
+                                <div class="row shared-row" id="sharedProjectItem-$user.id">
+                                    <div class="col-sm-7"><strong>$user.username</strong></div>
+                                    <div class="col-sm-5"><a href="#" onclick="unshare($user.id, $model.project.id, '$antiForgeryHelper.token')">
+                                        <i class="fas fa-eye-slash"></i>
+                                        Unshare
+                                    </a></div>
                                 </div>
                             #end
                         </div>
@@ -765,7 +768,7 @@
 <script src="/static/js/sharing.js"></script>
 
 <script>
-    initProjectSharing();
+    initProjectSharing($model.project.id, '$antiForgeryHelper.token');
 </script>
 
 #end

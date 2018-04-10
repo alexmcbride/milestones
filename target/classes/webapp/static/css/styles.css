@@ -32,3 +32,10 @@
 .pretty-time {
     text-transform: capitalize;
 }
+
+.shared-row {
+    background-color: #fafafa;
+    padding: 2px;
+    border-bottom: 1px solid #eee;
+    margin-right: 2px;
+}
