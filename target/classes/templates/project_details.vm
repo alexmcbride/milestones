@@ -762,7 +762,7 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/api/unshare-project.json',
+            url: '/api/unshare-project',
             data: { userId: id, projectId: $model.project.id, antiForgeryToken: '$antiForgeryHelper.token' },
             success: function(data, status, xhr) {
                 if (data.success) {
@@ -775,7 +775,7 @@
 
     $(function () {
         $('#shareProjectSearch').autocomplete({
-            source: '/api/autocomplete.json',
+            source: '/api/autocomplete',
             minLength: 2,
             select: function(evt, ui) {
                 $('#userId').val(ui.item.id);
@@ -789,7 +789,7 @@
             $.ajax({
                type: 'POST',
                dataType: 'json',
-               url: '/api/share-project.json',
+               url: '/api/share-project',
                data: $(this).serialize(),
                success: function(data, status, xhr) {
                    if (data.success) {

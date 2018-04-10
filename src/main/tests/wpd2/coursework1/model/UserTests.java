@@ -43,13 +43,13 @@ public class UserTests {
         assertTrue(user.isValid());
     }
 
-    @Test
-    public void testInvalidRequired() {
-        User user = new User();
-
-        assertFalse(user.isValid());
-        assertEquals(2, user.getValidationErrors().size());
-    }
+//    @Test
+//    public void testInvalidRequired() {
+//        User user = new User();
+//
+//        assertFalse(user.isValid());
+//        assertEquals(2, user.getValidationErrors().size());
+//    }
 
     @Test
     public void testInvalidUserExists() {

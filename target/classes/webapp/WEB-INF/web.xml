@@ -174,7 +174,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiUserAutocompleteServlet</servlet-name>
-        <url-pattern>/api/autocomplete.json/*</url-pattern>
+        <url-pattern>/api/autocomplete/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -183,7 +183,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiShareProjectServlet</servlet-name>
-        <url-pattern>/api/share-project.json/*</url-pattern>
+        <url-pattern>/api/share-project/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -192,6 +192,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>
-        <url-pattern>/api/unshare-project.json/*</url-pattern>
+        <url-pattern>/api/unshare-project/*</url-pattern>
     </servlet-mapping>
 </web-app>
