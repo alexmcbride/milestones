@@ -325,6 +325,7 @@ public class User extends ValidatableModel {
         List<SharedProject> sharedProjects = SharedProject.findAll(this);
         for (SharedProject sharedProject : sharedProjects) {
             Project project = Project.find(sharedProject.getProjectId());
+            project.setViewed(sharedProject.getViewed());
             projects.add(project);
         }
         return projects;

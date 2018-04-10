@@ -3,7 +3,6 @@ package wpd2.coursework1.servlet;
 import org.apache.commons.lang.time.DateUtils;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
-import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.MilestonesViewModel;
 
@@ -33,19 +32,9 @@ public class ProjectDetailsServlet extends BaseServlet {
         User user = userManager.getUser();
         boolean readonly = false;
         if (!project.isOwnedBy(user)) {
-
-            // Check if has been shared with user.
-            SharedProject sharedProject = SharedProject.find(user, project);
-            if (sharedProject != null) {
-                readonly = true;
-
-                // Set viewed date if seen for first time.
-                if (sharedProject.getViewed() == null) {
-                    sharedProject.setViewed(new Date());
-                    sharedProject.update();
-                }
-            }
-            else {
+            // Check user has permission to view in read-only mode.
+            readonly = project.isReadOnly(user);
+            if (!readonly) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }

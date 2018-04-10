@@ -91,15 +91,20 @@
                             <p>These projects have been shared with you!</p>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-6"><strong>Project</strong></div>
+                                <div class="col-sm-3"><strong>Project</strong></div>
                                 <div class="col-sm-3"><strong>Shared By</strong></div>
                                 <div class="col-sm-3"><strong>When</strong></div>
+                                <div class="col-sm-3"><strong>Viewed</strong></div>
                             </div>
                             #foreach($project in $shared)
+                                #set($bolded = '')
+
                                 <div class="row">
-                                    <div class="col-sm-6"><a href="/projects/details/$project.id">$project.name</a></div>
+                                    <div class="col-sm-3"><a href="/projects/details/$project.id">$project.name</a></div>
                                     <div class="col-sm-3">$project.username</div>
                                     <div class="col-sm-3">#pretty_time($project.created)</div>
+                                    <div class="col-sm-3">#pretty_time($project.viewed)</div>
+
                                 </div>
                             #end
                         #else

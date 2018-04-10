@@ -16,6 +16,7 @@ public class Project extends ValidatableModel {
     private String name;
     private Date created;
     private String username;
+    private Date viewed;
 
     public Project() {
 
@@ -59,6 +60,14 @@ public class Project extends ValidatableModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Date getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(Date viewed) {
+        this.viewed = viewed;
     }
 
     @Override
@@ -202,11 +211,20 @@ public class Project extends ValidatableModel {
         return this.userId == userId;
     }
 
-    public boolean isSharedWith(User user) {
-        return isSharedWith(user.getId());
+    public boolean isReadOnly(User user) {
+        return isReadOnly(user.getId());
     }
 
-    public boolean isSharedWith(int userId) {
-        return SharedProject.find(userId, getId()) != null;
+    public boolean isReadOnly(int userId) {
+        SharedProject sharedProject = SharedProject.find(userId, getId());
+        if (sharedProject != null) {
+            // Set viewed date if seen for first time.
+            if (sharedProject.getViewed() == null) {
+                sharedProject.setViewed(new Date());
+                sharedProject.update();
+            }
+            return true;
+        }
+        return false;
     }
 }

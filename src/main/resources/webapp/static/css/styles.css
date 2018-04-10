@@ -26,5 +26,9 @@
 }
 
 .alert-flash a {
-    color: #000;
+    color: #1b6d85;
+}
+
+.pretty-time {
+    text-transform: capitalize;
 }

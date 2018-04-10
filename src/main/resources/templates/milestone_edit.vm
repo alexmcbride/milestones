@@ -29,7 +29,7 @@
                 <!-- Confirm Edit -->
                 <input type="submit" value="Edit Milestone" class="btn btn-default">
                 |
-                <a href="/projects/details/$model.id">Go back</a>
+                <a href="/projects/detail/$model.id">Go back</a>
             </div>
         </form>
 
