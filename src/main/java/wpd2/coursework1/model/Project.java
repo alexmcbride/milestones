@@ -194,19 +194,19 @@ public class Project extends ValidatableModel {
         return users;
     }
 
-    public boolean IsOwnedBy(User user) {
-        return IsOwnedBy(user.getId());
+    public boolean isOwnedBy(User user) {
+        return isOwnedBy(user.getId());
     }
 
-    public boolean IsOwnedBy(int userId) {
+    public boolean isOwnedBy(int userId) {
         return this.userId == userId;
     }
 
-    public boolean hasBeenSharedWith(User user) {
-        return hasBeenSharedWith(user.getId());
+    public boolean isSharedWith(User user) {
+        return isSharedWith(user.getId());
     }
 
-    public boolean hasBeenSharedWith(int userId) {
+    public boolean isSharedWith(int userId) {
         return SharedProject.find(userId, getId()) != null;
     }
 }

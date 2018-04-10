@@ -114,8 +114,8 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     protected boolean authorize(Project project) throws IOException {
-        if (!project.IsOwnedBy(userManager.getUser())) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        if (authorize() && !project.isOwnedBy(userManager.getUser())) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
         return true;

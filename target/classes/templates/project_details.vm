@@ -5,8 +5,17 @@
 #@mainLayout()
     #parse("templates/form_helpers.vm")
 
+#if ($model.readOnly)
+    <div class="alert alert-info" role="alert">
+        <strong>Read Only</strong>
+        This is a shared project and cannot be edited.
+    </div>
+#end
+
 <a onload='location.href="#defaultLoadLocation"'></a>
-<button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
+    #if (!$model.readOnly)
+        <button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
+    #end
 
 <div class="header">
     <div class="milestoneHeaderSection">
@@ -14,7 +23,9 @@
         <hr class="headerHR"/>
         <div id="headerIcons">
             <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
-            <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            #if (!$model.readOnly)
+                <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            #end
         </div>
     </div>
 </div>

@@ -13,8 +13,6 @@ public class ProjectUpdateServlet extends BaseServlet{
     @Override
     protected void doGet() throws IOException
     {
-        // Display the form.
-
         try
         {
             int id = getRouteId();
@@ -27,6 +25,9 @@ public class ProjectUpdateServlet extends BaseServlet{
                 getResponse().sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
+
+            if (!authorize(project)) return;
+
             view(TEMPLATE_FILE, project);
         }
              catch (NumberFormatException e)

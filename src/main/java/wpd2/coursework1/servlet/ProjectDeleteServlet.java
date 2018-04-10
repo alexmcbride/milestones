@@ -11,8 +11,6 @@ public class ProjectDeleteServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if (!authorize()) return;
-
         Project project = Project.find(getRouteId());
 
         if (!authorize(project)) return;

@@ -19,6 +19,8 @@ public class MilestoneDeleteServlet extends BaseServlet {
             return;
         }
 
+        if (!authorize(milestone)) return;
+
         view(TEMPLATE_FILE, milestone);
     }
 

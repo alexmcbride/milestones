@@ -11,8 +11,6 @@ import java.util.List;
  */
 public class ApiUserAutocompleteServlet extends JsonServlet {
     protected void doGet() throws IOException {
-        if (!authorize()) return;
-
         List<AutocompleteItem> items = new ArrayList<>();
 
         String term = request.getParameter("term");

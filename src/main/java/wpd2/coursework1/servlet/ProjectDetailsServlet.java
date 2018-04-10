@@ -3,9 +3,9 @@ package wpd2.coursework1.servlet;
 import org.apache.commons.lang.time.DateUtils;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.MilestonesViewModel;
-import wpd2.coursework1.viewmodel.ProjectViewModel;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,20 +18,38 @@ public class ProjectDetailsServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-
         if (!authorize()) return;
-
-        //try {
-
-
-
-
 
         int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
+        if (project == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
+        // Check user has permission
+        User user = userManager.getUser();
+        boolean readonly = false;
+        if (!project.isOwnedBy(user)) {
+
+            // Check if has been shared with user.
+            SharedProject sharedProject = SharedProject.find(user, project);
+            if (sharedProject != null) {
+                readonly = true;
+
+                // Set viewed date if seen for first time.
+                if (sharedProject.getViewed() == null) {
+                    sharedProject.setViewed(new Date());
+                    sharedProject.update();
+                }
+            }
+            else {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+        }
 
         // get milestones
         List<Milestone> milestones;
@@ -39,7 +57,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
         Date date = new Date();
-        MilestonesViewModel model = new MilestonesViewModel(project);
+        MilestonesViewModel model = new MilestonesViewModel(project, readonly);
 
 
         Date datePlusSeven = DateUtils.addDays(date, 7);

@@ -14,7 +14,7 @@ public class StartupContextListener implements ServletContextListener {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    private static final boolean RESET_DATABASE_ON_STARTUP = true;
+    private static final boolean RESET_DATABASE_ON_STARTUP = false;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {

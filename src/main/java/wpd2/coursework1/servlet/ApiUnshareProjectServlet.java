@@ -1,5 +1,6 @@
 package wpd2.coursework1.servlet;
 
+import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
@@ -7,10 +8,11 @@ import java.io.IOException;
 
 public class ApiUnshareProjectServlet extends JsonServlet {
     protected void doPost() throws IOException {
-        if (!authorize()) return;
-
         int userId = Integer.valueOf(request.getParameter("userId"));
         int projectId = Integer.valueOf(request.getParameter("projectId"));
+
+        Project project = Project.find(projectId);
+        if (!authorize(project)) return;
 
         SharedProject sharedProject = SharedProject.find(userId, projectId);
         if (sharedProject == null) {

@@ -29,6 +29,8 @@ public class MilestoneCreateServlet extends BaseServlet {
         // Get project
         Project project = Project.find(id);
 
+        if (!authorize(project)) return;
+
         // Check for 404 error.
         if (project == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

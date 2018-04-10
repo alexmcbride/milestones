@@ -14,23 +14,19 @@ import java.util.Locale;
 public class MilestoneEditServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_edit.vm";
 
-
-
     @Override
     protected void doGet() throws IOException {
-        // Display the form.
         int id = getRouteId();
 
         // Get milestone
         Milestone milestone = Milestone.find(id);
-
-        // Check for 404 error.
         if (milestone == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-
+        // Make sure user has permission to view.
+        if (!authorize(milestone)) return;
 
         view(TEMPLATE_FILE, milestone);
     }
