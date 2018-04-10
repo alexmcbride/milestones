@@ -1,6 +1,7 @@
 
 package wpd2.coursework1.servlet;
 
+import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.model.TempUser;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.EmailService;
@@ -48,7 +49,7 @@ public class UserRegisterServlet extends BaseServlet {
             emailservice.SendEmailUsingGMailSMTP(email, sbj, msg);
             // Save user to database.
             //user.update();
-            //flash.message("Please check you email to complete registration");
+//            flash.message("Please check you email to complete registration", FlashHelper.INFO);
             response.sendRedirect("/users/pw_reset_email_sent");
             return;
         }
