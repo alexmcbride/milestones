@@ -65,11 +65,11 @@ public class User extends ValidatableModel {
         passwordChanged = true;
     }
 
-    private String getPasswordHash() {
+    public String getPasswordHash() {
         return passwordHash;
     }
 
-    private void setPasswordHash(String passwordHash) {
+    public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
@@ -117,7 +117,8 @@ public class User extends ValidatableModel {
     }
 
     public void create() {
-        passwordHash = passwordService.hash(password);
+        /*passwordHash = passwordService.hash(password);
+        passwordHash = password.toString();*/
         joined = new Date();
 
         String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
@@ -199,7 +200,7 @@ public class User extends ValidatableModel {
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "username NVARCHAR(32) NOT NULL UNIQUE, " +
                 "email NVARCHAR(1024) NOT NULL UNIQUE, " +
-                "password NVARCHAR(128) NOT NULL," +
+                "password NVARCHAR(128) NULL," +
                 "joined TIMESTAMP NOT NULL," +
                 "resetToken NVARCHAR(128) NULL," +
                 "loginCount INTEGER NULL" +

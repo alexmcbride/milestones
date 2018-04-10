@@ -1,9 +1,6 @@
 package wpd2.coursework1.util;
 
-import wpd2.coursework1.model.Milestone;
-import wpd2.coursework1.model.Project;
-import wpd2.coursework1.model.SharedProject;
-import wpd2.coursework1.model.User;
+import wpd2.coursework1.model.*;
 
 import java.sql.*;
 import java.util.Date;
@@ -61,6 +58,7 @@ public class DatabaseService {
         Project.createTable();
         Milestone.createTable();
         SharedProject.createTable();
+        TempUser.createTable();
     }
 
     /*
@@ -71,6 +69,7 @@ public class DatabaseService {
         Project.destroyTable();
         Milestone.destroyTable();
         SharedProject.destroyTable();
+        TempUser.destroyTable();
     }
 
     public boolean tableExists(String tableName) {
