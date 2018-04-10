@@ -162,6 +162,18 @@ public class User extends ValidatableModel {
     }
 
     public boolean delete() {
+        // Delete all projects
+        List<Project> projects = Project.findAll(this);
+        for (Project project : projects) {
+            project.delete();
+        }
+
+        // Delete any projects shared with this user.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);

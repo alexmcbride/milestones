@@ -111,6 +111,18 @@ public class Project extends ValidatableModel {
     }
 
     public void delete() {
+        // Delete all this project's milestones.
+        List<Milestone> milestones = Milestone.findAll(this);
+        for (Milestone milestone : milestones) {
+            milestone.delete();
+        }
+
+        // Delete all times this project was shared.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
