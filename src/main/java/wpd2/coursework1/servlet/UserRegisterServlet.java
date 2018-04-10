@@ -49,7 +49,7 @@ public class UserRegisterServlet extends BaseServlet {
             // Save user to database.
             //user.update();
             //flash.message("Please check you email to complete registration");
-            response.sendRedirect("users/pw_reset_email_sent");
+            response.sendRedirect("/users/pw_reset_email_sent");
             return;
         }
 
