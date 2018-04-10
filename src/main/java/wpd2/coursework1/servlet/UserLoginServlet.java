@@ -17,14 +17,16 @@ public class UserLoginServlet extends BaseServlet {
             String token = request.getParameter("token").replace("'","");
             if(TempUser.findByToken(token) != null){
                 TempUser tempuser = TempUser.findByToken(token);
-                        /* user = tempuser.getUser();*/
-            user.setUsername(tempuser.getUsername());
-            user.setEmail(tempuser.getEmail());
-            String dummy = "dummy";
-            user.setPassword(dummy.toCharArray());
-            user.setPasswordHash(tempuser.getPasswordHash());
-            user.create();
-            tempuser.delete();
+                            /* user = tempuser.getUser();*/
+                user.setUsername(tempuser.getUsername());
+                user.setEmail(tempuser.getEmail());
+                String dummy = "dummy";
+                user.setPassword(dummy.toCharArray());
+                user.setPasswordHash(tempuser.getPasswordHash());
+                user.create();
+                tempuser.delete();
+
+                flash.message("Your account has been activated");
             }
         }
 
