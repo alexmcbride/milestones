@@ -3,16 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="a7285884-f816-4c75-a011-b35e4f5c83ac" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/BaseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/BaseModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Milestone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Milestone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/SharedProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/SharedProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milestones.iml" beforeDir="false" afterPath="$PROJECT_DIR$/milestones.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/JsonRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/JsonRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/StartupContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/StartupContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/VelocityRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/project_details.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/project_details.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/project_details.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/project_details.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/BaseModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/BaseModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Milestone.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Milestone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Project.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/SharedProject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/SharedProject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/ValidatableModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/ValidatableModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDetailsServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDetailsServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/JsonRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/JsonRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/StartupContextListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/StartupContextListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/UserManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/UserManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/VelocityRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/VelocityRenderer.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,56 +32,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AntiForgeryHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/AntiForgeryHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FlashHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/FlashHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="41" lean-forward="true" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HtmlHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/HtmlHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrettyTimeHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/PrettyTimeHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApiUserAutocompleteServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ApiUserAutocompleteServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="353" column="5" lean-forward="true" selection-start-line="353" selection-start-column="5" selection-end-line="353" selection-end-column="5" />
+            <state relative-caret-position="170">
+              <caret line="301" lean-forward="true" selection-start-line="301" selection-end-line="301" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserTests.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/tests/wpd2/coursework1/model/UserTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="45" selection-start-line="45" selection-start-column="2" selection-end-line="51" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectDetailsServlet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="93">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -96,7 +77,6 @@
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/Runner.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserRegisterEmailServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserPwResetEmailServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserAccountServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserDeleteServlet.java" />
@@ -113,9 +93,13 @@
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/BaseModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Milestone.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Project.java" />
-        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/SharedProject.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/project_details.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/tests/wpd2/coursework1/model/UserTests.java" />
       </list>
     </option>
   </component>
@@ -185,16 +169,39 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="coursework1" type="462c0819:PsiDirectoryNode" />
-              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="milestones" type="b2602c69:ProjectViewProjectNode" />
               <item name="milestones" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="coursework1" type="462c0819:PsiDirectoryNode" />
-              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="milestones" type="b2602c69:ProjectViewProjectNode" />
+              <item name="milestones" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="milestones" type="b2602c69:ProjectViewProjectNode" />
+              <item name="milestones" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="milestones" type="b2602c69:ProjectViewProjectNode" />
+              <item name="milestones" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="milestones" type="b2602c69:ProjectViewProjectNode" />
@@ -205,8 +212,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -233,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Web">
+  <component name="RunManager" selected="JUnit.Tests">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -344,11 +351,17 @@
       <workItem from="1523122410539" duration="1093000" />
       <workItem from="1523127953418" duration="1423000" />
       <workItem from="1523129837851" duration="358000" />
+      <workItem from="1523376396820" duration="635000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Tests - 2018.04.10 at 17h 16m 47s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4674000" />
+    <option name="totallyTimeSpent" value="5309000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -356,16 +369,17 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32900432" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32900432" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32900432" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3046875" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3046875" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -375,7 +389,6 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39975247" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32900432" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -394,20 +407,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/util/DatabaseService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2448">
-          <caret line="144" column="44" lean-forward="true" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/MilestoneDeleteServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDeleteServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -489,13 +488,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project_update.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-158" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_account.vm">
@@ -659,13 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/SharedProject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -683,14 +668,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/AntiForgeryHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/FlashHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="41" lean-forward="true" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -710,15 +688,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ApiUserAutocompleteServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        <state relative-caret-position="323">
+          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/SharedProject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="771">
+          <caret line="196" column="10" selection-start-line="196" selection-start-column="10" selection-end-line="196" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1167" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ApiShareProjectServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/project_details.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="773" column="5" lean-forward="true" selection-start-line="773" selection-start-column="5" selection-end-line="773" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/FlashHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/ProjectDetailsServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="353" column="5" lean-forward="true" selection-start-line="353" selection-start-column="5" selection-end-line="353" selection-end-column="5" />
+        <state relative-caret-position="170">
+          <caret line="301" lean-forward="true" selection-start-line="301" selection-end-line="301" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/tests/wpd2/coursework1/model/UserTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="45" selection-start-line="45" selection-start-column="2" selection-end-line="51" selection-end-column="7" />
         </state>
       </provider>
     </entry>

@@ -27,7 +27,6 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
 
-        User user = User.dummyUser();
         int id = getRouteId();
 
         // Get project
