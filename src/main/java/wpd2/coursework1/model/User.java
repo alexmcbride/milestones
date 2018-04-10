@@ -117,8 +117,9 @@ public class User extends ValidatableModel {
     }
 
     public void create() {
-        /*passwordHash = passwordService.hash(password);
-        passwordHash = password.toString();*/
+        if (passwordHash == null) {
+            passwordHash = passwordService.hash(password);
+        }
         joined = new Date();
 
         String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";

@@ -720,7 +720,7 @@
                             #foreach($user in $users)
                                 <div class="row" id="sharedProjectItem-$user.id">
                                     <div class="col-sm-8">$user.username</div>
-                                    <div class="col-sm-4"><a href="#" onclick="unshare($user.id)">Unshare</a></div>
+                                    <div class="col-sm-4"><a href="#" onclick="unshare($user.id, $model.project.id, '$antiForgeryHelper.token')">Unshare</a></div>
                                 </div>
                             #end
                         </div>
@@ -751,61 +751,10 @@
     </div>
 </div>
 
+<script src="/static/js/sharing.js"></script>
+
 <script>
-    function message(msg, success) {
-        var successClass = success ? 'success' : 'warning';
-        $('#shareProjectMessage').html('<br><div class="alert alert-'+successClass+'" role="alert">' +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + msg + '</div>');
-    }
-
-    function unshare(id) {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/api/unshare-project',
-            data: { userId: id, projectId: $model.project.id, antiForgeryToken: '$antiForgeryHelper.token' },
-            success: function(data, status, xhr) {
-                if (data.success) {
-                    $('#sharedProjectItem-' + data.id).remove();
-                }
-                message(data.message, data.success);
-            }
-        });
-    }
-
-    $(function () {
-        $('#shareProjectSearch').autocomplete({
-            source: '/api/autocomplete',
-            minLength: 2,
-            select: function(evt, ui) {
-                $('#userId').val(ui.item.id);
-                $('#shareButton').removeAttr('disabled');
-            }
-        });
-
-        $('#shareProjectForm').on('submit', function(evt) {
-            evt.preventDefault();
-
-            $.ajax({
-               type: 'POST',
-               dataType: 'json',
-               url: '/api/share-project',
-               data: $(this).serialize(),
-               success: function(data, status, xhr) {
-                   if (data.success) {
-                       $('#shareProjectSearch').val('');
-                       $('#shareButton').attr('disabled', 'disabled');
-                       $('#notSharedMessage').css({display: 'none'});
-                       $('#sharedProjectsList').append('<div class="row" id="sharedProjectItem-' + data.id + '">' +
-                               '<div class="col-sm-8">' + data.username + '</div>' +
-                               '<div class="col-sm-4"><a href="#" onclick="unshare(' + data.id + ')">Unshare</a></div>' +
-                               '</div>');
-                   }
-                   message(data.message, data.success);
-               }
-            });
-        });
-    });
+    initProjectSharing();
 </script>
 
 #end

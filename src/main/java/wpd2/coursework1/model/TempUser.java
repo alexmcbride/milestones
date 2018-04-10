@@ -116,7 +116,7 @@ public void create() {
                 "username NVARCHAR(32) NOT NULL, " +
                 "email NVARCHAR(1024) NOT NULL, " +
                 "password NVARCHAR(128) NOT NULL," +
-                "joined TIMESTAMP NOT NULL," +
+                "joined TIMESTAMP NOT NULL" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -126,65 +126,6 @@ public void create() {
         }
     }
 
-
-    /*public void create() {
-        String sql = "INSERT INTO tempusers (token, user, joined) VALUES (?, ?, ?)";
-        joined = new Date();
-        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, token);
-            statement.setObject(2, user, Types.OTHER);
-            statement.setTimestamp(3, new Timestamp(joined.getTime()));
-            statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
-            result.next();
-            id = result.getInt(1);
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-   public static TempUser findByToken(String token) {
-        String sql = "SELECT id, token, user,created FROM tempusers WHERE token=?";
-        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, token);
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                return getTempUserFromResult(result);
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
-
-    private static TempUser getTempUserFromResult(ResultSet result) throws SQLException {
-        TempUser user = new TempUser();
-        user.id = result.getInt(1);
-        user.token = result.getString(2);
-        user.user = (User)(result.getObject(3));
-        user.joined = result.getTimestamp(4);
-        return user;
-    }
-
-
-    public static void createTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS tempusers (" +
-                "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "token NVARCHAR(1024) NOT NULL UNIQUE, " +
-                "user OTHER NULL," +
-                "joined TIMESTAMP NULL" +
-                ")";
-        try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
-            statement.execute(sql);
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
     public boolean delete() {
         String sql = "DELETE FROM tempusers WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
