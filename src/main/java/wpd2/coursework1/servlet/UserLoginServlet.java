@@ -44,6 +44,9 @@ public class UserLoginServlet extends BaseServlet {
             loginCount = 0;
 
             flash.message("You are logged in");
+            if (user.getUnvisited() > 0) {
+                flash.message("New projects have been shared with you! <a href=\"#\" data-toggle=\"modal\" data-target=\"#sharedProjectsModal\">Click here...<a/>");
+            }
 
             // Always redirect to project.
             getResponse().sendRedirect("/projects");
