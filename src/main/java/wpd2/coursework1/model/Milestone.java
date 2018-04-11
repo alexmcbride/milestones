@@ -229,20 +229,40 @@ public class Milestone extends ValidatableModel {
         }
     }
 
-    public void setDue(String stringDueDate) {
+    static final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
+
+    private static Date parseDate(String value) throws ParseException {
+        return format.parse(value);
+    }
+
+    private static String formatDate(Date value) {
+        if (value != null) {
+            return format.format(value);
+        }
+        return "";
+    }
+
+    public void setDue(String value) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
-            due = format.parse(stringDueDate);
+            due = parseDate(value);
         } catch (ParseException e) {
             addValidationError("due", "Due is not a valid date");
         }
     }
 
     public String getDueString() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
-        if (due != null) {
-            return format.format(due);
+        return formatDate(getDue());
+    }
+
+    public void setActual(String value) {
+        try {
+            actual = parseDate(value);
+        } catch (ParseException e) {
+            addValidationError("actual", "Actual is not a valid date");
         }
-        return "";
+    }
+
+    public String getActualString() {
+        return formatDate(getActual());
     }
 }

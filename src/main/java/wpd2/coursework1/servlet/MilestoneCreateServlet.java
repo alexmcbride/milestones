@@ -24,10 +24,8 @@ public class MilestoneCreateServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        // Display the form.
+        // Get Project
         int id = getRouteId();
-
-        // Get project
         Project project = Project.find(id);
 
         if (!authorize(project)) return;
@@ -46,16 +44,13 @@ public class MilestoneCreateServlet extends BaseServlet {
 
     @Override
     protected void doPost() throws IOException {
-        int id = getRouteId();
-
         // Get project
+        int id = getRouteId();
         Project project = Project.find(id);
+
         Milestone milestone = new Milestone();
         milestone.setName(request.getParameter("name"));
-
-        // Overly complex approach to getting date value from form
-        String stringDueDate = String.valueOf(request.getParameter("due"));
-        milestone.setDue(stringDueDate);
+        milestone.setDue(request.getParameter("due"));
 
         // Check if project is valid.
         if (milestone.isValid()) {

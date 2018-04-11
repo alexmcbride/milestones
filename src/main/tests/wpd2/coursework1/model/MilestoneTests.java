@@ -102,7 +102,7 @@ public class MilestoneTests {
 
         milestone.setName("Edited name");
         milestone.setDue(date);
-        milestone.setActual(null);
+        milestone.setActual((Date)null);
         milestone.setComplete(true);
         milestone.update();
 
@@ -112,7 +112,6 @@ public class MilestoneTests {
         assertNull(milestone.getActual());
         assertTrue(milestone.isComplete());
     }
-
 
     @Test
     public void testDelete() {

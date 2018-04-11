@@ -28,6 +28,10 @@ public class MilestoneEditServlet extends BaseServlet {
         // Make sure user has permission to view.
         if (!authorize(milestone)) return;
 
+        if (milestone.getActual() == null) {
+            milestone.setActual(new Date());
+        }
+
         view(TEMPLATE_FILE, milestone);
     }
 
@@ -38,23 +42,12 @@ public class MilestoneEditServlet extends BaseServlet {
 
         // get milestone
         Milestone milestoneToUpdate = Milestone.find(id);
-
-
         milestoneToUpdate.setName(request.getParameter("name"));
-
-
-        // Overly complex approach to getting date value from form
-        String stringDueDate = String.valueOf(request.getParameter("due"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd", Locale.ENGLISH);
-        LocalDate date = LocalDate.parse(stringDueDate, formatter);
-        Date date1 = java.sql.Date.valueOf(date);
-        milestoneToUpdate.setDue(date1);
-
-
+        milestoneToUpdate.setDue(request.getParameter("due"));
+        milestoneToUpdate.setActual(request.getParameter("actual"));
 
         // Get project
         Project project = Project.find(milestoneToUpdate.getProjectId());
-
 
         // Check if project is valid.
         if (milestoneToUpdate.isValid()) {
@@ -66,7 +59,6 @@ public class MilestoneEditServlet extends BaseServlet {
 
             return;
         }
-
 
         view(TEMPLATE_FILE, milestoneToUpdate);
     }
