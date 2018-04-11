@@ -1,23 +1,11 @@
 package wpd2.coursework1.servlet;
 
-import org.joda.time.DateTime;
 import wpd2.coursework1.model.Project;
-
 import wpd2.coursework1.model.Milestone;
-import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
-
-import static java.time.LocalDate.*;
-import static java.time.format.DateTimeFormatter.*;
 
 public class MilestoneCreateServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_create.vm";
@@ -52,9 +40,7 @@ public class MilestoneCreateServlet extends BaseServlet {
         milestone.setName(request.getParameter("name"));
         milestone.setDue(request.getParameter("due"));
 
-        // Check if project is valid.
         if (milestone.isValid()) {
-            // Save project to database.
             milestone.create(project);
 
             // Always redirect after post.

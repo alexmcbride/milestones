@@ -2,14 +2,10 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
-import wpd2.coursework1.model.User;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 
 public class MilestoneEditServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_edit.vm";

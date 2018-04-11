@@ -11,9 +11,8 @@ public class MilestoneDeleteServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-        if (!authorize()) return;
-
-        Milestone milestone = Milestone.find(getRouteId());
+        int id = getRouteId();
+        Milestone milestone = Milestone.find(id);
         if (milestone == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
