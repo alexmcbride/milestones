@@ -19,7 +19,7 @@ function unshare(id, projectId, csrf) {
     });
 }
 
-function initProjectSharing() {
+function initProjectSharing(projectId, csrf) {
     $('#shareProjectSearch').autocomplete({
         source: '/api/autocomplete',
         minLength: 2,
@@ -42,9 +42,11 @@ function initProjectSharing() {
                     $('#shareProjectSearch').val('');
                     $('#shareButton').attr('disabled', 'disabled');
                     $('#notSharedMessage').css({display: 'none'});
-                    $('#sharedProjectsList').append('<div class="row" id="sharedProjectItem-' + data.id + '">' +
-                        '<div class="col-sm-8">' + data.username + '</div>' +
-                        '<div class="col-sm-4"><a href="#" onclick="unshare(' + data.id + ')">Unshare</a></div>' +
+                    $('#sharedProjectsList').append('<div class="row shared-row" id="sharedProjectItem-' + data.id + '">' +
+                        '<div class="col-sm-7"><strong>' + data.username + '</strong></div>' +
+                        '<div class="col-sm-5"><a href="#" onclick="unshare(' + data.id + ', '+projectId+', \'' + csrf + '\')">' +
+                        '<i class="fas fa-eye-slash"></i> ' +
+                        'Unshare</a></div>' +
                         '</div>');
                 }
                 message(data.message, data.success);

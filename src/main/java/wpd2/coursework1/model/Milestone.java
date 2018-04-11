@@ -3,6 +3,8 @@ package wpd2.coursework1.model;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +32,7 @@ public class Milestone extends ValidatableModel {
         return projectId;
     }
 
-    private void setProjectId(int projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
@@ -225,5 +227,42 @@ public class Milestone extends ValidatableModel {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    static final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
+
+    private static Date parseDate(String value) throws ParseException {
+        return format.parse(value);
+    }
+
+    private static String formatDate(Date value) {
+        if (value != null) {
+            return format.format(value);
+        }
+        return "";
+    }
+
+    public void setDue(String value) {
+        try {
+            due = parseDate(value);
+        } catch (ParseException e) {
+            addValidationError("due", "Due is not a valid date");
+        }
+    }
+
+    public String getDueString() {
+        return formatDate(getDue());
+    }
+
+    public void setActual(String value) {
+        try {
+            actual = parseDate(value);
+        } catch (ParseException e) {
+            addValidationError("actual", "Actual is not a valid date");
+        }
+    }
+
+    public String getActualString() {
+        return formatDate(getActual());
     }
 }

@@ -30,9 +30,12 @@ public abstract class ValidatableModel extends BaseModel {
         return validationErrors;
     }
 
+    public void clearValidationErrors() {
+        validationErrors.clear();
+    }
+
     // Checks if the child class is valid and returns the result.
     public boolean isValid() {
-        validationErrors.clear();
         validate();
         return !hasValidationErrors();
     }

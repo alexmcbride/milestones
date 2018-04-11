@@ -5,7 +5,6 @@ import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.MilestonesViewModel;
-import wpd2.coursework1.viewmodel.ProjectViewModel;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,20 +17,28 @@ public class ProjectDetailsServlet extends BaseServlet {
 
     @Override
     protected void doGet() throws IOException {
-
         if (!authorize()) return;
-
-        //try {
-
-
-
-
 
         int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
+        if (project == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
+        // Check user has permission
+        User user = userManager.getUser();
+        boolean readonly = false;
+        if (!project.isOwnedBy(user)) {
+            // Check user has permission to view in read-only mode.
+            readonly = project.isReadOnly(user);
+            if (!readonly) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+        }
 
         // get milestones
         List<Milestone> milestones;
@@ -39,7 +46,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
         Date date = new Date();
-        MilestonesViewModel model = new MilestonesViewModel(project);
+        MilestonesViewModel model = new MilestonesViewModel(project, readonly);
 
 
         Date datePlusSeven = DateUtils.addDays(date, 7);

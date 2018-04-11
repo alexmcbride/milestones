@@ -15,6 +15,9 @@ public class PrettyTimeHelper {
     }
 
     public String format(Date date) {
+        if (date == null) {
+            return "Never";
+        }
         return prettyTime.format(date);
     }
 }

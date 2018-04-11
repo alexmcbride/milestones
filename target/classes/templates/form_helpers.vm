@@ -41,7 +41,6 @@
         <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
         #validation_error($attribute)
     </div>
-
 #end
 
 #macro(form_password_input $attribute)
@@ -57,7 +56,28 @@
         #validation_error($attribute)
 
     </div>
+#end
 
+#macro(form_date_input $attribute $value)
+    #set($message="")
+    #if ($model.hasValidationError($attribute))
+        #set($message=" has-message")
+    #end
+
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $html.encode($value) + '"')
+    #end
+
+    <div class="form-group">
+        <div class='input-group date' id='$attribute'>
+            <input type='text' class="form-control" name="$attribute"$valueattr>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        #validation_error($attribute)
+    </div>
 #end
 
 #macro(antiForgeryToken)

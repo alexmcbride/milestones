@@ -5,8 +5,17 @@
 #@mainLayout()
     #parse("templates/form_helpers.vm")
 
+#if ($model.readOnly)
+    <div class="alert alert-info" role="alert">
+        <strong>Read Only</strong>
+        This is a shared project and cannot be edited.
+    </div>
+#end
+
 <a onload='location.href="#defaultLoadLocation"'></a>
-<button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
+    #if (!$model.readOnly)
+        <button id="addEventBtn" class="createMilestone" data-id="$model.projectId">&#43;</button>
+    #end
 
 <div class="header">
     <div class="milestoneHeaderSection">
@@ -14,7 +23,9 @@
         <hr class="headerHR"/>
         <div id="headerIcons">
             <div class="headerIcon"><a href="/projects"><i class="fas fa-arrow-left fa-lg"></i></a></div>
-            <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            #if (!$model.readOnly)
+                <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+            #end
         </div>
     </div>
 </div>
@@ -698,6 +709,7 @@
 </script>
 
 ## Share projects modal dialog.
+#set($token = $antiForgeryHelper.token)
 <div class="modal fade ui-front" id="shareProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content" style="width: 100%; min-height: 220px;">
@@ -714,13 +726,16 @@
                             #set($users = $model.project.sharedUsers)
                             #if ($users.size() == 0)
                                 <div id="notSharedMessage">
-                                    You haven't shared this project with anyone!
+                                    <em>You haven't shared this project with anyone!</em>
                                 </div>
                             #end
                             #foreach($user in $users)
-                                <div class="row" id="sharedProjectItem-$user.id">
-                                    <div class="col-sm-8">$user.username</div>
-                                    <div class="col-sm-4"><a href="#" onclick="unshare($user.id, $model.project.id, '$antiForgeryHelper.token')">Unshare</a></div>
+                                <div class="row shared-row" id="sharedProjectItem-$user.id">
+                                    <div class="col-sm-7"><strong>$user.username</strong></div>
+                                    <div class="col-sm-5"><a href="#" onclick="unshare($user.id, $model.project.id, '$token')">
+                                        <i class="fas fa-eye-slash"></i>
+                                        Unshare
+                                    </a></div>
                                 </div>
                             #end
                         </div>
@@ -754,7 +769,7 @@
 <script src="/static/js/sharing.js"></script>
 
 <script>
-    initProjectSharing();
+    initProjectSharing($model.project.id, '$token');
 </script>
 
 #end
