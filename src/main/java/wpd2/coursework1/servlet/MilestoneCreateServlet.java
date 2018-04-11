@@ -9,6 +9,7 @@ import wpd2.coursework1.model.User;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,9 +38,10 @@ public class MilestoneCreateServlet extends BaseServlet {
             return;
         }
 
-
-
-        view(TEMPLATE_FILE, project);
+        Milestone milestone = new Milestone();
+        milestone.setDue(new Date());
+        milestone.setProjectId(project.getId());
+        view(TEMPLATE_FILE, milestone);
     }
 
     @Override
@@ -51,14 +53,9 @@ public class MilestoneCreateServlet extends BaseServlet {
         Milestone milestone = new Milestone();
         milestone.setName(request.getParameter("name"));
 
-
         // Overly complex approach to getting date value from form
         String stringDueDate = String.valueOf(request.getParameter("due"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd", Locale.ENGLISH);
-        LocalDate date = LocalDate.parse(stringDueDate, formatter);
-        Date date1 = java.sql.Date.valueOf(date);
-        milestone.setDue(date1);
-
+        milestone.setDue(stringDueDate);
 
         // Check if project is valid.
         if (milestone.isValid()) {
@@ -71,7 +68,7 @@ public class MilestoneCreateServlet extends BaseServlet {
             return;
         }
 
-
+        milestone.setProjectId(project.getId());
         view(TEMPLATE_FILE, milestone);
     }
 }
