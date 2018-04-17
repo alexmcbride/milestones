@@ -4,13 +4,17 @@ import wpd2.coursework1.model.User;
 import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.viewmodel.UserPWResetEmailViewModel;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserPwResetServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_pw_reset.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         if(request.getParameter("token") != null){
             String token = request.getParameter("token").replace("'","");
             request.getSession().setAttribute("ReturnedToken",token);
@@ -22,8 +26,8 @@ public class UserPwResetServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost() throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
         //if token value from the link user clicked is saved in the session
         if(getRequest().getSession().getAttribute("ReturnedToken") != null){
             //save the session value to rToken string

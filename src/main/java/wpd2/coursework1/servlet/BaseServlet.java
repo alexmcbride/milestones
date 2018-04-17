@@ -56,12 +56,6 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
-
-        doGet();
-    }
-
-    protected void doGet() throws IOException {
-
     }
 
     @Override
@@ -69,12 +63,6 @@ public abstract class BaseServlet extends HttpServlet {
         handleRequest(request, response);
 
         checkAntiForgeryToken();
-
-        doPost();
-    }
-
-    protected void doPost() throws IOException {
-
     }
 
     protected void view(HttpServletResponse response, String template, Object object) throws IOException {

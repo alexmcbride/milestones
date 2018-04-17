@@ -4,6 +4,8 @@ import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.ProjectViewModel;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,9 @@ public class ProjectIndexServlet extends BaseServlet {
     private static final String WELCOME_FILE = "welcome.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         if (userManager.isLoggedIn()) {
             User user = userManager.getUser();
             List<Project> projects = Project.findAll(user);

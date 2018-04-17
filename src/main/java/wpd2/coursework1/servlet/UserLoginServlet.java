@@ -4,13 +4,17 @@ import wpd2.coursework1.model.TempUser;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.helper.FlashHelper;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserLoginServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_login.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         // Display the form.
         User user = new User();
         if(request.getParameter("token") != null){
@@ -34,7 +38,9 @@ public class UserLoginServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         loginCount++;
 
         User user = User.find(request.getParameter("email"));

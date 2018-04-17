@@ -3,6 +3,7 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.Milestone;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
@@ -11,7 +12,9 @@ public class MilestoneCreateServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_create.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         // Get Project
         int id = getRouteId();
         Project project = Project.find(id);
@@ -31,7 +34,9 @@ public class MilestoneCreateServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         // Get project
         int id = getRouteId();
         Project project = Project.find(id);

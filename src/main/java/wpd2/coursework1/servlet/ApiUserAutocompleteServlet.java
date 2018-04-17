@@ -2,6 +2,8 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,9 @@ import java.util.List;
  * Servlet for supplying autocomplete JSON.
  */
 public class ApiUserAutocompleteServlet extends JsonServlet {
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         List<AutocompleteItem> items = new ArrayList<>();
 
         String term = request.getParameter("term");

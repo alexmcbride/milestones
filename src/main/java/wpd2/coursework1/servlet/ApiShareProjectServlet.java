@@ -4,11 +4,14 @@ import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ApiShareProjectServlet extends JsonServlet {
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         try {
             int userId = Integer.valueOf(request.getParameter("userId"));
             int projectId = Integer.valueOf(request.getParameter("projectId"));
