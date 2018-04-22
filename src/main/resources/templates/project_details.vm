@@ -710,6 +710,7 @@
 
 ## Share projects modal dialog.
 #set($token = $antiForgeryHelper.token)
+#set($users = $model.project.sharedUsers)
 <div class="modal fade ui-front" id="shareProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content" style="width: 100%; min-height: 220px;">
@@ -723,7 +724,6 @@
                         <p>Previously shared with...</p>
                         <hr>
                         <div id="sharedProjectsList">
-                            #set($users = $model.project.sharedUsers)
                             #if ($users.size() == 0)
                                 <div id="notSharedMessage">
                                     <em>You haven't shared this project with anyone!</em>
@@ -759,6 +759,23 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="shareProjectMessage"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="sharedProjectUrlMessage">
+                            #if ($users.size() > 0)
+                                <p>Make this project public!</p>
+                                <div class="input-group">
+                                    <input type="text" value="http://localhost:9000/projects/$model.projectId" class="form-control" id="sharedUrl">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="copy">
+                                            <i class="far fa-copy"></i>
+                                            Copy URL</button>
+                                    </span>
+                                </div>
+                            #end
+                        </div>
                     </div>
                 </div>
             </div>

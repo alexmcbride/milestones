@@ -53,4 +53,11 @@ function initProjectSharing(projectId, csrf) {
             }
         });
     });
+
+    $('#copy').click(function(evt){
+        var sharedUrl = $('#sharedUrl');
+        sharedUrl.select();
+        document.execCommand('copy');
+        sharedUrl.blur();
+    });
 };
