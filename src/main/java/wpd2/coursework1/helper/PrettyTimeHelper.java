@@ -10,10 +10,19 @@ import java.util.Date;
 public class PrettyTimeHelper {
     private PrettyTime prettyTime;
 
+    /*
+     * Creates a new PrettyTimeHelper.
+     */
     public PrettyTimeHelper() {
         prettyTime = new PrettyTime();
     }
 
+    /**
+     * Formats a date as a pretty time string.
+     *
+     * @param date the date to format
+     * @return the pretty string
+     */
     public String format(Date date) {
         if (date == null) {
             return "Never";
