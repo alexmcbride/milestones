@@ -1,0 +1,3 @@
+#macro(pretty_time $date)
+    <span class="pretty-time">$prettyTimeHelper.format($date)</span>
+#end

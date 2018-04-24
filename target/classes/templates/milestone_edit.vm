@@ -1,0 +1,39 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Create Project')
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        ## Include file that contains our form helpers.
+        #parse("templates/form_helpers.vm")
+
+        <form method="post">
+            <h2>Edit Milestone: $model.name</h2>
+
+            #antiForgeryToken()
+            #form_text_input("name", $model.name)
+            #form_date_input("due", $model.dueString)
+            #form_date_input("actual", $model.actualString)
+
+            <div>
+                <input type="submit" value="Edit Milestone" class="btn btn-default">
+                |
+                <a href="$html.url("/projects/details/$model.projectId")">Go back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#due').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm'
+        });
+
+        $('#actual').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm'
+        });
+    });
+</script>
+#end

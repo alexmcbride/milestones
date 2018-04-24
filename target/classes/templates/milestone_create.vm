@@ -1,0 +1,32 @@
+#parse('templates/layout.vm')
+#parse("templates/form_helpers.vm")
+
+#set($title = 'Create Milestone')
+
+#@mainLayout()
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+        <form method="post">
+            <h2>Create Milestone</h2>
+
+            #antiForgeryToken()
+
+            #form_text_input("name", $model.name)
+            #form_date_input("due", $model.dueString)
+
+            <div>
+                <input type="submit" value="Add Milestone" class="btn btn-default">
+                |
+                <a class="createLink" href="$html.url("/projects/details/$model.projectId")">Go back</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $('#due').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm'
+            });
+        });
+    </script>
+#end
