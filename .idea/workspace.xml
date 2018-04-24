@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="a7285884-f816-4c75-a011-b35e4f5c83ac" name="Default" comment="" />
+=======
+    <list default="true" id="a7285884-f816-4c75-a011-b35e4f5c83ac" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
+    </list>
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -179,7 +186,6 @@
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Milestone.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/HtmlHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/milestone_create.vm" />
@@ -187,7 +193,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/milestone_edit.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/project_update.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_delete.vm" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_logout.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" />
@@ -218,6 +223,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
       </list>
     </option>
   </component>
@@ -586,7 +593,7 @@
       <workItem from="1524569055425" duration="97000" />
       <workItem from="1524569226378" duration="255000" />
       <workItem from="1524569526015" duration="3840000" />
-      <workItem from="1524576210177" duration="1246000" />
+      <workItem from="1524576210177" duration="3185000" />
     </task>
     <servers />
   </component>
@@ -623,7 +630,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="32371000" />
+=======
+    <option name="totallyTimeSpent" value="34183000" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -676,13 +687,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="57" column="72" lean-forward="true" selection-start-line="57" selection-start-column="72" selection-end-line="57" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/date_helpers.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1000,33 +1004,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_login.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_logout.vm">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="434">
           <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+=======
+        <state relative-caret-position="374">
+          <caret line="22" column="40" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="257">
+          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+=======
+        <state relative-caret-position="330">
+          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="374">
+          <caret line="22" column="40" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+=======
+        <state relative-caret-position="423">
+          <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+          <folding />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_delete.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_login.vm">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="398">
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+=======
+        <state relative-caret-position="434">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register.vm">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="330">
+          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+=======
         <state relative-caret-position="257">
           <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_logout.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="40" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="423">
+          <caret line="38" column="61" lean-forward="true" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
+=======
         <state relative-caret-position="269">
           <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
           <folding />
         </state>
       </provider>
@@ -1039,33 +1098,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_account.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
-          <caret line="38" column="61" lean-forward="true" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
+<<<<<<< HEAD
           <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+=======
+          <caret line="38" column="61" lean-forward="true" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_delete.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/welcome.vm">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="440">
           <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+=======
+        <state relative-caret-position="355">
+          <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+>>>>>>> afb258d1f5199a3d9ec0a4f602c190c040227512
           <folding />
         </state>
       </provider>
