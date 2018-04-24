@@ -1,0 +1,7 @@
+﻿#Global gitignore
+
+#.idea
+.idea/*
+
+#target folder
+target/*

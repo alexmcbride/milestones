@@ -25,6 +25,25 @@
     </div>
 #end
 
+#macro(form_text_input_required $attribute, $value)
+    #set($message="")
+    #if ($model.hasValidationError($attribute))
+        #set($message=" has-message")
+    #end
+
+    #set($valueattr = "")
+    #if ($value)
+
+        #set($valueattr = ' value="' + $html.encode($value) + '"')
+    #end
+
+<div class="form-group$message">
+    <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+    <input type="text" name="$attribute" class="form-control"$valueattr required>
+    #validation_error($attribute)
+</div>
+#end
+
 #macro(form_email_input $attribute, $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
@@ -38,7 +57,7 @@
 
     <div class="form-group$message">
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
-        <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
+        <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr required>
         #validation_error($attribute)
     </div>
 #end

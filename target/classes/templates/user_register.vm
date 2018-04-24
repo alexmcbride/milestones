@@ -12,7 +12,7 @@
             <h2>Register</h2>
             #antiForgeryToken()
 
-            #form_text_input("username")
+            #form_text_input_required("username")
 
             <div class="form-group$error">
                 <label for="email" style="text-transform: capitalize">Email</label>
