@@ -726,23 +726,6 @@
                         <div id="shareProjectMessage"></div>
                     </div>
                 </div>
-##                <div class="row">
-##                    <div class="col-sm-12">
-##                        <div id="sharedProjectUrlMessage">
-##                            #if ($users.size() > 0)
-##                                <p>Make this project public!</p>
-##                                <div class="input-group">
-##                                    <input type="text" value="http://localhost:9000/projects/$model.projectId" class="form-control" id="sharedUrl">
-##                                    <span class="input-group-btn">
-##                                        <button class="btn btn-default" type="button" id="copy">
-##                                            <i class="far fa-copy"></i>
-##                                            Copy URL</button>
-##                                    </span>
-##                                </div>
-##                            #end
-##                        </div>
-##                    </div>
-##                </div>
             </div>
         </div>
     </div>
