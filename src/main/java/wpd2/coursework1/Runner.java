@@ -10,7 +10,7 @@ public class Runner {
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
 
-    private static final int PORT = 9000;
+    public static final int PORT = 9000;
 
     private void start() throws Exception {
         Server server = new Server(PORT);

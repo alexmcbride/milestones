@@ -21,5 +21,4 @@
         <a href="$html.url("/users/account")">Back to my account page</a>
     </div>
 </div>
-
 #end

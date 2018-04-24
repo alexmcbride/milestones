@@ -1,6 +1,7 @@
 
 package wpd2.coursework1.servlet;
 
+import wpd2.coursework1.Runner;
 import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.model.TempUser;
 import wpd2.coursework1.model.User;
@@ -44,7 +45,7 @@ public class UserRegisterServlet extends BaseServlet {
         String email = getRequest().getParameter("email");
         String sbj = "Milestone Project Email Authentication";
         String token = generateEmailToken();
-        String msg = "Please Register from here <a href='http://localhost:9000/users/login?token='"+token+"'>Register my account</a>";
+        String msg = "Please Register from here <a href='http://localhost:" + Runner.PORT + "/users/login?token='"+token+"'>Register my account</a>";
         tempuser.setToken(token);
 /*        tempuser.setUser(user);*/
         tempuser.setUsername(request.getParameter("username"));
