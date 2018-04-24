@@ -40,7 +40,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
                 user.setResetToken(token);
                 user.update();
 
-                getResponse().sendRedirect("/users/pw_reset_email_sent");
+                response.sendRedirect(response.encodeURL("/users/pw_reset_email_sent"));
             }
         }
         else {

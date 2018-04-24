@@ -52,7 +52,7 @@ public class ProjectUpdateServlet extends BaseServlet{
             project.update();
 
             // Always redirect after post.
-            getResponse().sendRedirect("/projects");
+            getResponse().sendRedirect(response.encodeURL("/projects"));
 
             return;
         }

@@ -33,7 +33,7 @@ public class ProjectDeleteServlet extends BaseServlet {
         project.delete();
 
         // Always redirect after post.
-        getResponse().sendRedirect("/projects");
+        response.sendRedirect(response.encodeURL("/projects"));
 
         view(TEMPLATE_FILE, project);
     }

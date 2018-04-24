@@ -43,7 +43,7 @@ public class UserPwResetServlet extends BaseServlet {
                 //if user update is successful redirect user to log in screen
                 if (user.update()) {
                     flash.message("Password reset");
-                    getResponse().sendRedirect("/users/login");
+                    response.sendRedirect(response.encodeURL("/users/login"));
                     return;
                 }
             }

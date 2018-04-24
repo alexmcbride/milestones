@@ -8,7 +8,7 @@ function unshare(id, projectId, csrf) {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/api/unshare-project',
+        url: urls.unshare,
         data: { userId: id, projectId: projectId, antiForgeryToken: csrf },
         success: function(data, status, xhr) {
             if (data.success) {
@@ -21,7 +21,7 @@ function unshare(id, projectId, csrf) {
 
 function initProjectSharing(projectId, csrf) {
     $('#shareProjectSearch').autocomplete({
-        source: '/api/autocomplete',
+        source: urls.autocomplete,
         minLength: 2,
         select: function (evt, ui) {
             $('#userId').val(ui.item.id);
@@ -35,7 +35,7 @@ function initProjectSharing(projectId, csrf) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/api/share-project',
+            url: urls.share,
             data: $(this).serialize(),
             success: function (data, status, xhr) {
                 if (data.success) {
@@ -52,5 +52,12 @@ function initProjectSharing(projectId, csrf) {
                 message(data.message, data.success);
             }
         });
+    });
+
+    $('#copy').click(function(evt){
+        var sharedUrl = $('#sharedUrl');
+        sharedUrl.select();
+        document.execCommand('copy');
+        sharedUrl.blur();
     });
 };

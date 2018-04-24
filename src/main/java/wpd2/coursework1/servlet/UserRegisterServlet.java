@@ -56,7 +56,7 @@ public class UserRegisterServlet extends BaseServlet {
             // Save user to database.
             //user.update();
 //            flash.message("Please check you email to complete registration", FlashHelper.INFO);
-            response.sendRedirect("/users/pw_reset_email_sent");
+            response.sendRedirect(response.encodeURL("/users/pw_reset_email_sent"));
             return;
         }
 

@@ -54,7 +54,7 @@ public class UserAccountServlet extends BaseServlet {
             if (user.update()) {
                 //update session to newly updated user detail
                 getRequest().getSession().setAttribute("user", user);
-                getResponse().sendRedirect("/projects");
+                getResponse().sendRedirect(response.encodeURL("/projects"));
                 return;
             }
             // Display the form with validation errors.

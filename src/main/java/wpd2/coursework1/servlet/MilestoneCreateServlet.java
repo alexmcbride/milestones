@@ -49,7 +49,7 @@ public class MilestoneCreateServlet extends BaseServlet {
             milestone.create(project);
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details/" + project.getId());
+            response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));
 
             return;
         }

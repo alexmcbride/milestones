@@ -9,7 +9,7 @@
     <div class="col-sm-8 col-sm-offset-2">
         <h2>Projects</h2>
 
-        <p><a href="/projects/create">Create New Project</a></p>
+        <p><a href="$html.url("/projects/create")">Create New Project</a></p>
 
         <table class="table table-responsive table-hover">
             <thead>
@@ -25,13 +25,13 @@
             <tbody>
                 #foreach($project in $model)
                     <tr >
-                        <td class="clickable-row" data-id="$project.id" style="cursor: pointer">$project.name</td>
+                        <td class="clickable-row" data-url="$html.url("/projects/details/$project.id")" style="cursor: pointer">$project.name</td>
                         <td>$project.created</td>
                         <td>$project.milestones</td>
                         <td>$project.nextMilestone</td>
 
-                        <td style="cursor: pointer"><a class="edit"   data-id="$project.id"><i class="glyphicon glyphicon-edit"></i></a></td>
-                        <td style="cursor: pointer"><a class="delete" data-id="$project.id"><i class="glyphicon glyphicon-trash"></i></a></td>
+                        <td style="cursor: pointer"><a href="$html.url("/projects/update/$project.id")" class="edit" data-id="$project.id"><i class="glyphicon glyphicon-edit"></i></a></td>
+                        <td style="cursor: pointer"><a href="$html.url("/projects/delete/$project.id")" class="delete" data-id="$project.id"><i class="glyphicon glyphicon-trash"></i></a></td>
                     </tr>
                 #end
             </tbody>
@@ -39,19 +39,8 @@
 
         <script>
             $(function() {
-                $('.edit').click(function() {
-                    var projectId=$(this).attr('data-id');
-                    location.href = '/projects/update/' + projectId;
-                });
-
-                $('.delete').click(function() {
-                   var projectId=$(this).attr('data-id');
-                   location.href = '/projects/delete/' + projectId;
-                });
-
                 $('.clickable-row').click(function (evt) {
-                    var projectId = $(this).attr('data-id');
-                    location.href = '/projects/details/' + projectId;
+                    location.href = $(this).attr('data-url');
                 });
             });
         </script>

@@ -36,7 +36,7 @@ public class UserRegisterEmailServlet extends BaseServlet {
         if(user.isValid()){
             emailservice.SendEmailUsingGMailSMTP(email, sbj, msg);
             user.create();
-            getResponse().sendRedirect("/users/pw_reset_email_sent");
+            getResponse().sendRedirect(response.encodeURL("/users/pw_reset_email_sent"));
             return;
         }else {
             /*flash.message("Email is not valid", FlashHelper.WARNING);*/

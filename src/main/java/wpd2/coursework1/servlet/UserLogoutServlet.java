@@ -27,7 +27,7 @@ public class UserLogoutServlet extends BaseServlet {
 
         userManager.logout();
         flash.message("You are logged out");
-        getResponse().sendRedirect("/projects");
+        response.sendRedirect(response.encodeURL("/projects"));
     }
 }
 

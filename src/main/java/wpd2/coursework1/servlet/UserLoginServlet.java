@@ -51,11 +51,11 @@ public class UserLoginServlet extends BaseServlet {
 
             flash.message("You are logged in");
             if (user.getUnvisited() > 0) {
-                flash.message("New projects have been <a href=\"#\" data-toggle=\"modal\" data-target=\"#sharedProjectsModal\">shared</a> with you!");
+                flash.message("New projects have been shared with you!");
             }
 
             // Always redirect to project.
-            getResponse().sendRedirect("/projects");
+            getResponse().sendRedirect(response.encodeURL("/projects"));
 
             return;
         }
@@ -67,7 +67,7 @@ public class UserLoginServlet extends BaseServlet {
 
         if (loginCount == 3) {
             loginCount = 0;
-            response.sendRedirect("/users/register");
+            response.sendRedirect(response.encodeURL("/users/register"));
             return;
         }
 

@@ -15,10 +15,20 @@ public class FlashHelper {
 
     private final SessionWrapper session;
 
+    /**
+     * Creates a new FlashHelper
+     *
+     * @param session the user's current session
+     */
     public FlashHelper(SessionWrapper session) {
         this.session = session;
     }
 
+    /**
+     * Gets the current flash messages from the session.
+     *
+     * @return a list of message objects.
+     */
     public List<FlashMessage> getMessages() {
         List<FlashMessage> messages = (List<FlashMessage>)session.getAttribute(KEY_FLASH_MESSAGES);
         if (messages == null) {
@@ -27,28 +37,55 @@ public class FlashHelper {
         return messages;
     }
 
+    /**
+     * Returns a boolean indicating if there are currently flash messages for this user.
+     *
+     * @return true if there are messages
+     */
     public boolean hasMessages() {
         return session.getAttribute(KEY_FLASH_MESSAGES) != null;
     }
 
+    /*
+     * Clears any flash messages in the user's session.
+     */
     public void clearMessages() {
         session.removeAttribute(KEY_FLASH_MESSAGES);
     }
 
+    /**
+     * Stores the list of flash messages in the session.
+     *
+     * @param messages the messages to store
+     */
     private void setMessages(List<FlashMessage> messages) {
         session.setAttribute(KEY_FLASH_MESSAGES, messages);
     }
 
+    /**
+     * Adds a flash message to the session.
+     *
+     * @param content the message to show.
+     */
     public void message(String content) {
         message(content, SUCCESS);
     }
 
+    /**
+     * Adds a flash message to the session with the specified type.
+     *
+     * @param content the message to show.
+     * @param type the type of flash message to display.
+     */
     public void message(String content, String type) {
         List<FlashMessage> messages = getMessages();
         messages.add(new FlashMessage(content, type));
         setMessages(messages);
     }
 
+    /*
+     * Internal class to represent a flash message.
+     */
     public static class FlashMessage {
         private String content;
         private String type;

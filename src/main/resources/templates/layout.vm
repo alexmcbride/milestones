@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/projects">Milestones</a>
+                <a class="navbar-brand" href="$html.url('/projects')">Milestones</a>
             </div>
 
             #if ($userManager.loggedIn)
@@ -60,10 +60,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><p id="welcome_email"></p></li>
-                <li><a id="login" href="/users/login">Login <span class="sr-only">(current)</span></a></li>
-                <li><a id="account" href="/users/account">#if ($userManager.getUser())$html.encode($userManager.getUsername())#end</a></li>
-                <li><a id="register" href="/users/register">Register</a></li>
-                <li><a id="logout" href="/users/logout">Logout</a></li>
+                <li><a id="login" href="$html.url('/users/login')">Login <span class="sr-only">(current)</span></a></li>
+                <li><a id="account" href="$html.url('/users/account')">#if ($userManager.getUser())$html.encode($userManager.getUsername())#end</a></li>
+                <li><a id="register" href="$html.url('/users/register')">Register</a></li>
+                <li><a id="logout" href="$html.url('/users/logout')">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -101,7 +101,7 @@
                             </div>
                             #foreach($project in $shared)
                                 <div class="row">
-                                    <div class="col-sm-3"><a href="/projects/details/$project.id">$project.name</a></div>
+                                    <div class="col-sm-3"><a href="$html.url("/projects/details/$project.id")">$project.name</a></div>
                                     <div class="col-sm-3">$project.username</div>
                                     <div class="col-sm-3">#pretty_time($project.created)</div>
                                     <div class="col-sm-3">#pretty_time($project.viewed)</div>

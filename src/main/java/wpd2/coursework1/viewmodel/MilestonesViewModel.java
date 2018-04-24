@@ -1,9 +1,12 @@
 package wpd2.coursework1.viewmodel;
 
 
+import wpd2.coursework1.helper.HtmlHelper;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,7 +31,6 @@ public class MilestonesViewModel {
         upcomingMilestones = new ArrayList<>();
 
         currentDate = date;
-
     }
 
 

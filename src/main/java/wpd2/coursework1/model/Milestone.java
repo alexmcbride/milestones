@@ -97,10 +97,6 @@ public class Milestone extends ValidatableModel {
         }
     }
 
-    private boolean hasActual() {
-        return getActual() != null;
-    }
-
     public void update() {
         String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {

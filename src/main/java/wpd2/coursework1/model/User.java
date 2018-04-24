@@ -26,18 +26,30 @@ public class User extends ValidatableModel {
     private String resetToken;
     private int loginCount;
 
+    /*
+     * Creates a new user.
+     */
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
     }
 
+    /**
+     * @return the user ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id set the user ID
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }

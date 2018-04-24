@@ -24,7 +24,7 @@
                 <!-- Confirm Deletion -->
                 <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
                 |
-                <a class="createLink" href="/projects/details/$model.id">Go back</a>
+                <a class="createLink" href="$html.url("/projects/details/$model.id")">Go back</a>
 
             </div>
         </form>

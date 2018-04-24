@@ -18,9 +18,9 @@
         </form>
         <br>
 
-        <a href="/users/login">Back to my account page</a>
+        <a href="$html.url("/users/login")">Back to my account page</a>
         |
-        <a href="/projects">Go back to main</a>
+        <a href="$html.url("/projects")">Go back to main</a>
     </div>
 </div>
 #end
