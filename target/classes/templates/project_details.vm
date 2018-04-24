@@ -765,7 +765,7 @@
                     <div class="col-sm-12">
                         <div id="sharedProjectUrlMessage">
                             #if ($users.size() > 0)
-                                <p>Share this URL!</p>
+                                <p>Make this project public!</p>
                                 <div class="input-group">
                                     <input type="text" value="http://localhost:9000/projects/$model.projectId" class="form-control" id="sharedUrl">
                                     <span class="input-group-btn">

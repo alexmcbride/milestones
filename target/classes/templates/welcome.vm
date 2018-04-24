@@ -38,6 +38,12 @@
                         </div>
                         <div class="form-group text-right">
                             <input type="submit" value="Login" class="btn btn-primary" style="min-width: 128px;" onclick="validatePassword()">
+
+                            <div class="small" style="margin-top: 10px;">
+                                <a href="/users/register">Register</a>
+                                |
+                                <a href="/users/pw_reset_email">Reset password</a>
+                            </div>
                         </div>
                     </form>
                 </div>
