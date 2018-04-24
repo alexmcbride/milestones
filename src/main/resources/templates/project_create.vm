@@ -15,7 +15,7 @@
 
             <input type="submit" value="Add Project" class="btn btn-default" id="smt">
             |
-            <a href="/projects">Go back</a>
+            <a href="$html.url("/projects")">Go back</a>
         </form>
     </div>
 </div>

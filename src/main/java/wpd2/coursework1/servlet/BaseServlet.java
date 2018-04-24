@@ -49,7 +49,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
-        this.html = new HtmlHelper();
+        this.html = new HtmlHelper(response);
         this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
@@ -97,7 +97,7 @@ public abstract class BaseServlet extends HttpServlet {
         if (userManager.isLoggedIn()) {
             return true;
         }
-        response.sendRedirect("/users/login");
+        response.sendRedirect(response.encodeURL("/users/login"));
         return false;
     }
 

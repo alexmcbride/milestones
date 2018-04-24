@@ -40,7 +40,7 @@ public class ProjectCreateServlet extends BaseServlet {
             flash.message("New project created");
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details/" + project.getId());
+            response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));
 
             return;
         }

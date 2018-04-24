@@ -38,7 +38,7 @@
             <div>
                 <input type="submit" id="btnSaveUser" onclick="validatePassword()" value="Register" class="btn btn-default">
                 |
-                <a href="/users/login">Login</a>
+                <a href="$html.url("/users/login")">Login</a>
             </div>
         </form>
         </div>

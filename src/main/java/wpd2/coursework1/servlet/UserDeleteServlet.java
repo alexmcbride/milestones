@@ -45,7 +45,7 @@ public class UserDeleteServlet extends BaseServlet {
             userManager.logout();
             flash.message("User account deleted");
             //redirect to main
-            response.sendRedirect("/projects");
+            response.sendRedirect(response.encodeURL("/projects"));
             return;
         }
         // if fails continues to show delete user view

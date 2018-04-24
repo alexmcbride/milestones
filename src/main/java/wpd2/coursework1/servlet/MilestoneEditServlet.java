@@ -56,7 +56,7 @@ public class MilestoneEditServlet extends BaseServlet {
             milestoneToUpdate.update();
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details/" + project.getId());
+            response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));
 
             return;
         }

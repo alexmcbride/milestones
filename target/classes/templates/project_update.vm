@@ -16,7 +16,7 @@
 
                 <input type="submit" value="Update" class="btn btn-default">
                 |
-                <a href="/projects">back</a>
+                <a href="$html.url("/projects")">back</a>
             </div>
         </form>
     </div>

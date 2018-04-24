@@ -125,7 +125,7 @@ public class ProjectDetailsServlet extends BaseServlet {
             }
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + projectId);
+            response.sendRedirect(response.encodeURL("/projects/details?id=" + projectId));
 
             //view(TEMPLATE_FILE, project);
         }
@@ -142,7 +142,7 @@ public class ProjectDetailsServlet extends BaseServlet {
             }
 
             // Always redirect after post.
-            response.sendRedirect("/projects/details?id=" + projectId);
+            response.sendRedirect(response.encodeURL("/projects/details?id=" + projectId));
 
             //view(TEMPLATE_FILE, project);
 
