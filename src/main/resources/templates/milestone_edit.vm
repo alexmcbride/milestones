@@ -19,7 +19,7 @@
             <div>
                 <input type="submit" value="Edit Milestone" class="btn btn-default">
                 |
-                <a href="$html.url("/projects/detail/$model.projectId")">Go back</a>
+                <a href="$html.url("/projects/details/$model.projectId")">Go back</a>
             </div>
         </form>
     </div>
