@@ -16,9 +16,9 @@
 
                 #antiForgeryToken()
 
-                #form_email_input("email")
+                #form_email_input_required("email")
 
-                #form_password_input("password")
+                #form_password_input_required("password")
 
                 <div class="form-group">
                     <label>
