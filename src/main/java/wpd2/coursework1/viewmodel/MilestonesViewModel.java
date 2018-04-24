@@ -1,7 +1,6 @@
 package wpd2.coursework1.viewmodel;
 
 
-import org.ocpsoft.prettytime.PrettyTime;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 
@@ -11,8 +10,6 @@ import java.util.ArrayList;
 
 
 public class MilestonesViewModel {
-
-    //  private Project project;
     private List<Milestone> lateMilestones;
     private List<Milestone> doneMilestones;
     private List<Milestone> currentMilestones;
@@ -21,6 +18,7 @@ public class MilestonesViewModel {
     private Project project;
     private Date currentDate;
     private Date currentDatePlusSeven;
+    private boolean readOnly;
 
     public MilestonesViewModel(Project project, Date date) {
         this.project = project;
@@ -40,6 +38,9 @@ public class MilestonesViewModel {
     public List<Milestone> getCurrentMilestones() { return currentMilestones; }
     public List<Milestone> getUpcomingMilestones() { return upcomingMilestones; }
 
+    public boolean isReadOnly() {
+        return readOnly;
+    }
 
     // setters for lists of milestones
     public void setLateMilestones(List<Milestone> getLateMilestones) { this.lateMilestones = getLateMilestones; }
@@ -52,12 +53,13 @@ public class MilestonesViewModel {
 
 
 //, List<Milestone> doneMilestones, List<Milestone> lateMilestones, List<Milestone> currentMilestones, List<Milestone> upcomingMilestones
-    public MilestonesViewModel(Project project) {
+    public MilestonesViewModel(Project project, boolean readOnly) {
         this.project = project;
         this.doneMilestones = new ArrayList<>();
         this.lateMilestones = new ArrayList<>();
         this.currentMilestones = new ArrayList<>();
         this.upcomingMilestones = new ArrayList<>();
+        this.readOnly = readOnly;
     }
 
 

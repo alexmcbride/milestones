@@ -2,13 +2,17 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserLogoutServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_logout.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         if (!authorize()) return;
 
         User user = userManager.getUser();
@@ -16,7 +20,9 @@ public class UserLogoutServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         if (!authorize()) return;
 
         userManager.logout();

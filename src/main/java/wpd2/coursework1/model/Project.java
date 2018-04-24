@@ -16,6 +16,7 @@ public class Project extends ValidatableModel {
     private String name;
     private Date created;
     private String username;
+    private Date viewed;
 
     public Project() {
 
@@ -61,6 +62,14 @@ public class Project extends ValidatableModel {
         this.username = username;
     }
 
+    public Date getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(Date viewed) {
+        this.viewed = viewed;
+    }
+
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
@@ -102,6 +111,18 @@ public class Project extends ValidatableModel {
     }
 
     public void delete() {
+        // Delete all this project's milestones.
+        List<Milestone> milestones = Milestone.findAll(this);
+        for (Milestone milestone : milestones) {
+            milestone.delete();
+        }
+
+        // Delete all times this project was shared.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -194,19 +215,28 @@ public class Project extends ValidatableModel {
         return users;
     }
 
-    public boolean IsOwnedBy(User user) {
-        return IsOwnedBy(user.getId());
+    public boolean isOwnedBy(User user) {
+        return isOwnedBy(user.getId());
     }
 
-    public boolean IsOwnedBy(int userId) {
+    public boolean isOwnedBy(int userId) {
         return this.userId == userId;
     }
 
-    public boolean hasBeenSharedWith(User user) {
-        return hasBeenSharedWith(user.getId());
+    public boolean isReadOnly(User user) {
+        return isReadOnly(user.getId());
     }
 
-    public boolean hasBeenSharedWith(int userId) {
-        return SharedProject.find(userId, getId()) != null;
+    public boolean isReadOnly(int userId) {
+        SharedProject sharedProject = SharedProject.find(userId, getId());
+        if (sharedProject != null) {
+            // Set viewed date if seen for first time.
+            if (sharedProject.getViewed() == null) {
+                sharedProject.setViewed(new Date());
+                sharedProject.update();
+            }
+            return true;
+        }
+        return false;
     }
 }

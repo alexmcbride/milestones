@@ -3,6 +3,8 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
@@ -10,7 +12,9 @@ public class ProjectCreateServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "project_create.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         if (!authorize()) return;
 
         // Display the form.
@@ -18,7 +22,9 @@ public class ProjectCreateServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         if (!authorize()) return;
 
         Project project = new Project();

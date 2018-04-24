@@ -5,8 +5,8 @@ import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.MilestonesViewModel;
-import wpd2.coursework1.viewmodel.ProjectViewModel;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,22 +17,31 @@ public class ProjectDetailsServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "project_details.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
 
         if (!authorize()) return;
 
-        //try {
-
-
-
-
-
-        User user = User.dummyUser();
         int id = getRouteId();
 
         // Get project
         Project project = Project.find(id);
+        if (project == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
+        // Check user has permission
+        User user = userManager.getUser();
+        boolean readonly = false;
+        if (!project.isOwnedBy(user)) {
+            // Check user has permission to view in read-only mode.
+            readonly = project.isReadOnly(user);
+            if (!readonly) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+        }
 
         // get milestones
         List<Milestone> milestones;
@@ -40,7 +49,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
 
         Date date = new Date();
-        MilestonesViewModel model = new MilestonesViewModel(project);
+        MilestonesViewModel model = new MilestonesViewModel(project, readonly);
 
 
         Date datePlusSeven = DateUtils.addDays(date, 7);
@@ -86,7 +95,8 @@ public class ProjectDetailsServlet extends BaseServlet {
         view(TEMPLATE_FILE, model);
     }
 
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
 
         // mark milestone as done
         // In finished code user would come from login.

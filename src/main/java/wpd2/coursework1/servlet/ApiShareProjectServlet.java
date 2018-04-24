@@ -4,12 +4,14 @@ import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ApiShareProjectServlet extends JsonServlet {
-    protected void doPost() throws IOException {
-        if (!authorize()) return;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         try {
             int userId = Integer.valueOf(request.getParameter("userId"));
             int projectId = Integer.valueOf(request.getParameter("projectId"));
@@ -21,6 +23,9 @@ public class ApiShareProjectServlet extends JsonServlet {
 
             User user = User.find(userId);
             Project project = Project.find(projectId);
+
+            if (!authorize(project)) return;
+
             SharedProject sharedProject = SharedProject.find(user, project);
             if (sharedProject != null) {
                 view(new JsonResponse("This project has already been shared with " + user.getUsername()));

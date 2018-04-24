@@ -117,8 +117,9 @@ public class User extends ValidatableModel {
     }
 
     public void create() {
-        /*passwordHash = passwordService.hash(password);
-        passwordHash = password.toString();*/
+        if (passwordHash == null) {
+            passwordHash = passwordService.hash(password);
+        }
         joined = new Date();
 
         String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
@@ -161,6 +162,18 @@ public class User extends ValidatableModel {
     }
 
     public boolean delete() {
+        // Delete all projects
+        List<Project> projects = Project.findAll(this);
+        for (Project project : projects) {
+            project.delete();
+        }
+
+        // Delete any projects shared with this user.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -301,18 +314,6 @@ public class User extends ValidatableModel {
         return passwordService.authenticate(password, getPasswordHash());
     }
 
-    public static User dummyUser() {
-        User user = User.find(1);
-        if (user == null) {
-            user = new User();
-            user.setUsername("user1");
-            user.setEmail("user@email.com");
-            user.setPassword("password1".toCharArray());
-            user.create();
-        }
-        return user;
-    }
-
     public static List<User> search(String query) {
         query = "%" + query.toLowerCase() + "%"; // Add wildcards
         String sql = "SELECT * FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ?";
@@ -336,6 +337,7 @@ public class User extends ValidatableModel {
         List<SharedProject> sharedProjects = SharedProject.findAll(this);
         for (SharedProject sharedProject : sharedProjects) {
             Project project = Project.find(sharedProject.getProjectId());
+            project.setViewed(sharedProject.getViewed());
             projects.add(project);
         }
         return projects;
