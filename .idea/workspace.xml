@@ -2,47 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7285884-f816-4c75-a011-b35e4f5c83ac" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form_helpers.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/form_helpers.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_register.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_register.vm" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_register_email.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_register_email.vm" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/form_helpers.vm" afterPath="$PROJECT_DIR$/target/classes/templates/form_helpers.vm" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/AntiForgeryHelper.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/AntiForgeryHelper.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/FlashHelper.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/FlashHelper.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/ValidationHelper.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/helper/ValidationHelper.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Milestone.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/Milestone.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/TempUser.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/TempUser.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/User.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/model/User.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiShareProjectServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiShareProjectServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiUnshareProjectServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiUnshareProjectServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiUserAutocompleteServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ApiUserAutocompleteServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/BaseServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/BaseServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneCreateServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneCreateServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneDeleteServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneDeleteServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneEditServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/MilestoneEditServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectCreateServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectCreateServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDeleteServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDeleteServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDetailsServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectDetailsServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectIndexServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectIndexServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectUpdateServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/ProjectUpdateServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserAccountServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserAccountServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserDeleteServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserDeleteServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserLoginServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserLoginServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserPwResetEmailServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserPwResetEmailServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserRegisterEmailServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserRegisterEmailServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserRegisterServlet.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/servlet/UserRegisterServlet.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/DatabaseService$1.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/DatabaseService$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/DatabaseService.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/DatabaseService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/EmailService.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/EmailService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/PasswordService.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/PasswordService.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/StartupContextListener.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/StartupContextListener.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/UserManager.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/util/UserManager.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wpd2/coursework1/viewmodel/ProjectViewModel.class" afterPath="$PROJECT_DIR$/target/classes/wpd2/coursework1/viewmodel/ProjectViewModel.class" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/wpd2/coursework1/service/DatabaseServiceTests.class" afterPath="$PROJECT_DIR$/target/test-classes/wpd2/coursework1/service/DatabaseServiceTests.class" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" afterPath="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -96,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/form_helpers.vm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1410">
-              <caret line="99" column="47" lean-forward="true" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
+              <caret line="99" column="47" lean-forward="false" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -106,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register.vm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="257">
-              <caret line="20" column="44" lean-forward="true" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+              <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -115,8 +76,8 @@
       <file leaf-file-name="user_login.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_login.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+            <state relative-caret-position="434">
+              <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -136,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register_email.vm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="398">
-              <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+              <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -145,8 +106,18 @@
       <file leaf-file-name="user_account.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_account.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="39" column="14" lean-forward="true" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
+            <state relative-caret-position="423">
+              <caret line="38" column="61" lean-forward="true" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="welcome.vm" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/welcome.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -156,17 +127,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="423">
-              <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+              <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_delete.vm" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user_delete.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_delete.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="73" lean-forward="true" selection-start-line="20" selection-start-column="73" selection-end-line="20" selection-end-column="73" />
+            <state relative-caret-position="440">
+              <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -211,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/Milestone.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/model/ValidatableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/helper/HtmlHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/layout.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/milestone_create.vm" />
@@ -219,7 +189,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/milestone_edit.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/project_update.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_delete.vm" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_logout.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm" />
         <option value="$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/BaseServlet.java" />
@@ -250,6 +219,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_account.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/user_login.vm" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/welcome.vm" />
       </list>
     </option>
   </component>
@@ -618,7 +589,7 @@
       <workItem from="1524569055425" duration="97000" />
       <workItem from="1524569226378" duration="255000" />
       <workItem from="1524569526015" duration="3840000" />
-      <workItem from="1524576210177" duration="1246000" />
+      <workItem from="1524576210177" duration="3185000" />
     </task>
     <servers />
   </component>
@@ -655,7 +626,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32244000" />
+    <option name="totallyTimeSpent" value="34183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -708,13 +679,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpd2/coursework1/servlet/UserLoginServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="57" column="72" lean-forward="true" selection-start-line="57" selection-start-column="72" selection-end-line="57" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/date_helpers.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1031,23 +995,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/form_helpers.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1410">
-          <caret line="99" column="47" lean-forward="true" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_login.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="20" column="44" lean-forward="true" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+          <caret line="99" column="47" lean-forward="false" selection-start-line="99" selection-start-column="47" selection-end-line="99" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1056,6 +1004,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="40" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_delete.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_login.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -1071,39 +1059,23 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_register_email.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email_sent.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="18" column="43" lean-forward="false" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_account.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="39" column="14" lean-forward="true" selection-start-line="39" selection-start-column="14" selection-end-line="39" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_pw_reset_email.vm">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
-          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+          <caret line="38" column="61" lean-forward="true" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/user_delete.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/welcome.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="73" lean-forward="true" selection-start-line="20" selection-start-column="73" selection-end-line="20" selection-end-column="73" />
+        <state relative-caret-position="355">
+          <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
           <folding />
         </state>
       </provider>
