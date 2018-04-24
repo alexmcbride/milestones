@@ -12,7 +12,7 @@
             #antiForgeryToken()
 
             ## Use a form helper to output a text input.
-            #form_email_input('email')
+            #form_email_input_required('email')
 
             <div>
                 <input type="submit" value="Send password reset email" class="btn btn-default">

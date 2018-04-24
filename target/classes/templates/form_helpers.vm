@@ -55,6 +55,24 @@
         #set($valueattr = ' value="' + $html.encode($value) + '"')
     #end
 
+<div class="form-group$message">
+    <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+    <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr>
+    #validation_error($attribute)
+</div>
+#end
+
+#macro(form_email_input_required $attribute, $value)
+    #set($message="")
+    #if ($model.hasValidationError($attribute))
+        #set($message=" has-message")
+    #end
+
+    #set($valueattr = "")
+    #if ($value)
+        #set($valueattr = ' value="' + $html.encode($value) + '"')
+    #end
+
     <div class="form-group$message">
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
         <input type="email" id="$attribute" name="$attribute" class="form-control"$valueattr required>
@@ -71,10 +89,25 @@
     <div class="form-group$message">
 
         <label for="$attribute" style="text-transform: capitalize">$attribute</label>
-        <input type="password" id="$attribute" name="$attribute" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <input type="password" id="$attribute" name="$attribute" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
         #validation_error($attribute)
 
     </div>
+#end
+
+#macro(form_password_input_required $attribute)
+    #set($message="")
+    #if ($model.hasValidationError($attribute))
+        #set($message=" has-message")
+    #end
+
+<div class="form-group$message">
+
+    <label for="$attribute" style="text-transform: capitalize">$attribute</label>
+    <input type="password" id="$attribute" name="$attribute" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    #validation_error($attribute)
+
+</div>
 #end
 
 #macro(form_date_input $attribute $value)

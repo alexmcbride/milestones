@@ -28,7 +28,7 @@
 
         <div class="form-group$error">
             <label for="password" style="text-transform: capitalize">Reset Password</label>
-            <input value="$!{model.password}" type="password" id="password" name="password" class="form-control" required>
+            <input value="$!{model.password}" type="password" id="password" name="password" class="form-control">
             #validation_error($attribute)
         </div>
 
