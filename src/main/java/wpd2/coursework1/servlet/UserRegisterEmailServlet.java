@@ -29,7 +29,7 @@ public class UserRegisterEmailServlet extends BaseServlet {
         String email = getRequest().getParameter("email");
         String sbj = "Milestone Project Email Authentication";
         String token = generateEmailToken();
-        String msg = "Please Register from here <a href='http://localhost:9002/users/register?token='"+token+"'>Register my account</a>";
+        String msg = "Please Register from here <a href='http://localhost:9000/users/register?token='"+token+"'>Register my account</a>";
         user.setUsername("unauthrisedUser");
         user.setEmail(email);
         user.setResetToken(token);
