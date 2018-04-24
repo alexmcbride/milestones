@@ -17,6 +17,10 @@ milestones.iml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
+
+# Target folder  
+target/*
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
