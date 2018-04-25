@@ -27,10 +27,6 @@ public class MilestoneEditServlet extends BaseServlet {
         // Make sure user has permission to view.
         if (!authorize(milestone)) return;
 
-        if (milestone.getActual() == null) {
-            milestone.setActual(new Date());
-        }
-
         view(TEMPLATE_FILE, milestone);
     }
 

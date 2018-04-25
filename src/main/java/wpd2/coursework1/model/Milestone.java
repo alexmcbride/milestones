@@ -262,10 +262,15 @@ public class Milestone extends ValidatableModel {
     }
 
     public void setActual(String value) {
-        try {
-            actual = parseDate(value);
-        } catch (ParseException e) {
-            addValidationError("actual", "Actual is not a valid date");
+        if (value != null && value.trim().length() > 0) {
+            try {
+                actual = parseDate(value);
+            } catch (ParseException e) {
+                addValidationError("actual", "Actual is not a valid date");
+            }
+        }
+        else {
+            actual = null;
         }
     }
 
