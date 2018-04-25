@@ -74,6 +74,7 @@ public class Project extends ValidatableModel {
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("name", name);
+        validation.length("name", name, 1, 32);
     }
 
     public void create(User user) {

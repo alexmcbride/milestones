@@ -72,6 +72,7 @@ public class Milestone extends ValidatableModel {
     protected void validate() {
         ValidationHelper helper = new ValidationHelper(this);
         helper.required("name", name);
+        helper.length("name", name, 1, 250);
         helper.required("due", due);
     }
 
