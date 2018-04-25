@@ -3,10 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wpd2.coursework1.util.DatabaseService;
-import wpd2.coursework1.util.H2DatabaseService;
-import wpd2.coursework1.util.PasswordServiceImpl;
-import wpd2.coursework1.util.IoC;
+import wpd2.coursework1.util.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,8 +20,8 @@ public class MilestoneTests {
     public void setUp() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
-        container.registerInstance(PasswordServiceImpl.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
+        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(PasswordService.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
         db.initialize();
         db.seed();
     }

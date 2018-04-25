@@ -18,8 +18,8 @@ public class SharedProjectTests {
         PasswordService pass = new PasswordServiceImpl(PasswordServiceImpl.MIN_COST);
 
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
-        container.registerInstance(PasswordServiceImpl.class, pass);
+        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(PasswordService.class, pass);
 
         db.initialize();
         db.seed();

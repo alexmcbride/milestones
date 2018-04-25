@@ -48,7 +48,7 @@ public class H2DatabaseServiceTests {
     public void testSeed() throws SQLException {
         DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC.get().registerInstance(PasswordServiceImpl.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
-        IoC.get().registerInstance(H2DatabaseService.class, db);
+        IoC.get().registerInstance(DatabaseService.class, db);
         db.initialize();
         db.seed();
 

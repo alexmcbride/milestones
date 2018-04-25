@@ -138,7 +138,7 @@ public class Project extends ValidatableModel {
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "userId INTEGER NOT NULL ," +
+                "userId INTEGER NOT NULL REFERENCES users(id)," +
                 "name NVARCHAR(32) NOT NULL , " +
                 "created TIMESTAMP NOT NULL," +
                 "username NVARCHAR(32) NOT NULL" +
