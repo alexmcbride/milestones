@@ -153,11 +153,7 @@ public class User extends ValidatableModel {
         }
     }
 
-    public boolean update() {
-        if (passwordChanged) {
-            passwordHash = passwordService.hash(password);
-        }
-
+    private boolean updateInternal() {
         String sql = "UPDATE users SET username=?, email=?, password=?, resetToken=?, loginCount=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -170,6 +166,33 @@ public class User extends ValidatableModel {
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public boolean update() {
+        if (passwordChanged) {
+            passwordHash = passwordService.hash(password);
+        }
+
+        if (updateInternal()) {
+            if (usernameChanged) {
+                renameProjects();
+            }
+
+            usernameChanged = false;
+            passwordChanged = false;
+            emailChanged = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void renameProjects() {
+        List<Project> projects = Project.findAll(this);
+        for (Project project : projects) {
+            project.setUsername(username);;
+            project.update();
         }
     }
 

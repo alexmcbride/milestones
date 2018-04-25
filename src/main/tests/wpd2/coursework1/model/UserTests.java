@@ -234,4 +234,20 @@ public class UserTests {
         assertTrue(user.authenticate(password));
         assertFalse(user.authenticate("invalidpassword".toCharArray()));
     }
+
+    @Test
+    public void testRenameUser() {
+        db.seed();
+
+        User user = User.find(1);
+        Project project = Project.find(1);
+
+        user.setUsername("NewUsername");
+        user.update();
+
+        user = User.find(1);
+        assertEquals(user.getUsername(), "NewUsername");
+        project = Project.find(1);
+        assertEquals(project.getUsername(), "NewUsername");
+    }
 }
