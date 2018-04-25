@@ -228,7 +228,7 @@ public class Project extends ValidatableModel {
     }
 
     public boolean isReadOnly(int userId) {
-        SharedProject sharedProject = SharedProject.find(userId, getId());
+        SharedProject sharedProject = SharedProject.find(userId, id);
         if (sharedProject != null) {
             // Set viewed date if seen for first time.
             if (sharedProject.getViewed() == null) {
