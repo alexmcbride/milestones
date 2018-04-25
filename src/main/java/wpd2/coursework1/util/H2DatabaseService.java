@@ -3,7 +3,9 @@ package wpd2.coursework1.util;
 import wpd2.coursework1.model.*;
 
 import java.sql.*;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
  * Class for creating H2 database connections.
@@ -98,29 +100,62 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private void seedDevelopment() {
-        User user = new User();
-        user.setUsername("Alex");
-        user.setPassword("Password1".toCharArray());
-        user.setEmail("alex@email.com");
-        user.create();
+        User alex = new User();
+        alex.setUsername("Alex");
+        alex.setPassword("Password1".toCharArray());
+        alex.setEmail("alex@email.com");
+        alex.create();
 
-        user = new User();
+        User user = new User();
         user.setUsername("Jeff");
         user.setPassword("Password1".toCharArray());
         user.setEmail("jeff@email.com");
         user.create();
 
-        user = new User();
-        user.setUsername("Steve");
-        user.setPassword("Password1".toCharArray());
-        user.setEmail("steve@email.com");
-        user.create();
+        User steve = new User();
+        steve.setUsername("Steve");
+        steve.setPassword("Password1".toCharArray());
+        steve.setEmail("steve@email.com");
+        steve.create();
 
-        user = new User();
-        user.setUsername("Phil");
-        user.setPassword("Password1".toCharArray());
-        user.setEmail("phil@email.com");
-        user.create();
+        User phil = new User();
+        phil.setUsername("Phil");
+        phil.setPassword("Password1".toCharArray());
+        phil.setEmail("phil@email.com");
+        phil.create();
+
+        Project rspi = createProject("Research Skills", alex, 10);
+        Project wpd = createProject("Web Platform Development 2", alex, 4);
+        Project ip3 = createProject("Integrated Project 3", alex, 7);
+
+        new SharedProject().create(rspi, steve);
+        new SharedProject().create(rspi, phil);
+
+        Project stevesProject = createProject("Steve's Project", steve, 12);
+        new SharedProject().create(stevesProject, alex);
+    }
+
+    private Project createProject(String name, User owner, int count) {
+        Project project = new Project();
+        project.setName(name);
+        project.create(owner);
+        for (int i = 0; i < count; i++) {
+            Milestone milestone = new Milestone();
+            milestone.setName("Milestone " + (i + 1));
+            milestone.setDue(getRandomDate());
+            milestone.create(project);
+        }
+        return project;
+    }
+
+    private Date getRandomDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        Date start = calendar.getTime();
+        calendar.add(Calendar.MONTH, 2);
+        Date end = calendar.getTime();
+
+        return new Date(ThreadLocalRandom.current().nextLong(start.getTime(), end.getTime()));
     }
 
     private void seedTest() {

@@ -29,7 +29,6 @@ public class ProjectCreateServlet extends BaseServlet {
 
         Project project = new Project();
         project.setName(request.getParameter("name"));
-        project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {
