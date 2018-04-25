@@ -189,8 +189,10 @@ public class UserTests {
 
         assertNotNull(User.find(1));
         assertNotNull(User.find("valid@email.com"));
+        assertNotNull(User.findByToken("ResetToken"));
         assertNull(User.find(2));
         assertNull(User.find("invalid@email.com"));
+        assertNull(User.findByToken("invalidResestToken"));
     }
 
     @Test
