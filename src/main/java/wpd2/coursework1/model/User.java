@@ -1,6 +1,7 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.PasswordService;
+import wpd2.coursework1.util.PasswordServiceImpl;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.helper.ValidationHelper;
 
@@ -26,18 +27,30 @@ public class User extends ValidatableModel {
     private String resetToken;
     private int loginCount;
 
+    /*
+     * Creates a new user.
+     */
     public User() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
     }
 
+    /**
+     * @return the user ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id set the user ID
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
@@ -65,11 +78,11 @@ public class User extends ValidatableModel {
         passwordChanged = true;
     }
 
-    private String getPasswordHash() {
+    public String getPasswordHash() {
         return passwordHash;
     }
 
-    private void setPasswordHash(String passwordHash) {
+    public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
@@ -100,8 +113,8 @@ public class User extends ValidatableModel {
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
-/*        validation.required("username", username);
-        validation.email("email", email);*/
+//        validation.required("username", username);
+//        validation.email("email", email);
 
         if (passwordChanged) {
             validation.password("password", password);
@@ -117,7 +130,9 @@ public class User extends ValidatableModel {
     }
 
     public void create() {
-        passwordHash = passwordService.hash(password);
+        if (passwordHash == null) {
+            passwordHash = passwordService.hash(password);
+        }
         joined = new Date();
 
         String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
@@ -139,11 +154,7 @@ public class User extends ValidatableModel {
         }
     }
 
-    public boolean update() {
-        if (passwordChanged) {
-            passwordHash = passwordService.hash(password);
-        }
-
+    private boolean updateInternal() {
         String sql = "UPDATE users SET username=?, email=?, password=?, resetToken=?, loginCount=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -159,7 +170,46 @@ public class User extends ValidatableModel {
         }
     }
 
+    public boolean update() {
+        if (passwordChanged) {
+            passwordHash = passwordService.hash(password);
+        }
+
+        if (updateInternal()) {
+            if (usernameChanged) {
+                renameProjects();
+            }
+
+            usernameChanged = false;
+            passwordChanged = false;
+            emailChanged = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void renameProjects() {
+        List<Project> projects = Project.findAll(this);
+        for (Project project : projects) {
+            project.setUsername(username);;
+            project.update();
+        }
+    }
+
     public boolean delete() {
+        // Delete all projects
+        List<Project> projects = Project.findAll(this);
+        for (Project project : projects) {
+            project.delete();
+        }
+
+        // Delete any projects shared with this user.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -199,7 +249,7 @@ public class User extends ValidatableModel {
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                 "username NVARCHAR(32) NOT NULL UNIQUE, " +
                 "email NVARCHAR(1024) NOT NULL UNIQUE, " +
-                "password NVARCHAR(128) NOT NULL," +
+                "password NVARCHAR(128) NULL," +
                 "joined TIMESTAMP NOT NULL," +
                 "resetToken NVARCHAR(128) NULL," +
                 "loginCount INTEGER NULL" +
@@ -300,18 +350,6 @@ public class User extends ValidatableModel {
         return passwordService.authenticate(password, getPasswordHash());
     }
 
-    public static User dummyUser() {
-        User user = User.find(1);
-        if (user == null) {
-            user = new User();
-            user.setUsername("user1");
-            user.setEmail("user@email.com");
-            user.setPassword("password1".toCharArray());
-            user.create();
-        }
-        return user;
-    }
-
     public static List<User> search(String query) {
         query = "%" + query.toLowerCase() + "%"; // Add wildcards
         String sql = "SELECT * FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ?";
@@ -335,6 +373,7 @@ public class User extends ValidatableModel {
         List<SharedProject> sharedProjects = SharedProject.findAll(this);
         for (SharedProject sharedProject : sharedProjects) {
             Project project = Project.find(sharedProject.getProjectId());
+            project.setViewed(sharedProject.getViewed());
             projects.add(project);
         }
         return projects;

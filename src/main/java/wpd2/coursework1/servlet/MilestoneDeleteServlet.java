@@ -3,6 +3,7 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -10,20 +11,25 @@ public class MilestoneDeleteServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_delete.vm";
 
     @Override
-    protected void doGet() throws IOException {
-        if (!authorize()) return;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
 
-        Milestone milestone = Milestone.find(getRouteId());
+        int id = getRouteId();
+        Milestone milestone = Milestone.find(id);
         if (milestone == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
+        if (!authorize(milestone)) return;
+
         view(TEMPLATE_FILE, milestone);
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         int id = getRouteId();
         Milestone milestone = Milestone.find(id);
 
@@ -33,8 +39,10 @@ public class MilestoneDeleteServlet extends BaseServlet {
             // Save project to database.
             milestone.delete();
 
+            flash.message("Milestone '" + html.encode(milestone.getName()) + "' deleted");
+
             // Always redirect after post.
-            response.sendRedirect("/projects/details/" + project.getId());
+            response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));
 
             return;
         }

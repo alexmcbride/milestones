@@ -49,19 +49,13 @@ public abstract class BaseServlet extends HttpServlet {
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.flash = new FlashHelper(session);
-        this.html = new HtmlHelper();
+        this.html = new HtmlHelper(response);
         this.prettyTimeHelper = new PrettyTimeHelper();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         handleRequest(request, response);
-
-        doGet();
-    }
-
-    protected void doGet() throws IOException {
-
     }
 
     @Override
@@ -69,12 +63,6 @@ public abstract class BaseServlet extends HttpServlet {
         handleRequest(request, response);
 
         checkAntiForgeryToken();
-
-        doPost();
-    }
-
-    protected void doPost() throws IOException {
-
     }
 
     protected void view(HttpServletResponse response, String template, Object object) throws IOException {
@@ -109,13 +97,13 @@ public abstract class BaseServlet extends HttpServlet {
         if (userManager.isLoggedIn()) {
             return true;
         }
-        response.sendRedirect("/users/login");
+        response.sendRedirect(response.encodeURL("/users/login"));
         return false;
     }
 
     protected boolean authorize(Project project) throws IOException {
-        if (!project.IsOwnedBy(userManager.getUser())) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        if (authorize() && !project.isOwnedBy(userManager.getUser())) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }
         return true;

@@ -16,7 +16,7 @@
 
         <br>
 
-        <a href="/users/login">Back to log in page</a>
+        <a href="$html.url("/users/login")">Back to log in page</a>
     </div>
 </div>
 #end

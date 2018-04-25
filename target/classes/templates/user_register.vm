@@ -12,15 +12,11 @@
             <h2>Register</h2>
             #antiForgeryToken()
 
-            #form_text_input("username")
+            #form_text_input_required("username")
 
-            <div class="form-group$error">
-                <label for="email" style="text-transform: capitalize">Email</label>
-                <input type="email" value="$!{model.email}"  id="email" name="email" class="form-control">
-                #validation_error($model, $attribute)
-            </div>
+            #form_email_input_required("email")
 
-            #form_password_input("password")
+            #form_password_input_required("password")
 
             <div class="form-group$message">
                 <label for="confirm-password" style="text-transform: capitalize">Confirm Password</label>
@@ -38,7 +34,7 @@
             <div>
                 <input type="submit" id="btnSaveUser" onclick="validatePassword()" value="Register" class="btn btn-default">
                 |
-                <a href="/users/login">Login</a>
+                <a href="$html.url("/users/login")">Login</a>
             </div>
         </form>
         </div>

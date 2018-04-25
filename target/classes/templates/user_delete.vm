@@ -18,8 +18,7 @@
             <input type="submit" id="btnDeleteUser" value="Delete" class="btn btn-default">
         </form>
         <br>
-        <a href="/users/account">Back to my account page</a>
+        <a href="$html.url("/users/account")">Back to my account page</a>
     </div>
 </div>
-
 #end

@@ -94,4 +94,6 @@ public class ValidationHelperTests {
         helper.password("test", "password".toCharArray());
         assertEquals("Test must have at least one numeric character", model.getValidationError("test"));
     }
+
+
 }

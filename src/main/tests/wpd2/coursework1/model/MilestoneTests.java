@@ -3,9 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wpd2.coursework1.util.DatabaseService;
-import wpd2.coursework1.util.PasswordService;
-import wpd2.coursework1.util.IoC;
+import wpd2.coursework1.util.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,10 +18,10 @@ public class MilestoneTests {
     @SuppressWarnings("Duplicates")
     @Before
     public void setUp() {
-        db = new DatabaseService(DatabaseService.Mode.TEST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
-        container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
+        container.registerInstance(PasswordService.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
         db.initialize();
         db.seed();
     }
@@ -51,7 +49,7 @@ public class MilestoneTests {
         Milestone milestone = new Milestone();
         assertFalse(milestone.isValid());
 
-        assertEquals("Name is required", milestone.getValidationError("name"));
+        assertEquals("Name must be between 1 and 250 characters.", milestone.getValidationError("name"));
         assertEquals("Due is required", milestone.getValidationError("due"));
     }
 
@@ -64,7 +62,6 @@ public class MilestoneTests {
         milestone.setName("Test");
         milestone.setDue(date);
         milestone.setActual(date);
-        milestone.setComplete(true);
         milestone.create(project);
 
         milestone = Milestone.find(milestone.getId());
@@ -74,7 +71,6 @@ public class MilestoneTests {
         assertEquals("Test", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -85,14 +81,12 @@ public class MilestoneTests {
         milestone.setName("Edited name");
         milestone.setDue(date);
         milestone.setActual(date);
-        milestone.setComplete(true);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertEquals(date, milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -102,17 +96,14 @@ public class MilestoneTests {
 
         milestone.setName("Edited name");
         milestone.setDue(date);
-        milestone.setActual(null);
-        milestone.setComplete(true);
+        milestone.setActual((Date)null);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
-
 
     @Test
     public void testDelete() {

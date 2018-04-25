@@ -1,8 +1,11 @@
 package wpd2.coursework1.model;
 
+import org.apache.commons.lang.time.DateUtils;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,9 @@ import java.util.List;
  * Class to represent a project milestone.
  */
 public class Milestone extends ValidatableModel {
+    private static final Date DATE = new Date();
+    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(DATE, 7);
+
     private int id;
     private int projectId;
     private String name;
@@ -30,7 +36,7 @@ public class Milestone extends ValidatableModel {
         return projectId;
     }
 
-    private void setProjectId(int projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
@@ -62,14 +68,27 @@ public class Milestone extends ValidatableModel {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public boolean isDone() {
+        return complete || actual != null;
+    }
+
+    public boolean isLate() {
+        return due.before(DATE) && !complete;
+    }
+
+    public boolean isCurrent() {
+        return due.before(DATE_PLUS_SEVEN) && due.after(DATE) && !complete;
+    }
+
+    public boolean isUpcoming() {
+        return due.after(DATE_PLUS_SEVEN) && !complete;
     }
 
     @Override
     protected void validate() {
         ValidationHelper helper = new ValidationHelper(this);
         helper.required("name", name);
+        helper.length("name", name, 1, 250);
         helper.required("due", due);
     }
 
@@ -93,10 +112,6 @@ public class Milestone extends ValidatableModel {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private boolean hasActual() {
-        return getActual() != null;
     }
 
     public void update() {
@@ -205,7 +220,7 @@ public class Milestone extends ValidatableModel {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS milestones ( " +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
-                "projectId INTEGER NOT NULL," +
+                "projectId INTEGER NOT NULL REFERENCES projects(id)," +
                 "name NVARCHAR(250) NOT NULL," +
                 "due TIMESTAMP NOT NULL," +
                 "actual TIMESTAMP NULL," +
@@ -225,5 +240,46 @@ public class Milestone extends ValidatableModel {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    static final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
+
+    private static Date parseDate(String value) throws ParseException {
+        return format.parse(value);
+    }
+
+    private static String formatDate(Date value) {
+        if (value != null) {
+            return format.format(value);
+        }
+        return "";
+    }
+
+    public void setDue(String value) {
+        try {
+            due = parseDate(value);
+        } catch (ParseException e) {
+            addValidationError("due", "Due is not a valid date");
+        }
+    }
+
+    public String getDueString() {
+        return formatDate(getDue());
+    }
+
+    public void setActual(String value) {
+        try {
+            actual = parseDate(value);
+        } catch (ParseException e) {
+            addValidationError("actual", "Actual is not a valid date");
+        }
+    }
+
+    public String getActualString() {
+        return formatDate(getActual());
+    }
+
+    public void toggleComplete() {
+        complete = !complete;
     }
 }

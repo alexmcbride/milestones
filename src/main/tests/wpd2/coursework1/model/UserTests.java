@@ -3,9 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
-import wpd2.coursework1.util.DatabaseService;
-import wpd2.coursework1.util.PasswordService;
-import wpd2.coursework1.util.IoC;
+import wpd2.coursework1.util.*;
 
 import java.util.Date;
 import java.util.List;
@@ -17,8 +15,8 @@ public class UserTests {
 
     @Before
     public void setup() {
-        db = new DatabaseService(DatabaseService.Mode.TEST);
-        PasswordService pass = new PasswordService(PasswordService.MIN_COST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        PasswordService pass = new PasswordServiceImpl(PasswordServiceImpl.MIN_COST);
 
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
@@ -41,14 +39,6 @@ public class UserTests {
         user.setJoined(new Date());
 
         assertTrue(user.isValid());
-    }
-
-    @Test
-    public void testInvalidRequired() {
-        User user = new User();
-
-        assertFalse(user.isValid());
-        assertEquals(2, user.getValidationErrors().size());
     }
 
     @Test
@@ -199,8 +189,10 @@ public class UserTests {
 
         assertNotNull(User.find(1));
         assertNotNull(User.find("valid@email.com"));
+        assertNotNull(User.findByToken("ResetToken"));
         assertNull(User.find(2));
         assertNull(User.find("invalid@email.com"));
+        assertNull(User.findByToken("invalidResestToken"));
     }
 
     @Test
@@ -241,5 +233,21 @@ public class UserTests {
 
         assertTrue(user.authenticate(password));
         assertFalse(user.authenticate("invalidpassword".toCharArray()));
+    }
+
+    @Test
+    public void testRenameUser() {
+        db.seed();
+
+        User user = User.find(1);
+        Project project = Project.find(1);
+
+        user.setUsername("NewUsername");
+        user.update();
+
+        user = User.find(1);
+        assertEquals(user.getUsername(), "NewUsername");
+        project = Project.find(1);
+        assertEquals(project.getUsername(), "NewUsername");
     }
 }

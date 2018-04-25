@@ -11,9 +11,8 @@ public class ProjectUpdateServlet extends BaseServlet{
     private static final String TEMPLATE_FILE = "project_update.vm";
 
     @Override
-    protected void doGet() throws IOException
-    {
-        // Display the form.
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
 
         try
         {
@@ -27,6 +26,9 @@ public class ProjectUpdateServlet extends BaseServlet{
                 getResponse().sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
+
+            if (!authorize(project)) return;
+
             view(TEMPLATE_FILE, project);
         }
              catch (NumberFormatException e)
@@ -37,7 +39,9 @@ public class ProjectUpdateServlet extends BaseServlet{
     }
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
 
         int id = getRouteId();
         Project project = Project.find(id);
@@ -47,8 +51,10 @@ public class ProjectUpdateServlet extends BaseServlet{
         if (project.isValid()) {
             project.update();
 
+            flash.message("Project '" + html.encode(project.getName()) + "' edited");
+
             // Always redirect after post.
-            getResponse().sendRedirect("/projects");
+            getResponse().sendRedirect(response.encodeURL("/projects"));
 
             return;
         }

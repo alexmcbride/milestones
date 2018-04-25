@@ -3,9 +3,7 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import wpd2.coursework1.util.PasswordService;
-import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.*;
 
 import java.util.Date;
 import java.util.List;
@@ -22,12 +20,12 @@ public class ProjectTests {
     @Before
     public void setup() {
         // Init test database
-        db = new DatabaseService(DatabaseService.Mode.TEST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, db);
-        container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
+        container.registerInstance(H2DatabaseService.class, db);
+        container.registerInstance(PasswordService.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
 
         db.initialize();
         db.seed();
@@ -50,7 +48,7 @@ public class ProjectTests {
     public void testInvalid() {
         Project project = new Project();
         assertFalse(project.isValid());
-        assertEquals("Name is required", project.getValidationError("name"));
+        assertEquals("Name must be between 1 and 32 characters.", project.getValidationError("name"));
     }
 
     @Test
@@ -117,5 +115,59 @@ public class ProjectTests {
 
         Project result = Project.find(project.getId());
         assertNull(result);
+    }
+
+    @Test
+    public void testGetSharedUsers() {
+        User user = User.find(1);
+
+        Project project = new Project();
+        project.setName("Test");
+        project.setUsername("Tester");
+        project.setCreated(new Date());
+        project.create(user);
+
+        User user2 = User.find(2);
+        SharedProject sharedProject = new SharedProject();
+        sharedProject.create(project, user2);
+
+        User user3 = User.find(3);
+        sharedProject = new SharedProject();
+        sharedProject.create(project, user3);
+
+        List<User> users = project.getSharedUsers();
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    public void testIsOwnedBy() {
+        User user = User.find(1);
+
+        Project project = new Project();
+        project.setUserId(user.getId());
+
+        assertTrue(project.isOwnedBy(user));
+        assertTrue(project.isOwnedBy(user.getId()));
+    }
+
+    @Test
+    public void testIsReadOnly() {
+        User user = User.find(1);
+
+        Project project = new Project();
+        project.setName("Test");
+        project.setUsername("Tester");
+        project.setCreated(new Date());
+        project.create(user);
+
+        User user2 = User.find(2);
+        SharedProject sharedProject = new SharedProject();
+        sharedProject.create(project, user2);
+
+        assertTrue(project.isReadOnly(user2));
+        assertTrue(project.isReadOnly(user2.getId()));
+
+        sharedProject = SharedProject.find(user2, project);
+        assertNotNull(sharedProject.getViewed());
     }
 }

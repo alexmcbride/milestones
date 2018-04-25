@@ -12,30 +12,28 @@
             <h2>Edit Milestone: $model.name</h2>
 
             #antiForgeryToken()
-
-            ## Use a form helper to output a text input.
-            ##form_text_input("name")
-            <input type="text" name="name" value="$model.name">
-            <input type="date" name="due" id="datePicker">
-
-
+            #form_text_input("name", $model.name)
+            #form_date_input("due", $model.dueString)
+            #form_date_input("actual", $model.actualString)
 
             <div>
-                <!-- Go Back -->
-                <a class="createLink" data-id="$model.projectId">
-                    <i class="fas fa-arrow-left fa-lg"></i>
-                </a>
-
-                <!-- Confirm Edit -->
                 <input type="submit" value="Edit Milestone" class="btn btn-default">
                 |
-                <a href="/projects/details/$model.id">Go back</a>
+                <a href="$html.url("/projects/details/$model.projectId")">Go back</a>
             </div>
         </form>
-
-        <script>
-            document.getElementById('datePicker').valueAsDate = $model.due;
-        </script>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('#due').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm'
+        });
+
+        $('#actual').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm'
+        });
+    });
+</script>
 #end

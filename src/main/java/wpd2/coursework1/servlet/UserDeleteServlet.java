@@ -2,13 +2,17 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserDeleteServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "user_delete.vm";
 
     @Override
-    protected void doGet() throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doGet(request, response);
+
         if (!authorize()) return;
 
         User user = new User();
@@ -27,7 +31,9 @@ public class UserDeleteServlet extends BaseServlet {
 
 
     @Override
-    protected void doPost() throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        super.doPost(request, response);
+
         User user = new User();
         //get id of existing user
         User loggedinUserData = (User) request.getSession().getAttribute("user");
@@ -39,7 +45,7 @@ public class UserDeleteServlet extends BaseServlet {
             userManager.logout();
             flash.message("User account deleted");
             //redirect to main
-            response.sendRedirect("/projects");
+            response.sendRedirect(response.encodeURL("/projects"));
             return;
         }
         // if fails continues to show delete user view

@@ -16,6 +16,7 @@ public class Project extends ValidatableModel {
     private String name;
     private Date created;
     private String username;
+    private Date viewed;
 
     public Project() {
 
@@ -61,15 +62,25 @@ public class Project extends ValidatableModel {
         this.username = username;
     }
 
+    public Date getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(Date viewed) {
+        this.viewed = viewed;
+    }
+
     @Override
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("name", name);
+        validation.length("name", name, 1, 32);
     }
 
     public void create(User user) {
         userId = user.getId();
         username = user.getUsername();
+        created = new Date();
         String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
@@ -102,6 +113,18 @@ public class Project extends ValidatableModel {
     }
 
     public void delete() {
+        // Delete all this project's milestones.
+        List<Milestone> milestones = Milestone.findAll(this);
+        for (Milestone milestone : milestones) {
+            milestone.delete();
+        }
+
+        // Delete all times this project was shared.
+        List<SharedProject> sharedProjects = SharedProject.findAll(this);
+        for (SharedProject sharedProject : sharedProjects) {
+            sharedProject.delete();
+        }
+
         String sql = "DELETE FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -115,7 +138,7 @@ public class Project extends ValidatableModel {
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "userId INTEGER NOT NULL ," +
+                "userId INTEGER NOT NULL REFERENCES users(id)," +
                 "name NVARCHAR(32) NOT NULL , " +
                 "created TIMESTAMP NOT NULL," +
                 "username NVARCHAR(32) NOT NULL" +
@@ -194,19 +217,28 @@ public class Project extends ValidatableModel {
         return users;
     }
 
-    public boolean IsOwnedBy(User user) {
-        return IsOwnedBy(user.getId());
+    public boolean isOwnedBy(User user) {
+        return isOwnedBy(user.getId());
     }
 
-    public boolean IsOwnedBy(int userId) {
+    public boolean isOwnedBy(int userId) {
         return this.userId == userId;
     }
 
-    public boolean hasBeenSharedWith(User user) {
-        return hasBeenSharedWith(user.getId());
+    public boolean isReadOnly(User user) {
+        return isReadOnly(user.getId());
     }
 
-    public boolean hasBeenSharedWith(int userId) {
-        return SharedProject.find(userId, getId()) != null;
+    public boolean isReadOnly(int userId) {
+        SharedProject sharedProject = SharedProject.find(userId, id);
+        if (sharedProject != null) {
+            // Set viewed date if seen for first time.
+            if (sharedProject.getViewed() == null) {
+                sharedProject.setViewed(new Date());
+                sharedProject.update();
+            }
+            return true;
+        }
+        return false;
     }
 }
