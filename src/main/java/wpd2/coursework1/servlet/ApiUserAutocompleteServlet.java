@@ -25,7 +25,7 @@ public class ApiUserAutocompleteServlet extends JsonServlet {
             }
         }
 
-        view(items);
+        json(items);
     }
 
     // Format used by jQuery autocomplete plugin

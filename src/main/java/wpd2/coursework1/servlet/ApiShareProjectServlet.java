@@ -17,7 +17,7 @@ public class ApiShareProjectServlet extends JsonServlet {
             int projectId = Integer.valueOf(request.getParameter("projectId"));
 
             if (userId == userManager.getUserId()) {
-                view(new JsonResponse("You cannot share a project with yourself"));
+                json(new JsonResponse("You cannot share a project with yourself"));
                 return;
             }
 
@@ -28,12 +28,12 @@ public class ApiShareProjectServlet extends JsonServlet {
 
             SharedProject sharedProject = SharedProject.find(user, project);
             if (sharedProject != null) {
-                view(new JsonResponse("This project has already been shared with " + user.getUsername()));
+                json(new JsonResponse("This project has already been shared with " + user.getUsername()));
             }
             else {
                 sharedProject = new SharedProject();
                 sharedProject.create(project, user);
-                view(new UserResponse(user.getUsername(),
+                json(new UserResponse(user.getUsername(),
                         user.getId(),
                         "This project has been shared with " + user.getUsername()));
             }

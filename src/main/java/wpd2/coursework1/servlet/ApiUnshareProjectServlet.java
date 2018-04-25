@@ -20,12 +20,12 @@ public class ApiUnshareProjectServlet extends JsonServlet {
 
         SharedProject sharedProject = SharedProject.find(userId, projectId);
         if (sharedProject == null) {
-            view(new JsonResponse("The shared project was not found"));
+            json(new JsonResponse("The shared project was not found"));
         }
         else {
             User user = User.find(userId);
             sharedProject.delete();
-            view(new UnshareResponse("The project has been unshared with " + user.getUsername(), userId));
+            json(new UnshareResponse("The project has been unshared with " + user.getUsername(), userId));
         }
     }
 

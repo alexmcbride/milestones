@@ -5,12 +5,18 @@ import wpd2.coursework1.util.JsonRenderer;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
- Servlet for JSON responses
+/**
+ * Servlet for handling JSON responses
  */
 public class JsonServlet extends BaseServlet {
     private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
 
+    /**
+     * Authorize the current JSON request.
+     *
+     * @return true if authorised
+     * @throws IOException thrown by the response object
+     */
     @Override
     protected boolean authorize() throws IOException {
         if (userManager.isLoggedIn()) {
@@ -21,12 +27,24 @@ public class JsonServlet extends BaseServlet {
         return false;
     }
 
-    protected void view(Object object) throws IOException {
-        view(response, null, object);
+    /**
+     * Render a JSON response.
+     *
+     * @param object an object to serialise as JSON
+     * @throws IOException an exception...
+     */
+    protected void json(Object object) throws IOException {
+        json(response, object);
     }
 
-    @Override
-    protected void view(HttpServletResponse response, String template, Object object) throws IOException {
+    /**
+     * Render a JSON response.
+     *
+     * @param response the response object to render to
+     * @param object an object to serialise as JSON
+     * @throws IOException an exception...
+     */
+    protected void json(HttpServletResponse response, Object object) throws IOException {
         JsonRenderer renderer = new JsonRenderer();
         renderer.render(response, object);
         handleResponse(response, RESPONSE_JSON);
