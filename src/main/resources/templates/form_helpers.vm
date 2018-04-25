@@ -2,14 +2,14 @@
 
 #macro(validation_error $attribute)
     #if ($model.hasValidationError($attribute))
-    <span class="help-block">$model.getValidationError($attribute)</span>
+        <span class="help-block validation">$model.getValidationError($attribute)</span>
     #end
 #end
 
 #macro(form_text_input $attribute, $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     #set($valueattr = "")
@@ -28,7 +28,7 @@
 #macro(form_text_input_required $attribute, $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     #set($valueattr = "")
@@ -47,7 +47,7 @@
 #macro(form_email_input $attribute, $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     #set($valueattr = "")
@@ -65,7 +65,7 @@
 #macro(form_email_input_required $attribute, $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     #set($valueattr = "")
@@ -83,7 +83,7 @@
 #macro(form_password_input $attribute)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     <div class="form-group$message">
@@ -98,7 +98,7 @@
 #macro(form_password_input_required $attribute)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
 <div class="form-group$message">
@@ -113,7 +113,7 @@
 #macro(form_date_input $attribute $value)
     #set($message="")
     #if ($model.hasValidationError($attribute))
-        #set($message=" has-message")
+        #set($message=" has-error")
     #end
 
     #set($valueattr = "")
@@ -121,7 +121,8 @@
         #set($valueattr = ' value="' + $html.encode($value) + '"')
     #end
 
-    <div class="form-group">
+    <div class="form-group$message">
+        <label for="$attribute" style="text-transform: capitalize">$attribute</label>
         <div class='input-group date' id='$attribute'>
             <input type='text' class="form-control" name="$attribute"$valueattr>
             <span class="input-group-addon">
