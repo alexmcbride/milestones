@@ -29,7 +29,6 @@ public class ProjectCreateServlet extends BaseServlet {
 
         Project project = new Project();
         project.setName(request.getParameter("name"));
-        project.setCreated(new Date());
 
         // Check if project is valid.
         if (project.isValid()) {
@@ -37,7 +36,7 @@ public class ProjectCreateServlet extends BaseServlet {
             User user = userManager.getUser();
             project.create(user);
 
-            flash.message("New project created");
+            flash.message("New project '" + project.getName() + "' created");
 
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));

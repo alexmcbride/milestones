@@ -146,7 +146,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MilestoneCreateServlet</servlet-name>
-        <url-pattern>/milestone/create/*</url-pattern>
+        <url-pattern>/milestones/create/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -155,7 +155,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MilestoneEditServlet</servlet-name>
-        <url-pattern>/milestone/edit/*</url-pattern>
+        <url-pattern>/milestones/edit/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -164,22 +164,22 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MilestoneDeleteServlet</servlet-name>
-        <url-pattern>/milestone/delete/*</url-pattern>
+        <url-pattern>/milestones/delete/*</url-pattern>
     </servlet-mapping>
 
     <!-- API -->
     <servlet>
-        <servlet-name>ApiUserAutocompleteServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiUserAutocompleteServlet</servlet-class>
+        <servlet-name>ApiAutocompleteServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.ApiAutocompleteServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ApiUserAutocompleteServlet</servlet-name>
+        <servlet-name>ApiAutocompleteServlet</servlet-name>
         <url-pattern>/api/autocomplete/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>ApiShareProjectServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiShareProjectServlet</servlet-class>
+        <servlet-class>wpd2.coursework1.servlet.ApiShareProjectServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiShareProjectServlet</servlet-name>
@@ -188,7 +188,7 @@
 
     <servlet>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiUnshareProjectServlet</servlet-class>
+        <servlet-class>wpd2.coursework1.servlet.ApiUnshareProjectServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>

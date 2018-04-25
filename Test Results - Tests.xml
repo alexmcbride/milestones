@@ -72,11 +72,11 @@ Process finished with exit code 0
         <test locationUrl="java:test://wpd2.coursework1.model.ValidatableModelTests.hasValidationErrorTest" name="hasValidationErrorTest" metainfo="" status="passed"/>
         <test locationUrl="java:test://wpd2.coursework1.model.ValidatableModelTests.getValidationErrorsTest" name="getValidationErrorsTest" metainfo="" status="passed"/>
     </suite>
-    <suite duration="31" locationUrl="java:suite://wpd2.coursework1.service.DatabaseServiceTests" name="wpd2.coursework1.service.DatabaseServiceTests" status="passed">
-        <test duration="16" locationUrl="java:test://wpd2.coursework1.service.DatabaseServiceTests.testSeed" name="testSeed" metainfo="" status="passed"/>
-        <test duration="15" locationUrl="java:test://wpd2.coursework1.service.DatabaseServiceTests.testInitialize" name="testInitialize" metainfo="" status="passed"/>
-        <test locationUrl="java:test://wpd2.coursework1.service.DatabaseServiceTests.testConnect" name="testConnect" metainfo="" status="passed"/>
-        <test locationUrl="java:test://wpd2.coursework1.service.DatabaseServiceTests.testDestroy" name="testDestroy" metainfo="" status="passed"/>
+    <suite duration="31" locationUrl="java:suite://wpd2.coursework1.service.H2DatabaseServiceTests" name="wpd2.coursework1.service.H2DatabaseServiceTests" status="passed">
+        <test duration="16" locationUrl="java:test://wpd2.coursework1.service.H2DatabaseServiceTests.testSeed" name="testSeed" metainfo="" status="passed"/>
+        <test duration="15" locationUrl="java:test://wpd2.coursework1.service.H2DatabaseServiceTests.testInitialize" name="testInitialize" metainfo="" status="passed"/>
+        <test locationUrl="java:test://wpd2.coursework1.service.H2DatabaseServiceTests.testConnect" name="testConnect" metainfo="" status="passed"/>
+        <test locationUrl="java:test://wpd2.coursework1.service.H2DatabaseServiceTests.testDestroy" name="testDestroy" metainfo="" status="passed"/>
     </suite>
     <suite locationUrl="java:suite://wpd2.coursework1.util.AntiForgeryHelperTests" name="wpd2.coursework1.util.AntiForgeryHelperTests" status="passed">
         <test locationUrl="java:test://wpd2.coursework1.util.AntiForgeryHelperTests.testGenerateToken" name="testGenerateToken" metainfo="" status="passed"/>

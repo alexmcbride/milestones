@@ -74,11 +74,13 @@ public class Project extends ValidatableModel {
     public void validate() {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("name", name);
+        validation.length("name", name, 1, 32);
     }
 
     public void create(User user) {
         userId = user.getId();
         username = user.getUsername();
+        created = new Date();
         String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
@@ -136,7 +138,7 @@ public class Project extends ValidatableModel {
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
-                "userId INTEGER NOT NULL ," +
+                "userId INTEGER NOT NULL REFERENCES users(id)," +
                 "name NVARCHAR(32) NOT NULL , " +
                 "created TIMESTAMP NOT NULL," +
                 "username NVARCHAR(32) NOT NULL" +

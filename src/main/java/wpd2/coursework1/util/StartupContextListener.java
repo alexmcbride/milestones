@@ -14,7 +14,7 @@ public class StartupContextListener implements ServletContextListener {
     @SuppressWarnings("unused")
     static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
-    private static final boolean RESET_DATABASE_ON_STARTUP = false;
+    private static final boolean RESET_DATABASE_ON_STARTUP = true;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -27,8 +27,8 @@ public class StartupContextListener implements ServletContextListener {
     private void initializeServices() {
         // Services that need to be injected during unit tests.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, new DatabaseService());
-        container.registerInstance(PasswordService.class, new PasswordService());
+        container.registerInstance(DatabaseService.class, new H2DatabaseService());
+        container.registerInstance(PasswordService.class, new PasswordServiceImpl());
     }
 
     private void initializeDatabase() {

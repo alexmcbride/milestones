@@ -10,13 +10,14 @@
             <h2>Update Project</h2>
             #antiForgeryToken()
 
+            <p>Edit the name of this project.</p>
 
             <div>
                 #form_text_input("name", $model.name)
 
                 <input type="submit" value="Update" class="btn btn-default">
                 |
-                <a href="$html.url("/projects")">back</a>
+                <a href="$html.url("/projects")">Back</a>
             </div>
         </form>
     </div>

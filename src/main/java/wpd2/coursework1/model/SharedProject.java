@@ -141,8 +141,8 @@ public class SharedProject extends BaseModel {
     public static void createTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS sharedProjects ( " +
-                    "projectId INTEGER NOT NULL," +
-                    "userId INTEGER NOT NULL," +
+                    "projectId INTEGER NOT NULL REFERENCES projects(id)," +
+                    "userId INTEGER NOT NULL REFERENCES users(id)," +
                     "shared TIMESTAMP NOT NULL," +
                     "viewed TIMESTAMP NULL" +
                     ")");

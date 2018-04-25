@@ -72,6 +72,7 @@ public class Milestone extends ValidatableModel {
     protected void validate() {
         ValidationHelper helper = new ValidationHelper(this);
         helper.required("name", name);
+        helper.length("name", name, 1, 250);
         helper.required("due", due);
     }
 
@@ -203,7 +204,7 @@ public class Milestone extends ValidatableModel {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS milestones ( " +
                 "id INTEGER AUTO_INCREMENT PRIMARY KEY," +
-                "projectId INTEGER NOT NULL," +
+                "projectId INTEGER NOT NULL REFERENCES projects(id)," +
                 "name NVARCHAR(250) NOT NULL," +
                 "due TIMESTAMP NOT NULL," +
                 "actual TIMESTAMP NULL," +

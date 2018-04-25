@@ -16,6 +16,10 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         Project project = Project.find(getRouteId());
 
+        if (project == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+
         if (!authorize(project)) return;
 
         view(TEMPLATE_FILE, project);
@@ -29,8 +33,9 @@ public class ProjectDeleteServlet extends BaseServlet {
 
         // Get project
         Project project = Project.find(id);
-
         project.delete();
+
+        flash.message("Project '" + project.getName() + "' deleted");
 
         // Always redirect after post.
         response.sendRedirect(response.encodeURL("/projects"));

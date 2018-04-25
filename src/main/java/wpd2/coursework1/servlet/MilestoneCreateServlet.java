@@ -19,13 +19,13 @@ public class MilestoneCreateServlet extends BaseServlet {
         int id = getRouteId();
         Project project = Project.find(id);
 
-        if (!authorize(project)) return;
-
         // Check for 404 error.
         if (project == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+
+        if (!authorize(project)) return;
 
         Milestone milestone = new Milestone();
         milestone.setDue(new Date());
@@ -47,6 +47,8 @@ public class MilestoneCreateServlet extends BaseServlet {
 
         if (milestone.isValid()) {
             milestone.create(project);
+
+            flash.message("Milestone '" + milestone.getName() + "' created");
 
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));

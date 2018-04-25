@@ -9,19 +9,15 @@
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <h1>Welcome</h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum velit et ornare
-                        facilisis. Proin in dapibus ex, eu venenatis mauris. Nam id posuere ligula, sed venenatis sem.
-                        Maecenas consectetur, ligula ac posuere accumsan, diam ante elementum lectus, eget aliquet
-                        tortor est ac metus. Aliquam commodo leo vitae felis porta, nec gravida mauris finibus. Quisque
-                        non pellentesque mi. Sed gravida mauris id tincidunt vehicula. Duis ut lectus vitae mauris
-                        mattis finibus.</p>
+                    <p>Welcome to our junty milestone site! You can create projects, add milestones, and track your progress!</p>
 
-                    <p>Nam sapien quam, tincidunt non lectus et, finibus tincidunt enim. Etiam dictum nisi sit amet congue congue. Phasellus iaculis mi non posuere vehicula. Donec dictum neque congue ligula sagittis, consequat lacinia ex semper. Suspendisse nibh sapien, placerat at pellentesque ac, fermentum sed sapien. Pellentesque aliquet mi sem, eu facilisis nisi tristique at. Nunc eleifend velit eget metus sollicitudin sollicitudin. Ut ut venenatis lorem, quis luctus est.</p>
+                    <p>If you already have an account, then sign in, otherwise you can register. It's all <strong>free</strong>!</p>
+
                 </div>
-                <div class="col-sm-4" style="background-color: #fafafa; border: 1px solid #dddddd">
+                <div class="col-sm-6" style="background-color: #fafafa; border: 1px solid #dddddd">
                     <h2>Login</h2>
                     <p>If you are an existing member, please login to the site.</p>
                     <form method="post" action="$html.url('/users/login')">
