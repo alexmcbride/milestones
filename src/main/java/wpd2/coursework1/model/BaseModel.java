@@ -16,7 +16,7 @@ public abstract class BaseModel {
      * @return the connection.
      */
     protected static Connection getConnection() {
-        DatabaseService databaseService = (DatabaseService) IoC.get().getInstance(H2DatabaseService.class);
+        DatabaseService databaseService = (DatabaseService) IoC.get().getInstance(DatabaseService.class);
         return databaseService.connect();
     }
 }

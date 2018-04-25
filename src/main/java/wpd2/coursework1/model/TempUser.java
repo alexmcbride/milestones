@@ -1,13 +1,11 @@
 package wpd2.coursework1.model;
 
-import org.joda.time.DateTime;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.PasswordService;
+import wpd2.coursework1.util.PasswordServiceImpl;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static wpd2.coursework1.model.BaseModel.getConnection;
 
@@ -22,7 +20,7 @@ public class TempUser {
     private /*char[]*/ String password;
     private String passwordHash;
     public TempUser() {
-        passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
+        passwordService = (PasswordService)IoC.get().getInstance(PasswordServiceImpl.class);
     }
     public String getPasswordHash() {
         return passwordHash;

@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import wpd2.coursework1.util.DatabaseService;
-import wpd2.coursework1.util.PasswordService;
+import wpd2.coursework1.util.PasswordServiceImpl;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.H2DatabaseService;
 
@@ -28,7 +28,7 @@ public class ProjectTests {
         // Register service for use in test.
         IoC container = IoC.get();
         container.registerInstance(H2DatabaseService.class, db);
-        container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
+        container.registerInstance(PasswordServiceImpl.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
 
         db.initialize();
         db.seed();

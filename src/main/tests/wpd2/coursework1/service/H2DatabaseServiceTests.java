@@ -4,7 +4,7 @@ import org.junit.Test;
 import wpd2.coursework1.util.DatabaseService;
 import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.PasswordService;
+import wpd2.coursework1.util.PasswordServiceImpl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -47,7 +47,7 @@ public class H2DatabaseServiceTests {
     @Test
     public void testSeed() throws SQLException {
         DatabaseService db = new H2DatabaseService(DatabaseService.Mode.TEST);
-        IoC.get().registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
+        IoC.get().registerInstance(PasswordServiceImpl.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
         IoC.get().registerInstance(H2DatabaseService.class, db);
         db.initialize();
         db.seed();

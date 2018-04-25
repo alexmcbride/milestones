@@ -1,6 +1,7 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.PasswordService;
+import wpd2.coursework1.util.PasswordServiceImpl;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.helper.ValidationHelper;
 
