@@ -14,21 +14,21 @@
 
         <div class="form-group$error">
             <label for="username" style="text-transform: capitalize">username</label>
-            <input value="$!{model.username}" type="text" id="username" name="username" class="form-control" required>
+            <input value="$html.encode($model.username)" type="text" id="username" name="username" class="form-control" required>
             #validation_error($attribute)
         </div>
 
 
         <div class="form-group$error">
             <label for="email" style="text-transform: capitalize">email</label>
-            <input value="$!{model.email}" type="email" id="email" name="email" class="form-control" required>
+            <input value="$html.encode($model.email)" type="email" id="email" name="email" class="form-control" required>
             #validation_error($attribute)
         </div>
 
 
         <div class="form-group$error">
             <label for="password" style="text-transform: capitalize">Reset Password</label>
-            <input value="$!{model.password}" type="password" id="password" name="password" class="form-control">
+            <input  type="password" id="password" name="password" class="form-control">
             #validation_error($attribute)
         </div>
 

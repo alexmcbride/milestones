@@ -1,6 +1,5 @@
 package wpd2.coursework1.servlet;
 
-import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ public class ProjectDeleteServlet extends BaseServlet {
         Project project = Project.find(id);
         project.delete();
 
-        flash.message("Project '" + project.getName() + "' deleted");
+        flash.message("Project '" + html.encode(project.getName()) + "' deleted");
 
         // Always redirect after post.
         response.sendRedirect(response.encodeURL("/projects"));

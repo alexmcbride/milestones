@@ -62,7 +62,6 @@ public class MilestoneTests {
         milestone.setName("Test");
         milestone.setDue(date);
         milestone.setActual(date);
-        milestone.setComplete(true);
         milestone.create(project);
 
         milestone = Milestone.find(milestone.getId());
@@ -72,7 +71,6 @@ public class MilestoneTests {
         assertEquals("Test", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -83,14 +81,12 @@ public class MilestoneTests {
         milestone.setName("Edited name");
         milestone.setDue(date);
         milestone.setActual(date);
-        milestone.setComplete(true);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertEquals(date, milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
 
     @Test
@@ -101,14 +97,12 @@ public class MilestoneTests {
         milestone.setName("Edited name");
         milestone.setDue(date);
         milestone.setActual((Date)null);
-        milestone.setComplete(true);
         milestone.update();
 
         milestone = Milestone.find(milestone.getId());
         assertEquals("Edited name", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
-        assertTrue(milestone.isComplete());
     }
 
     @Test

@@ -13,7 +13,7 @@
 
             <p>Are you sure you want to delete this project?</p>
 
-            <p><strong>$model.name</strong></p>
+            <p><strong>$html.encode($model.name)</strong></p>
 
             <p>
                 <input type="submit" value="Delete" class="btn btn-default">

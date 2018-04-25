@@ -25,7 +25,7 @@ public class ApiUnshareProjectServletBase extends BaseJsonServlet {
         else {
             User user = User.find(userId);
             sharedProject.delete();
-            json(new UnshareResponse("The project has been unshared with " + user.getUsername(), userId));
+            json(new UnshareResponse("The project has been unshared with " + html.encode(user.getUsername()), userId));
         }
     }
 

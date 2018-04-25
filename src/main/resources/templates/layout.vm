@@ -101,8 +101,8 @@
                             </div>
                             #foreach($project in $shared)
                                 <div class="row">
-                                    <div class="col-sm-3"><a href="$html.url("/projects/details/$project.id")">$project.name</a></div>
-                                    <div class="col-sm-3">$project.username</div>
+                                    <div class="col-sm-3"><a href="$html.url("/projects/details/$project.id")">$html.encode($project.name)</a></div>
+                                    <div class="col-sm-3">$html.encode($project.username)</div>
                                     <div class="col-sm-3">#pretty_time($project.created)</div>
                                     <div class="col-sm-3">#pretty_time($project.viewed)</div>
                                 </div>
