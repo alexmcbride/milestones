@@ -9,8 +9,6 @@ import wpd2.coursework1.viewmodel.MilestonesViewModel;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProjectDetailsServlet extends BaseServlet {
@@ -43,110 +41,49 @@ public class ProjectDetailsServlet extends BaseServlet {
             }
         }
 
-        // get milestones
-        List<Milestone> milestones;
-        milestones = Milestone.findAll(project.getId());
-
-
-        Date date = new Date();
+        // get milestones view model
         MilestonesViewModel model = new MilestonesViewModel(project, readonly);
 
-
-        Date datePlusSeven = DateUtils.addDays(date, 7);
-        model.setCurrentDatePlusSeven(datePlusSeven);
-
-
-        model.setDoneMilestones(new ArrayList<>());
-        model.setLateMilestones(new ArrayList<>());
-        model.setCurrentMilestones(new ArrayList<>());
-        model.setUpcomingMilestones(new ArrayList<>());
-
-
-        model.setProject(project);
-
+        List<Milestone> milestones = Milestone.findAll(project.getId());
         for (Milestone milestone : milestones) {
-            // if is complete add to complete list
-            if (milestone.isComplete()) {
+            if (milestone.isDone()) {
                 model.addDoneMilestone(milestone);
-                continue;
             }
-            // if is late put in late list
-            if (milestone.getDue().before(date) && (!milestone.isComplete())) {
+            else if (milestone.isLate()) {
                 model.addLateMilestone(milestone);
-                continue;
             }
-            // if is within 7 days put in current list
-            if (milestone.getDue().before(datePlusSeven) && (milestone.getDue().after(date)) && (!milestone.isComplete())) {
+            else if (milestone.isCurrent()) {
                 model.addCurrentMilestone(milestone);
-                continue;
             }
-            // if is within 7 days put in upcoming list
-            if (milestone.getDue().after(datePlusSeven) && (!milestone.isComplete())) {
+            else if (milestone.isUpcoming()) {
                 model.addUpcomingMilestone(milestone);
-                continue;
             }
-
         }
-
-        // model.setDoneMilestones();
-
 
         // Render the view.
         view(TEMPLATE_FILE, model);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        super.doPost(request, response);
+        super.doGet(request, response);
 
-        // mark milestone as done
-        // In finished code user would come from login.
         if (!authorize()) return;
+
         int milestoneId = Integer.valueOf(request.getParameter("milestoneId"));
+
+        // Check if project is valid.
         Milestone milestone = Milestone.find(milestoneId);
-        int projectId = milestone.getProjectId();
-        Project project = Project.find(projectId);
+        milestone.toggleComplete();
+        milestone.update();
 
-
-        String formType = request.getParameter("formType");
-
-        if(formType.equals("markedDoneForm")) {
-
-
-
-            milestone.setComplete(true);
-
-
-
-
-            // Check if project is valid.
-            if (milestone.isValid()) {
-                // Save project to database.
-                milestone.update();
-            }
-
-            // Always redirect after post.
-            response.sendRedirect(response.encodeURL("/projects/details?id=" + projectId));
-
-            //view(TEMPLATE_FILE, project);
+        if (milestone.isComplete()) {
+            flash.message("Set milestone '" + html.encode(milestone.getName()) + "' to complete");
         }
-        else
-        {
-
-            milestone.setComplete(false);
-
-
-            // Check if project is valid.
-            if (milestone.isValid()) {
-                // Save project to database.
-                milestone.update();
-            }
-
-            // Always redirect after post.
-            response.sendRedirect(response.encodeURL("/projects/details?id=" + projectId));
-
-            //view(TEMPLATE_FILE, project);
-
+        else {
+            flash.message("Set milestone '" + html.encode(milestone.getName()) + "' to incomplete");
         }
 
+        // Always redirect after post.
+        response.sendRedirect("/projects/details/" + milestone.getProjectId());
     }
 }

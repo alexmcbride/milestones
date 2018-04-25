@@ -55,7 +55,7 @@ public class MilestoneEditServlet extends BaseServlet {
             // Save project to database.
             milestoneToUpdate.update();
 
-            flash.message("Milestone '" + milestoneToUpdate.getName() + "' edited");
+            flash.message("Milestone '" + html.encode(milestoneToUpdate.getName()) + "' edited");
 
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));

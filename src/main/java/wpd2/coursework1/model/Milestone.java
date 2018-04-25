@@ -1,5 +1,6 @@
 package wpd2.coursework1.model;
 
+import org.apache.commons.lang.time.DateUtils;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
@@ -13,6 +14,9 @@ import java.util.List;
  * Class to represent a project milestone.
  */
 public class Milestone extends ValidatableModel {
+    private static final Date DATE = new Date();
+    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(DATE, 7);
+
     private int id;
     private int projectId;
     private String name;
@@ -64,8 +68,20 @@ public class Milestone extends ValidatableModel {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
-        this.complete = complete;
+    public boolean isDone() {
+        return complete || actual != null;
+    }
+
+    public boolean isLate() {
+        return due.before(DATE) && !complete;
+    }
+
+    public boolean isCurrent() {
+        return due.before(DATE_PLUS_SEVEN) && due.after(DATE) && !complete;
+    }
+
+    public boolean isUpcoming() {
+        return due.after(DATE_PLUS_SEVEN) && !complete;
     }
 
     @Override
@@ -261,5 +277,9 @@ public class Milestone extends ValidatableModel {
 
     public String getActualString() {
         return formatDate(getActual());
+    }
+
+    public void toggleComplete() {
+        complete = !complete;
     }
 }
