@@ -7,10 +7,11 @@ import wpd2.coursework1.util.*;
 
 import static junit.framework.TestCase.*;
 
-class TempUserTest {
+public class TempUserTest {
     private DatabaseService db;
+
     @Before
-    void setUp() {
+    public void setUp() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordServiceImpl(PasswordServiceImpl.MIN_COST);
 
@@ -22,12 +23,12 @@ class TempUserTest {
     }
 
     @After
-    void tearDown()throws Exception {
+    public void tearDown()throws Exception {
         db.destroy();
     }
 
     @Test
-    void testCreate()throws Exception {
+    public void testCreate()throws Exception {
         TempUser user = new TempUser();
         user.setUsername("user1");
         user.setEmail("valid@email.com");
@@ -45,7 +46,7 @@ class TempUserTest {
     }
 
     @Test
-    void testFindByToken()throws Exception {
+    public void testFindByToken()throws Exception {
         TempUser user = new TempUser();
         user.setUsername("user1");
         user.setEmail("valid@email.com");
@@ -59,7 +60,7 @@ class TempUserTest {
 
 
     @Test
-    void testDelete() throws Exception {
+    public void testDelete() throws Exception {
         TempUser user = new TempUser();
         user.setUsername("user1");
         user.setEmail("valid@email.com");

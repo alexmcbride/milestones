@@ -20,7 +20,7 @@ public class TempUser {
     private /*char[]*/ String password;
     private String passwordHash;
     public TempUser() {
-        passwordService = (PasswordService)IoC.get().getInstance(PasswordServiceImpl.class);
+        passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
     }
     public String getPasswordHash() {
         return passwordHash;

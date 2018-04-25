@@ -35,7 +35,7 @@ public class BaseModelTests {
     }
 
     @Test
-    public void getConnectionTests() throws SQLException {
+    public void testGetConnection() throws SQLException {
         TestBaseModel model = new TestBaseModel();
         Connection connection = model.getConnectionForTesting();
         assertFalse(connection.isClosed());
