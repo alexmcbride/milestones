@@ -19,13 +19,13 @@ public class MilestoneCreateServlet extends BaseServlet {
         int id = getRouteId();
         Project project = Project.find(id);
 
-        if (!authorize(project)) return;
-
         // Check for 404 error.
         if (project == null) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+
+        if (!authorize(project)) return;
 
         Milestone milestone = new Milestone();
         milestone.setDue(new Date());
