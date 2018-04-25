@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
 
@@ -20,9 +21,9 @@ public class MilestoneTests {
     @SuppressWarnings("Duplicates")
     @Before
     public void setUp() {
-        db = new DatabaseService(DatabaseService.Mode.TEST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(H2DatabaseService.class, db);
         container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
         db.initialize();
         db.seed();
@@ -51,7 +52,7 @@ public class MilestoneTests {
         Milestone milestone = new Milestone();
         assertFalse(milestone.isValid());
 
-        assertEquals("Name is required", milestone.getValidationError("name"));
+        assertEquals("Name must be between 1 and 250 characters.", milestone.getValidationError("name"));
         assertEquals("Due is required", milestone.getValidationError("due"));
     }
 

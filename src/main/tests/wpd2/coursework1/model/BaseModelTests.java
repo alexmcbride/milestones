@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
@@ -22,9 +23,9 @@ public class BaseModelTests {
 
     @Before
     public void setup() {
-        db = new DatabaseService(DatabaseService.Mode.TEST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(H2DatabaseService.class, db);
         db.initialize();
     }
 

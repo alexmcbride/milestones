@@ -27,12 +27,12 @@ public class StartupContextListener implements ServletContextListener {
     private void initializeServices() {
         // Services that need to be injected during unit tests.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, new DatabaseService());
+        container.registerInstance(H2DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordService());
     }
 
     private void initializeDatabase() {
-        DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(DatabaseService.class);
+        DatabaseService databaseService = (DatabaseService)IoC.get().getInstance(H2DatabaseService.class);
 
         if (RESET_DATABASE_ON_STARTUP) {
             databaseService.destroy();

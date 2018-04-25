@@ -3,11 +3,11 @@ package wpd2.coursework1.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import wpd2.coursework1.util.DatabaseService;
 import wpd2.coursework1.util.PasswordService;
 import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -23,11 +23,11 @@ public class ProjectTests {
     @Before
     public void setup() {
         // Init test database
-        db = new DatabaseService(DatabaseService.Mode.TEST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(DatabaseService.class, db);
+        container.registerInstance(H2DatabaseService.class, db);
         container.registerInstance(PasswordService.class, new PasswordService(PasswordService.MIN_COST));
 
         db.initialize();
@@ -51,7 +51,7 @@ public class ProjectTests {
     public void testInvalid() {
         Project project = new Project();
         assertFalse(project.isValid());
-        assertEquals("Name is required", project.getValidationError("name"));
+        assertEquals("Name must be between 1 and 32 characters.", project.getValidationError("name"));
     }
 
     @Test

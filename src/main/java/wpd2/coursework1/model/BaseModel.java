@@ -1,6 +1,7 @@
 package wpd2.coursework1.model;
 
 import wpd2.coursework1.util.DatabaseService;
+import wpd2.coursework1.util.H2DatabaseService;
 import wpd2.coursework1.util.IoC;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ public abstract class BaseModel {
      * @return the connection.
      */
     protected static Connection getConnection() {
-        DatabaseService databaseService = (DatabaseService) IoC.get().getInstance(DatabaseService.class);
+        DatabaseService databaseService = (DatabaseService) IoC.get().getInstance(H2DatabaseService.class);
         return databaseService.connect();
     }
 }
