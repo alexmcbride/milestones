@@ -14,7 +14,7 @@
 
 <a onload='location.href="#defaultLoadLocation"'></a>
     #if (!$model.readOnly)
-        <a href="$html.url("/milestone/create/$model.project.id")" id="addEventBtn" class="createMilestone">&#43;</a>
+        <a href="$html.url("/milestones/create/$model.project.id")" id="addEventBtn" class="createMilestone">&#43;</a>
     #end
 
 <div class="header">
@@ -90,10 +90,10 @@
 
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -148,10 +148,10 @@
                         </form>
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -204,10 +204,10 @@
 
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -261,10 +261,10 @@
 
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -314,10 +314,10 @@
 
                         </form>
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -354,10 +354,10 @@
                         </form>
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -396,10 +396,10 @@
                         </form>
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -440,10 +440,10 @@
                         </form>
 
                         <div class="container33">
-                            <a class="editMilestoneLink" href="$html.url("/milestone/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")" id ="editMilestoneBtn" ><i class="fas fa-pencil-alt fa-2x"></i></a>
                         </div>
                         <div class="container33">
-                            <a class="deleteMilestoneLink" href="$html.url("/milestone/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                            <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
                         </div>
                     </div>
                 </div>

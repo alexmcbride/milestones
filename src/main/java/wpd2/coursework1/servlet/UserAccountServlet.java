@@ -55,6 +55,7 @@ public class UserAccountServlet extends BaseServlet {
             if (user.update()) {
                 //update session to newly updated user detail
                 getRequest().getSession().setAttribute("user", user);
+                flash.message("Account details edited");
                 getResponse().sendRedirect(response.encodeURL("/projects"));
                 return;
             }

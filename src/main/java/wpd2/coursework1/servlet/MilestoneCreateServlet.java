@@ -48,6 +48,8 @@ public class MilestoneCreateServlet extends BaseServlet {
         if (milestone.isValid()) {
             milestone.create(project);
 
+            flash.message("Milestone '" + milestone.getName() + "' created");
+
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));
 

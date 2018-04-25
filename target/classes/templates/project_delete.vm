@@ -9,13 +9,17 @@
         <form method="post">
             #antiForgeryToken()
 
-            <p>ID: $model.id</p>
-            <p>Name: $model.name</p>
-            <p>Created: $model.created</p>
+            <h2>Delete Project</h2>
 
-            <p><a href="$html.url("/projects")">Cancel</a></p>
+            <p>Are you sure you want to delete this project?</p>
 
-            <input type="submit" value="Delete" class="btn btn-default">
+            <p><strong>$model.name</strong></p>
+
+            <p>
+                <input type="submit" value="Delete" class="btn btn-default">
+                |
+                <a href="$html.url("/projects")">Cancel</a>
+            </p>
         </form>
     </div>
 </div>
