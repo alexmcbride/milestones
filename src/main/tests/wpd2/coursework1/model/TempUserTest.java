@@ -1,23 +1,18 @@
 package wpd2.coursework1.model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import wpd2.coursework1.util.DatabaseService;
-import wpd2.coursework1.util.IoC;
-import wpd2.coursework1.util.PasswordService;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import wpd2.coursework1.util.*;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.*;
 
 class TempUserTest {
     private DatabaseService db;
-    @BeforeEach
+    @Before
     void setUp() {
-        db = new DatabaseService(DatabaseService.Mode.TEST);
-        PasswordService pass = new PasswordService(PasswordService.MIN_COST);
+        db = new H2DatabaseService(DatabaseService.Mode.TEST);
+        PasswordService pass = new PasswordServiceImpl(PasswordServiceImpl.MIN_COST);
 
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
@@ -26,7 +21,7 @@ class TempUserTest {
         db.initialize();
     }
 
-    @AfterEach
+    @After
     void tearDown()throws Exception {
         db.destroy();
     }

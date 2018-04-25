@@ -1,0 +1,22 @@
+#parse("templates/form_helpers.vm")
+
+#set($title = 'Create Project')
+
+#@mainLayout()
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form method="post">
+            <h2>Create Project</h2>
+
+            #antiForgeryToken()
+
+            ## Use a form helper to output a text input.
+            #form_text_input("name", $model.name)
+
+            <input type="submit" value="Add Project" class="btn btn-default" id="smt">
+            |
+            <a href="$html.url("/projects")">Go back</a>
+        </form>
+    </div>
+</div>
+#end

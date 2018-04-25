@@ -1,0 +1,41 @@
+.footer {
+    border-top: 1px solid #e7e7e7;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.mt-navbar-right > items {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.shared-projects-content {
+    margin: 20px;
+}
+
+.left-share-column {
+    border-right: 2px solid #8c8c8c;
+}
+
+.alert-flash {
+    margin-bottom: 5px;
+}
+
+.alert-flash a {
+    color: #1b6d85;
+}
+
+.pretty-time {
+    text-transform: capitalize;
+}
+
+.shared-row {
+    background-color: #fafafa;
+    padding: 2px;
+    border-bottom: 1px solid #eee;
+    margin-right: 2px;
+}
