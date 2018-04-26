@@ -13,7 +13,7 @@
                 <br>
                 #if($milestone.actual)
 
-                    <p class="centerContent"><strong>Completed: </strong>$milestone.actual</p>
+                    <p><strong>Completed: </strong>$milestone.actual</p>
 
                     <hr>
                 #end
@@ -33,7 +33,7 @@
                 </form>
 
                 <div class="container33">
-                    <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-lg"></i></a>
                 </div>
                 <div class="container33">
                     <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
@@ -57,7 +57,7 @@
     <a onload='location.href="#defaultLoadLocation"'></a>
     #if (!$model.readOnly)
         <a id="addEventBtn" role="button" class="btn createMilestone" href="$html.url("/milestones/create/$model.projectId")" title="Add Milestone">
-            <i class="fas fa-plus"></i>
+             &plus;
         </a>
     #end
 
@@ -68,7 +68,7 @@
             <div id="headerIcons">
                 <div class="headerIcon"><a href="/projects" title="Back"><i class="fas fa-arrow-left fa-lg"></i></a></div>
                 #if (!$model.readOnly)
-                    <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal" title="Share"><i class="fas fa-share-alt-square fa-lg"></i></a></div>
+                    <b> | </b> <div class="headerIcon"><a href="#" data-toggle="modal" data-target="#shareProjectModal" title="Share"><i class="fas fa-share-alt fa-lg"></i></a></div>
                 #end
             </div>
         </div>
@@ -78,9 +78,9 @@
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Done')">Done</button>
         <button class="tablinks" onclick="openTab(event, 'Late')">Late</button>
-        <button class="tablinks" onclick="openTab(event, 'Current')" id="defaultOpen">Current Week</button>
+        <button class="tablinks" onclick="openTab(event, 'Current')">Current Week</button>
         <button class="tablinks" onclick="openTab(event, 'Upcoming')">Upcoming</button>
-        <button class="tablinks" onclick="openTab(event, 'All')">All</button>
+        <button class="tablinks" onclick="openTab(event, 'All')" id="defaultOpen">All</button>
     </div>
 
     <div id="Done" class="tabcontent">

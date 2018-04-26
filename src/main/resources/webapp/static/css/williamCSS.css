@@ -19,10 +19,26 @@
 /*}*/
 
 
-.navbar {
-    border-radius: 0px;
+.navbar-nav a:hover {
+    background-color: #fafafa !important;
+    color: #0D1B2E !important;
 
 }
+
+.navbar {
+    border-radius: 0px;
+    background-color: #0D1B2E;
+    border: none;
+}
+
+.navbar-toggle:hover {
+    background-color: #0D1B2E !important;
+}
+.navbar-toggle {
+    border: none !important;
+}
+
+
 .centerContent {
     text-align: center;
 
@@ -158,12 +174,12 @@
 .timeline::after {
     content: '';
     position: absolute;
-    width: 3px;
-    background-color: #1b6d85;
+    width: 2px;
+    background-color: #0D1B2E;
     top: 0;
     bottom: 0;
     left: 50%;
-    margin-left: -3px;
+    margin-left: -1px;
 }
 
 
@@ -284,10 +300,8 @@
 
 @media only screen and (max-width: 450px) {
     .container33{
-        text-align: center;
-        width: 100%;
-        padding-bottom: 7px;
-disply: inline;    }
+        padding: 3px;
+    }
 
 }
 
@@ -300,7 +314,7 @@ disply: inline;    }
     }
 
     .timeline::after {
-        left: 31px;
+        left: 29px;
         margin: 0 auto;
     }
 
