@@ -281,8 +281,8 @@
                                 #end
                                 #foreach($user in $users)
                                     <div class="row shared-row" id="sharedProjectItem-$user.id">
-                                        <div class="col-sm-7"><strong>$user.username</strong></div>
-                                        <div class="col-sm-5"><a href="#" onclick="unshare($user.id, $model.project.id, '$token')">
+                                        <div class="col-sm-7 col-xs-6"><strong>$user.username</strong></div>
+                                        <div class="col-sm-5 col-xs-6 text-right"><a href="#" onclick="unshare($user.id, $model.project.id, '$token')">
                                             <i class="fas fa-eye-slash"></i>
                                             Unshare
                                         </a></div>
