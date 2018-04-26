@@ -13,12 +13,9 @@
             <div class="wPanel">
                 <br>
                 #if($milestone.actual)
-<<<<<<< HEAD
                     <p><strong>Completed: </strong>#due_date($milestone.actual)</p>
-=======
 
                     <p>You <strong>completed</strong> this project on: $milestone.actual</p>
->>>>>>> william7
 
                     <hr>
                 #end
@@ -28,54 +25,30 @@
                         #antiForgeryToken()
                         <input type="hidden" value="$milestone.id" name="milestoneId">
                         <input type="hidden" value="markedUnDoneForm" name="formType">
+                        #if($milestone.actual)
+                            <div class="container33">
+                                <button type="submit" class="btn buttonToLink" title="Mark as Undone">
+                                    <i class="fas fa-check-circle fa-2x"></i>
+                                </button>
 
-                        <div class="container33">
-                            <button type="submit" class="btn btn-primary" title="Mark as Undone">
-                                <i class="far fa-check-circle fa-lg"></i>
-                            </button>
-                        </div>
+                            </div>
+
+                        #else
+                            <div class="container33">
+                                <button type="submit" class="btn buttonToLink" title="Mark as Undone">
+                                    <i class="far fa-check-circle fa-2x"></i>
+                                </button>
+                            </div>
+                        #end
                     </form>
 
-<<<<<<< HEAD
                     <div class="container33">
-                        <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-lg"></i></a>
+                        <a class="buttonToLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-2x"></i></a>
                     </div>
                     <div class="container33">
-                        <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                        <a class="buttonToLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-2x"></i></a>
                     </div>
                 #end
-=======
-
-                <form method="post">
-                    #antiForgeryToken()
-                    <input type="hidden" value="$milestone.id" name="milestoneId">
-                    <input type="hidden" value="markedUnDoneForm" name="formType">
-                    #if($milestone.actual)
-                        <div class="container33">
-                            <button type="submit" class="btn buttonToLink" title="Mark as Undone">
-                                <i class="fas fa-check-circle fa-2x"></i>
-                            </button>
-
-                        </div>
-
-                    #else
-                        <div class="container33">
-                            <button type="submit" class="btn buttonToLink" title="Mark as Undone">
-                                <i class="far fa-check-circle fa-2x"></i>
-                            </button>
-                        </div>
-                    #end
-
-
-                </form>
-
-                <div class="container33">
-                    <a class="buttonToLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-2x"></i></a>
-                </div>
-                <div class="container33">
-                    <a class="buttonToLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-2x"></i></a>
-                </div>
->>>>>>> william7
             </div>
 
     </div>
