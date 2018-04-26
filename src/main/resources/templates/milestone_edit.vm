@@ -1,6 +1,6 @@
 #parse('templates/layout.vm')
 
-#set($title = 'Create Project')
+#set($title = 'Edit Milestone')
 
 #@mainLayout()
 <div class="row">

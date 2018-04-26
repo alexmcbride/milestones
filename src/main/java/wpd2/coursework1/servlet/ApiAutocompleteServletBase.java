@@ -15,6 +15,8 @@ public class ApiAutocompleteServletBase extends BaseJsonServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);
 
+        if (!authorize()) return;
+
         List<AutocompleteItem> items = new ArrayList<>();
 
         String term = request.getParameter("term");

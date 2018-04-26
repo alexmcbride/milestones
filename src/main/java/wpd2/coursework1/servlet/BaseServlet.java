@@ -97,7 +97,7 @@ public abstract class BaseServlet extends HttpServlet {
         if (userManager.isLoggedIn()) {
             return true;
         }
-        response.sendRedirect(response.encodeURL("/users/login"));
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return false;
     }
 

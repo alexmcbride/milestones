@@ -9,15 +9,25 @@ import static junit.framework.TestCase.*;
 
 public class TempUserTest {
     private DatabaseService db;
+    private TestableEmailService email;
+
+    class TestableEmailService implements EmailService {
+        @Override
+        public boolean SendEmailUsingGMailSMTP(String email, String Sbj, String Msg) {
+            return true;
+        }
+    }
 
     @Before
     public void setUp() {
         db = new H2DatabaseService(DatabaseService.Mode.TEST);
         PasswordService pass = new PasswordServiceImpl(PasswordServiceImpl.MIN_COST);
+        email = new TestableEmailService();
 
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
         container.registerInstance(PasswordService.class, pass);
+        container.registerInstance(EmailService.class, email);
 
         db.initialize();
     }
@@ -55,8 +65,7 @@ public class TempUserTest {
         user.create();
         TempUser userSavedInDB = TempUser.findByToken("Token");
         assertNotNull(userSavedInDB);
-
-        }
+    }
 
 
     @Test
@@ -72,5 +81,4 @@ public class TempUserTest {
 
         assertNull(TempUser.findByToken("Token"));
     }
-
 }

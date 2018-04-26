@@ -1,5 +1,7 @@
 package wpd2.coursework1.helper;
 
+import wpd2.coursework1.util.SessionWrapper;
+
 import java.util.UUID;
 
 /*
@@ -38,6 +40,7 @@ public class AntiForgeryHelper {
     public void checkToken(String tokenToCheck) {
         String token = (String)session.getAttribute(KEY_FORGERY_TOKEN);
         if (token == null || !token.equals(tokenToCheck)) {
+            session.removeAttribute(KEY_FORGERY_TOKEN); // Remove key if not valid.
             String message = "Request blocked due to anti-forgery token check";
             throw new AntiForgeryException(message);
         }

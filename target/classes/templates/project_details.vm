@@ -1,6 +1,6 @@
 #parse('templates/layout.vm')
 
-#set($title = 'Milestones')
+#set($title = 'Project ' + $html.encode($model.projectName))
 
 #macro(milestone_item $milestone $state)
     <div class="timelineContent $state">
@@ -58,7 +58,7 @@
 
     <div class="header">
         <div class="milestoneHeaderSection">
-            <div class=""><h3><strong>$model.getProjectName()</strong></h3></div>
+            <div class=""><h3><strong>$html.encode($model.projectName)</strong></h3></div>
             <hr class="headerHR"/>
             <div id="headerIcons">
                 <div class="headerIcon"><a href="/projects" title="Back"><i class="fas fa-arrow-left fa-lg"></i></a></div>

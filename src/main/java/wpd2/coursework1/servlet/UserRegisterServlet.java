@@ -6,6 +6,7 @@ import wpd2.coursework1.helper.FlashHelper;
 import wpd2.coursework1.model.TempUser;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.EmailService;
+import wpd2.coursework1.util.IoC;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +41,7 @@ public class UserRegisterServlet extends BaseServlet {
         user.setEmail(request.getParameter("email"));
         user.setUsername(request.getParameter("username"));
         user.setPassword(request.getParameter("password").toCharArray());
-        EmailService emailservice = new EmailService();
+        EmailService emailservice = (EmailService)IoC.get().getInstance(EmailService.class);
         TempUser tempuser = new TempUser();
         String email = getRequest().getParameter("email");
         String sbj = "Milestone Project Email Authentication";
