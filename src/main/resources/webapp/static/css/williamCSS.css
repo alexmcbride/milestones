@@ -25,6 +25,12 @@
 
 }
 
+.navbar-toggle:active {
+    background-color: #0D1B2E !important;
+    color: #fafafa !important;
+
+}
+
 .navbar {
     border-radius: 0px;
     background-color: #0D1B2E;
@@ -382,7 +388,8 @@
     margin: auto;
     padding: 0;
     width: 80%;
-    border: 1px solid #1b6d85;
+    border: none;
+    border-radius: 0;
 
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -403,7 +410,7 @@
 
 /* The Close Button */
 .modal-close {
-    color: white;
+    color: #ffffff;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -416,21 +423,34 @@
     cursor: pointer;
 }
 
+.modal-header .close, .modal-header .close:hover, .modal-header .close:focus {
+    color: white;
+}
+
 .modal-header {
-    padding: 2px 16px;
-    background-color: #1b6d85;
+    padding: 10px 16px;
+    background-color: #0D1B2E;
     color: white;
 }
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 6px 16px;
 }
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #1b6d85;
+    background-color: #0D1B2E;
     color: white;
+    height: 10px;
 }
+
+
+
+
+
+
+
+
 
 
 

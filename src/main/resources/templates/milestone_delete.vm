@@ -18,7 +18,7 @@
             <p><strong>$html.encode($model.name)</strong></p>
 
             <div>
-                <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
+                <input type="submit" value="Delete Milestone" class="btn btn-primary">
                 |
                 <a class="createLink" href="$html.url("/projects/details/$model.projectId")">Go back</a>
             </div>

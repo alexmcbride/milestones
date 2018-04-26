@@ -12,7 +12,7 @@
         <p><a href="$html.url("/projects/create")">Create New Project</a></p>
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -25,8 +25,8 @@
                 </thead>
                 <tbody>
                     #foreach($project in $model)
-                        <tr >
-                            <td class="clickable-row" data-url="$html.url("/projects/details/$project.id")" style="cursor: pointer">$html.encode($project.name)</td>
+                        <tr>
+                            <td><a href="$html.url("/projects/details/$project.id")">$html.encode($project.name)</a></td>
                             <td>$project.created</td>
                             <td>$project.milestones</td>
                             <td>$project.nextMilestone</td>
@@ -38,15 +38,6 @@
                 </tbody>
             </table>
         </div>
-
-        <script>
-            $(function() {
-                $('.clickable-row').click(function (evt) {
-                    location.href = $(this).attr('data-url');
-                });
-            });
-        </script>
-
     </div>
 </div>
 #end

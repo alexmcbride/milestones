@@ -390,6 +390,7 @@
     width: 80%;
     border: none;
     border-radius: 0;
+    border: 1px solid #1b6d85;
 
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -423,7 +424,7 @@
     cursor: pointer;
 }
 
-.modal-header .close, .modal-header .close:hover, .modal-header .close:focus {
+.close, .close:hover, .close:focus {
     color: white;
 }
 
