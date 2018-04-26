@@ -13,7 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/static/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
-    <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+
+
     <link href="/static/lib/bootstrap-datepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <link href="/static/css/styles.css" rel="stylesheet">
@@ -31,7 +34,7 @@
 <body>
 
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
 
             <div class="navbar-header">

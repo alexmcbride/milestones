@@ -19,10 +19,32 @@
 /*}*/
 
 
-.navbar {
-    border-radius: 0px;
+.navbar-nav a:hover {
+    background-color: #fafafa !important;
+    color: #0D1B2E !important;
 
 }
+
+.navbar-toggle:active {
+    background-color: #0D1B2E !important;
+    color: #fafafa !important;
+
+}
+
+.navbar {
+    border-radius: 0px;
+    background-color: #0D1B2E;
+    border: none;
+}
+
+.navbar-toggle:hover {
+    background-color: #0D1B2E !important;
+}
+.navbar-toggle {
+    border: none !important;
+}
+
+
 .centerContent {
     text-align: center;
 
@@ -158,12 +180,12 @@
 .timeline::after {
     content: '';
     position: absolute;
-    width: 3px;
-    background-color: #1b6d85;
+    width: 2px;
+    background-color: #0D1B2E;
     top: 0;
     bottom: 0;
     left: 50%;
-    margin-left: -3px;
+    margin-left: -1px;
 }
 
 
@@ -284,10 +306,8 @@
 
 @media only screen and (max-width: 450px) {
     .container33{
-        text-align: center;
-        width: 100%;
-        padding-bottom: 7px;
-disply: inline;    }
+        padding: 3px;
+    }
 
 }
 
@@ -300,7 +320,7 @@ disply: inline;    }
     }
 
     .timeline::after {
-        left: 31px;
+        left: 29px;
         margin: 0 auto;
     }
 
@@ -368,7 +388,8 @@ disply: inline;    }
     margin: auto;
     padding: 0;
     width: 80%;
-    border: 1px solid #1b6d85;
+    border: none;
+    border-radius: 0;
 
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -389,7 +410,7 @@ disply: inline;    }
 
 /* The Close Button */
 .modal-close {
-    color: white;
+    color: #ffffff;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -402,21 +423,34 @@ disply: inline;    }
     cursor: pointer;
 }
 
+.close, .close:hover, .close:focus {
+    color: white;
+}
+
 .modal-header {
-    padding: 2px 16px;
-    background-color: #1b6d85;
+    padding: 10px 16px;
+    background-color: #0D1B2E;
     color: white;
 }
 
 .modal-body {
-    padding: 2px 16px;
+    padding: 6px 16px;
 }
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #1b6d85;
+    background-color: #0D1B2E;
     color: white;
+    height: 10px;
 }
+
+
+
+
+
+
+
+
 
 
 
