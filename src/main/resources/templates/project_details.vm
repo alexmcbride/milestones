@@ -13,7 +13,7 @@
                 <br>
                 #if($milestone.actual)
 
-                    <p><strong>Completed: </strong>$milestone.actual</p>
+                    <p>You <strong>completed</strong> this project on: $milestone.actual</p>
 
                     <hr>
                 #end
