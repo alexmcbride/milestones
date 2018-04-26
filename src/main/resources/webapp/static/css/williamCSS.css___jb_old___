@@ -423,7 +423,7 @@
     cursor: pointer;
 }
 
-.modal-header .close, .modal-header .close:hover, .modal-header .close:focus {
+.close, .close:hover, .close:focus {
     color: white;
 }
 
@@ -630,7 +630,7 @@ border-color: grey;
 
 .buttonToLink {
     background:none!important;
-    color:#e95420;
+    color:#0D1B2E;
     border:none;
     padding:0!important;
     font: inherit;

@@ -389,7 +389,7 @@
     padding: 0;
     width: 80%;
     border: none;
-    border-radius: 0;
+    border-radius: 4px;
 
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -429,8 +429,10 @@
 
 .modal-header {
     padding: 10px 16px;
-    background-color: #0D1B2E;
+    background-color: #e95420;
     color: white;
+    border-radius: 4px;
+
 }
 
 .modal-body {
@@ -439,7 +441,7 @@
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #0D1B2E;
+    background-color: #e95420;
     color: white;
     height: 15px;
 }
@@ -524,7 +526,7 @@ border-color: grey;
     font-size: 22px;
     border: none;
     outline: none;
-    background-color: #0D1B2E;
+    background-color: #e95420;
     color: white;
     cursor: pointer;
     padding: 15px;
@@ -534,8 +536,9 @@ border-color: grey;
 }
 
 #addEventBtn:hover {
-    background-color: #008CBA;
-    color: #0D1B2E;
+    background-color: white;
+    color: #e95420;
+    border: 2px solid #e95420;
 }
 
 
@@ -627,7 +630,7 @@ border-color: grey;
 
 .buttonToLink {
     background:none!important;
-    color:#0D1B2E;
+    color:#e95420;
     border:none;
     padding:0!important;
     font: inherit;
