@@ -12,17 +12,9 @@ public class TempUserTest {
     private TestableEmailService email;
 
     class TestableEmailService implements EmailService {
-        public String email;
-        public String subject;
-        public String msg;
-        public boolean returnValue;
-
         @Override
         public boolean SendEmailUsingGMailSMTP(String email, String Sbj, String Msg) {
-            this.email = email;
-            this.subject = Sbj;
-            this.msg = msg;
-            return returnValue;
+            return true;
         }
     }
 
@@ -73,8 +65,7 @@ public class TempUserTest {
         user.create();
         TempUser userSavedInDB = TempUser.findByToken("Token");
         assertNotNull(userSavedInDB);
-
-        }
+    }
 
 
     @Test
@@ -90,5 +81,4 @@ public class TempUserTest {
 
         assertNull(TempUser.findByToken("Token"));
     }
-
 }
