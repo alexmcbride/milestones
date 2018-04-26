@@ -10,6 +10,7 @@ import java.io.IOException;
 public class MilestoneDeleteServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_delete.vm";
 
+    @SuppressWarnings("Duplicates")
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);

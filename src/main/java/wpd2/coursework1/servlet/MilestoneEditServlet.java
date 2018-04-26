@@ -11,6 +11,7 @@ import java.util.Date;
 public class MilestoneEditServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_edit.vm";
 
+    @SuppressWarnings("Duplicates")
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);

@@ -12,22 +12,6 @@ public class BaseJsonServlet extends BaseServlet {
     public static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
 
     /**
-     * Authorize the current JSON request.
-     *
-     * @return true if authorised
-     * @throws IOException thrown by the response object
-     */
-    @Override
-    protected boolean authorize() throws IOException {
-        if (userManager.isLoggedIn()) {
-            return true;
-        }
-        // For JSON we don't want to redirect.
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        return false;
-    }
-
-    /**
      * Render a JSON response.
      *
      * @param object an object to serialise as JSON
