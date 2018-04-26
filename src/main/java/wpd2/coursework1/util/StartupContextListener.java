@@ -8,7 +8,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /*
- * Class to handle server startup event, init DB and register services.
+ * Class to handle server startup event, init DB and register services etc.
  */
 public class StartupContextListener implements ServletContextListener {
     @SuppressWarnings("unused")

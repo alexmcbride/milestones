@@ -9,7 +9,7 @@ import java.io.IOException;
  * Servlet for handling JSON responses
  */
 public class BaseJsonServlet extends BaseServlet {
-    private static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
+    public static final String RESPONSE_JSON = "Application/Json; charset=UTF-8";
 
     /**
      * Authorize the current JSON request.
