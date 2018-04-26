@@ -423,7 +423,7 @@
     cursor: pointer;
 }
 
-.close, .close:hover, .close:focus {
+.modal-header .close, .modal-header .close:hover, .modal-header .close:focus {
     color: white;
 }
 

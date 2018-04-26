@@ -51,7 +51,7 @@ public class UserLoginServlet extends BaseServlet {
 
             flash.message("You are logged in");
             if (user.getUnvisited() > 0) {
-                flash.message("New projects have been shared with you!");
+                flash.message("New projects have been shared with you!", FlashHelper.INFO);
             }
 
             // Always redirect to project.

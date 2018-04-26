@@ -68,10 +68,6 @@ public class Milestone extends ValidatableModel {
         return actual != null;
     }
 
-    public boolean isDone() {
-        return isComplete();
-    }
-
     public boolean isLate() {
         return due.before(DATE) && !isComplete();
     }

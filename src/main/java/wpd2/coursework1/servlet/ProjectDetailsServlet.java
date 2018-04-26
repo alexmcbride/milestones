@@ -46,7 +46,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
         List<Milestone> milestones = Milestone.findAll(project.getId());
         for (Milestone milestone : milestones) {
-            if (milestone.isDone()) {
+            if (milestone.isComplete()) {
                 model.addDoneMilestone(milestone);
             }
             else if (milestone.isLate()) {
