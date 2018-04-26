@@ -1,9 +1,11 @@
 package wpd2.coursework1.servlet;
 
+import com.google.common.net.HttpHeaders;
 import wpd2.coursework1.helper.FlashHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -13,8 +15,15 @@ public class UnauthorizedServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);
 
-        flash.message("You do not have permission to view that page", FlashHelper.WARNING);
+        // Try get return URL from session, if it's been set.
+        HttpSession session = request.getSession();
+        String returnUrl = (String)session.getAttribute("returnUrl");
+        if (returnUrl != null) {
+            returnUrl = "?returnUrl=" + returnUrl;
+            session.removeAttribute("returnUrl");
+        }
 
-        response.sendRedirect(response.encodeURL("/users/login"));
+        flash.message("You do not have permission to view that page", FlashHelper.WARNING);
+        response.sendRedirect(response.encodeURL("/users/login" + returnUrl));
     }
 }

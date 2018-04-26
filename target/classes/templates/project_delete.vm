@@ -16,7 +16,7 @@
             <p><strong>$html.encode($model.name)</strong></p>
 
             <p>
-                <input type="submit" value="Delete" class="btn btn-default">
+                <input type="submit" value="Delete" class="btn btn-primary">
                 |
                 <a href="$html.url("/projects")">Cancel</a>
             </p>

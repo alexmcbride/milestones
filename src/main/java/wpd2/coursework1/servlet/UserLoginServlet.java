@@ -51,11 +51,17 @@ public class UserLoginServlet extends BaseServlet {
 
             flash.message("You are logged in");
             if (user.getUnvisited() > 0) {
-                flash.message("New projects have been shared with you!");
+                flash.message("New projects have been shared with you!", FlashHelper.INFO);
             }
 
-            // Always redirect to project.
-            getResponse().sendRedirect(response.encodeURL("/projects"));
+            // If a return URL has been passed in, use that, either return to /projects
+            String returnUrl = request.getParameter("returnUrl");
+            if (returnUrl == null) {
+                response.sendRedirect(response.encodeURL("/projects"));
+            }
+            else {
+                response.sendRedirect(response.encodeURL(returnUrl));
+            }
 
             return;
         }

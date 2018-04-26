@@ -1,5 +1,6 @@
 package wpd2.coursework1.servlet;
 
+import com.google.common.net.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ public abstract class BaseServlet extends HttpServlet {
     protected UserManager userManager;
     protected AntiForgeryHelper antiForgeryHelper;
     protected FlashHelper flash;
-    protected PrettyTimeHelper prettyTimeHelper;
+    protected DateHelper dateHelper;
     protected HtmlHelper html;
 
     protected int loginCount = 0;
@@ -50,7 +51,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.antiForgeryHelper = new AntiForgeryHelper(session);
         this.html = new HtmlHelper(response);
         this.flash = new FlashHelper(session);
-        this.prettyTimeHelper = new PrettyTimeHelper();
+        this.dateHelper = new DateHelper();
     }
 
     @Override
@@ -82,7 +83,7 @@ public abstract class BaseServlet extends HttpServlet {
         renderer.addContext("antiForgeryHelper", antiForgeryHelper);
         renderer.addContext("userManager", userManager);
         renderer.addContext("flash", flash);
-        renderer.addContext("prettyTimeHelper", prettyTimeHelper);
+        renderer.addContext("dateHelper", dateHelper);
         renderer.addContext("html", html);
         renderer.render(response, template, object);
         handleResponse(response, RESPONSE_HTML);
@@ -97,6 +98,8 @@ public abstract class BaseServlet extends HttpServlet {
         if (userManager.isLoggedIn()) {
             return true;
         }
+        // Save URL in session so it can be returned to.
+        request.getSession().setAttribute("returnUrl", request.getRequestURI());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return false;
     }

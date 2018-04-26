@@ -1,6 +1,8 @@
 package wpd2.coursework1.servlet;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.ocpsoft.prettytime.Duration;
+import org.ocpsoft.prettytime.PrettyTime;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
@@ -46,7 +48,7 @@ public class ProjectDetailsServlet extends BaseServlet {
 
         List<Milestone> milestones = Milestone.findAll(project.getId());
         for (Milestone milestone : milestones) {
-            if (milestone.isDone()) {
+            if (milestone.isComplete()) {
                 model.addDoneMilestone(milestone);
             }
             else if (milestone.isLate()) {

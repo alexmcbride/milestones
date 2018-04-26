@@ -1,6 +1,11 @@
 package wpd2.coursework1.model;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.ocpsoft.prettytime.Duration;
+import org.ocpsoft.prettytime.TimeUnit;
+import org.ocpsoft.prettytime.impl.DurationImpl;
+import org.ocpsoft.prettytime.units.Day;
+import org.ocpsoft.prettytime.units.Millisecond;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
@@ -66,10 +71,6 @@ public class Milestone extends ValidatableModel {
 
     public boolean isComplete() {
         return actual != null;
-    }
-
-    public boolean isDone() {
-        return isComplete();
     }
 
     public boolean isLate() {
