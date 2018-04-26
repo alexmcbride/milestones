@@ -16,6 +16,7 @@ public class Project extends ValidatableModel {
     private Date created;
     private String username;
     private Date viewed;
+    private boolean open;
 
     public int getId() {
         return id;
@@ -65,6 +66,14 @@ public class Project extends ValidatableModel {
         this.viewed = viewed;
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
     @Override
     protected void validate() {
         ValidationHelper validation = new ValidationHelper(this);
@@ -96,11 +105,12 @@ public class Project extends ValidatableModel {
     }
 
     public void update() {
-        String sql = "UPDATE projects SET name=?, username=? WHERE id=?";
+        String sql = "UPDATE projects SET name=?, username=?, open=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, username);
-            statement.setInt(3, id);
+            statement.setBoolean(3, open);
+            statement.setInt(4, id);
             statement.executeUpdate();
         }
         catch (SQLException e) {
@@ -137,7 +147,8 @@ public class Project extends ValidatableModel {
                 "userId INTEGER NOT NULL REFERENCES users(id)," +
                 "name NVARCHAR(32) NOT NULL , " +
                 "created TIMESTAMP NOT NULL," +
-                "username NVARCHAR(32) NOT NULL" +
+                "username NVARCHAR(32) NOT NULL," +
+                "open BOOLEAN NOT NULL DEFAULT false" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
             statement.execute(sql);
@@ -163,7 +174,7 @@ public class Project extends ValidatableModel {
 
     @SuppressWarnings("Duplicates")
     public static List<Project> findAll(int userId) {
-        String sql = "SELECT id, userId, name, created, username FROM projects WHERE userId=?";
+        String sql = "SELECT id, userId, name, created, username, open FROM projects WHERE userId=?";
         List<Project> users = new ArrayList<>();
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, userId);
@@ -179,7 +190,7 @@ public class Project extends ValidatableModel {
     }
     @SuppressWarnings("Duplicates")
     public static Project find(int id) {
-        String sql = "SELECT id, userId, name, created, username FROM projects WHERE id=?";
+        String sql = "SELECT id, userId, name, created, username, open FROM projects WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -200,6 +211,7 @@ public class Project extends ValidatableModel {
         project.name = resultSet.getString(3);
         project.created = resultSet.getTimestamp(4);
         project.username = resultSet.getString(5);
+        project.open = resultSet.getBoolean(6);
         return project;
     }
 
@@ -236,5 +248,9 @@ public class Project extends ValidatableModel {
             return true;
         }
         return false;
+    }
+
+    public void toggleOpen() {
+        open = !open;
     }
 }

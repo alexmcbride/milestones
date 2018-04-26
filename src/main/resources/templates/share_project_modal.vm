@@ -1,0 +1,107 @@
+## Share projects modal dialog.
+#set($token = $antiForgeryHelper.token)
+<div class="modal fade ui-front" id="shareProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Share Project</h4>
+            </div>
+            <div class="modal-body shared-projects-content">
+                <div class="row">
+                    <div class="col-sm-6 left-share-column">
+                        <p>Previously shared with...</p>
+                        <hr>
+                        <div id="sharedProjectsList">
+                            #set($users = $model.project.sharedUsers)
+                            #if ($users.size() == 0)
+                                <div id="notSharedMessage">
+                                    <em>You haven't shared this project with anyone!</em>
+                                </div>
+                            #end
+                            #foreach($user in $users)
+                                <div class="row shared-row" id="sharedProjectItem-$user.id">
+                                    <div class="col-sm-7 col-xs-6"><strong>$user.username</strong></div>
+                                    <div class="col-sm-5 col-xs-6 text-right"><a href="#" onclick="unshare($user.id, $model.project.id, '$token')">
+                                        <i class="fas fa-eye-slash"></i>
+                                        Unshare
+                                    </a></div>
+                                </div>
+                            #end
+                        </div>
+                    </div>
+                    <div class="col-sm-6 right-share-column">
+                        <p>Share this project with someone else!</p>
+                        <hr>
+                        <form id="shareProjectForm">
+                            #antiForgeryToken()
+                            <input type="hidden" name="userId" id="userId">
+                            <input type="hidden" name="projectId"  id="projectId" value="$model.projectId">
+                            <div class="form-group">
+                                <input type="text" id="shareProjectSearch" placeholder="Enter name or email..." style="width: 100%">
+                            </div>
+                            <div class="text-right">
+                                <input type="submit" value="Share" class="btn btn-sm" disabled="disabled" id="shareButton">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form id="isPublicForm">
+                            #antiForgeryToken()
+                            <input type="hidden" name="projectId" value="$model.project.id">
+                            <label for="open">Make project public</label>
+                            #set($checked = '')
+                            #if ($model.project.open)
+                                #set($checked = 'checked="checked"')
+                            #end
+                            <input type="checkbox" name="isPublic" value="true" id="publicCheckBox"$checked>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        #set($display = 'none')
+                        #if ($model.project.open)
+                            #set($display = 'block')
+                        #end
+                        <div id="copySharedUrl" style="display: $display;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="sharedUrl" value="http://localhost:9000/share/$model.project.id">
+                                <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="copyUrl">
+                                            <i class="far fa-copy"></i>
+                                            Copy
+                                        </button>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="shareProjectMessage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // URLs for use in scripts, with session rewriting.
+    var urls = {
+        unshare: '$html.url("/api/unshare-project")',
+        autocomplete: '$html.url("/api/autocomplete")',
+        share: '$html.url("/api/share-project")'
+    };
+</script>
+
+<script src="/static/js/sharing.js"></script>
+
+<script>
+    $(function() {
+        initProjectSharing($model.project.id, '$token');
+    });
+</script>

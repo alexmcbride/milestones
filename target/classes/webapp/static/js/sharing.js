@@ -60,4 +60,33 @@ function initProjectSharing(projectId, csrf) {
         document.execCommand('copy');
         sharedUrl.blur();
     });
+
+    $('#publicCheckBox').change(function(){
+        $.ajax({
+            url: '/api/make-public',
+            method: 'POST',
+            data: $('#isPublicForm').serialize(),
+            dataType: 'json',
+            success: function(data, status, xhr) {
+                message(data.message, data.success);
+
+                if (data.open) {
+                    $('#copySharedUrl').css({display: 'block'});
+                }
+                else {
+                    $('#copySharedUrl').css({display: 'none'});
+                }
+            }
+        });
+    });
+
+    $('#copyUrl').click(function() {
+        var copyText = document.getElementById("sharedUrl");
+
+        /* Select the text field */
+        copyText.select();
+
+        /* Copy the text inside the text field */
+        document.execCommand("Copy");
+    });
 };
