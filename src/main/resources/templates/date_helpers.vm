@@ -1,3 +1,7 @@
 #macro(pretty_time $date)
-    <span class="pretty-time">$prettyTimeHelper.format($date)</span>
+    <span class="pretty-time">$dateHelper.format($date)</span>
+#end
+
+#macro(due_date $date)
+    <span class="due-date">$dateHelper.due($date)</span>
 #end

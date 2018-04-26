@@ -1,24 +1,22 @@
 #parse('templates/layout.vm')
+#parse('templates/date_helpers.vm')
 
 #set($title = 'Project: ' + $html.encode($model.projectName))
 
 #macro(milestone_item $milestone $state)
     <div class="timelineContent $state">
         <button class="wAccordion">
-            <strong>$html.encode($milestone.name):</strong> $milestone.due
+            <strong>$html.encode($milestone.name):</strong> #due_date($milestone.due)
         </button>
 
         #if (!$model.readOnly)
             <div class="wPanel">
                 <br>
                 #if($milestone.actual)
-
-                    <p><strong>Completed: </strong>$milestone.actual</p>
+                    <p><strong>Completed: </strong>#due_date($milestone.actual)</p>
 
                     <hr>
                 #end
-
-
 
                 <form method="post">
                     #antiForgeryToken()
