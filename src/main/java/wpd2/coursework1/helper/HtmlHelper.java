@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 public class HtmlHelper {
     private final HttpServletResponse response;
 
+    /**
+     * Creates a new HtmlHelper.
+     *
+     * @param response the response the HTML will be written to.
+     */
     public HtmlHelper(HttpServletResponse response) {
         this.response = response;
     }
