@@ -1,5 +1,6 @@
 package wpd2.coursework1.servlet;
 
+import com.google.common.net.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,6 +98,8 @@ public abstract class BaseServlet extends HttpServlet {
         if (userManager.isLoggedIn()) {
             return true;
         }
+        // Save URL in session so it can be returned to.
+        request.getSession().setAttribute("returnUrl", request.getRequestURI());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return false;
     }
