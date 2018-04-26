@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/static/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
-    <link href="/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 
@@ -97,7 +97,7 @@
     </div>
 
     <footer class="container-fluid footer text-muted small text-center">
-        Copyright &copy; Milestones 2018
+        Copyright &copy; Milestones 2079
     </footer>
 
     ## Shared projects modal dialog.
