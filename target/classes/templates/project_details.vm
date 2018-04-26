@@ -11,9 +11,14 @@
         #if (!$model.readOnly)
             <div class="wPanel">
                 <br>
+                #if($milestone.actual)
 
-                <p>This milestone was completed two days early. Nice! Hard coded!</p>
-                <hr>
+                    <p class="centerContent"><strong>Completed: </strong>$milestone.actual</p>
+
+                    <hr>
+                #end
+
+
 
                 <form method="post">
                     #antiForgeryToken()
