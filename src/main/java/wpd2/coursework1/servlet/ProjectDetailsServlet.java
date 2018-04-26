@@ -77,10 +77,10 @@ public class ProjectDetailsServlet extends BaseServlet {
         milestone.update();
 
         if (milestone.isComplete()) {
-            flash.message("Set milestone '" + html.encode(milestone.getName()) + "' to complete");
+            flash.message("Set milestone '" + milestone.getName() + "' to complete");
         }
         else {
-            flash.message("Set milestone '" + html.encode(milestone.getName()) + "' to incomplete");
+            flash.message("Set milestone '" + milestone.getName() + "' to incomplete");
         }
 
         // Always redirect after post.

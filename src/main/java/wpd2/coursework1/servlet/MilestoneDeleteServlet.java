@@ -40,7 +40,7 @@ public class MilestoneDeleteServlet extends BaseServlet {
             // Save project to database.
             milestone.delete();
 
-            flash.message("Milestone '" + html.encode(milestone.getName()) + "' deleted");
+            flash.message("Milestone '" + milestone.getName() + "' deleted");
 
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));

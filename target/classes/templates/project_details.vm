@@ -1,6 +1,6 @@
 #parse('templates/layout.vm')
 
-#set($title = 'Project ' + $html.encode($model.projectName))
+#set($title = 'Project: ' + $html.encode($model.projectName))
 
 #macro(milestone_item $milestone $state)
     <div class="timelineContent $state">

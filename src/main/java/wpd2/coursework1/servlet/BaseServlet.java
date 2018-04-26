@@ -48,8 +48,8 @@ public abstract class BaseServlet extends HttpServlet {
         SessionWrapper session = new SessionWrapper(request.getSession());
         this.userManager = new UserManager(session);
         this.antiForgeryHelper = new AntiForgeryHelper(session);
-        this.flash = new FlashHelper(session);
         this.html = new HtmlHelper(response);
+        this.flash = new FlashHelper(session);
         this.prettyTimeHelper = new PrettyTimeHelper();
     }
 

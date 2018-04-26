@@ -231,7 +231,6 @@
         <url-pattern>/server-error/*</url-pattern>
     </servlet-mapping>
 
-
     <servlet>
         <servlet-name>UnauthorizedServlet</servlet-name>
         <servlet-class>wpd2.coursework1.servlet.UnauthorizedServlet</servlet-class>
