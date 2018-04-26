@@ -13,15 +13,31 @@ import java.util.Properties;
 public class EmailServiceImpl implements EmailService {
     private final MailTransportWrapper transport;
 
+    /**
+     * Creates a new EmailServiceImpl class
+     */
     public EmailServiceImpl() {
         this(new MailTransportWrapper());
     }
 
+    /**
+     * Creates a new EmailServiceImpl class
+     *
+     * @param transport inject a transport class for use when testing
+     */
     public EmailServiceImpl(MailTransportWrapper transport) {
         super();
         this.transport = transport;
     }
 
+    /**
+     * Sends an email
+     *
+     * @param email the email to send the message to
+     * @param Sbj the subject for the email
+     * @param Msg the message contents for the email
+     * @return true if the email was sent
+     */
     @Override
     public boolean SendEmailUsingGMailSMTP(String email, String Sbj, String Msg) {
         boolean flag = false;
