@@ -258,6 +258,18 @@
         }
     </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
     ## Share projects modal dialog.
     #set($token = $antiForgeryHelper.token)
     <div class="modal fade ui-front" id="shareProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
