@@ -21,6 +21,9 @@ public class EmailServiceTest {
         assertEquals(transport.email, "mietta25@gmail.com");
     }
 
+    /**
+     * A testable version of the transport wrapper, that stores the last message sent.
+     */
     private class TestableTransportWrapper extends MailTransportWrapper {
         String email;
         String subject;

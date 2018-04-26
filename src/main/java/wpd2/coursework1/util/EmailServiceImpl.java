@@ -66,7 +66,7 @@ public class EmailServiceImpl implements EmailService {
             // Now set the actual message
             message.setText(Msg);
 
-            // Send message
+            // Send message using wrapper
             transport.send(message);
 
             return true;
