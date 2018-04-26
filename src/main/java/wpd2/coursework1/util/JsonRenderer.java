@@ -13,8 +13,15 @@ import java.io.IOException;
  */
 public class JsonRenderer {
     @SuppressWarnings("unused")
-    static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BaseServlet.class);
 
+    /**
+     * Renders the specified object to the response as JSON.
+     *
+     * @param response the response to write the JSON to.
+     * @param object the object to serialise as JSON.
+     * @throws IOException error thown
+     */
     public void render(HttpServletResponse response, Object object) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(object);

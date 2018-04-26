@@ -66,7 +66,7 @@ public class Project extends ValidatableModel {
     }
 
     @Override
-    public void validate() {
+    protected void validate() {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("name", name);
         validation.length("name", name, 1, 32);
@@ -77,8 +77,22 @@ public class Project extends ValidatableModel {
         username = user.getUsername();
         created = new Date();
 
-        ProjectRepository repo = new ProjectRepository();
-        repo.create(this);
+        String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, userId);
+            statement.setString(2, name);
+            statement.setTimestamp(3, new Timestamp(created.getTime()));
+            statement.setString(4, username);
+            statement.executeUpdate();
+
+            ResultSet result = statement.getGeneratedKeys();
+            if (result.next()) {
+                id = result.getInt(1);
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void update() {

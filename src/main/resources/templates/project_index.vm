@@ -11,31 +11,33 @@
 
         <p><a href="$html.url("/projects/create")">Create New Project</a></p>
 
-        <table class="table table-responsive table-hover">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Milestones</th>
-                    <th>Next Milestone</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                #foreach($project in $model)
-                    <tr >
-                        <td class="clickable-row" data-url="$html.url("/projects/details/$project.id")" style="cursor: pointer">$html.encode($project.name)</td>
-                        <td>$project.created</td>
-                        <td>$project.milestones</td>
-                        <td>$project.nextMilestone</td>
-
-                        <td><a href="$html.url("/projects/update/$project.id")"><i class="glyphicon glyphicon-edit"></i></a></td>
-                        <td><a href="$html.url("/projects/delete/$project.id")"><i class="glyphicon glyphicon-trash"></i></a></td>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Created</th>
+                        <th>Milestones</th>
+                        <th>Next Milestone</th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                #end
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    #foreach($project in $model)
+                        <tr >
+                            <td class="clickable-row" data-url="$html.url("/projects/details/$project.id")" style="cursor: pointer">$html.encode($project.name)</td>
+                            <td>$project.created</td>
+                            <td>$project.milestones</td>
+                            <td>$project.nextMilestone</td>
+
+                            <td><a href="$html.url("/projects/update/$project.id")"><i class="glyphicon glyphicon-edit"></i></a></td>
+                            <td><a href="$html.url("/projects/delete/$project.id")"><i class="glyphicon glyphicon-trash"></i></a></td>
+                        </tr>
+                    #end
+                </tbody>
+            </table>
+        </div>
 
         <script>
             $(function() {
