@@ -27,18 +27,18 @@
 
 .navbar-toggle:active, .navbar-toggle:focus {
     background-color: transparent !important;
-    color: #fafafa !important;
+    color: #e95420 !important;
 
 }
 
 .navbar {
-    border-radius: 0px;
-    background-color: #0D1B2E;
+    border-radius: 6px;
+    background-color: #e95420;
     border: none;
 }
 
 .navbar-toggle:hover {
-    background-color: #0D1B2E !important;
+    background-color: #e95420 !important;
 }
 .navbar-toggle {
     border: none !important;
@@ -222,7 +222,7 @@
     .timeline::after {
         display: none;
     }
-   
+
 }
 
 
@@ -622,4 +622,23 @@ border-color: grey;
         display: none;
     }
 
+}
+
+
+.buttonToLink {
+    background:none!important;
+    color:#0D1B2E;
+    border:none;
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
+}
+
+.buttonToLink:hover {
+    background:none!important;
+    color: blue;
+    border:none;
+    padding:0!important;
+    font: inherit;
+    cursor: pointer;
 }
