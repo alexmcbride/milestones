@@ -3,9 +3,8 @@ package wpd2.coursework1.model;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 /*
  * Class to represent a project, a collection of milestones.
@@ -17,10 +16,6 @@ public class Project extends ValidatableModel {
     private Date created;
     private String username;
     private Date viewed;
-
-    public Project() {
-
-    }
 
     public int getId() {
         return id;
@@ -81,22 +76,9 @@ public class Project extends ValidatableModel {
         userId = user.getId();
         username = user.getUsername();
         created = new Date();
-        String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
-        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, userId);
-            statement.setString(2, name);
-            statement.setTimestamp(3, new Timestamp(created.getTime()));
-            statement.setString(4, user.getUsername());
-            statement.executeUpdate();
 
-            ResultSet result = statement.getGeneratedKeys();
-            if (result.next()) {
-                id = result.getInt(1);
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ProjectRepository repo = new ProjectRepository();
+        repo.create(this);
     }
 
     public void update() {

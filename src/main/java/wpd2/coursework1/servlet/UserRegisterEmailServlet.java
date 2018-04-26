@@ -3,6 +3,7 @@ package wpd2.coursework1.servlet;
 import wpd2.coursework1.Runner;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.util.EmailService;
+import wpd2.coursework1.util.IoC;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,7 @@ public class UserRegisterEmailServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doPost(request, response);
 
-        EmailService emailservice = new EmailService();
+        EmailService emailservice = (EmailService)IoC.get().getInstance(EmailService.class);
         User user = new User();
         String email = getRequest().getParameter("email");
         String sbj = "Milestone Project Email Authentication";

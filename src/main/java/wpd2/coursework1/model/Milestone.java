@@ -90,13 +90,14 @@ public class Milestone extends ValidatableModel {
         helper.required("name", name);
         helper.length("name", name, 1, 250);
         helper.required("due", due);
+        helper.notInFuture("actual", actual);
     }
 
     @SuppressWarnings("Duplicates")
     public void create(Project project) {
         projectId = project.getId();
 
-        String sql = "INSERT INTO milestones (projectId, name, due) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO milestones (projectId, name, due) VALUES (?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             sta.setInt(1, projectId);
             sta.setString(2, name);
@@ -153,7 +154,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static Milestone find(int id) {
-        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE id=?";
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
         return getMilestone(id, sql);
     }
 

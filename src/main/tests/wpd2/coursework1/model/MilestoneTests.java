@@ -41,16 +41,23 @@ public class MilestoneTests {
         Milestone milestone = new Milestone();
         milestone.setName("Test name");
         milestone.setDue(new Date());
+        milestone.setActual((Date)null);
         assertTrue(milestone.isValid());
     }
 
     @Test
     public void testInvalid() {
         Milestone milestone = new Milestone();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date actual = calendar.getTime();
+        milestone.setActual(actual);
         assertFalse(milestone.isValid());
 
         assertEquals("Name must be between 1 and 250 characters.", milestone.getValidationError("name"));
         assertEquals("Due is required", milestone.getValidationError("due"));
+        assertEquals("Actual must be in the past", milestone.getValidationError("actual"));
     }
 
     @Test

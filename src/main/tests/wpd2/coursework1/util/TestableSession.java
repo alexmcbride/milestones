@@ -2,7 +2,6 @@ package wpd2.coursework1.util;
 
 import wpd2.coursework1.helper.AntiForgeryHelper;
 import wpd2.coursework1.helper.FlashHelper;
-import wpd2.coursework1.helper.SessionWrapper;
 import wpd2.coursework1.model.User;
 
 import java.util.List;

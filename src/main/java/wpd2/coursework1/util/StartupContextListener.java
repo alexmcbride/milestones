@@ -29,6 +29,7 @@ public class StartupContextListener implements ServletContextListener {
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, new H2DatabaseService());
         container.registerInstance(PasswordService.class, new PasswordServiceImpl());
+        container.registerInstance(EmailService.class, new EmailServiceImpl());
     }
 
     private void initializeDatabase() {
