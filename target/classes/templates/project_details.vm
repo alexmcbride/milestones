@@ -9,7 +9,7 @@
             <strong>$html.encode($milestone.name):</strong> #due_date($milestone.due)
         </button>
 
-        #if (!$model.readOnly)
+
             <div class="wPanel">
                 <br>
                 #if($milestone.actual)
@@ -17,27 +17,29 @@
 
                     <hr>
                 #end
+                
+                #if (!$model.readOnly)
+                    <form method="post">
+                        #antiForgeryToken()
+                        <input type="hidden" value="$milestone.id" name="milestoneId">
+                        <input type="hidden" value="markedUnDoneForm" name="formType">
 
-                <form method="post">
-                    #antiForgeryToken()
-                    <input type="hidden" value="$milestone.id" name="milestoneId">
-                    <input type="hidden" value="markedUnDoneForm" name="formType">
+                        <div class="container33">
+                            <button type="submit" class="btn btn-primary" title="Mark as Undone">
+                                <i class="far fa-check-circle fa-lg"></i>
+                            </button>
+                        </div>
+                    </form>
 
                     <div class="container33">
-                        <button type="submit" class="btn btn-primary" title="Mark as Undone">
-                            <i class="far fa-check-circle fa-lg"></i>
-                        </button>
+                        <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-lg"></i></a>
                     </div>
-                </form>
-
-                <div class="container33">
-                    <a class="editMilestoneLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-lg"></i></a>
-                </div>
-                <div class="container33">
-                    <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
-                </div>
+                    <div class="container33">
+                        <a class="deleteMilestoneLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-lg"></i></a>
+                    </div>
+                #end
             </div>
-        #end
+
     </div>
     <br>
 #end
