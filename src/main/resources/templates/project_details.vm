@@ -48,10 +48,10 @@
     #parse("templates/form_helpers.vm")
 
     #if ($model.readOnly)
-    <div class="alert alert-info" role="alert">
-        <strong>Read Only</strong>
-        This is a shared project and cannot be edited.
-    </div>
+        <div class="alert alert-info" role="alert">
+            <strong>Read Only</strong>
+            This project belongs to '$html.encode($model.project.username)' and cannot be edited.
+        </div>
     #end
 
     <a onload='location.href="#defaultLoadLocation"'></a>
