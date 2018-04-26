@@ -66,7 +66,7 @@ public class Project extends ValidatableModel {
     }
 
     @Override
-    public void validate() {
+    protected void validate() {
         ValidationHelper validation = new ValidationHelper(this);
         validation.required("name", name);
         validation.length("name", name, 1, 32);

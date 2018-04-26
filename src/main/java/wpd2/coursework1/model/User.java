@@ -111,7 +111,7 @@ public class User extends ValidatableModel {
     }
 
     @Override
-    public void validate() {
+    protected void validate() {
         ValidationHelper validation = new ValidationHelper(this);
 //        validation.required("username", username);
 //        validation.email("email", email);
