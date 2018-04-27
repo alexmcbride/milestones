@@ -3,9 +3,7 @@ package wpd2.coursework1.model;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import wpd2.coursework1.util.*;
 
 import java.sql.Timestamp;
@@ -18,7 +16,7 @@ import static junit.framework.TestCase.assertNull;
 
 
 
-class TempUserTest {
+public class TempUserTest {
     private DatabaseService db;
 
     private TestableEmailService email;
@@ -100,7 +98,7 @@ class TempUserTest {
         userToBedeleted.setUsername("user1-1");
         userToBedeleted.setEmail("valid@email.com1-1");
         userToBedeleted.setPassword("password1-1");
-        userToBedeleted.setToken("Token1-1");
+        userToBedeleted.setToken("Token1");
         userToBedeleted.create();
 
         Calendar cal1 = Calendar.getInstance();
