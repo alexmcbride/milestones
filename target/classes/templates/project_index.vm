@@ -1,4 +1,5 @@
 #parse('templates/layout.vm')
+#parse("templates/helpers/form_helpers.vm")
 
 ## Set the title of the page.
 #set($title = 'Home')
@@ -21,6 +22,7 @@
                         <th>Next Milestone</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +33,11 @@
                             <td>$project.milestones</td>
                             <td>$project.nextMilestone</td>
 
+                            <td>
+                                #if ($project.open)
+                                    <i class="far fa-share-square" title="Shared Publicaly"></i>
+                                #end
+                            </td>
                             <td><a href="$html.url("/projects/update/$project.id")"><i class="glyphicon glyphicon-edit"></i></a></td>
                             <td><a href="$html.url("/projects/delete/$project.id")"><i class="glyphicon glyphicon-trash"></i></a></td>
                         </tr>

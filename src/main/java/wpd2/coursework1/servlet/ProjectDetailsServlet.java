@@ -1,8 +1,5 @@
 package wpd2.coursework1.servlet;
 
-import org.apache.commons.lang.time.DateUtils;
-import org.ocpsoft.prettytime.Duration;
-import org.ocpsoft.prettytime.PrettyTime;
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
 import wpd2.coursework1.model.User;
@@ -20,8 +17,6 @@ public class ProjectDetailsServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);
 
-        if (!authorize()) return;
-
         int id = getRouteId();
 
         // Get project
@@ -31,16 +26,37 @@ public class ProjectDetailsServlet extends BaseServlet {
             return;
         }
 
-        // Check user has permission
+        // Figure out if this user can view the project.
         User user = userManager.getUser();
-        boolean readonly = false;
-        if (!project.isOwnedBy(user)) {
-            // Check user has permission to view in read-only mode.
-            readonly = project.isReadOnly(user);
-            if (!readonly) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
+        boolean readonly = true;
+        boolean authorized = false;
+
+        // If project is open, let anyone view it.
+        if (project.isOpen()) {
+            authorized = true;
+            readonly = true;
+
+            // This belongs to me, so let me edit it.
+            if (userManager.isLoggedIn() && project.isOwnedBy(user)) {
+                readonly = false;
             }
+        }
+        else if (userManager.isLoggedIn()) {
+            // This project has been shared with me.
+            if (project.hasBeenSharedWith(user)) {
+                authorized = true;
+                readonly = true;
+            }
+            // I'm logged in and this is my project.
+            else if (project.isOwnedBy(user)) {
+                authorized = true;
+                readonly = false;
+            }
+        }
+
+        if (!authorized) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         // get milestones view model

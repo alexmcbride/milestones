@@ -428,22 +428,15 @@
 }
 
 .modal-header {
-    padding: 10px 16px;
     background-color: #e95420;
     color: white;
     border-radius: 4px;
-
 }
 
-.modal-body {
-    padding: 6px 16px;
-}
 
 .modal-footer {
-    padding: 2px 16px;
     background-color: #e95420;
     color: white;
-    height: 15px;
 }
 
 

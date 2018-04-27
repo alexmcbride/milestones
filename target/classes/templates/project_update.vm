@@ -1,5 +1,5 @@
 #parse('templates/layout.vm')
-#parse("templates/form_helpers.vm")
+#parse("templates/helpers/form_helpers.vm")
 
 #set($title = 'Update Project')
 

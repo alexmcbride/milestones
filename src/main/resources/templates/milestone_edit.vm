@@ -1,13 +1,11 @@
 #parse('templates/layout.vm')
+#parse("templates/helpers/form_helpers.vm")
 
 #set($title = 'Edit Milestone')
 
 #@mainLayout()
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        ## Include file that contains our form helpers.
-        #parse("templates/form_helpers.vm")
-
         <form method="post">
             <h2>Edit Milestone: $model.name</h2>
 

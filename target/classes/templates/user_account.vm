@@ -1,4 +1,5 @@
 #parse('templates/layout.vm')
+#parse('templates/helpers/form_helpers.vm')
 
 #set($title = $model.name)
 

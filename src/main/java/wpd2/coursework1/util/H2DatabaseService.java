@@ -138,7 +138,7 @@ public class H2DatabaseService implements DatabaseService {
         phil.setEmail("phil@email.com");
         phil.create();
 
-        Project rspi = createProject("Research Skills", alex, 10);
+        Project rspi = createProject("Research Skills", alex, 10, true);
         Project wpd = createProject("Web Platform Development 2", alex, 4);
         Project ip3 = createProject("Integrated Project 3", alex, 7);
 
@@ -150,8 +150,13 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private Project createProject(String name, User owner, int count) {
+        return createProject(name, owner, count, false);
+    }
+
+    private Project createProject(String name, User owner, int count, boolean open) {
         Project project = new Project();
         project.setName(name);
+        project.setOpen(open);
         project.create(owner);
         for (int i = 0; i < count; i++) {
             Milestone milestone = new Milestone();
