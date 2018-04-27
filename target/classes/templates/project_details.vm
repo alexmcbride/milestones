@@ -1,5 +1,6 @@
 #parse('templates/layout.vm')
-#parse('templates/date_helpers.vm')
+#parse('templates/helpers/date_helpers.vm')
+#parse('templates/helpers/form_helpers.vm')
 
 #set($title = 'Project: ' + $html.encode($model.projectName))
 
@@ -56,8 +57,6 @@
 #end
 
 #@mainLayout()
-    #parse("templates/form_helpers.vm")
-
     #if ($model.readOnly)
         <div class="alert alert-info" role="alert">
             <strong>Read Only</strong>
@@ -269,5 +268,6 @@
         }
     </script>
 
+    ## Include the share project modal dialog.
     #parse('templates/share_project_modal.vm')
 #end

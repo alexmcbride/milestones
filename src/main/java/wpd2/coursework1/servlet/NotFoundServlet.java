@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class NotFoundServlet extends BaseServlet {
-    private static final String TEMPLATE_FILE = "not_found.vm";
+    private static final String TEMPLATE_FILE = "errors/not_found.vm";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);

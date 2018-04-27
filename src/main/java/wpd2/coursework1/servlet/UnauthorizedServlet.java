@@ -18,7 +18,10 @@ public class UnauthorizedServlet extends BaseServlet {
         // Try get return URL from session, if it's been set.
         HttpSession session = request.getSession();
         String returnUrl = (String)session.getAttribute("returnUrl");
-        if (returnUrl != null) {
+        if (returnUrl == null) {
+            returnUrl = "";
+        }
+        else {
             returnUrl = "?returnUrl=" + returnUrl;
             session.removeAttribute("returnUrl");
         }

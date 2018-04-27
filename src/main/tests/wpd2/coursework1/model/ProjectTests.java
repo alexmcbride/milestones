@@ -164,8 +164,8 @@ public class ProjectTests {
         SharedProject sharedProject = new SharedProject();
         sharedProject.create(project, user2);
 
-        assertTrue(project.isReadOnly(user2));
-        assertTrue(project.isReadOnly(user2.getId()));
+        assertTrue(project.hasBeenSharedWith(user2));
+        assertTrue(project.hasBeenSharedWith(user2.getId()));
 
         sharedProject = SharedProject.find(user2, project);
         assertNotNull(sharedProject.getViewed());

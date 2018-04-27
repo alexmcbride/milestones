@@ -86,12 +86,13 @@ public class Project extends ValidatableModel {
         username = user.getUsername();
         created = new Date();
 
-        String sql = "INSERT INTO projects (userId, name, created, username) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO projects (userId, name, created, username, open) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
             statement.setString(2, name);
             statement.setTimestamp(3, new Timestamp(created.getTime()));
             statement.setString(4, username);
+            statement.setBoolean(5, open);
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -226,6 +227,9 @@ public class Project extends ValidatableModel {
     }
 
     public boolean isOwnedBy(User user) {
+        if (user == null) {
+            return false;
+        }
         return isOwnedBy(user.getId());
     }
 
@@ -233,11 +237,11 @@ public class Project extends ValidatableModel {
         return this.userId == userId;
     }
 
-    public boolean isReadOnly(User user) {
-        return isReadOnly(user.getId());
+    public boolean hasBeenSharedWith(User user) {
+        return hasBeenSharedWith(user.getId());
     }
 
-    public boolean isReadOnly(int userId) {
+    public boolean hasBeenSharedWith(int userId) {
         SharedProject sharedProject = SharedProject.find(userId, id);
         if (sharedProject != null) {
             // Set viewed date if seen for first time.

@@ -221,6 +221,15 @@
         <url-pattern>/api/make-public/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ViewSharedLinkServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.ViewSharedLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSharedLinkServlet</servlet-name>
+        <url-pattern>/share/*</url-pattern>
+    </servlet-mapping>
+
     <!-- Errors -->
     <servlet>
         <servlet-name>NotFoundServlet</servlet-name>

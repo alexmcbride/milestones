@@ -42,5 +42,7 @@ public class ProjectViewModel {
         return "Never";
     }
 
-
+    public boolean isOpen() {
+        return project.isOpen();
+    }
 }

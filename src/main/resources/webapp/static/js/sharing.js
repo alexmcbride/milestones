@@ -19,7 +19,7 @@ function unshare(id, projectId, csrf) {
     });
 }
 
-function initProjectSharing(projectId, csrf) {
+function initProjectSharing(projectId, csrf, open) {
     $('#shareProjectSearch').autocomplete({
         source: urls.autocomplete,
         minLength: 2,
@@ -43,8 +43,8 @@ function initProjectSharing(projectId, csrf) {
                     $('#shareButton').attr('disabled', 'disabled');
                     $('#notSharedMessage').css({display: 'none'});
                     $('#sharedProjectsList').append('<div class="row shared-row" id="sharedProjectItem-' + data.id + '">' +
-                        '<div class="col-sm-7"><strong>' + data.username + '</strong></div>' +
-                        '<div class="col-sm-5"><a href="#" onclick="unshare(' + data.id + ', '+projectId+', \'' + csrf + '\')">' +
+                        '<div class="col-sm-7 col-xs-6"><strong>' + data.username + '</strong></div>' +
+                        '<div class="col-sm-5 col-xs-6 text-right"><a href="#" onclick="unshare(' + data.id + ', '+projectId+', \'' + csrf + '\')">' +
                         '<i class="fas fa-eye-slash"></i> ' +
                         'Unshare</a></div>' +
                         '</div>');
@@ -69,24 +69,21 @@ function initProjectSharing(projectId, csrf) {
             dataType: 'json',
             success: function(data, status, xhr) {
                 message(data.message, data.success);
-
-                if (data.open) {
-                    $('#copySharedUrl').css({display: 'block'});
-                }
-                else {
-                    $('#copySharedUrl').css({display: 'none'});
-                }
+                $('#copySharedUrl').css({display: data.open ? 'block' : 'none'});
             }
         });
     });
 
     $('#copyUrl').click(function() {
         var copyText = document.getElementById("sharedUrl");
-
-        /* Select the text field */
         copyText.select();
-
-        /* Copy the text inside the text field */
         document.execCommand("Copy");
+        message("The shared link has been copied to the clipboard", true);
     });
+
+    // Set public form initial state
+    if (!open) {
+        $('#copySharedUrl').css({display: 'none'});
+    }
+    $('#publicCheckBox').prop('checked', open);
 };

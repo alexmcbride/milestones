@@ -16,12 +16,11 @@ public class ApiMakePublicServlet extends BaseJsonServlet {
             project.toggleOpen();
             project.update();
 
-            if (project.isOpen()) {
-                json(new IsPublicResponse("Project '" + html.encode(project.getName()) + "' is now public", project.isOpen(), project.getId()));
-            }
-            else {
-                json(new IsPublicResponse("Project '" + html.encode(project.getName()) + "' is no longer public", project.isOpen(), project.getId()));
-            }
+            String message = project.isOpen() ?
+                    "Project '" + html.encode(project.getName()) + "' is public, now anyone can view it!" :
+                    "Project '" + html.encode(project.getName()) + "' is no longer public";
+
+            json(new IsPublicResponse(message, project.isOpen(), project.getId()));
         }
         catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -32,7 +31,7 @@ public class ApiMakePublicServlet extends BaseJsonServlet {
         private boolean open;
         private int projectId;
 
-        public IsPublicResponse(String message, boolean open, int projectId) {
+        IsPublicResponse(String message, boolean open, int projectId) {
             super(true, message);
             this.open = open;
             this.projectId = projectId;
