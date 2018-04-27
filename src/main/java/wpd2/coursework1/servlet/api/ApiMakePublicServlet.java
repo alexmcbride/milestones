@@ -1,6 +1,8 @@
-package wpd2.coursework1.servlet;
+package wpd2.coursework1.servlet.api;
 
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.servlet.BaseJsonServlet;
+import wpd2.coursework1.servlet.JsonResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
