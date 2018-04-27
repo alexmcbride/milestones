@@ -23,6 +23,7 @@ public class UserPwResetEmailServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doPost(request, response);
+        loginCount++;
 
         String email = request.getParameter("email");
 
@@ -44,6 +45,11 @@ public class UserPwResetEmailServlet extends BaseServlet {
             }
         }
         else {
+            if (loginCount == 3) {
+                loginCount = 0;
+                response.sendRedirect(response.encodeURL("/users/login"));
+                return;
+            }
             flash.message("Not Valid Email address", FlashHelper.WARNING);
             view(TEMPLATE_FILE, user);
         }
