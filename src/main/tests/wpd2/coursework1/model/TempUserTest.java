@@ -1,6 +1,7 @@
 
 package wpd2.coursework1.model;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
+
 
 
 class TempUserTest {
@@ -42,13 +44,13 @@ class TempUserTest {
         db.initialize();
     }
 
-    @AfterEach
-    void tearDown()throws Exception {
+    @After
+    public void tearDown()throws Exception {
         db.destroy();
     }
 
     @Test
-    void testCreate()throws Exception {
+    public void testCreate()throws Exception {
         TempUser user = new TempUser();
         user.setUsername("user1");
         user.setEmail("valid@email.com");
@@ -66,7 +68,7 @@ class TempUserTest {
     }
 
     @Test
-    void testFindByToken()throws Exception {
+    public void testFindByToken()throws Exception {
         TempUser user = new TempUser();
         user.setUsername("user1");
         user.setEmail("valid@email.com");
@@ -77,8 +79,8 @@ class TempUserTest {
         assertNotNull(userSavedInDB);
 
         }
-
-    void testDelete() throws Exception {
+    @Test
+    public void testDelete() throws Exception {
         //test user who's account created older than 40 min
         TempUser tempuser = new TempUser();
         tempuser.setUsername("user0");
@@ -87,18 +89,18 @@ class TempUserTest {
         tempuser.setToken("Token0");
         tempuser.create();
         TempUser tempuserSavedInDatabase = TempUser.findByToken("Token0");
-        tempuser.delete();
+        tempuserSavedInDatabase.delete();
         assertNull(TempUser.findByToken("Token"));
     }
 
     @Test
-    void testDeleteWithTime() throws Exception {
+    public void testDeleteWithTime() throws Exception {
         //test user who's account created older than 40 min
         TempUser userToBedeleted = new TempUser();
-        userToBedeleted.setUsername("user1");
-        userToBedeleted.setEmail("valid@email.com1");
-        userToBedeleted.setPassword("password1");
-        userToBedeleted.setToken("Token1");
+        userToBedeleted.setUsername("user1-1");
+        userToBedeleted.setEmail("valid@email.com1-1");
+        userToBedeleted.setPassword("password1-1");
+        userToBedeleted.setToken("Token1-1");
         userToBedeleted.create();
 
         Calendar cal1 = Calendar.getInstance();
