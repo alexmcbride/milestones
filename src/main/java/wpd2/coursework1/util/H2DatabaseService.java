@@ -156,8 +156,8 @@ public class H2DatabaseService implements DatabaseService {
     private Project createProject(String name, User owner, int count, boolean open) {
         Project project = new Project();
         project.setName(name);
-        project.create(owner);
         project.setOpen(open);
+        project.create(owner);
         for (int i = 0; i < count; i++) {
             Milestone milestone = new Milestone();
             milestone.setName("Milestone " + (i + 1));
