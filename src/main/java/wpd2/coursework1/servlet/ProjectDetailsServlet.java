@@ -2,12 +2,14 @@ package wpd2.coursework1.servlet;
 
 import wpd2.coursework1.model.Milestone;
 import wpd2.coursework1.model.Project;
+import wpd2.coursework1.model.SharedProject;
 import wpd2.coursework1.model.User;
 import wpd2.coursework1.viewmodel.MilestonesViewModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class ProjectDetailsServlet extends BaseServlet {
@@ -43,9 +45,13 @@ public class ProjectDetailsServlet extends BaseServlet {
         }
         else if (userManager.isLoggedIn()) {
             // This project has been shared with me.
-            if (project.hasBeenSharedWith(user)) {
+            SharedProject sharedProject = SharedProject.find(user, project);
+            if (sharedProject != null) {
                 authorized = true;
                 readonly = true;
+
+                sharedProject.setViewed(new Date());
+                sharedProject.update();
             }
             // I'm logged in and this is my project.
             else if (project.isOwnedBy(user)) {

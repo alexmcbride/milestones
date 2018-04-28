@@ -35,7 +35,7 @@
 
                             <td>
                                 #if ($project.open)
-                                    <i class="far fa-share-square" title="Shared Publicaly"></i>
+                                    <i class="fas fa-globe" title="Shared Publicaly"></i>
                                 #end
                             </td>
                             <td><a href="$html.url("/projects/update/$project.id")"><i class="glyphicon glyphicon-edit"></i></a></td>
