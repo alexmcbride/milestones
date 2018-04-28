@@ -15,10 +15,10 @@ public class EmailServiceTest {
         TestableTransportWrapper transport = new TestableTransportWrapper();
         EmailService em = new EmailServiceImpl(transport);
 
-        assertTrue(em.SendEmailUsingGMailSMTP("mietta25@gmail.com","test","test message"));
+        assertTrue(em.SendEmailUsingGMailSMTP("a@gmail.com","test","test message"));
         assertEquals(transport.message, "test message");
         assertEquals(transport.subject, "test");
-        assertEquals(transport.email, "mietta25@gmail.com");
+        assertEquals(transport.email, "a@gmail.com");
     }
 
     /**

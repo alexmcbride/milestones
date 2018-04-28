@@ -10,48 +10,41 @@
             <strong>$html.encode($milestone.name):</strong> #due_date($milestone.due)
         </button>
 
+        <div class="wPanel">
+            <br>
+            #if($milestone.actual)
+                <p>You <strong>completed</strong> this project on: $milestone.actual</p>
+                <hr>
+            #end
 
-            <div class="wPanel">
-                <br>
-                #if($milestone.actual)
-                    <p><strong>Completed: </strong>#due_date($milestone.actual)</p>
+            #if (!$model.readOnly)
+                <form method="post">
+                    #antiForgeryToken()
+                    <input type="hidden" value="$milestone.id" name="milestoneId">
+                    <input type="hidden" value="markedUnDoneForm" name="formType">
+                    #if($milestone.actual)
+                        <div class="container33">
+                            <button type="submit" class="btn buttonToLink" title="Mark as Undone">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </button>
+                        </div>
+                    #else
+                        <div class="container33">
+                            <button type="submit" class="btn buttonToLink" title="Mark as Done">
+                                <i class="far fa-check-circle fa-2x"></i>
+                            </button>
+                        </div>
+                    #end
+                </form>
 
-                    <p>You <strong>completed</strong> this project on: $milestone.actual</p>
-
-                    <hr>
-                #end
-
-                #if (!$model.readOnly)
-                    <form method="post">
-                        #antiForgeryToken()
-                        <input type="hidden" value="$milestone.id" name="milestoneId">
-                        <input type="hidden" value="markedUnDoneForm" name="formType">
-                        #if($milestone.actual)
-                            <div class="container33">
-                                <button type="submit" class="btn buttonToLink" title="Mark as Undone">
-                                    <i class="fas fa-check-circle fa-2x"></i>
-                                </button>
-
-                            </div>
-
-                        #else
-                            <div class="container33">
-                                <button type="submit" class="btn buttonToLink" title="Mark as Undone">
-                                    <i class="far fa-check-circle fa-2x"></i>
-                                </button>
-                            </div>
-                        #end
-                    </form>
-
-                    <div class="container33">
-                        <a class="buttonToLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-2x"></i></a>
-                    </div>
-                    <div class="container33">
-                        <a class="buttonToLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-2x"></i></a>
-                    </div>
-                #end
-            </div>
-
+                <div class="container33">
+                    <a class="buttonToLink" href="$html.url("/milestones/edit/$milestone.id")"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                </div>
+                <div class="container33">
+                    <a class="buttonToLink" href="$html.url("/milestones/delete/$milestone.id")"><i class="fas fa-times fa-2x"></i></a>
+                </div>
+            #end
+        </div>
     </div>
     <br>
 #end

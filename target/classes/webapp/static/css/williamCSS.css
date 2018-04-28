@@ -21,7 +21,7 @@
 
 .navbar-nav a:hover {
     background-color: #fafafa !important;
-    color: #0D1B2E !important;
+    color: #0f0f0f !important;
 
 }
 
@@ -32,7 +32,7 @@
 }
 
 .navbar {
-    border-radius: 6px;
+    border-radius: 0px;
     background-color: #e95420;
     border: none;
 }
@@ -529,9 +529,9 @@ border-color: grey;
 }
 
 #addEventBtn:hover {
-    background-color: white;
+    background-color: #9acfea;
     color: #e95420;
-    border: 2px solid #e95420;
+
 }
 
 
@@ -632,7 +632,7 @@ border-color: grey;
 
 .buttonToLink:hover {
     background:none!important;
-    color: blue;
+    color: #0D1B2E;
     border:none;
     padding:0!important;
     font: inherit;

@@ -24,7 +24,7 @@ public class ProjectTests {
 
         // Register service for use in test.
         IoC container = IoC.get();
-        container.registerInstance(H2DatabaseService.class, db);
+        container.registerInstance(DatabaseService.class, db);
         container.registerInstance(PasswordService.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
 
         db.initialize();
@@ -82,7 +82,7 @@ public class ProjectTests {
 
         Project result = Project.find(id);
         assertEquals("Test", result.getName());
-        assertEquals(created, result.getCreated());
+        assertEquals(created.getTime(), result.getCreated().getTime());
         assertEquals(id, result.getId());
     }
 
@@ -166,8 +166,5 @@ public class ProjectTests {
 
         assertTrue(project.hasBeenSharedWith(user2));
         assertTrue(project.hasBeenSharedWith(user2.getId()));
-
-        sharedProject = SharedProject.find(user2, project);
-        assertNotNull(sharedProject.getViewed());
     }
 }

@@ -243,15 +243,7 @@ public class Project extends ValidatableModel {
 
     public boolean hasBeenSharedWith(int userId) {
         SharedProject sharedProject = SharedProject.find(userId, id);
-        if (sharedProject != null) {
-            // Set viewed date if seen for first time.
-            if (sharedProject.getViewed() == null) {
-                sharedProject.setViewed(new Date());
-                sharedProject.update();
-            }
-            return true;
-        }
-        return false;
+        return sharedProject != null;
     }
 
     public void toggleOpen() {
