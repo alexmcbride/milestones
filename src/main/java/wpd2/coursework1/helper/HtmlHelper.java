@@ -1,7 +1,6 @@
 package wpd2.coursework1.helper;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jboss.netty.handler.codec.http.HttpResponse;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +20,7 @@ public class HtmlHelper {
     }
 
     /**
-     * Encodes user input so it can be displayed in the page output.
+     * Escapes user input so it can be safely displayed.
      *
      * @param s the string to encode
      * @return the encoded output

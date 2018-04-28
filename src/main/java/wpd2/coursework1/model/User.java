@@ -129,10 +129,17 @@ public class User extends ValidatableModel {
         }
     }
 
-    public void create() {
-        if (passwordHash == null) {
+    private void hashPassword() {
+        if (passwordHash == null || passwordChanged) {
             passwordHash = passwordService.hash(password);
+
+            // Null password so it is wiped from memory
+            password = null;
         }
+    }
+
+    public void create() {
+        hashPassword();
         joined = new Date();
 
         String sql = "INSERT INTO users (username, email, password, joined, resetToken, loginCount) VALUES (?, ?, ?, ?, ?, ?)";
@@ -171,9 +178,7 @@ public class User extends ValidatableModel {
     }
 
     public boolean update() {
-        if (passwordChanged) {
-            passwordHash = passwordService.hash(password);
-        }
+        hashPassword();
 
         if (updateInternal()) {
             if (usernameChanged) {
