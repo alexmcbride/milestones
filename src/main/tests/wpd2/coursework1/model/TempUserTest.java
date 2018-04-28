@@ -98,13 +98,13 @@ public class TempUserTest {
         userToBedeleted.setUsername("user1-1");
         userToBedeleted.setEmail("valid@email.com1-1");
         userToBedeleted.setPassword("password1-1");
-        userToBedeleted.setToken("Token1");
+        userToBedeleted.setToken("Token1-1");
         userToBedeleted.create();
 
         Calendar cal1 = Calendar.getInstance();
         cal1.add(Calendar.MINUTE,-40);
         Timestamp timestamp = new Timestamp(cal1.getTime().getTime());
-        TempUser userToBedeletedSavedInDatabase = TempUser.findByToken("Token1");
+        TempUser userToBedeletedSavedInDatabase = TempUser.findByToken("Token1-1");
         userToBedeletedSavedInDatabase.setJoined(timestamp);
         userToBedeletedSavedInDatabase.update();
         userToBedeleted.delete(30);
