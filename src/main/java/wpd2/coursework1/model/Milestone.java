@@ -70,7 +70,7 @@ public class Milestone extends ValidatableModel {
         return due.before(new Date()) && !isComplete();
     }
 
-    public boolean isCurrent() {
+    public boolean isCurrentWeek() {
         Date now = new Date();
         return due.before(DateUtils.addDays(now, 7)) && due.after(now) && !isComplete();
     }
@@ -85,7 +85,7 @@ public class Milestone extends ValidatableModel {
         helper.required("name", name);
         helper.length("name", name, 1, 250);
         helper.required("due", due);
-        helper.notInFuture("actual", actual);
+        helper.past("actual", actual);
     }
 
     @SuppressWarnings("Duplicates")
@@ -103,6 +103,10 @@ public class Milestone extends ValidatableModel {
             if (result.next()) {
                 id = result.getInt(1);
             }
+
+            // Increment milestones count.
+            project.setMilestones(project.getMilestones() + 1);
+            project.update();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -128,6 +132,11 @@ public class Milestone extends ValidatableModel {
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, id);
             sta.executeUpdate();
+
+            // Decrement project count.
+            Project project = Project.find(projectId);
+            project.setMilestones(project.getMilestones() - 1);
+            project.update();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

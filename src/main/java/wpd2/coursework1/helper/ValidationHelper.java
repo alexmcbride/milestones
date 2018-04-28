@@ -90,10 +90,10 @@ public class ValidationHelper {
         }
     }
 
-    public void notInFuture(String attribute, Date date) {
+    public void past(String attribute, Date date) {
         Date now = new Date();
         if (date != null && date.after(now)) {
-                model.addValidationError(attribute, capitalize(attribute) + " must be in the past");
+            model.addValidationError(attribute, capitalize(attribute) + " must be in the past");
         }
     }
 }

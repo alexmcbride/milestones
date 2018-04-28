@@ -27,7 +27,7 @@ public class ProjectViewModel {
     }
 
     public String getMilestones() {
-        int count = Milestone.count(project);
+        int count = project.getMilestones();
         if (count > 0) {
             return String.valueOf(count);
         }
