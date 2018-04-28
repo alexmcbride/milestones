@@ -1,11 +1,6 @@
 package wpd2.coursework1.model;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.ocpsoft.prettytime.Duration;
-import org.ocpsoft.prettytime.TimeUnit;
-import org.ocpsoft.prettytime.impl.DurationImpl;
-import org.ocpsoft.prettytime.units.Day;
-import org.ocpsoft.prettytime.units.Millisecond;
 import wpd2.coursework1.helper.ValidationHelper;
 
 import java.sql.*;
@@ -19,8 +14,6 @@ import java.util.List;
  * Class to represent a project milestone.
  */
 public class Milestone extends ValidatableModel {
-    private Date DATE;
-    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(new Date(), 7);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd H:m");
 
     private int id;
@@ -28,11 +21,6 @@ public class Milestone extends ValidatableModel {
     private String name;
     private Date due;
     private Date actual;
-
-
-
-
-
 
     public int getId() {
         return id;
@@ -83,7 +71,8 @@ public class Milestone extends ValidatableModel {
     }
 
     public boolean isCurrent() {
-        return due.before(DateUtils.addDays(new Date(), 7)) && due.after(new Date()) && !isComplete();
+        Date now = new Date();
+        return due.before(DateUtils.addDays(now, 7)) && due.after(now) && !isComplete();
     }
 
     public boolean isUpcoming() {
