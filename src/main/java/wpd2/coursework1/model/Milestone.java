@@ -19,8 +19,8 @@ import java.util.List;
  * Class to represent a project milestone.
  */
 public class Milestone extends ValidatableModel {
-    private static final Date DATE = new Date();
-    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(DATE, 7);
+    private Date DATE;
+    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(new Date(), 7);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd H:m");
 
     private int id;
@@ -28,6 +28,11 @@ public class Milestone extends ValidatableModel {
     private String name;
     private Date due;
     private Date actual;
+
+
+
+
+
 
     public int getId() {
         return id;
@@ -74,15 +79,15 @@ public class Milestone extends ValidatableModel {
     }
 
     public boolean isLate() {
-        return due.before(DATE) && !isComplete();
+        return due.before(new Date()) && !isComplete();
     }
 
     public boolean isCurrent() {
-        return due.before(DATE_PLUS_SEVEN) && due.after(DATE) && !isComplete();
+        return due.before(DateUtils.addDays(new Date(), 7)) && due.after(new Date()) && !isComplete();
     }
 
     public boolean isUpcoming() {
-        return due.after(DATE_PLUS_SEVEN) && !isComplete();
+        return due.after(DateUtils.addDays(new Date(), 7))  && !isComplete();
     }
 
     @Override
