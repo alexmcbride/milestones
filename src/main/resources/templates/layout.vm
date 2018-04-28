@@ -45,13 +45,13 @@
                         #set($unvisited = $userManager.user.unvisited)
                         <li>
                             <a href="#" data-toggle="modal" data-target="#sharedProjectsModal">
-                                #if ($unvisited > 0)
+                                #if ($unvisited)
                                     <i class="fas fa-envelope-open"></i>
                                 #else
                                     <i class="fas fa-envelope"></i>
                                 #end
                                 Friend's Projects
-                                #if ($unvisited > 0)
+                                #if ($unvisited)
                                     ($unvisited)
                                 #end
                             </a>
@@ -80,7 +80,7 @@
     </div>
 
     <footer class="container-fluid footer text-muted small text-center">
-        Copyright &copy; Milestones 2079
+        Copyright &copy; Milestones 2018
     </footer>
 
     ## Shared projects modal dialog.

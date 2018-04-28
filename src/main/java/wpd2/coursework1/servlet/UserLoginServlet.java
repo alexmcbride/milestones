@@ -17,6 +17,8 @@ public class UserLoginServlet extends BaseServlet {
 
         // Display the form.
         User user = new User();
+        //clear tempuse older than or equal to 30 min.
+        TempUser.delete(1);
         if(request.getParameter("token") != null){
             String token = request.getParameter("token").replace("'","");
             if(TempUser.findByToken(token) != null){
