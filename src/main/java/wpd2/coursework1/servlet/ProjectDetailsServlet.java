@@ -76,7 +76,7 @@ public class ProjectDetailsServlet extends BaseServlet {
             else if (milestone.isLate()) {
                 model.addLateMilestone(milestone);
             }
-            else if (milestone.isCurrent()) {
+            else if (milestone.isCurrentWeek()) {
                 model.addCurrentMilestone(milestone);
             }
             else if (milestone.isUpcoming()) {
