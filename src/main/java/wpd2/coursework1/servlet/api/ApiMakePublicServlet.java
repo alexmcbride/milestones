@@ -15,14 +15,14 @@ public class ApiMakePublicServlet extends BaseJsonServlet {
         try {
             int projectId = Integer.valueOf(request.getParameter("projectId"));
             Project project = Project.find(projectId);
-            project.toggleOpen();
+            project.togglePubliclyViewable();
             project.update();
 
-            String message = project.isOpen() ?
+            String message = project.isPubliclyViewable() ?
                     "Project '" + html.encode(project.getName()) + "' is public, now anyone can view it!" :
                     "Project '" + html.encode(project.getName()) + "' is no longer public";
 
-            json(new IsPublicResponse(message, project.isOpen(), project.getId()));
+            json(new IsPublicResponse(message, project.isPubliclyViewable(), project.getId()));
         }
         catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);

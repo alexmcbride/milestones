@@ -16,7 +16,7 @@ public class Project extends ValidatableModel {
     private Date created;
     private String username;
     private Date viewed;
-    private boolean open;
+    private boolean publiclyViewable;
     private int milestones;
 
     /**
@@ -128,21 +128,21 @@ public class Project extends ValidatableModel {
     }
 
     /**
-     * Gets if this project is open and public.
+     * Gets if this project is publiclyViewable and public.
      *
      * @return true if public.
      */
-    public boolean isOpen() {
-        return open;
+    public boolean isPubliclyViewable() {
+        return publiclyViewable;
     }
 
     /**
-     * Sets if this project is open and public.
+     * Sets if this project is publiclyViewable and public.
      *
-     * @param open true if public.
+     * @param publiclyViewable true if public.
      */
-    public void setOpen(boolean open) {
-        this.open = open;
+    public void setPubliclyViewable(boolean publiclyViewable) {
+        this.publiclyViewable = publiclyViewable;
     }
 
     /**
@@ -180,13 +180,13 @@ public class Project extends ValidatableModel {
         username = user.getUsername();
         created = new Date();
 
-        String sql = "INSERT INTO projects (userId, name, created, username, open) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO projects (userId, name, created, username, publiclyViewable) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, userId);
             statement.setString(2, name);
             statement.setTimestamp(3, new Timestamp(created.getTime()));
             statement.setString(4, username);
-            statement.setBoolean(5, open);
+            statement.setBoolean(5, publiclyViewable);
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -203,11 +203,11 @@ public class Project extends ValidatableModel {
      * Updates project in DB.
      */
     public void update() {
-        String sql = "UPDATE projects SET name=?, username=?, open=?, milestones=? WHERE id=?";
+        String sql = "UPDATE projects SET name=?, username=?, publiclyViewable=?, milestones=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, username);
-            statement.setBoolean(3, open);
+            statement.setBoolean(3, publiclyViewable);
             statement.setInt(4, milestones);
             statement.setInt(5, id);
             statement.executeUpdate();
@@ -253,7 +253,7 @@ public class Project extends ValidatableModel {
                 "name NVARCHAR(32) NOT NULL , " +
                 "created TIMESTAMP NOT NULL," +
                 "username NVARCHAR(32) NOT NULL," +
-                "open BOOLEAN NOT NULL DEFAULT false," +
+                "publiclyViewable BOOLEAN NOT NULL DEFAULT false," +
                 "milestones INTEGER NOT NULL DEFAULT 0" +
                 ")";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
@@ -339,7 +339,7 @@ public class Project extends ValidatableModel {
         project.name = resultSet.getString(3);
         project.created = resultSet.getTimestamp(4);
         project.username = resultSet.getString(5);
-        project.open = resultSet.getBoolean(6);
+        project.publiclyViewable = resultSet.getBoolean(6);
         project.milestones = resultSet.getInt(7);
         return project;
     }
@@ -404,9 +404,9 @@ public class Project extends ValidatableModel {
     }
 
     /**
-     * Toggles the project open or closed for public viewing.
+     * Toggles the project publicly viewable or closed for public viewing.
      */
-    public void toggleOpen() {
-        open = !open;
+    public void togglePubliclyViewable() {
+        publiclyViewable = !publiclyViewable;
     }
 }

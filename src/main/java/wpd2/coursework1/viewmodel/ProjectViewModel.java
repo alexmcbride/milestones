@@ -43,6 +43,6 @@ public class ProjectViewModel {
     }
 
     public boolean isOpen() {
-        return project.isOpen();
+        return project.isPubliclyViewable();
     }
 }
