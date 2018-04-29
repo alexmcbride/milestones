@@ -30,17 +30,17 @@ public class ApiMakePublicServlet extends BaseJsonServlet {
     }
 
     class IsPublicResponse extends JsonResponse {
-        private boolean open;
+        private boolean publiclyViewable;
         private int projectId;
 
-        IsPublicResponse(String message, boolean open, int projectId) {
+        IsPublicResponse(String message, boolean publiclyViewable, int projectId) {
             super(true, message);
-            this.open = open;
+            this.publiclyViewable = publiclyViewable;
             this.projectId = projectId;
         }
 
-        public boolean isOpen() {
-            return open;
+        public boolean isPubliclyViewable() {
+            return publiclyViewable;
         }
 
         public int getProjectId() {

@@ -42,7 +42,7 @@ public class ProjectViewModel {
         return "Never";
     }
 
-    public boolean isOpen() {
+    public boolean isPubliclyViewable() {
         return project.isPubliclyViewable();
     }
 }

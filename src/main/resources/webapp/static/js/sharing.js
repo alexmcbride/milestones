@@ -19,7 +19,7 @@ function unshare(id, projectId, csrf) {
     });
 }
 
-function initProjectSharing(projectId, csrf, open) {
+function initProjectSharing(projectId, csrf, publiclyViewable) {
     $('#shareProjectSearch').autocomplete({
         source: urls.autocomplete,
         minLength: 2,
@@ -69,7 +69,7 @@ function initProjectSharing(projectId, csrf, open) {
             dataType: 'json',
             success: function(data, status, xhr) {
                 message(data.message, data.success);
-                $('#copySharedUrl').css({display: data.open ? 'block' : 'none'});
+                $('#copySharedUrl').css({display: data.publiclyViewable ? 'block' : 'none'});
             }
         });
     });
@@ -82,8 +82,8 @@ function initProjectSharing(projectId, csrf, open) {
     });
 
     // Set public form initial state
-    if (!open) {
+    if (!publiclyViewable) {
         $('#copySharedUrl').css({display: 'none'});
     }
-    $('#publicCheckBox').prop('checked', open);
+    $('#publicCheckBox').prop('checked', publiclyViewable);
 };
