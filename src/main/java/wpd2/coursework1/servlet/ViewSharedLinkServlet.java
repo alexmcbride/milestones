@@ -19,7 +19,7 @@ public class ViewSharedLinkServlet extends BaseServlet {
             return;
         }
 
-        if (!project.isOpen()) {
+        if (!project.isPubliclyViewable()) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

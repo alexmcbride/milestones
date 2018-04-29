@@ -34,23 +34,14 @@ public class User extends ValidatableModel {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
     }
 
-    /**
-     * @return the user ID.
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id set the user ID
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the username
-     */
     public String getUsername() {
         return username;
     }
@@ -113,8 +104,6 @@ public class User extends ValidatableModel {
     @Override
     protected void validate() {
         ValidationHelper validation = new ValidationHelper(this);
-//        validation.required("username", username);
-//        validation.email("email", email);
 
         if (passwordChanged) {
             validation.password("password", password);
@@ -138,6 +127,9 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Creates a new user in the DB.
+     */
     public void create() {
         hashPassword();
         joined = new Date();
@@ -177,6 +169,11 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Updates the user in the DB.
+     *
+     * @return true if successful.
+     */
     public boolean update() {
         hashPassword();
 
@@ -194,6 +191,7 @@ public class User extends ValidatableModel {
         return false;
     }
 
+    // Change this user's username in all the projects they created.
     private void renameProjects() {
         List<Project> projects = Project.findAll(this);
         for (Project project : projects) {
@@ -202,6 +200,11 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Delete the user from the DB.
+     *
+     * @return true if successful.
+     */
     public boolean delete() {
         // Delete all projects
         List<Project> projects = Project.findAll(this);
@@ -225,11 +228,23 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Checks if a user with that email already exists.
+     *
+     * @param email the email to check.
+     * @return true if it exists.
+     */
     public static boolean emailExists(String email) {
         String sql = "SELECT COUNT(*) FROM users WHERE email=?";
         return valueExists(email, sql);
     }
 
+    /**
+     * Checks if a user with that username already exists.
+     *
+     * @param username the username to check.
+     * @return true if it exists.
+     */
     public static boolean usernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM users WHERE username=?";
         return valueExists(username, sql);
@@ -249,6 +264,9 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Creates table for users in the DB.
+     */
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
@@ -267,6 +285,9 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Deletes the users table from the DB.
+     */
     public static void destroyTable() {
         String sql = "DROP TABLE IF EXISTS users;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
@@ -277,6 +298,12 @@ public class User extends ValidatableModel {
         }
     }
 
+    /**
+     * Finds the user with the specified ID.
+     *
+     * @param id the ID to find.
+     * @return the user object or null.
+     */
     @SuppressWarnings("Duplicates")
     public static User find(int id) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE id=?";
@@ -293,6 +320,13 @@ public class User extends ValidatableModel {
         return null;
     }
 
+    /**
+     * Finds the user with the specified reset token.
+     *
+     * @param resetToken the token to find.
+     * @return the user object or null.
+     */
+    @SuppressWarnings("Duplicates")
     public static User findByToken(String resetToken) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE resetToken=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -308,6 +342,13 @@ public class User extends ValidatableModel {
         return null;
     }
 
+    /**
+     * Finds the user with the specified email.
+     *
+     * @param email the email to find.
+     * @return the user object or null.
+     */
+    @SuppressWarnings("Duplicates")
     public static User find(String email) {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users WHERE email=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -323,6 +364,11 @@ public class User extends ValidatableModel {
         return null;
     }
 
+    /**
+     * Finds all users.
+     *
+     * @return a list of users.
+     */
     @SuppressWarnings("Duplicates")
     public static List<User> findAll() {
         String sql = "SELECT id, username, email, password, joined, resetToken, loginCount FROM users";
@@ -351,10 +397,22 @@ public class User extends ValidatableModel {
         return user;
     }
 
+    /**
+     * Authenticates the password supplied against the one in the DB.
+     *
+     * @param password the password to check.
+     * @return true if authenticated.
+     */
     public boolean authenticate(char[] password) {
         return passwordService.authenticate(password, getPasswordHash());
     }
 
+    /**
+     * Searches for users who match the specified criteria.
+     *
+     * @param query the user containing either username or email address.
+     * @return a list of matching users.
+     */
     public static List<User> search(String query) {
         query = "%" + query.toLowerCase() + "%"; // Add wildcards
         String sql = "SELECT * FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ?";
@@ -373,6 +431,11 @@ public class User extends ValidatableModel {
         return users;
     }
 
+    /**
+     * Finds all projects shared with this user.
+     *
+     * @return a list of projects.
+     */
     public List<Project> getSharedProjects() {
         List<Project> projects = new ArrayList<>();
         List<SharedProject> sharedProjects = SharedProject.findAll(this);
@@ -384,6 +447,11 @@ public class User extends ValidatableModel {
         return projects;
     }
 
+    /**
+     * Gets the number of unvisited shared projects this user has.
+     *
+     * @return the number of unvisited.
+     */
     public int getUnvisited() {
         String sql = "SELECT COUNT(*) FROM sharedProjects WHERE userId=? AND viewed IS NULL";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {

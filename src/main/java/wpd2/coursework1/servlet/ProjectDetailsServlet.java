@@ -34,7 +34,7 @@ public class ProjectDetailsServlet extends BaseServlet {
         boolean authorized = false;
 
         // If project is open, let anyone view it.
-        if (project.isOpen()) {
+        if (project.isPubliclyViewable()) {
             authorized = true;
             readonly = true;
 
