@@ -1,5 +1,6 @@
 #parse('templates/layout.vm')
-#parse("templates/form_helpers.vm")
+#parse("templates/helpers/form_helpers.vm")
+
 #set($title = 'send me password reset email')
 
 #@mainLayout()

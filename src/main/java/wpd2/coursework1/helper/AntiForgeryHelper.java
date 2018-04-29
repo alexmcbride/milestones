@@ -1,5 +1,7 @@
 package wpd2.coursework1.helper;
 
+import wpd2.coursework1.util.SessionWrapper;
+
 import java.util.UUID;
 
 /*

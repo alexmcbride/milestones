@@ -1,9 +1,12 @@
 package wpd2.coursework1.util;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import wpd2.coursework1.model.ValidatableModel;
 import wpd2.coursework1.helper.ValidationHelper;
+
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -95,5 +98,9 @@ public class ValidationHelperTests {
         assertEquals("Test must have at least one numeric character", model.getValidationError("test"));
     }
 
-
+    @Test
+    public void testPast() {
+        helper.past("test", DateUtils.addDays(new Date(), 1));
+        assertEquals("Test must be in the past", model.getValidationError("test"));
+    }
 }

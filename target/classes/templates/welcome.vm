@@ -1,5 +1,5 @@
 #parse('templates/layout.vm')
-#parse('templates/form_helpers.vm')
+#parse('templates/helpers/form_helpers.vm')
 
 ## Set the title of the page.
 #set($title = 'Welcome')
@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <h1>Welcome</h1>
 
-                    <p>Welcome to our junty milestone site! You can create projects, add milestones, and track your progress!</p>
+                    <p>Welcome to our jaunty milestone site! You can create projects, add milestones, and track your progress!</p>
 
                     <p>If you already have an account, then sign in, otherwise you can register. It's all <strong>free</strong>!</p>
 

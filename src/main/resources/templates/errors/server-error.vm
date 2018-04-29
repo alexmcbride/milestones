@@ -1,0 +1,13 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Server Error')
+
+#@mainLayout()
+<div class="container">
+    <h1>Internal Server Error - 500</h1>
+
+    <p>Hey, something went wrong! Don't worry, it our fault not yours.</p>
+
+    <p>Try again in a minute, or head back to the <a href="$html.url("/projects")">home page</a>.</p>
+</div>
+#end

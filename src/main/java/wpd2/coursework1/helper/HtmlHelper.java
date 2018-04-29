@@ -1,7 +1,6 @@
 package wpd2.coursework1.helper;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jboss.netty.handler.codec.http.HttpResponse;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,12 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 public class HtmlHelper {
     private final HttpServletResponse response;
 
+    /**
+     * Creates a new HtmlHelper.
+     *
+     * @param response the response the HTML will be written to.
+     */
     public HtmlHelper(HttpServletResponse response) {
         this.response = response;
     }
 
     /**
-     * Encodes user input so it can be displayed in the page output.
+     * Escapes user input so it can be safely displayed.
      *
      * @param s the string to encode
      * @return the encoded output

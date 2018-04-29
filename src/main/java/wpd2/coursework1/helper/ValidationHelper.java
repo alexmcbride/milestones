@@ -89,4 +89,11 @@ public class ValidationHelper {
             model.addValidationError(attribute, capitalize(attribute) + " must have at least one numeric character");
         }
     }
+
+    public void past(String attribute, Date date) {
+        Date now = new Date();
+        if (date != null && date.after(now)) {
+            model.addValidationError(attribute, capitalize(attribute) + " must be in the past");
+        }
+    }
 }

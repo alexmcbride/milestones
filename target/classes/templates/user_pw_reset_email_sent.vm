@@ -1,9 +1,9 @@
 #parse('templates/layout.vm')
+#parse("templates/helpers/form_helpers.vm")
 
 #set($title = 'An email has been sent')
 
 #@mainLayout()
-#parse("templates/form_helpers.vm")
 <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
         <hr/>

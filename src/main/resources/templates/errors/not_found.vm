@@ -1,0 +1,13 @@
+#parse('templates/layout.vm')
+
+#set($title = 'Not Found')
+
+#@mainLayout()
+    <div class="container">
+        <h1>Not Found - 404</h1>
+
+        <p>Hey, that page could not be found. Maybe it was moved, or you typed the wrong address?</p>
+
+        <p>Try heading back to the <a href="$html.url("/projects")">home page</a>!</p>
+    </div>
+#end

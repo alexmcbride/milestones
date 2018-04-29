@@ -51,7 +51,7 @@ public class ProjectUpdateServlet extends BaseServlet{
         if (project.isValid()) {
             project.update();
 
-            flash.message("Project '" + html.encode(project.getName()) + "' edited");
+            flash.message("Project '" + project.getName() + "' edited");
 
             // Always redirect after post.
             getResponse().sendRedirect(response.encodeURL("/projects"));

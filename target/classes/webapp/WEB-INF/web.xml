@@ -4,11 +4,28 @@
          version="3.0">
     <display-name>milestones</display-name>
 
+    <!-- Listener to initialize the web app when the server starts -->
     <listener>
         <listener-class>
             wpd2.coursework1.util.StartupContextListener
         </listener-class>
     </listener>
+
+    <!-- Custom error pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/not-found/</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/server-error/</location>
+    </error-page>
+
+    <error-page>
+        <error-code>401</error-code>
+        <location>/unauthorized/</location>
+    </error-page>
 
     <!-- Projects -->
     <servlet>
@@ -170,7 +187,7 @@
     <!-- API -->
     <servlet>
         <servlet-name>ApiAutocompleteServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiAutocompleteServletBase</servlet-class>
+        <servlet-class>wpd2.coursework1.servlet.api.ApiAutocompleteServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiAutocompleteServlet</servlet-name>
@@ -179,7 +196,7 @@
 
     <servlet>
         <servlet-name>ApiShareProjectServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiShareProjectServletBase</servlet-class>
+        <servlet-class>wpd2.coursework1.servlet.api.ApiShareProjectServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiShareProjectServlet</servlet-name>
@@ -188,10 +205,56 @@
 
     <servlet>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>
-        <servlet-class>wpd2.coursework1.servlet.ApiUnshareProjectServletBase</servlet-class>
+        <servlet-class>wpd2.coursework1.servlet.api.ApiUnshareProjectServletBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApiUnshareProjectServlet</servlet-name>
         <url-pattern>/api/unshare-project/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ApiMakePublicServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.api.ApiMakePublicServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApiMakePublicServlet</servlet-name>
+        <url-pattern>/api/make-public/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewSharedLinkServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.ViewSharedLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSharedLinkServlet</servlet-name>
+        <url-pattern>/share/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Errors -->
+    <servlet>
+        <servlet-name>NotFoundServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.error.NotFoundServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NotFoundServlet</servlet-name>
+        <url-pattern>/not-found/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServerErrorServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.error.ServerErrorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServerErrorServlet</servlet-name>
+        <url-pattern>/server-error/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UnauthorizedServlet</servlet-name>
+        <servlet-class>wpd2.coursework1.servlet.error.UnauthorizedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnauthorizedServlet</servlet-name>
+        <url-pattern>/unauthorized/*</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -11,6 +11,7 @@ import java.util.Date;
 public class MilestoneEditServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "milestone_edit.vm";
 
+    @SuppressWarnings("Duplicates")
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         super.doGet(request, response);
@@ -26,10 +27,6 @@ public class MilestoneEditServlet extends BaseServlet {
 
         // Make sure user has permission to view.
         if (!authorize(milestone)) return;
-
-        if (milestone.getActual() == null) {
-            milestone.setActual(new Date());
-        }
 
         view(TEMPLATE_FILE, milestone);
     }
@@ -55,7 +52,7 @@ public class MilestoneEditServlet extends BaseServlet {
             // Save project to database.
             milestoneToUpdate.update();
 
-            flash.message("Milestone '" + html.encode(milestoneToUpdate.getName()) + "' edited");
+            flash.message("Milestone '" + milestoneToUpdate.getName() + "' edited");
 
             // Always redirect after post.
             response.sendRedirect(response.encodeURL("/projects/details/" + project.getId()));

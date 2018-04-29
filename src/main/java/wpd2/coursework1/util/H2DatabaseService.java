@@ -18,10 +18,18 @@ public class H2DatabaseService implements DatabaseService {
 
     private final Mode mode;
 
+    /**
+     * Creates a new H2DatabaseService in development mode.
+     */
     public H2DatabaseService() {
         this(Mode.DEVELOPMENT);
     }
 
+    /**
+     * Creates a new H2DatabaseService in development mode.
+     *
+     * @param mode the mode to start the DB in.
+     */
     public H2DatabaseService(Mode mode) {
         this.mode = mode;
     }
@@ -72,6 +80,12 @@ public class H2DatabaseService implements DatabaseService {
         TempUser.destroyTable();
     }
 
+    /**
+     * Checks if a table exists in the database.
+     *
+     * @param tableName the name of the true
+     * @return true if it exists
+     */
     @Override
     public boolean tableExists(String tableName) {
         try (Connection conn = connect()) {
@@ -84,7 +98,7 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     /*
-     * Seeds the database with test data.
+     * Seeds the database with data.
      */
     @Override
     public void seed() {
@@ -124,7 +138,7 @@ public class H2DatabaseService implements DatabaseService {
         phil.setEmail("phil@email.com");
         phil.create();
 
-        Project rspi = createProject("Research Skills", alex, 10);
+        Project rspi = createProject("Research Skills", alex, 10, true);
         Project wpd = createProject("Web Platform Development 2", alex, 4);
         Project ip3 = createProject("Integrated Project 3", alex, 7);
 
@@ -136,8 +150,13 @@ public class H2DatabaseService implements DatabaseService {
     }
 
     private Project createProject(String name, User owner, int count) {
+        return createProject(name, owner, count, false);
+    }
+
+    private Project createProject(String name, User owner, int count, boolean open) {
         Project project = new Project();
         project.setName(name);
+        project.setOpen(open);
         project.create(owner);
         for (int i = 0; i < count; i++) {
             Milestone milestone = new Milestone();

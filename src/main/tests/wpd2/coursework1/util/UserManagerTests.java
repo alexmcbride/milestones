@@ -82,4 +82,27 @@ public class UserManagerTests {
 
         assertNotNull(userManager.generateEmailToken());
     }
+
+    @Test
+    public void testGetUserId() {
+        User user = new User();
+        user.setId(1);
+        TestableSession session = new TestableSession();
+        session.setAttribute(UserManager.KEY_USER, user);
+        UserManager userManager = new UserManager(session);
+
+        long id = userManager.getUserId();
+
+        assertEquals(1, id);
+    }
+
+    @Test
+    public void testGetUserIdUserNull() {
+        TestableSession session = new TestableSession();
+        UserManager userManager = new UserManager(session);
+
+        long id = userManager.getUserId();
+
+        assertEquals(0, id);
+    }
 }

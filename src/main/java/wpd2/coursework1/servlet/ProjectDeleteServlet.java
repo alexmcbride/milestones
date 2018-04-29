@@ -34,7 +34,7 @@ public class ProjectDeleteServlet extends BaseServlet {
         Project project = Project.find(id);
         project.delete();
 
-        flash.message("Project '" + html.encode(project.getName()) + "' deleted");
+        flash.message("Project '" + project.getName() + "' deleted");
 
         // Always redirect after post.
         response.sendRedirect(response.encodeURL("/projects"));

@@ -1,13 +1,11 @@
 #parse('templates/layout.vm')
+#parse("templates/helpers/form_helpers.vm")
 
-#set($title = 'Create Project')
+#set($title = 'Edit Milestone')
 
 #@mainLayout()
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        ## Include file that contains our form helpers.
-        #parse("templates/form_helpers.vm")
-
         <form method="post">
             <h2>Edit Milestone: $model.name</h2>
 
@@ -17,7 +15,7 @@
             #form_date_input("actual", $model.actualString)
 
             <div>
-                <input type="submit" value="Edit Milestone" class="btn btn-default">
+                <input type="submit" value="Edit Milestone" class="btn btn-primary">
                 |
                 <a href="$html.url("/projects/details/$model.projectId")">Go back</a>
             </div>
@@ -32,8 +30,11 @@
         });
 
         $('#actual').datetimepicker({
-            format: 'YYYY/MM/DD HH:mm'
+            format: 'YYYY/MM/DD HH:mm',
+            maxDate: 'now'
         });
+
+
     });
 </script>
 #end

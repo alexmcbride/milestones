@@ -1,5 +1,6 @@
 package wpd2.coursework1.model;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import java.util.List;
 import static junit.framework.TestCase.*;
 
 public class MilestoneTests {
-
     private DatabaseService db;
 
     @SuppressWarnings("Duplicates")
@@ -22,6 +22,7 @@ public class MilestoneTests {
         IoC container = IoC.get();
         container.registerInstance(DatabaseService.class, db);
         container.registerInstance(PasswordService.class, new PasswordServiceImpl(PasswordServiceImpl.MIN_COST));
+
         db.initialize();
         db.seed();
     }
@@ -41,16 +42,23 @@ public class MilestoneTests {
         Milestone milestone = new Milestone();
         milestone.setName("Test name");
         milestone.setDue(new Date());
+        milestone.setActual((Date)null);
         assertTrue(milestone.isValid());
     }
 
     @Test
     public void testInvalid() {
         Milestone milestone = new Milestone();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date actual = calendar.getTime();
+        milestone.setActual(actual);
         assertFalse(milestone.isValid());
 
         assertEquals("Name must be between 1 and 250 characters.", milestone.getValidationError("name"));
         assertEquals("Due is required", milestone.getValidationError("due"));
+        assertEquals("Actual must be in the past", milestone.getValidationError("actual"));
     }
 
     @Test
@@ -71,6 +79,7 @@ public class MilestoneTests {
         assertEquals("Test", milestone.getName());
         assertEquals(date, milestone.getDue());
         assertNull(milestone.getActual());
+        assertEquals(project.getMilestones(), 11);
     }
 
     @Test
@@ -110,6 +119,9 @@ public class MilestoneTests {
         Milestone milestone = Milestone.find(1);
         milestone.delete();
         assertNull(Milestone.find(1));
+
+        Project project = Project.find(milestone.getProjectId());
+        assertEquals(9, project.getMilestones());
     }
 
     @Test
@@ -157,5 +169,38 @@ public class MilestoneTests {
 
         Milestone result = Milestone.findNext(project);
         assertEquals(due, result.getDue());
+    }
+
+    @Test
+    public void testIsComplete() {
+        Milestone milestone = new Milestone();
+        assertFalse(milestone.isComplete());
+
+        milestone.setActual(new Date());
+        assertTrue(milestone.isComplete());
+    }
+
+    @Test
+    public void testIsLate() {
+        Milestone milestone = new Milestone();
+        milestone.setDue(DateUtils.addDays(new Date(), -1));
+
+        assertTrue(milestone.isLate());
+    }
+
+    @Test
+    public void testIsCurrentWeek() {
+        Milestone milestone = new Milestone();
+        milestone.setDue(DateUtils.addDays(new Date(), 1));
+
+        assertTrue(milestone.isCurrentWeek());
+    }
+
+    @Test
+    public void testIsUpcoming() {
+        Milestone milestone = new Milestone();
+        milestone.setDue(DateUtils.addDays(new Date(), 8));
+
+        assertTrue(milestone.isUpcoming());
     }
 }

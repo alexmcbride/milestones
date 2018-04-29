@@ -14,15 +14,13 @@ import java.util.List;
  * Class to represent a project milestone.
  */
 public class Milestone extends ValidatableModel {
-    private static final Date DATE = new Date();
-    private static final Date DATE_PLUS_SEVEN = DateUtils.addDays(DATE, 7);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd H:m");
 
     private int id;
     private int projectId;
     private String name;
     private Date due;
     private Date actual;
-    private boolean complete;
 
     public int getId() {
         return id;
@@ -65,23 +63,20 @@ public class Milestone extends ValidatableModel {
     }
 
     public boolean isComplete() {
-        return complete;
-    }
-
-    public boolean isDone() {
-        return complete || actual != null;
+        return actual != null;
     }
 
     public boolean isLate() {
-        return due.before(DATE) && !complete;
+        return due.before(new Date()) && !isComplete();
     }
 
-    public boolean isCurrent() {
-        return due.before(DATE_PLUS_SEVEN) && due.after(DATE) && !complete;
+    public boolean isCurrentWeek() {
+        Date now = new Date();
+        return due.before(DateUtils.addDays(now, 7)) && due.after(now) && !isComplete();
     }
 
     public boolean isUpcoming() {
-        return due.after(DATE_PLUS_SEVEN) && !complete;
+        return due.after(DateUtils.addDays(new Date(), 7))  && !isComplete();
     }
 
     @Override
@@ -90,24 +85,28 @@ public class Milestone extends ValidatableModel {
         helper.required("name", name);
         helper.length("name", name, 1, 250);
         helper.required("due", due);
+        helper.past("actual", actual);
     }
 
     @SuppressWarnings("Duplicates")
     public void create(Project project) {
         projectId = project.getId();
 
-        String sql = "INSERT INTO milestones (projectId, name, due, complete) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO milestones (projectId, name, due) VALUES (?, ?, ?);";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             sta.setInt(1, projectId);
             sta.setString(2, name);
             sta.setTimestamp(3, new Timestamp(due.getTime()));
-            sta.setBoolean(4, complete);
             sta.executeUpdate();
 
             ResultSet result = sta.getGeneratedKeys();
             if (result.next()) {
                 id = result.getInt(1);
             }
+
+            // Increment milestones count.
+            project.setMilestones(project.getMilestones() + 1);
+            project.update();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -115,13 +114,12 @@ public class Milestone extends ValidatableModel {
     }
 
     public void update() {
-        String sql = "UPDATE milestones SET name=?, due=?, actual=?, complete=? WHERE id=?";
+        String sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setString(1, name);
             sta.setTimestamp(2, new Timestamp(due.getTime()));
             sta.setTimestamp(3, actual == null ? null : new Timestamp(actual.getTime()));
-            sta.setBoolean(4, complete);
-            sta.setInt(5, id);
+            sta.setInt(4, id);
             sta.executeUpdate();
         }
         catch (SQLException e) {
@@ -134,6 +132,11 @@ public class Milestone extends ValidatableModel {
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, id);
             sta.executeUpdate();
+
+            // Decrement project count.
+            Project project = Project.find(projectId);
+            project.setMilestones(project.getMilestones() - 1);
+            project.update();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -155,7 +158,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static Milestone find(int id) {
-        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE id=?";
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
         return getMilestone(id, sql);
     }
 
@@ -164,7 +167,7 @@ public class Milestone extends ValidatableModel {
     }
 
     public static List<Milestone> findAll(int projectId) {
-        String sql = "SELECT id, projectId, name, due, actual, complete FROM milestones WHERE projectId=? ORDER BY due DESC";
+        String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE projectId=? ORDER BY due DESC";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
             sta.setInt(1, projectId);
             ResultSet result = sta.executeQuery();
@@ -186,7 +189,6 @@ public class Milestone extends ValidatableModel {
         milestone.name = result.getString(3);
         milestone.due = result.getTimestamp(4);
         milestone.actual = result.getTimestamp(5);
-        milestone.complete = result.getBoolean(6);
         return milestone;
     }
 
@@ -223,8 +225,7 @@ public class Milestone extends ValidatableModel {
                 "projectId INTEGER NOT NULL REFERENCES projects(id)," +
                 "name NVARCHAR(250) NOT NULL," +
                 "due TIMESTAMP NOT NULL," +
-                "actual TIMESTAMP NULL," +
-                "complete BOOLEAN NULL" +
+                "actual TIMESTAMP NULL" +
                 ")");
 
         }
@@ -242,15 +243,13 @@ public class Milestone extends ValidatableModel {
         }
     }
 
-    static final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd H:m");
-
     private static Date parseDate(String value) throws ParseException {
-        return format.parse(value);
+        return DATE_FORMAT.parse(value);
     }
 
     private static String formatDate(Date value) {
         if (value != null) {
-            return format.format(value);
+            return DATE_FORMAT.format(value);
         }
         return "";
     }
@@ -268,10 +267,15 @@ public class Milestone extends ValidatableModel {
     }
 
     public void setActual(String value) {
-        try {
-            actual = parseDate(value);
-        } catch (ParseException e) {
-            addValidationError("actual", "Actual is not a valid date");
+        if (value != null && value.trim().length() > 0) {
+            try {
+                actual = parseDate(value);
+            } catch (ParseException e) {
+                addValidationError("actual", "Actual is not a valid date");
+            }
+        }
+        else {
+            actual = null;
         }
     }
 
@@ -280,6 +284,11 @@ public class Milestone extends ValidatableModel {
     }
 
     public void toggleComplete() {
-        complete = !complete;
+        if (actual == null) {
+            actual = new Date();
+        }
+        else {
+            actual = null;
+        }
     }
 }

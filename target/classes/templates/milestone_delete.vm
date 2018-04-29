@@ -1,13 +1,11 @@
 #parse('templates/layout.vm')
+#parse("templates/helpers/form_helpers.vm")
 
-#set($title = 'Create Project')
+#set($title = 'Delete Milestone')
 
 #@mainLayout()
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-        ## Include file that contains our form helpers.
-        #parse("templates/form_helpers.vm")
-
         <form method="post">
             <h2>Delete Milestone</h2>
 
@@ -18,7 +16,7 @@
             <p><strong>$html.encode($model.name)</strong></p>
 
             <div>
-                <input type="submit" value="Delete Milestone" class="btn btn-default" data-id="$model.id">
+                <input type="submit" value="Delete Milestone" class="btn btn-primary">
                 |
                 <a class="createLink" href="$html.url("/projects/details/$model.projectId")">Go back</a>
             </div>

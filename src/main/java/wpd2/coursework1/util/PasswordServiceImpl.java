@@ -39,6 +39,9 @@ public final class PasswordServiceImpl implements PasswordService {
     private final SecureRandom random;
     private final int cost;
 
+    /**
+     * Create a password manager with the default cost.
+     */
     public PasswordServiceImpl()
     {
         this(DEFAULT_COST);

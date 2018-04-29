@@ -1,5 +1,5 @@
 #parse('templates/layout.vm')
-#parse("templates/form_helpers.vm")
+#parse("templates/helpers/form_helpers.vm")
 
 #set($title = 'Update Project')
 
@@ -15,7 +15,7 @@
             <div>
                 #form_text_input("name", $model.name)
 
-                <input type="submit" value="Update" class="btn btn-default">
+                <input type="submit" value="Update" class="btn btn-primary">
                 |
                 <a href="$html.url("/projects")">Back</a>
             </div>

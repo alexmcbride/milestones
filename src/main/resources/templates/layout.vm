@@ -1,5 +1,5 @@
-#parse('templates/flash_messages.vm')
-#parse('templates/date_helpers.vm')
+#parse('templates/helpers/flash_messages.vm')
+#parse('templates/helpers/date_helpers.vm')
 
 #macro(mainLayout)
 <!DOCTYPE html>
@@ -15,7 +15,6 @@
     <link href="/static/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
     <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/bootstrap-datepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
     <link href="/static/css/styles.css" rel="stylesheet">
     <link href="/static/css/williamCSS.css" rel="stylesheet">
 
@@ -29,11 +28,10 @@
     <script src="/static/lib/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -41,30 +39,36 @@
                 <a class="navbar-brand" href="$html.url('/projects')">Milestones</a>
             </div>
 
-            #if ($userManager.loggedIn)
-                <ul class="nav navbar-nav navbar-left">
-                    #set($unvisited = $userManager.user.unvisited)
-                    <li><a href="#" data-toggle="modal" data-target="#sharedProjectsModal">
-                        #if ($unvisited > 0)
-                            <i class="fas fa-envelope-open"></i>
-                        #else
-                            <i class="fas fa-envelope"></i>
-                        #end
-                        Friend's Projects
-                        #if ($unvisited > 0)
-                            ($unvisited)
-                        #end
-                    </a></li>
-                </ul>
-            #end
+            <div class="collapse navbar-collapse" id="myNavbar">
+                #if ($userManager.loggedIn)
+                    <ul class="nav navbar-nav navbar-left">
+                        #set($unvisited = $userManager.user.unvisited)
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#sharedProjectsModal">
+                                #if ($unvisited)
+                                    <i class="fas fa-envelope-open"></i>
+                                #else
+                                    <i class="fas fa-envelope"></i>
+                                #end
+                                Friend's Projects
+                                #if ($unvisited)
+                                    ($unvisited)
+                                #end
+                            </a>
+                        </li>
+                    </ul>
+                #end
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><p id="welcome_email"></p></li>
-                <li><a id="login" href="$html.url('/users/login')">Login <span class="sr-only">(current)</span></a></li>
-                <li><a id="account" href="$html.url('/users/account')">#if ($userManager.getUser())$html.encode($userManager.getUsername())#end</a></li>
-                <li><a id="register" href="$html.url('/users/register')">Register</a></li>
-                <li><a id="logout" href="$html.url('/users/logout')">Logout</a></li>
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a id="login" href="$html.url('/users/login')">Login <span class="sr-only">(current)</span></a></li>
+                    <li><a id="register" href="$html.url('/users/register')">Register</a></li>
+                    <li><p id="welcome_email"></p></li>
+                    <li><a id="account" href="$html.url('/users/account')">#if ($userManager.getUser())$html.encode($userManager.getUsername())#end</a></li>
+                    <li><a id="logout" href="$html.url('/users/logout')">Logout</a></li>
+                </ul>
+            </div>
+
+
         </div>
     </nav>
 
@@ -93,20 +97,29 @@
                         #if ($shared.size() > 0)
                             <p>These projects have been shared with you!</p>
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-3"><strong>Project</strong></div>
-                                <div class="col-sm-3"><strong>Shared By</strong></div>
-                                <div class="col-sm-3"><strong>When</strong></div>
-                                <div class="col-sm-3"><strong>Viewed</strong></div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Project</th>
+                                            <th>Shared By</th>
+                                            <th>When</th>
+                                            <th>Viewed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        #foreach($project in $shared)
+                                            <tr>
+                                                <td><a href="$html.url("/projects/details/$project.id")">$html.encode($project.name)</a</td>
+                                                <td>$html.encode($project.username)</td>
+                                                <td>#pretty_time($project.created)</td>
+                                                <td>#pretty_time($project.viewed)</td>
+                                            </tr>
+                                        #end
+                                    </tbody>
+                                </table>
                             </div>
-                            #foreach($project in $shared)
-                                <div class="row">
-                                    <div class="col-sm-3"><a href="$html.url("/projects/details/$project.id")">$html.encode($project.name)</a></div>
-                                    <div class="col-sm-3">$html.encode($project.username)</div>
-                                    <div class="col-sm-3">#pretty_time($project.created)</div>
-                                    <div class="col-sm-3">#pretty_time($project.viewed)</div>
-                                </div>
-                            #end
                         #else
                             <p>No projects have been shared with you :(</p>
                         #end

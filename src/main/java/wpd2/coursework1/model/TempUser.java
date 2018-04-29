@@ -1,11 +1,16 @@
 package wpd2.coursework1.model;
 
+import org.joda.time.DateTime;
 import wpd2.coursework1.util.IoC;
 import wpd2.coursework1.util.PasswordService;
-import wpd2.coursework1.util.PasswordServiceImpl;
+
+
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static wpd2.coursework1.model.BaseModel.getConnection;
 
@@ -19,17 +24,15 @@ public class TempUser {
     private String email;
     private /*char[]*/ String password;
     private String passwordHash;
+
     public TempUser() {
         passwordService = (PasswordService)IoC.get().getInstance(PasswordService.class);
     }
+
     public String getPasswordHash() {
         return passwordHash;
     }
-
-    private void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
+    private void setPasswordHash(String passwordHash) {this.passwordHash = passwordHash;}
     public int getId() {
         return id;
     }
@@ -58,7 +61,6 @@ public class TempUser {
         this.user = user;
     }*/
 
-
 public void create() {
     passwordHash = passwordService.hash(password.toCharArray());
     joined = new Date();
@@ -81,6 +83,27 @@ public void create() {
         throw new RuntimeException(e);
     }
 }
+
+    public boolean update() {
+        if (password != null) {
+            passwordHash = passwordService.hash(password.toCharArray());
+        }
+
+        String sql = "UPDATE tempusers SET token = ?, username=?, email=?, password=?, joined=? WHERE id = ?";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, token);
+            statement.setString(2, username);
+            statement.setString(3, email);
+            /*statement.setString(4, password);*/
+            statement.setString(4, passwordHash);
+            statement.setTimestamp(5, new Timestamp(joined.getTime()));
+            statement.setInt(6,id);
+            return statement.executeUpdate() > 0;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static TempUser findByToken(String token) {
         String sql = "SELECT id, token, username, email, password ,joined FROM tempusers WHERE token=?";
@@ -125,7 +148,9 @@ public void create() {
     }
 
     public boolean delete() {
-        String sql = "DELETE FROM tempusers WHERE id=?";
+
+        String sql = "DELETE FROM tempusers WHERE id =?";
+
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             return statement.executeUpdate() > 0;
@@ -133,6 +158,24 @@ public void create() {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean delete(int min) {
+    min = -min;
+        /*String sql = "DELETE FROM tempusers WHERE id =(SELECT ? WHERE joined <= TIMESTAMPADD('MINUTE',min,CURRENT_TIMESTAMP))";*/
+            Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MINUTE,min);
+        Timestamp criteriaTimestamp = new Timestamp(cal.getTime().getTime());
+        /*String sql = "DELETE FROM tempusers WHERE id =(SELECT ? WHERE joined <= ?)";*/
+        String sql = "DELETE FROM tempusers WHERE id IN (SELECT id WHERE joined <= ?)";
+        try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            /*statement.setInt(1, id);*/
+            statement.setTimestamp(1, criteriaTimestamp);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void destroyTable() {
         String sql = "DROP TABLE IF EXISTS tempusers;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
@@ -143,3 +186,4 @@ public void create() {
         }
     }
 }
+

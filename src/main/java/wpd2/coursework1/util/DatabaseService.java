@@ -18,6 +18,12 @@ public interface DatabaseService {
      */
     void destroy();
 
+    /**
+     * Checks if a table exists in the database.
+     *
+     * @param tableName the name of the true
+     * @return true if it exists
+     */
     boolean tableExists(String tableName);
 
     /*
@@ -25,8 +31,18 @@ public interface DatabaseService {
      */
     void seed();
 
-    public enum Mode {
+    /**
+     * Mode to start the DB in.
+     */
+    enum Mode {
+        /**
+         * In development use file DB
+         */
         DEVELOPMENT,
+
+        /**
+         * In tests use in memory DB
+         */
         TEST
     }
 }
