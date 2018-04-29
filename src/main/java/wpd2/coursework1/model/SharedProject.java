@@ -34,6 +34,12 @@ public class SharedProject extends BaseModel {
         this.viewed = viewed;
     }
 
+    /**
+     * Creates a new shared project in the DB.
+     *
+     * @param project the project that's being shared.
+     * @param user the user it's being shared with.
+     */
     public void create(Project project, User user) {
         shared = new Date();
         projectId = project.getId();
@@ -51,6 +57,9 @@ public class SharedProject extends BaseModel {
         }
     }
 
+    /**
+     * Updates the shared project in the DB.
+     */
     public void update() {
         String sql = "UPDATE sharedProjects SET viewed=? WHERE userId=? AND projectId=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -64,6 +73,9 @@ public class SharedProject extends BaseModel {
         }
     }
 
+    /**
+     * Delets the shared project from the DB.
+     */
     public void delete() {
         String sql = "DELETE FROM sharedProjects WHERE projectId=? AND userId=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -85,10 +97,24 @@ public class SharedProject extends BaseModel {
         return sharedProject;
     }
 
+    /**
+     * Finds a particular shared project.
+     *
+     * @param user the user it was shared with.
+     * @param project the project that was shared.
+     * @return the shared project or null.
+     */
     public static SharedProject find(User user, Project project) {
         return find(user.getId(), project.getId());
     }
 
+    /**
+     * Finds a particular shared project.
+     *
+     * @param userId the ID of the user it was shared with.
+     * @param projectId the ID of the project that was shared.
+     * @return the shared project or null.
+     */
     public static SharedProject find(int userId, int projectId) {
         String sql = "SELECT projectId, userId, shared, viewed FROM sharedProjects WHERE projectId=? AND userId=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -105,19 +131,43 @@ public class SharedProject extends BaseModel {
         }
     }
 
+    /**
+     * Finds all shared projects for a user.
+     *
+     * @param user the user to find them for.
+     * @return a list of shared projects.
+     */
     public static List<SharedProject> findAll(User user) {
         return findForUser(user.getId());
     }
 
+    /**
+     * Finds all shared projects for a user.
+     *
+     * @param userId the ID of the user to find them for.
+     * @return a list of shared projects.
+     */
     public static List<SharedProject> findForUser(int userId) {
         String sql = "SELECT projectId, userId, shared, viewed FROM sharedProjects WHERE userId=?";
         return getSharedProjects(userId, sql);
     }
 
+    /**
+     * Finds all the shared projects for the specified project.
+     *
+     * @param project the project to find them for.
+     * @return a list of projects.
+     */
     public static List<SharedProject> findAll(Project project) {
         return findForProject(project.getId());
     }
 
+    /**
+     * Finds all the shared projects for the specified project.
+     *
+     * @param projectId the ID of the project to find them for.
+     * @return a list of projects.
+     */
     public static List<SharedProject> findForProject(int projectId) {
         String sql = "SELECT projectId, userId, shared, viewed FROM sharedProjects WHERE projectId=?";
         return getSharedProjects(projectId, sql);
@@ -138,6 +188,9 @@ public class SharedProject extends BaseModel {
         }
     }
 
+    /**
+     * Creates the table for this entity in the DB.
+     */
     public static void createTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS sharedProjects ( " +
@@ -152,6 +205,9 @@ public class SharedProject extends BaseModel {
         }
     }
 
+    /**
+     * Destroys the table in the DB.
+     */
     public static void destroyTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("DROP TABLE IF EXISTS sharedProjects");

@@ -19,66 +19,146 @@ public class Project extends ValidatableModel {
     private boolean open;
     private int milestones;
 
+    /**
+     * Gets the project ID.
+     *
+     * @return project ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the project ID.
+     *
+     * @param id project ID.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets the user ID foreign key.
+     *
+     * @return user ID.
+     */
     public int getUserId() {
         return userId;
     }
 
+    /**
+     * Sets the user ID foreign key.
+     *
+     * @param userId user ID.
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     * Gets the project name.
+     *
+     * @return the name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the project name.
+     *
+     * @param name the name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the project created date.
+     *
+     * @return the created date.
+     */
     public Date getCreated() {
         return created;
     }
 
+    /**
+     * Sets the project created date.
+     *
+     * @param created the created date.
+     */
     public void setCreated(Date created) {
         this.created = created;
     }
 
+    /**
+     * Gets the username of the user who created this project.
+     *
+     * @return the username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets the username of the user who created this project.
+     *
+     * @param username the username.
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets if this project has been viewed by the current user.
+     *
+     * @return the viewed date.
+     */
     public Date getViewed() {
         return viewed;
     }
 
+    /**
+     * Sets if this project has been viewed by the current user.
+     *
+     * @param viewed the viewed date.
+     */
     public void setViewed(Date viewed) {
         this.viewed = viewed;
     }
 
+    /**
+     * Gets if this project is open and public.
+     *
+     * @return true if public.
+     */
     public boolean isOpen() {
         return open;
     }
 
+    /**
+     * Sets if this project is open and public.
+     *
+     * @param open true if public.
+     */
     public void setOpen(boolean open) {
         this.open = open;
     }
 
+    /**
+     * Gets the number of milestones for this project.
+     *
+     * @return the milestones count.
+     */
     public int getMilestones() {
         return milestones;
     }
 
+    /**
+     * Sets the number of milestones.
+     *
+     * @param milestones the count of milestones.
+     */
     public void setMilestones(int milestones) {
         this.milestones = milestones;
     }
@@ -90,6 +170,11 @@ public class Project extends ValidatableModel {
         validation.length("name", name, 1, 32);
     }
 
+    /**
+     * Inserts this project into the database.
+     *
+     * @param user the parent user for the project.
+     */
     public void create(User user) {
         userId = user.getId();
         username = user.getUsername();
@@ -114,6 +199,9 @@ public class Project extends ValidatableModel {
         }
     }
 
+    /**
+     * Updates project in DB.
+     */
     public void update() {
         String sql = "UPDATE projects SET name=?, username=?, open=?, milestones=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -129,6 +217,9 @@ public class Project extends ValidatableModel {
         }
     }
 
+    /**
+     * Deletes project from DB, also deletes milestones and shared projects.
+     */
     public void delete() {
         // Delete all this project's milestones.
         List<Milestone> milestones = Milestone.findAll(this);
@@ -152,6 +243,9 @@ public class Project extends ValidatableModel {
         }
     }
 
+    /**
+     * Creates the projects table in the DB.
+     */
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS projects (" +
                 "id INTEGER PRIMARY KEY AUTO_INCREMENT, " +
@@ -170,6 +264,9 @@ public class Project extends ValidatableModel {
         }
     }
 
+    /**
+     * Destroys the projects table from the DB.
+     */
     public static void destroyTable() {
         String sql = "DROP TABLE IF EXISTS projects;";
         try (Connection conn = getConnection(); Statement statement = conn.createStatement()) {
@@ -180,10 +277,22 @@ public class Project extends ValidatableModel {
         }
     }
 
+    /**
+     * Finds all the projects that belong to the user.
+     *
+     * @param user the user to find projects for.
+     * @return a list of projects.
+     */
     public static List<Project> findAll(User user) {
         return findAll(user.getId());
     }
 
+    /**
+     * Finds all the projects that belong to the user.
+     *
+     * @param userId the ID of the user to find projects for.
+     * @return a list of projects.
+     */
     @SuppressWarnings("Duplicates")
     public static List<Project> findAll(int userId) {
         String sql = "SELECT * FROM projects WHERE userId=?";
@@ -200,6 +309,13 @@ public class Project extends ValidatableModel {
         }
         return users;
     }
+
+    /**
+     * Find a project with a specific ID.
+     *
+     * @param id the ID to find.
+     * @return the project or null.
+     */
     @SuppressWarnings("Duplicates")
     public static Project find(int id) {
         String sql = "SELECT * FROM projects WHERE id=?";
@@ -228,6 +344,11 @@ public class Project extends ValidatableModel {
         return project;
     }
 
+    /**
+     * Get which users this project has been shared with.
+     *
+     * @return a list of users.
+     */
     public List<User> getSharedUsers() {
         List<User> users = new ArrayList<>();
         List<SharedProject> sharedProjects = SharedProject.findAll(this);
@@ -238,6 +359,12 @@ public class Project extends ValidatableModel {
         return users;
     }
 
+    /**
+     * Checks if this user owns the project (e.g. created it).
+     *
+     * @param user the user to check.
+     * @return true if they own it.
+     */
     public boolean isOwnedBy(User user) {
         if (user == null) {
             return false;
@@ -245,19 +372,40 @@ public class Project extends ValidatableModel {
         return isOwnedBy(user.getId());
     }
 
+    /**
+     * Checks if this user owns the project (e.g. created it).
+     *
+     * @param userId the ID of the user to check.
+     * @return true if they own it.
+     */
     public boolean isOwnedBy(int userId) {
         return this.userId == userId;
     }
 
+    /**
+     * Checks if the project has been shared with a specific user.
+     *
+     * @param user the user to check.
+     * @return true if it has been shared.
+     */
     public boolean hasBeenSharedWith(User user) {
         return hasBeenSharedWith(user.getId());
     }
 
+    /**
+     * Checks if the project has been shared with a specific user.
+     *
+     * @param userId the ID of the user to check.
+     * @return true if it has been shared.
+     */
     public boolean hasBeenSharedWith(int userId) {
         SharedProject sharedProject = SharedProject.find(userId, id);
         return sharedProject != null;
     }
 
+    /**
+     * Toggles the project open or closed for public viewing.
+     */
     public void toggleOpen() {
         open = !open;
     }

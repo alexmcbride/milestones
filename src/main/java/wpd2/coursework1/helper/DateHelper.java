@@ -33,6 +33,12 @@ public class DateHelper {
         return prettyTime.format(date);
     }
 
+    /**
+     * Makes due dates look nice.
+     *
+     * @param date the date to format.
+     * @return the formatted date string.
+     */
     public String due(Date date) {
         if (date == null) {
             return "";

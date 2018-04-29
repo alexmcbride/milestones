@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Servlet that redirects unauthorised users to the login page.
+ * Servlet that redirects 401 unauthorised users to the login page.
  */
 public class UnauthorizedServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

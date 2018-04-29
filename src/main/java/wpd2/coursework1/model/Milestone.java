@@ -22,59 +22,129 @@ public class Milestone extends ValidatableModel {
     private Date due;
     private Date actual;
 
+    /**
+     * Gets the ID of the milestone.
+     *
+     * @return the ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the ID.
+     *
+     * @param id the ID.
+     */
     private void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets the project ID foreign key.
+     *
+     * @return the project ID.
+     */
     public int getProjectId() {
         return projectId;
     }
 
+    /**
+     * Sets the foreign key, changing this milestones parent.
+     *
+     * @param projectId the ID to set.
+     */
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
+    /**
+     * Gets the name of the project.
+     *
+     * @return the name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the project.
+     *
+     * @param name the name to set.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the date this milestone is due.
+     *
+     * @return the due date.
+     */
     public Date getDue() {
         return due;
     }
 
+    /**
+     * Sets the date this milestone is due.
+     *
+     * @param due the due date.
+     */
     public void setDue(Date due) {
         this.due = due;
     }
 
+    /**
+     * Gets the actual completion date of the milestone.
+     *
+     * @return the actual date.
+     */
     public Date getActual() {
         return actual;
     }
 
+    /**
+     * Sets the actual completion date of the milestone, setting the milestone into a 'completed' state.
+     *
+     * @param actual the date to set.
+     */
     public void setActual(Date actual) {
         this.actual = actual;
     }
 
+    /**
+     * Gets if the milestone is complete.
+     *
+     * @return true if actual has been set.
+     */
     public boolean isComplete() {
         return actual != null;
     }
 
+    /**
+     * Gets if the milestone is late.
+     *
+     * @return boolean
+     */
     public boolean isLate() {
         return due.before(new Date()) && !isComplete();
     }
 
+    /**
+     * Gets if the milestone is due this week.
+     *
+     * @return boolean
+     */
     public boolean isCurrentWeek() {
         Date now = new Date();
         return due.before(DateUtils.addDays(now, 7)) && due.after(now) && !isComplete();
     }
 
+    /**
+     * Gets if the milestone is due after this week.
+     *
+     * @return boolean
+     */
     public boolean isUpcoming() {
         return due.after(DateUtils.addDays(new Date(), 7))  && !isComplete();
     }
@@ -88,6 +158,11 @@ public class Milestone extends ValidatableModel {
         helper.past("actual", actual);
     }
 
+    /**
+     * Inserts the milestone into the DB.
+     *
+     * @param project the parent project for the milestone.
+     */
     @SuppressWarnings("Duplicates")
     public void create(Project project) {
         projectId = project.getId();
@@ -113,6 +188,9 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Updates the current state of the milestone to DB.
+     */
     public void update() {
         String sql = "UPDATE milestones SET name=?, due=?, actual=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -127,6 +205,9 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Deletes this milestone from the DB.
+     */
     public void delete() {
         String sql = "DELETE FROM milestones WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -157,15 +238,33 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Find a particular milestone by ID.
+     *
+     * @param id the ID of the milestone to find.
+     * @return a milestone object or null if not found.
+     */
     public static Milestone find(int id) {
         String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE id=?";
         return getMilestone(id, sql);
     }
 
+    /**
+     * Finds all the milestones for the project.
+     *
+     * @param project the project to find milestones for.
+     * @return a list of milestones.
+     */
     public static List<Milestone> findAll(Project project) {
         return findAll(project.getId());
     }
 
+    /**
+     * Finds all the milestones for the project.
+     *
+     * @param projectId the ID project to find milestones for.
+     * @return a list of milestones.
+     */
     public static List<Milestone> findAll(int projectId) {
         String sql = "SELECT id, projectId, name, due, actual FROM milestones WHERE projectId=? ORDER BY due DESC";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -192,10 +291,22 @@ public class Milestone extends ValidatableModel {
         return milestone;
     }
 
+    /**
+     * Counts number of milestones a project has.
+     *
+     * @param project the project to count for.
+     * @return the number of milestones.
+     */
     public static int count(Project project) {
         return count(project.getId());
     }
 
+    /**
+     * Counts number of milestones a project has.
+     *
+     * @param projectId the ID of the project to count for.
+     * @return the number of milestones.
+     */
     public static int count(int projectId) {
         String sql = "SELECT COUNT(*) FROM milestones WHERE projectId=?";
         try (Connection conn = getConnection(); PreparedStatement sta = conn.prepareStatement(sql)) {
@@ -209,15 +320,30 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Finds the next milestone in a project from the current date.
+     *
+     * @param project the project to find the milestone for.
+     * @return the milestone or null if none exists.
+     */
     public static Milestone findNext(Project project) {
         return findNext(project.getId());
     }
 
+    /**
+     * Finds the next milestone in a project from the current date.
+     *
+     * @param projectId the ID of the project to find the milestone for.
+     * @return the milestone or null if none exists.
+     */
     public static Milestone findNext(int projectId) {
         String sql = "SELECT * FROM milestones WHERE due > NOW() AND projectId=? ORDER BY due LIMIT 1";
         return getMilestone(projectId, sql);
     }
 
+    /**
+     * Creates the milestones table in the DB.
+     */
     public static void createTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("CREATE TABLE IF NOT EXISTS milestones ( " +
@@ -234,6 +360,9 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Destroys the milestones table.
+     */
     public static void destroyTable() {
         try (Connection conn = getConnection(); Statement sta = conn.createStatement()) {
             sta.execute("DROP TABLE IF EXISTS milestones");
@@ -254,6 +383,11 @@ public class Milestone extends ValidatableModel {
         return "";
     }
 
+    /**
+     * Sets the current due date as a string, so it can be validated.
+     *
+     * @param value the date as a parseable string.
+     */
     public void setDue(String value) {
         try {
             due = parseDate(value);
@@ -262,10 +396,20 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Gets the current due time as a formatted string, for output in a form element.
+     *
+     * @return the date string.
+     */
     public String getDueString() {
         return formatDate(getDue());
     }
 
+    /**
+     * Sets the current actual completion date as a string, so it can be validated.
+     *
+     * @param value the date as a parseable string.
+     */
     public void setActual(String value) {
         if (value != null && value.trim().length() > 0) {
             try {
@@ -279,10 +423,18 @@ public class Milestone extends ValidatableModel {
         }
     }
 
+    /**
+     * Gets the current actual time as a formatted string, for output in a form element.
+     *
+     * @return the date string.
+     */
     public String getActualString() {
         return formatDate(getActual());
     }
 
+    /**
+     * Toggles whether the milestone is complete or not, by setting actual to the current date.
+     */
     public void toggleComplete() {
         if (actual == null) {
             actual = new Date();

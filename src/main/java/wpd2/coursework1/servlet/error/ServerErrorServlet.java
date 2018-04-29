@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet fired off by the 500 server error.
+ */
 public class ServerErrorServlet extends BaseServlet {
     private static final String TEMPLATE_FILE = "errors/server-error.vm";
 
